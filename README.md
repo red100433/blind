@@ -3,7 +3,7 @@
 
 ## 1. gitlab.com에 회원가입합니다. 
   * 회사 메일(abc@nhn.com)으로 가입 안내 메일이 발송되면, 안내에 따라 가입해 주시면 되겠습니다.
-  * Profile Settings에서 Name항목을 한글 이름으로 변경하여 저장합니다. (필수)
+  * Profile Settings에서 Name항목을 한글 이름으로 변경하여 저장합니다. (**필수**)
   * 최초 인증용으로만 사용되므로, 메일계정과 비밀번호를 알면, 이후에도 사용가능합니다. 
   * 사용할 저장소는 다음 링크입니다.  <https://gitlab.com/nhn_tech/2018_1nd_intern>
   
