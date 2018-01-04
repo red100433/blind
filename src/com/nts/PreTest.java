@@ -6,6 +6,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/** 
+ * @author daeyun-jang
+ * Since 04/01/2018
+ */
 public class PreTest {
 
 	public static void main(String[] args) {
@@ -46,8 +50,7 @@ public class PreTest {
 			}
 		}
 
-		for(int i = 0; i < result.length; i++)
-		{
+		for(int i = 0; i < result.length; i++) {
 			String res = "";
 			res += "Player" + (count + 1) + ": ";
 			res += list.stream().skip(i * 7).limit(7).collect(Collectors.joining(", "));
