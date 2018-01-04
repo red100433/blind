@@ -15,16 +15,11 @@ public class PreTest {
 		int[] arrtemp;
 		int count = 0;
 		List<String> list = new ArrayList<>();
-		for (int i = 0; i < 52; i++) {
-			if (i < 13) {
-				list.add("S" + (i % 13 + 1));
-			} else if (i < 26) {
-				list.add("D" + (i % 13 + 1));
-			} else if (i < 39) {
-				list.add("H" + (i % 13 + 1));
-			} else {
-				list.add("C" + (i % 13 + 1));
-			}
+		for (int i = 0; i < 13; i++) {
+			list.add("S" + (i + 1));
+			list.add("D" + (i + 1));
+			list.add("H" + (i + 1));
+			list.add("C" + (i + 1));
 		}
 
 		while (true) {
