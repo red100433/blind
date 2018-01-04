@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PreTest {
 
 	public static void main(String[] args) {
-		StringBuffer res;
+		
 		int[] result = new int[4];
 		int[] arrtemp;
 		int count = 0;
@@ -39,27 +40,22 @@ public class PreTest {
 			Arrays.sort(arrtemp);
 			count = 0;
 			if (arrtemp[0] == arrtemp[1]) {
-				for (int i = 0; i < result.length; i++) {
-					result[i] = 0;
-				}
+				Arrays.fill(result, 0);
 			} else {
 				break;
 			}
 		}
 
-		res = new StringBuffer("Player" + (count + 1) + " : ");
-		for (int i = 0; i < 28; i++) {
-			res.append(list.get(i) + ", ");
-			if (i % 7 == 6) {
-				res.deleteCharAt(res.length() - 2);
-				res.append(": sum = " + result[count]);
-				System.out.println(res);
-				res = new StringBuffer("Player" + (count + 2) + " : ");
-				count++;
-			}
+		for(int i = 0; i < result.length; i++)
+		{
+			String res = "";
+			res += "Player" + (count + 1) + ": ";
+			res += list.stream().skip(i * 7).limit(7).collect(Collectors.joining(", "));
+			res += " : sum = " + result[count++];
+			System.out.println(res);
 		}
 
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < result.length; i++) {
 			if (arrtemp[0] == result[i]) {
 				System.out.println("Winner : Player" + (i + 1));
 			}
