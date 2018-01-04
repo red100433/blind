@@ -8,8 +8,6 @@ import java.util.List;
 public class PreTest {
 
 	public static void main(String[] args) {
-		long startTime = System.currentTimeMillis();
-
 		StringBuffer res;
 		int[] result = new int[4];
 		int[] arrtemp;
@@ -66,8 +64,5 @@ public class PreTest {
 				System.out.println("Winner : Player" + (i + 1));
 			}
 		}
-
-		long elapsedTime = System.currentTimeMillis() - startTime;
-		System.out.println("실행시간 : " + elapsedTime / 1000.0 + " ms");
 	}
 }
