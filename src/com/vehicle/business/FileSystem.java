@@ -14,6 +14,21 @@ import java.util.List;
 
 public class FileSystem {
 
+	private static FileSystem t;
+
+	private FileSystem() {
+
+	}
+
+	public static FileSystem getInstance() {
+		synchronized (FileSystem.class) {
+			if (t == null) {
+				t = new FileSystem();
+			}
+		}
+		return t;
+	}
+
 	public synchronized <T> void writeListObject(List<? extends T> list, String path) {
 
 		try (FileOutputStream f = new FileOutputStream(new File("myObjects.txt"));
@@ -44,4 +59,5 @@ public class FileSystem {
 		return new ArrayList<>();
 
 	}
+
 }

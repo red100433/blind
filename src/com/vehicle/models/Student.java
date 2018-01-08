@@ -1,17 +1,15 @@
-package com.vehicle.personnel;
-
-import java.util.UUID;
+package com.vehicle.models;
 
 public class Student {
-	UUID stu_Id;
+	int stu_Id;
 	String name;
 	String birth;
 
-	public UUID getId() {
+	public int getId() {
 		return stu_Id;
 	}
 
-	public void setId(UUID stu_Id) {
+	public void setId(int stu_Id) {
 		this.stu_Id = stu_Id;
 	}
 

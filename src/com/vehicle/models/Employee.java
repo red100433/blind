@@ -1,17 +1,15 @@
-package com.vehicle.personnel;
-
-import java.util.UUID;
+package com.vehicle.models;
 
 public class Employee {
-	UUID emp_Id;
+	int emp_Id;
 	String name;
 	String birth;
 
-	public UUID getId() {
+	public int getId() {
 		return emp_Id;
 	}
 
-	public void setId(UUID emp_Id) {
+	public void setId(int emp_Id) {
 		this.emp_Id = emp_Id;
 	}
 

@@ -1,4 +1,4 @@
-package com.vehicle.personnel;
+package com.vehicle.models;
 
 import java.io.Serializable;
 

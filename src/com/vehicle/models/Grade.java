@@ -1,25 +1,23 @@
-package com.vehicle.superintend;
-
-import java.util.UUID;
+package com.vehicle.models;
 
 public class Grade {
-	UUID stu_Id;
-	UUID sub_Id;
+	int stu_Id;
+	int sub_Id;
 	int grade;
 
-	public UUID getStu_Id() {
+	public int getStu_Id() {
 		return stu_Id;
 	}
 
-	public void setStu_Id(UUID stu_Id) {
+	public void setStu_Id(int stu_Id) {
 		this.stu_Id = stu_Id;
 	}
 
-	public UUID getSub_Id() {
+	public int getSub_Id() {
 		return sub_Id;
 	}
 
-	public void setSub_Id(UUID sub_Id) {
+	public void setSub_Id(int sub_Id) {
 		this.sub_Id = sub_Id;
 	}
 

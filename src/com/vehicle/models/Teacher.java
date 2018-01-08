@@ -1,18 +1,16 @@
-package com.vehicle.personnel;
-
-import java.util.UUID;
+package com.vehicle.models;
 
 public class Teacher {
-	UUID teach_id;
-	UUID sub_Id;
+	int teach_id;
+	int sub_Id;
 	String name;
 	String birth;
 
-	public UUID getId() {
+	public int getId() {
 		return teach_id;
 	}
 
-	public void setId(UUID teach_id) {
+	public void setId(int teach_id) {
 		this.teach_id = teach_id;
 	}
 
@@ -32,11 +30,11 @@ public class Teacher {
 		this.birth = birth;
 	}
 
-	public UUID getSub() {
+	public int getSub() {
 		return sub_Id;
 	}
 
-	public void setSub(UUID sub_Id) {
+	public void setSub(int sub_Id) {
 		this.sub_Id = sub_Id;
 	}
 }
