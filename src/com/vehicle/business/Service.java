@@ -61,36 +61,65 @@ public class Service {
 					break;
 
 				case "3":
-					performanceManagement(s2, gradeList, stuList);
+					performanceManagement(s2, gradeList, stuList, subList);
 					break;
 			}
 		}
 	}
 
-	private void performanceManagement(String s2, List<Grade> gradeList, List<Student> stuList) {
+	private void performanceManagement(String s2, List<Grade> gradeList, List<Student> stuList, List<Subject> subList) {
+
 		if (s2.equals("1")) {
-			System.out.println("학생번호 >>");
-			String stu_id = scanner.nextLine();
-			System.out.println("과목번호 >>");
-			String sub_id = scanner.nextLine();
+			System.out.println("학생이름 >>");
+			String stu_name = scanner.nextLine();
+			System.out.println("과목이름 >>");
+			String sub_name = scanner.nextLine();
 			System.out.println("점수>>");
 			String grade = scanner.nextLine();
 
-			//TODO: 예외 처리 후
-			gradeList.add(new Grade(Integer.parseInt(stu_id), Integer.parseInt(sub_id), Integer.parseInt(grade)));
+			int sub_id = -1;
+			int stu_id = -1;
 
-			fs.writeListObject(gradeList, gradePath);
+			//TODO: 예외 처리 후
+
+			for (Student stu : stuList) {
+				if (stu.getName().equals(stu_name)) {
+					stu_id = stu.getId();
+				}
+			}
+			for (Subject sub : subList) {
+				if (sub.getName().equals(sub_name)) {
+					sub_id = sub.getId();
+				}
+			}
+
+			for (Grade g_ob : gradeList) {
+				if (grade.equals(new Grade(stu_id, sub_id))) {
+					break;
+				}
+				if (g_ob == gradeList.get(gradeList.size() - 1)) {
+					gradeList.add(new Grade(stu_id, sub_id, Integer.parseInt(grade)));
+					fs.writeListObject(gradeList, gradePath);
+				}
+			}
 
 		} else if (s2.equals("2")) {
 			System.out.println("수정할 학생>>");
 			String fix_name = scanner.nextLine();
 			System.out.println("과목 이름>>");
 			String fix_sub = scanner.nextLine();
+			System.out.println("점수 >>");
+			String fix_grade = scanner.nextLine();
 
+			//TODO: 예외처리 바꿔야됌
 			for (Student stu : stuList) {
-				//TODO: 만약 학생 목록에 없으면 그냥 나감.
-				if (stu.getName().equals(fix_name)) {
 
+				if (stu.getName().equals(fix_name)) {
+					for (Grade grade : gradeList) {
+						if (grade.getStu_Id() == stu.getId()) {
+
+						}
+					}
 				}
 			}
 			fs.writeListObject(gradeList, gradePath);
@@ -101,8 +130,26 @@ public class Service {
 			String delete_name = scanner.nextLine();
 			System.out.println("과목>>");
 			String delete_sub = scanner.nextLine();
+			int delete_name_id = -1;
+			int delete_sub_id = -1;
 
-			//TODO: 삭제할 성적과 이름 대조
+			//TODO: 삭제할 과목과 이름 대조
+			for (Student stu : stuList) {
+				if (stu.getName().equals(delete_name)) {
+					delete_name_id = stu.getId();
+				}
+			}
+			for (Subject sub : subList) {
+				if (sub.getName().equals(delete_name)) {
+					delete_sub_id = sub.getId();
+				}
+			}
+
+			for (Grade g_ob : gradeList) {
+				if (g_ob.equals(new Grade(delete_name_id, delete_sub_id))) {
+					gradeList.remove(g_ob);
+				}
+			}
 
 			fs.writeListObject(gradeList, gradePath);
 
