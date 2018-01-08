@@ -14,7 +14,7 @@ import java.util.List;
 
 public class FileSystem {
 
-	public void wirteListObject(List<Object> list, String path) {
+	public synchronized <T> void writeListObject(List<? extends T> list, String path) {
 
 		try (FileOutputStream f = new FileOutputStream(new File("myObjects.txt"));
 			ObjectOutputStream o = new ObjectOutputStream(new BufferedOutputStream(f))) {
@@ -27,7 +27,7 @@ public class FileSystem {
 		}
 	}
 
-	public List<Object> readListObject(String path) {
+	public List<?> readListObject(String path) {
 
 		try (FileInputStream f = new FileInputStream(new File("myObjects.txt"));
 			ObjectInputStream oi = new ObjectInputStream(new BufferedInputStream(f))) {
@@ -41,7 +41,7 @@ public class FileSystem {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		return null;
+		return new ArrayList<>();
 
 	}
 }
