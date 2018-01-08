@@ -1,9 +1,17 @@
 package com.vehicle.models;
 
-public class Grade {
+import java.io.Serializable;
+
+public class Grade implements Serializable {
 	int stu_Id;
 	int sub_Id;
 	int grade;
+
+	public Grade(int stu_Id, int sub_Id, int grade) {
+		this.stu_Id = stu_Id;
+		this.sub_Id = sub_Id;
+		this.grade = grade;
+	}
 
 	public int getStu_Id() {
 		return stu_Id;

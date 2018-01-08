@@ -1,6 +1,8 @@
 package com.vehicle.models;
 
-public class Employee {
+import java.io.Serializable;
+
+public class Employee implements Serializable {
 	int emp_Id;
 	String name;
 	String birth;

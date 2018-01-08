@@ -31,7 +31,7 @@ public class FileSystem {
 
 	public synchronized <T> void writeListObject(List<? extends T> list, String path) {
 
-		try (FileOutputStream f = new FileOutputStream(new File("myObjects.txt"));
+		try (FileOutputStream f = new FileOutputStream(new File(path));
 			ObjectOutputStream o = new ObjectOutputStream(new BufferedOutputStream(f))) {
 
 			o.writeObject(list);
@@ -43,21 +43,22 @@ public class FileSystem {
 	}
 
 	public List<?> readListObject(String path) {
-
-		try (FileInputStream f = new FileInputStream(new File("myObjects.txt"));
+		List<?> rev = new ArrayList<>();
+		try (FileInputStream f = new FileInputStream(new File(path));
 			ObjectInputStream oi = new ObjectInputStream(new BufferedInputStream(f))) {
+
 			try {
-				return (ArrayList)oi.readObject();
+				rev = (ArrayList)oi.readObject();
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
+
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			writeListObject(rev, path);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
+
 		return new ArrayList<>();
-
 	}
-
 }

@@ -1,6 +1,8 @@
 package com.vehicle.models;
 
-public class Student {
+import java.io.Serializable;
+
+public class Student implements Serializable {
 	int stu_Id;
 	String name;
 	String birth;
