@@ -25,7 +25,7 @@ public class Service {
 	List<Student> stuList;
 	List<Grade> gradeList;
 
-	public void start() {
+	public void programStart() {
 		init();
 
 		//		List<Subject> sub = new ArrayList<>();
