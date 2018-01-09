@@ -35,18 +35,6 @@ public class Service {
 
 	public void programStart() {
 
-		//		List<Subject> sub = new ArrayList<>();
-		//		sub.add(new Subject(123, "a"));
-		//		sub.add(new Subject(12, "b"));
-		//		sub.add(new Subject(124, "c"));
-		//		fs.writeListObject(sub, "asdf");
-		//		List<Subject> rev = (List<Subject>)fs.readListObject("askdf");
-
-		//		rev.stream().forEach(s -> {
-		//			System.out.println(s.getId());
-		//			System.out.println(s.getName());
-		//		});
-
 		while (true) {
 			System.out.println("1.인원관리  2.과목관리  3.성적관리  99.종료>>");
 			String s = scanner.nextLine();

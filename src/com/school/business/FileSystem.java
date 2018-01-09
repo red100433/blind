@@ -59,6 +59,6 @@ public class FileSystem {
 			e1.printStackTrace();
 		}
 
-		return new ArrayList<>();
+		return rev;
 	}
 }

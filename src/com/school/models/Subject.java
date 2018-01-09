@@ -8,8 +8,8 @@ public class Subject implements Serializable {
 	String subjectName;
 
 	public Subject(String subjectName) {
-		this.subjectId = hashCode();
 		this.subjectName = subjectName;
+		this.subjectId = hashCode();
 	}
 
 	public int getId() {
