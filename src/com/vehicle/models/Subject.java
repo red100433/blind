@@ -1,6 +1,7 @@
 package com.vehicle.models;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Subject implements Serializable {
 	int sub_Id;
@@ -27,4 +28,24 @@ public class Subject implements Serializable {
 	public void setName(String subjectName) {
 		this.subjectName = subjectName;
 	}
+
+	@Override
+	public boolean equals(Object o) {
+
+		if (o == this) {
+			return true;
+		}
+		if (!(o instanceof Student)) {
+			return false;
+		}
+		Subject subObj = (Subject)o;
+		return sub_Id == subObj.sub_Id &&
+			Objects.equals(subjectName, subObj.subjectName);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(sub_Id, subjectName);
+	}
+
 }

@@ -1,6 +1,7 @@
 package com.vehicle.models;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Teacher implements Serializable {
 	int teach_id;
@@ -38,5 +39,26 @@ public class Teacher implements Serializable {
 
 	public void setSub(int sub_Id) {
 		this.sub_Id = sub_Id;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+
+		if (o == this) {
+			return true;
+		}
+		if (!(o instanceof Student)) {
+			return false;
+		}
+		Teacher stu = (Teacher)o;
+		return teach_id == stu.teach_id &&
+			sub_Id == stu.sub_Id &&
+			Objects.equals(name, stu.name) &&
+			Objects.equals(birth, stu.birth);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(name, sub_Id, birth, teach_id);
 	}
 }

@@ -1,6 +1,7 @@
 package com.vehicle.models;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Grade implements Serializable {
 	private int stu_Id;
@@ -48,15 +49,18 @@ public class Grade implements Serializable {
 		if (o == this) {
 			return true;
 		}
-
-		if (!(o instanceof Grade)) {
+		if (!(o instanceof Student)) {
 			return false;
 		}
+		Grade gradeObj = (Grade)o;
+		return stu_Id == gradeObj.stu_Id &&
+			sub_Id == gradeObj.sub_Id &&
+			grade == gradeObj.grade;
+	}
 
-		Grade c = (Grade)o;
-
-		return Double.compare(this.stu_Id, c.stu_Id) == 0
-			&& Double.compare(this.sub_Id, c.sub_Id) == 0;
+	@Override
+	public int hashCode() {
+		return Objects.hash(stu_Id, sub_Id, grade);
 	}
 
 }
