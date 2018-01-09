@@ -8,12 +8,14 @@ public class Employee implements Serializable {
 	String employeeName;
 	String birth;
 
-	public int getId() {
-		return employeeId;
+	public Employee(String employeeName, String birth) {
+		this.employeeName = employeeName;
+		this.birth = birth;
+		this.employeeId = hashCode();
 	}
 
-	public void setId(int employeeId) {
-		this.employeeId = employeeId;
+	public int getId() {
+		return employeeId;
 	}
 
 	public String getemployeeName() {

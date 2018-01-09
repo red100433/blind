@@ -9,12 +9,15 @@ public class Teacher implements Serializable {
 	String teacherName;
 	String birth;
 
-	public int getId() {
-		return teachId;
+	public Teacher(int subjectId, String teacherName, String birth) {
+		this.subjectId = subjectId;
+		this.teacherName = teacherName;
+		this.birth = birth;
+		this.teachId = hashCode();
 	}
 
-	public void setId(int teachId) {
-		this.teachId = teachId;
+	public int getId() {
+		return teachId;
 	}
 
 	public String getteacherName() {

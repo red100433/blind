@@ -125,7 +125,7 @@ public class Service {
 			fs.writeListObject(gradeList, gradePath);
 
 		} else if (s2.equals("3")) {
-			System.out.println("입력된 성적중 삭제할 과목과 학생의 이름을 적어주세요");
+			System.out.println("삭제할 과목과 학생의 이름을 적어주세요");
 			System.out.println("이름>>");
 			String delete_name = scanner.nextLine();
 			System.out.println("과목>>");
