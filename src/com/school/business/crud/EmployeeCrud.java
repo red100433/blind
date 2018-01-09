@@ -1,0 +1,64 @@
+package com.school.business.crud;
+
+import java.util.List;
+import java.util.Scanner;
+
+import com.school.inter.CrudInterface;
+import com.school.models.Employee;
+
+/**
+ *
+ * @author daeyun-jang
+ *
+ */
+public class EmployeeCrud implements CrudInterface {
+	private Scanner scanner = new Scanner(System.in);
+	private String empName;
+	private String empBirth;
+	private Employee emp;
+
+	public EmployeeCrud() {
+		System.out.println("교직원 이름>>");
+		this.empName = scanner.nextLine();
+		System.out.println("교직원 생일>>");
+		this.empName = scanner.nextLine();
+		this.emp = new Employee(empName, empBirth);
+	}
+
+	@Override
+	public <T> List<T> insert(List<? super T> list) {
+		for (Object e : list) {
+			if (e.equals(emp)) {
+				return (List<T>)list;
+			}
+			if (e == list.get(list.size() - 1)) {
+				list.add((T)emp);
+			}
+		}
+		return (List<T>)list;
+	}
+
+	@Override
+	public <T> List<T> update(List<? super T> list) {
+		for (Object e : list) {
+			if (e.equals(emp)) {
+				System.out.println("수정할 이름>>");
+				String setName = scanner.nextLine();
+				System.out.println("수정할 생일>>");
+				String setBirth = scanner.nextLine();
+				list.remove(new Employee(setName, setBirth));
+				((Employee)e).setEmployeeName(setName);
+				((Employee)e).setBirth((setBirth));
+				return (List<T>)list;
+			}
+		}
+		return (List<T>)list;
+	}
+
+	@Override
+	public <T> List<T> delete(List<? super T> list) {
+		list.remove(emp);
+		return (List<T>)list;
+	}
+
+}

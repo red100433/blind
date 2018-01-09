@@ -50,18 +50,17 @@ public class Grade implements Serializable {
 		if (o == this) {
 			return true;
 		}
-		if (!(o instanceof Student)) {
+		if (!(o instanceof Grade)) {
 			return false;
 		}
 		Grade gradeObj = (Grade)o;
 		return Objects.equals(studentName, gradeObj.getStudentName()) &&
-			Objects.equals(subjectName, gradeObj.getSubjectName()) &&
-			grade == gradeObj.getGrade();
+			Objects.equals(subjectName, gradeObj.getSubjectName());
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(studentName, subjectName, grade);
+		return Objects.hash(studentName, subjectName);
 	}
 
 	@Override

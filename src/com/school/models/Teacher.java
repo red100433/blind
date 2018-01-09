@@ -50,7 +50,7 @@ public class Teacher implements Serializable {
 		if (o == this) {
 			return true;
 		}
-		if (!(o instanceof Student)) {
+		if (!(o instanceof Teacher)) {
 			return false;
 		}
 		Teacher stu = (Teacher)o;

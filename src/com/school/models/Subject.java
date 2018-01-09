@@ -30,7 +30,7 @@ public class Subject implements Serializable {
 		if (o == this) {
 			return true;
 		}
-		if (!(o instanceof Student)) {
+		if (!(o instanceof Subject)) {
 			return false;
 		}
 		Subject subObj = (Subject)o;

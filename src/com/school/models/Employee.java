@@ -40,7 +40,7 @@ public class Employee implements Serializable {
 		if (o == this) {
 			return true;
 		}
-		if (!(o instanceof Student)) {
+		if (!(o instanceof Employee)) {
 			return false;
 		}
 		Employee empObj = (Employee)o;

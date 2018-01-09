@@ -8,6 +8,7 @@ import com.school.dao.GradeDao;
 import com.school.dao.StudentDao;
 import com.school.dao.SubjectDao;
 import com.school.dao.TeacherDao;
+import com.school.inter.CrudInterface;
 import com.school.inter.DaoInterface;
 import com.school.models.Employee;
 import com.school.models.Grade;
@@ -17,13 +18,14 @@ import com.school.models.Teacher;
 
 public class Service {
 
-	Scanner scanner = new Scanner(System.in);
-	DaoInterface dao;
-	List<Employee> empList;
-	List<Grade> gradeList;
-	List<Student> stuList;
-	List<Subject> subList;
-	List<Teacher> teacherList;
+	private Scanner scanner = new Scanner(System.in);
+	private CrudInterface crud;
+	private DaoInterface dao;
+	private List<Employee> empList;
+	private List<Grade> gradeList;
+	private List<Student> stuList;
+	private List<Subject> subList;
+	private List<Teacher> teacherList;
 
 	public Service() {
 		this.empList = new EmployeeDao().readDataList();
@@ -36,26 +38,29 @@ public class Service {
 	public void programStart() {
 		while (true) {
 			System.out.println("1.인원관리  2.과목관리  3.성적관리  99.종료>>");
-			String s = scanner.nextLine();
-			if (s.equals("99")) {
+			String management = scanner.nextLine();
+
+			if (management.equals("99")) {
 				scanner.close();
 				return;
 			}
 
 			System.out.println("1.입력   2.수정  3.삭제  4.조회>>");
-			String s2 = scanner.nextLine();
+			String crud = scanner.nextLine();
 
-			switch (s) {
+			switch (management) {
 				case "1":
-					personnelManagement(s2, stuList, empList, teacherList);
+					System.out.println("1.학생 2.교직원 3.선생님>>");
+					String person = scanner.nextLine();
+					personnelManagement(crud, person, stuList, empList, teacherList);
 					break;
 
 				case "2":
-					subjectManagement(s2, subList);
+					subjectManagement(crud, subList);
 					break;
 
 				case "3":
-					performanceManagement(s2, gradeList, stuList, subList);
+					performanceManagement(crud, gradeList, stuList, subList);
 					break;
 			}
 		}
@@ -160,26 +165,47 @@ public class Service {
 		//TODO: 입력 수정 삭제 조회
 	}
 
-	private void personnelManagement(String s2, List<Student> stuList, List<Employee> empList,
+	private void personnelManagement(String crudString, String person, List<Student> stuList, List<Employee> empList,
 		List<Teacher> teacherList) {
 		//TODO: 학생, 교직원, 선생별 별도 관리
-		System.out.println("1.학생  2.교직원 3.선생님 >>");
-		String group = scanner.nextLine();
 
-		switch (s2) {
+		switch (crudString) {
 			case "1":
-
+				if (person.equals("1")) {
+					crud.insert(stuList);
+				} else if (person.equals("2")) {
+					crud.insert(empList);
+				} else if (person.equals("3")) {
+					crud.insert(teacherList);
+				}
 				break;
 			case "2":
+				if (person.equals("1")) {
+					crud.update(stuList);
+				} else if (person.equals("2")) {
+					crud.update(empList);
+				} else if (person.equals("3")) {
+					crud.update(teacherList);
+				}
+
 				break;
 			case "3":
+
+				if (person.equals("1")) {
+					crud.delete(stuList);
+				} else if (person.equals("2")) {
+					crud.delete(empList);
+				} else if (person.equals("3")) {
+					crud.delete(empList);
+				}
+
 				break;
 			case "4":
-				if (group.equals("1")) {
+				if (person.equals("1")) {
 					stuList.stream().forEach(System.out::println);
-				} else if (group.equals("2")) {
+				} else if (person.equals("2")) {
 					empList.stream().forEach(System.out::println);
-				} else if (group.equals("3")) {
+				} else if (person.equals("3")) {
 					teacherList.stream().forEach(System.out::println);
 				}
 				break;
