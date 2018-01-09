@@ -42,8 +42,8 @@ public class FileSystem {
 		}
 	}
 
-	public List<?> readListObject(String path) {
-		List<?> rev = new ArrayList<>();
+	public <T> List<? extends T> readListObject(String path) {
+		List<T> rev = new ArrayList<T>();
 		try (FileInputStream f = new FileInputStream(new File(path));
 			ObjectInputStream oi = new ObjectInputStream(new BufferedInputStream(f))) {
 

@@ -36,6 +36,11 @@ public class Service {
 	}
 
 	public void programStart() {
+		subList.add(new Subject("a"));
+		subList.add(new Subject("b"));
+		subList.add(new Subject("c"));
+		subList.add(new Subject("d"));
+		//		subList.forEach(System.out::println);
 		while (true) {
 			System.out.println("1.인원관리  2.과목관리  3.성적관리  99.종료>>");
 			String management = scanner.nextLine();
@@ -69,6 +74,7 @@ public class Service {
 	private void performanceManagement(String crudString, List<Grade> gradeList, List<Student> stuList,
 		List<Subject> subList) {
 
+		//TODO:검증절차 진행해야됌
 		switch (crudString) {
 			case "1":
 				crud.insert(subList);
@@ -98,13 +104,13 @@ public class Service {
 		//TODO: 입력 수정 삭제 조회
 		switch (crudString) {
 			case "1":
-				crud.insert(subList);
+				this.subList = crud.insert(subList);
 				break;
 			case "2":
-				crud.update(subList);
+				this.subList = crud.update(subList);
 				break;
 			case "3":
-				crud.delete(subList);
+				this.subList = crud.delete(subList);
 				break;
 			case "4":
 				subList.forEach(System.out::println);
