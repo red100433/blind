@@ -1,4 +1,4 @@
-package com.vehicle.models;
+package com.school.models;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -15,7 +15,7 @@ public class Teacher implements Serializable {
 		this.birth = birth;
 		this.teachId = hashCode();
 	}
-
+	
 	public int getId() {
 		return teachId;
 	}

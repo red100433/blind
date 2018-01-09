@@ -1,6 +1,6 @@
-package com.vehicle;
+package com.school;
 
-import com.vehicle.business.Service;
+import com.school.business.Service;
 
 public class Main {
 

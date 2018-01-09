@@ -1,4 +1,4 @@
-package com.vehicle.models;
+package com.school.models;
 
 import java.io.Serializable;
 import java.util.Objects;

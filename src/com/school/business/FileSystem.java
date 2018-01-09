@@ -1,4 +1,4 @@
-package com.vehicle.business;
+package com.school.business;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;

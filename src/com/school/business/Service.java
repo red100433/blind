@@ -1,13 +1,13 @@
-package com.vehicle.business;
+package com.school.business;
 
 import java.util.List;
 import java.util.Scanner;
 
-import com.vehicle.models.Employee;
-import com.vehicle.models.Grade;
-import com.vehicle.models.Student;
-import com.vehicle.models.Subject;
-import com.vehicle.models.Teacher;
+import com.school.models.Employee;
+import com.school.models.Grade;
+import com.school.models.Student;
+import com.school.models.Subject;
+import com.school.models.Teacher;
 
 public class Service {
 	static final String subPath = "subObject.txt";
