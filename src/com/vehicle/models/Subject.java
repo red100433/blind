@@ -4,21 +4,21 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Subject implements Serializable {
-	int sub_Id;
+	int subjectId;
 	String subjectName;
 
-	public Subject(int sub_Id, String subjectName) {
+	public Subject(int subjectId, String subjectName) {
 		super();
-		this.sub_Id = sub_Id;
+		this.subjectId = subjectId;
 		this.subjectName = subjectName;
 	}
 
 	public int getId() {
-		return sub_Id;
+		return subjectId;
 	}
 
-	public void setId(int sub_Id) {
-		this.sub_Id = sub_Id;
+	public void setId(int subjectId) {
+		this.subjectId = subjectId;
 	}
 
 	public String getName() {
@@ -39,13 +39,13 @@ public class Subject implements Serializable {
 			return false;
 		}
 		Subject subObj = (Subject)o;
-		return sub_Id == subObj.sub_Id &&
+		return subjectId == subObj.subjectId &&
 			Objects.equals(subjectName, subObj.subjectName);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(sub_Id, subjectName);
+		return Objects.hash(subjectId, subjectName);
 	}
 
 }

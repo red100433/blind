@@ -5,26 +5,26 @@ import java.util.Objects;
 
 public class Student implements Serializable {
 
-	private int stu_Id;
-	private String name;
+	private int studentId;
+	private String studentName;
 	private String birth;
 
-	public Student(String name, String birth) {
-		this.name = name;
+	public Student(String studentName, String birth) {
+		this.studentName = studentName;
 		this.birth = birth;
-		this.stu_Id = hashCode();
+		this.studentId = hashCode();
 	}
 
 	public int getId() {
-		return stu_Id;
+		return studentId;
 	}
 
-	public String getName() {
-		return name;
+	public String getstudentName() {
+		return studentName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setstudentName(String studentName) {
+		this.studentName = studentName;
 	}
 
 	public String getBirth() {
@@ -45,14 +45,14 @@ public class Student implements Serializable {
 			return false;
 		}
 		Student stuObj = (Student)o;
-		return stu_Id == stuObj.stu_Id &&
-			Objects.equals(name, stuObj.name) &&
+		return studentId == stuObj.studentId &&
+			Objects.equals(studentName, stuObj.studentName) &&
 			Objects.equals(birth, stuObj.birth);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(name, stu_Id, birth);
+		return Objects.hash(studentName, studentId, birth);
 	}
 
 }

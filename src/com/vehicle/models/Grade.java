@@ -4,35 +4,35 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Grade implements Serializable {
-	private int stu_Id;
-	private int sub_Id;
+	private int studentId;
+	private int subjectId;
 	private int grade;
 
-	public Grade(int stu_Id, int sub_Id, int grade) {
-		this.stu_Id = stu_Id;
-		this.sub_Id = sub_Id;
+	public Grade(int studentId, int subjectId, int grade) {
+		this.studentId = studentId;
+		this.subjectId = subjectId;
 		this.grade = grade;
 	}
 
-	public Grade(int stu_Id, int sub_Id) {
-		this.stu_Id = stu_Id;
-		this.sub_Id = sub_Id;
+	public Grade(int studentId, int subjectId) {
+		this.studentId = studentId;
+		this.subjectId = subjectId;
 	}
 
-	public int getStu_Id() {
-		return stu_Id;
+	public int getstudentId() {
+		return studentId;
 	}
 
-	public void setStu_Id(int stu_Id) {
-		this.stu_Id = stu_Id;
+	public void setstudentId(int studentId) {
+		this.studentId = studentId;
 	}
 
-	public int getSub_Id() {
-		return sub_Id;
+	public int getsubjectId() {
+		return subjectId;
 	}
 
-	public void setSub_Id(int sub_Id) {
-		this.sub_Id = sub_Id;
+	public void setsubjectId(int subjectId) {
+		this.subjectId = subjectId;
 	}
 
 	public int getGrade() {
@@ -53,14 +53,14 @@ public class Grade implements Serializable {
 			return false;
 		}
 		Grade gradeObj = (Grade)o;
-		return stu_Id == gradeObj.stu_Id &&
-			sub_Id == gradeObj.sub_Id &&
+		return studentId == gradeObj.studentId &&
+			subjectId == gradeObj.subjectId &&
 			grade == gradeObj.grade;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(stu_Id, sub_Id, grade);
+		return Objects.hash(studentId, subjectId, grade);
 	}
 
 }

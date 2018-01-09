@@ -4,25 +4,25 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Teacher implements Serializable {
-	int teach_id;
-	int sub_Id;
-	String name;
+	int teachId;
+	int subjectId;
+	String teacherName;
 	String birth;
 
 	public int getId() {
-		return teach_id;
+		return teachId;
 	}
 
-	public void setId(int teach_id) {
-		this.teach_id = teach_id;
+	public void setId(int teachId) {
+		this.teachId = teachId;
 	}
 
-	public String getName() {
-		return name;
+	public String getteacherName() {
+		return teacherName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setteacherName(String teacherName) {
+		this.teacherName = teacherName;
 	}
 
 	public String getBirth() {
@@ -34,11 +34,11 @@ public class Teacher implements Serializable {
 	}
 
 	public int getSub() {
-		return sub_Id;
+		return subjectId;
 	}
 
-	public void setSub(int sub_Id) {
-		this.sub_Id = sub_Id;
+	public void setSub(int subjectId) {
+		this.subjectId = subjectId;
 	}
 
 	@Override
@@ -51,14 +51,14 @@ public class Teacher implements Serializable {
 			return false;
 		}
 		Teacher stu = (Teacher)o;
-		return teach_id == stu.teach_id &&
-			sub_Id == stu.sub_Id &&
-			Objects.equals(name, stu.name) &&
+		return teachId == stu.teachId &&
+			subjectId == stu.subjectId &&
+			Objects.equals(teacherName, stu.teacherName) &&
 			Objects.equals(birth, stu.birth);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(name, sub_Id, birth, teach_id);
+		return Objects.hash(teacherName, subjectId, birth, teachId);
 	}
 }

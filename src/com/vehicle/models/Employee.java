@@ -4,24 +4,24 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Employee implements Serializable {
-	int emp_Id;
-	String name;
+	int employeeId;
+	String employeeName;
 	String birth;
 
 	public int getId() {
-		return emp_Id;
+		return employeeId;
 	}
 
-	public void setId(int emp_Id) {
-		this.emp_Id = emp_Id;
+	public void setId(int employeeId) {
+		this.employeeId = employeeId;
 	}
 
-	public String getName() {
-		return name;
+	public String getemployeeName() {
+		return employeeName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setemployeeName(String employeeName) {
+		this.employeeName = employeeName;
 	}
 
 	public String getBirth() {
@@ -42,14 +42,14 @@ public class Employee implements Serializable {
 			return false;
 		}
 		Employee empObj = (Employee)o;
-		return emp_Id == empObj.emp_Id &&
-			Objects.equals(name, empObj.name) &&
+		return employeeId == empObj.employeeId &&
+			Objects.equals(employeeName, empObj.employeeName) &&
 			Objects.equals(birth, empObj.birth);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(name, emp_Id, birth);
+		return Objects.hash(employeeName, employeeId, birth);
 	}
 
 }

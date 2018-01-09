@@ -83,7 +83,7 @@ public class Service {
 			//TODO: 예외 처리 후
 
 			for (Student stu : stuList) {
-				if (stu.getName().equals(stu_name)) {
+				if (stu.getstudentName().equals(stu_name)) {
 					stu_id = stu.getId();
 				}
 			}
@@ -114,9 +114,9 @@ public class Service {
 			//TODO: 예외처리 바꿔야됌
 			for (Student stu : stuList) {
 
-				if (stu.getName().equals(fix_name)) {
+				if (stu.getstudentName().equals(fix_name)) {
 					for (Grade grade : gradeList) {
-						if (grade.getStu_Id() == stu.getId()) {
+						if (grade.getstudentId() == stu.getId()) {
 
 						}
 					}
@@ -135,7 +135,7 @@ public class Service {
 
 			//TODO: 삭제할 과목과 이름 대조
 			for (Student stu : stuList) {
-				if (stu.getName().equals(delete_name)) {
+				if (stu.getstudentName().equals(delete_name)) {
 					delete_name_id = stu.getId();
 				}
 			}
