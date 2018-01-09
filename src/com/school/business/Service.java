@@ -62,7 +62,7 @@ public class Service {
 	}
 
 	private void performanceManagement(String s2, List<Grade> gradeList, List<Student> stuList, List<Subject> subList) {
-		DaoInterface gradeDao = new GradeDao();
+
 		if (s2.equals("1")) {
 			System.out.println("학생이름 >>");
 			String stu_name = scanner.nextLine();
@@ -77,24 +77,24 @@ public class Service {
 			//TODO: 예외 처리 후
 
 			for (Student stu : stuList) {
-				if (stu.getstudentName().equals(stu_name)) {
-					stu_id = stu.getId();
+				if (stu.getStudentName().equals(stu_name)) {
+					stu_id = stu.getStudentId();
 				}
 			}
 			for (Subject sub : subList) {
-				if (sub.getName().equals(sub_name)) {
-					sub_id = sub.getId();
+				if (sub.getSubjectName().equals(sub_name)) {
+					sub_id = sub.getSubjectId();
 				}
 			}
 
 			for (Grade g_ob : gradeList) {
-				if (grade.equals(new Grade(stu_id, sub_id))) {
+				if (grade.equals(new Grade(stu_name, sub_name))) {
 					break;
 				}
 				if (g_ob == gradeList.get(gradeList.size() - 1)) {
-					gradeList.add(new Grade(stu_id, sub_id, Integer.parseInt(grade)));
+					gradeList.add(new Grade(stu_name, sub_name, Integer.parseInt(grade)));
 
-					gradeDao.writeDataList(gradeList);
+					dao.writeDataList(gradeList);
 				}
 			}
 
@@ -109,15 +109,15 @@ public class Service {
 			//TODO: 예외처리 바꿔야됌
 			for (Student stu : stuList) {
 
-				if (stu.getstudentName().equals(fix_name)) {
+				if (stu.getStudentName().equals(fix_name)) {
 					for (Grade grade : gradeList) {
-						if (grade.getstudentId() == stu.getId()) {
+						if (grade.getStudentName() == stu.getStudentName()) {
 
 						}
 					}
 				}
 			}
-			gradeDao.writeDataList(gradeList);
+			dao.writeDataList(gradeList);
 
 		} else if (s2.equals("3")) {
 			System.out.println("삭제할 과목과 학생의 이름을 적어주세요");
@@ -125,28 +125,26 @@ public class Service {
 			String delete_name = scanner.nextLine();
 			System.out.println("과목>>");
 			String delete_sub = scanner.nextLine();
-			int delete_name_id = -1;
-			int delete_sub_id = -1;
 
 			//TODO: 삭제할 과목과 이름 대조
 			for (Student stu : stuList) {
-				if (stu.getstudentName().equals(delete_name)) {
-					delete_name_id = stu.getId();
+				if (stu.getStudentName().equals(delete_name)) {
+
 				}
 			}
 			for (Subject sub : subList) {
-				if (sub.getName().equals(delete_name)) {
-					delete_sub_id = sub.getId();
+				if (sub.getSubjectName().equals(delete_sub)) {
+
 				}
 			}
 
 			for (Grade g_ob : gradeList) {
-				if (g_ob.equals(new Grade(delete_name_id, delete_sub_id))) {
+				if (g_ob.equals(new Grade(delete_name, delete_sub))) {
 					gradeList.remove(g_ob);
 				}
 			}
 
-			gradeDao.writeDataList(gradeList);
+			dao.writeDataList(gradeList);
 
 		} else if (s2.equals("4")) {
 			//전체 조회
@@ -162,9 +160,30 @@ public class Service {
 		//TODO: 입력 수정 삭제 조회
 	}
 
-	private void personnelManagement(String s2, List<Student> stuList2, List<Employee> empList2,
-		List<Teacher> teacherList2) {
+	private void personnelManagement(String s2, List<Student> stuList, List<Employee> empList,
+		List<Teacher> teacherList) {
 		//TODO: 학생, 교직원, 선생별 별도 관리
+		System.out.println("1.학생  2.교직원 3.선생님 >>");
+		String group = scanner.nextLine();
+
+		switch (s2) {
+			case "1":
+
+				break;
+			case "2":
+				break;
+			case "3":
+				break;
+			case "4":
+				if (group.equals("1")) {
+					stuList.stream().forEach(System.out::println);
+				} else if (group.equals("2")) {
+					empList.stream().forEach(System.out::println);
+				} else if (group.equals("3")) {
+					teacherList.stream().forEach(System.out::println);
+				}
+				break;
+		}
 	}
 
 }

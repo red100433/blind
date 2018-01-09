@@ -4,35 +4,36 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Grade implements Serializable {
-	private int studentId;
-	private int subjectId;
+
+	private String studentName;
+	private String subjectName;
 	private int grade;
 
-	public Grade(int studentId, int subjectId, int grade) {
-		this.studentId = studentId;
-		this.subjectId = subjectId;
+	public Grade(String studentName, String subjectName, int grade) {
+		this.studentName = studentName;
+		this.subjectName = subjectName;
 		this.grade = grade;
 	}
 
-	public Grade(int studentId, int subjectId) {
-		this.studentId = studentId;
-		this.subjectId = subjectId;
+	public Grade(String studentName, String subjectName) {
+		this.studentName = studentName;
+		this.subjectName = subjectName;
 	}
 
-	public int getstudentId() {
-		return studentId;
+	public String getStudentName() {
+		return studentName;
 	}
 
-	public void setstudentId(int studentId) {
-		this.studentId = studentId;
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
 	}
 
-	public int getsubjectId() {
-		return subjectId;
+	public String getSubjectName() {
+		return subjectName;
 	}
 
-	public void setsubjectId(int subjectId) {
-		this.subjectId = subjectId;
+	public void setSubjectName(String subjectName) {
+		this.subjectName = subjectName;
 	}
 
 	public int getGrade() {
@@ -53,14 +54,18 @@ public class Grade implements Serializable {
 			return false;
 		}
 		Grade gradeObj = (Grade)o;
-		return studentId == gradeObj.studentId &&
-			subjectId == gradeObj.subjectId &&
-			grade == gradeObj.grade;
+		return Objects.equals(studentName, gradeObj.getStudentName()) &&
+			Objects.equals(subjectName, gradeObj.getSubjectName()) &&
+			grade == gradeObj.getGrade();
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(studentId, subjectId, grade);
+		return Objects.hash(studentName, subjectName, grade);
 	}
 
+	@Override
+	public String toString() {
+		return "Grade [studentName=" + studentName + ", subjectName=" + subjectName + ", grade=" + grade + "]";
+	}
 }

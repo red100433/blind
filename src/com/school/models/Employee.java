@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Employee implements Serializable {
-	int employeeId;
-	String employeeName;
-	String birth;
+	private int employeeId;
+	private String employeeName;
+	private String birth;
 
 	public Employee(String employeeName, String birth) {
 		this.employeeName = employeeName;
@@ -14,15 +14,15 @@ public class Employee implements Serializable {
 		this.employeeId = hashCode();
 	}
 
-	public int getId() {
+	public int getEmployeeId() {
 		return employeeId;
 	}
 
-	public String getemployeeName() {
+	public String getEmployeeName() {
 		return employeeName;
 	}
 
-	public void setemployeeName(String employeeName) {
+	public void setEmployeeName(String employeeName) {
 		this.employeeName = employeeName;
 	}
 
@@ -44,14 +44,19 @@ public class Employee implements Serializable {
 			return false;
 		}
 		Employee empObj = (Employee)o;
-		return employeeId == empObj.employeeId &&
-			Objects.equals(employeeName, empObj.employeeName) &&
-			Objects.equals(birth, empObj.birth);
+		return employeeId == empObj.getEmployeeId() &&
+			Objects.equals(employeeName, empObj.getEmployeeName()) &&
+			Objects.equals(birth, empObj.getBirth());
 	}
 
 	@Override
 	public int hashCode() {
 		return Objects.hash(employeeName, employeeId, birth);
+	}
+
+	@Override
+	public String toString() {
+		return "Employee [employeeName=" + employeeName + ", birth=" + birth + "]";
 	}
 
 }

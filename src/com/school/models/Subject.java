@@ -4,24 +4,24 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Subject implements Serializable {
-	int subjectId;
-	String subjectName;
+	private int subjectId;
+	private String subjectName;
 
 	public Subject(String subjectName) {
 		this.subjectName = subjectName;
 		this.subjectId = hashCode();
 	}
 
-	public int getId() {
-		return subjectId;
-	}
-
-	public String getName() {
+	public String getSubjectName() {
 		return subjectName;
 	}
 
-	public void setName(String subjectName) {
+	public void setSubjectName(String subjectName) {
 		this.subjectName = subjectName;
+	}
+
+	public int getSubjectId() {
+		return subjectId;
 	}
 
 	@Override
@@ -34,13 +34,18 @@ public class Subject implements Serializable {
 			return false;
 		}
 		Subject subObj = (Subject)o;
-		return subjectId == subObj.subjectId &&
-			Objects.equals(subjectName, subObj.subjectName);
+		return subjectId == subObj.getSubjectId() &&
+			Objects.equals(subjectName, subObj.getSubjectName());
 	}
 
 	@Override
 	public int hashCode() {
 		return Objects.hash(subjectId, subjectName);
+	}
+
+	@Override
+	public String toString() {
+		return "Subject [subjectName=" + subjectName + "]";
 	}
 
 }

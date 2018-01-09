@@ -15,15 +15,15 @@ public class Student implements Serializable {
 		this.studentId = hashCode();
 	}
 
-	public int getId() {
+	public int getStudentId() {
 		return studentId;
 	}
 
-	public String getstudentName() {
+	public String getStudentName() {
 		return studentName;
 	}
 
-	public void setstudentName(String studentName) {
+	public void setStudentName(String studentName) {
 		this.studentName = studentName;
 	}
 
@@ -45,14 +45,19 @@ public class Student implements Serializable {
 			return false;
 		}
 		Student stuObj = (Student)o;
-		return studentId == stuObj.studentId &&
-			Objects.equals(studentName, stuObj.studentName) &&
-			Objects.equals(birth, stuObj.birth);
+		return studentId == stuObj.getStudentId() &&
+			Objects.equals(studentName, stuObj.getStudentName()) &&
+			Objects.equals(birth, stuObj.getBirth());
 	}
 
 	@Override
 	public int hashCode() {
 		return Objects.hash(studentName, studentId, birth);
+	}
+
+	@Override
+	public String toString() {
+		return "Student [studentName=" + studentName + ", birth=" + birth + "]";
 	}
 
 }

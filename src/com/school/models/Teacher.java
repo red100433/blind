@@ -4,27 +4,35 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Teacher implements Serializable {
-	int teachId;
-	int subjectId;
-	String teacherName;
-	String birth;
+	private int teachId;
+	private String teacherName;
+	private String subjectName;
+	private String birth;
 
-	public Teacher(int subjectId, String teacherName, String birth) {
-		this.subjectId = subjectId;
+	public Teacher(String subjectName, String teacherName, String birth) {
 		this.teacherName = teacherName;
+		this.subjectName = subjectName;
 		this.birth = birth;
 		this.teachId = hashCode();
 	}
-	
-	public int getId() {
+
+	public String getSubjectName() {
+		return subjectName;
+	}
+
+	public void setSubjectName(String subjectName) {
+		this.subjectName = subjectName;
+	}
+
+	public int getTeachId() {
 		return teachId;
 	}
 
-	public String getteacherName() {
+	public String getTeacherName() {
 		return teacherName;
 	}
 
-	public void setteacherName(String teacherName) {
+	public void setTeacherName(String teacherName) {
 		this.teacherName = teacherName;
 	}
 
@@ -34,14 +42,6 @@ public class Teacher implements Serializable {
 
 	public void setBirth(String birth) {
 		this.birth = birth;
-	}
-
-	public int getSub() {
-		return subjectId;
-	}
-
-	public void setSub(int subjectId) {
-		this.subjectId = subjectId;
 	}
 
 	@Override
@@ -54,14 +54,19 @@ public class Teacher implements Serializable {
 			return false;
 		}
 		Teacher stu = (Teacher)o;
-		return teachId == stu.teachId &&
-			subjectId == stu.subjectId &&
-			Objects.equals(teacherName, stu.teacherName) &&
-			Objects.equals(birth, stu.birth);
+		return teachId == stu.getTeachId() &&
+			Objects.equals(subjectName, stu.getSubjectName()) &&
+			Objects.equals(teacherName, stu.getTeacherName()) &&
+			Objects.equals(birth, stu.getBirth());
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(teacherName, subjectId, birth, teachId);
+		return Objects.hash(teacherName, subjectName, birth, teachId);
+	}
+
+	@Override
+	public String toString() {
+		return "Teacher [teacherName=" + teacherName + ", subjectName=" + subjectName + ", birth=" + birth + "]";
 	}
 }
