@@ -1,8 +1,5 @@
 package com.school.business;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -21,16 +18,19 @@ import com.school.models.Teacher;
 public class Service {
 
 	Scanner scanner = new Scanner(System.in);
-	List<DaoInterface> dao = Arrays.asList(new EmployeeDao(), new GradeDao(), new StudentDao(), new SubjectDao(),
-		new TeacherDao());
-	List<List<?>> models = new ArrayList<List<?>>();
+	DaoInterface dao;
+	List<Employee> empList;
+	List<Grade> gradeList;
+	List<Student> stuList;
+	List<Subject> subList;
+	List<Teacher> teacherList;
 
 	public Service() {
-		Iterator it = this.dao.iterator();
-		while (it.hasNext()) {
-			List<?> list = ((DaoInterface)it.next()).readDataList();
-			models.add(list);
-		}
+		this.empList = new EmployeeDao().readDataList();
+		this.gradeList = new GradeDao().readDataList();
+		this.stuList = new StudentDao().readDataList();
+		this.subList = new SubjectDao().readDataList();
+		this.teacherList = new TeacherDao().readDataList();
 	}
 
 	public void programStart() {
