@@ -3,6 +3,12 @@ package com.school.business;
 import java.util.List;
 import java.util.Scanner;
 
+import com.school.dao.EmployeeDao;
+import com.school.dao.GradeDao;
+import com.school.dao.StudentDao;
+import com.school.dao.SubjectDao;
+import com.school.dao.TeacherDao;
+import com.school.inter.DaoInterface;
 import com.school.models.Employee;
 import com.school.models.Grade;
 import com.school.models.Student;
@@ -10,13 +16,7 @@ import com.school.models.Subject;
 import com.school.models.Teacher;
 
 public class Service {
-	static final String subPath = "subObject.txt";
-	static final String empPath = "empObject.txt";
-	static final String teacherPath = "teacherObject.txt";
-	static final String stuPath = "stuObject.txt";
-	static final String gradePath = "gradeObject.txt";
 
-	FileSystem fs = FileSystem.getInstance();
 	Scanner scanner = new Scanner(System.in);
 
 	List<Subject> subList;
@@ -68,7 +68,7 @@ public class Service {
 	}
 
 	private void performanceManagement(String s2, List<Grade> gradeList, List<Student> stuList, List<Subject> subList) {
-
+		DaoInterface gradeDao = new GradeDao();
 		if (s2.equals("1")) {
 			System.out.println("학생이름 >>");
 			String stu_name = scanner.nextLine();
@@ -99,7 +99,8 @@ public class Service {
 				}
 				if (g_ob == gradeList.get(gradeList.size() - 1)) {
 					gradeList.add(new Grade(stu_id, sub_id, Integer.parseInt(grade)));
-					fs.writeListObject(gradeList, gradePath);
+
+					gradeDao.writeDataList(gradeList);
 				}
 			}
 
@@ -122,7 +123,7 @@ public class Service {
 					}
 				}
 			}
-			fs.writeListObject(gradeList, gradePath);
+			gradeDao.writeDataList(gradeList);
 
 		} else if (s2.equals("3")) {
 			System.out.println("삭제할 과목과 학생의 이름을 적어주세요");
@@ -151,7 +152,7 @@ public class Service {
 				}
 			}
 
-			fs.writeListObject(gradeList, gradePath);
+			gradeDao.writeDataList(gradeList);
 
 		} else if (s2.equals("4")) {
 			//전체 조회
@@ -173,10 +174,10 @@ public class Service {
 	}
 
 	private void init() {
-		subList = (List<Subject>)fs.readListObject(subPath);
-		empList = (List<Employee>)fs.readListObject(empPath);
-		teacherList = (List<Teacher>)fs.readListObject(teacherPath);
-		stuList = (List<Student>)fs.readListObject(stuPath);
-		gradeList = (List<Grade>)fs.readListObject(gradePath);
+		subList = new SubjectDao().readDataList();
+		empList = new EmployeeDao().readDataList();
+		teacherList = new TeacherDao().readDataList();
+		stuList = new StudentDao().readDataList();
+		gradeList = new GradeDao().readDataList();
 	}
 }
