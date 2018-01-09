@@ -25,8 +25,15 @@ public class Service {
 	List<Student> stuList;
 	List<Grade> gradeList;
 
+	public Service() {
+		this.subList = new SubjectDao().readDataList();
+		this.empList = new EmployeeDao().readDataList();
+		this.teacherList = new TeacherDao().readDataList();
+		this.stuList = new StudentDao().readDataList();
+		this.gradeList = new GradeDao().readDataList();
+	}
+
 	public void programStart() {
-		init();
 
 		//		List<Subject> sub = new ArrayList<>();
 		//		sub.add(new Subject(123, "a"));
@@ -173,11 +180,4 @@ public class Service {
 		//TODO: 학생, 교직원, 선생별 별도 관리
 	}
 
-	private void init() {
-		subList = new SubjectDao().readDataList();
-		empList = new EmployeeDao().readDataList();
-		teacherList = new TeacherDao().readDataList();
-		stuList = new StudentDao().readDataList();
-		gradeList = new GradeDao().readDataList();
-	}
 }
