@@ -21,6 +21,13 @@ import com.school.models.Student;
 import com.school.models.Subject;
 import com.school.models.Teacher;
 
+/**
+ *
+ * @author daeyun-jang
+ *
+ */
+
+//Main Service Logic
 public class Service {
 
 	private Scanner scanner = new Scanner(System.in);
@@ -41,11 +48,12 @@ public class Service {
 	}
 
 	public void programStart() {
-		subList.add(new Subject("a"));
-		subList.add(new Subject("b"));
-		subList.add(new Subject("c"));
-		subList.add(new Subject("d"));
+		subList.add(new Subject("자료"));
+		subList.add(new Subject("구조"));
+		subList.add(new Subject("네트웤"));
+		subList.add(new Subject("자바"));
 		//		subList.forEach(System.out::println);
+
 		while (true) {
 			System.out.println("1.인원관리  2.과목관리  3.성적관리  99.종료>>");
 			String management = scanner.nextLine();
@@ -76,6 +84,7 @@ public class Service {
 		}
 	}
 
+	//Grade manageMent
 	private void performanceManagement(String crudString, List<Grade> gradeList, List<Student> stuList,
 		List<Subject> subList) {
 
@@ -91,20 +100,42 @@ public class Service {
 				this.gradeList = new GradeCrud().delete(gradeList);
 				break;
 			case "4":
-				gradeList.forEach(System.out::println);
+				System.out.println("1.전체조회 2.학생별 조회 3.학생 평균 4.전체 평균>>");
+				int check = Integer.parseInt(scanner.nextLine());
+
+				if (check == 1) {
+					gradeList.forEach(System.out::println);
+				} else if (check == 2) {
+					System.out.println("학생 이름>>");
+					String name = scanner.nextLine();
+					gradeList.stream().filter(s -> s.getStudentName().equals(name)).forEach(System.out::println);
+					double average = gradeList.stream().filter(s -> s.getStudentName().equals(name))
+						.mapToInt(Grade::getGrade).average().getAsDouble();
+					System.out.println(name + "의 평균: " + average);
+				} else if (check == 3) {
+					for (Student stu : stuList) {
+						double average = gradeList.stream().filter(s -> s.getStudentName().equals(stu.getStudentName()))
+							.mapToInt(Grade::getGrade).average().getAsDouble();
+						System.out.println(stu.getStudentName() + "의 평균: " + average);
+					}
+				} else if (check == 4) {
+					for (Student stu : stuList) {
+						double average = gradeList.stream().filter(s -> s.getStudentName().equals(stu.getStudentName()))
+							.mapToInt(Grade::getGrade).average().getAsDouble();
+						System.out.println(stu.getStudentName() + "의 평균: " + average);
+					}
+
+					for (Subject sub : subList) {
+						double average = gradeList.stream().filter(s -> s.getStudentName().equals(sub.getSubjectName()))
+							.mapToInt(Grade::getGrade).average().getAsDouble();
+						System.out.println(sub.getSubjectName() + "의 평균: " + average);
+					}
+				}
 				break;
-		}
-
-		if (crudString.equals("4")) {
-			//전체 조회
-			gradeList.stream().forEach(System.out::println);
-
-			//TODO: 학생별 조회
-			//TODO: 학생 평균
-			//TODO: 전체 평균
 		}
 	}
 
+	//Subject Management
 	private void subjectManagement(String crudString, List<Subject> subList) {
 		//TODO: 입력 수정 삭제 조회
 		switch (crudString) {
@@ -123,6 +154,7 @@ public class Service {
 		}
 	}
 
+	//person Management
 	private void personnelManagement(String crudString, int person, List<Student> stuList, List<Employee> empList,
 		List<Teacher> teacherList) {
 		//TODO: 학생, 교직원, 선생별 별도 관리
