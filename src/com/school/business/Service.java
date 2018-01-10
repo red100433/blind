@@ -14,8 +14,6 @@ import com.school.dao.GradeDao;
 import com.school.dao.StudentDao;
 import com.school.dao.SubjectDao;
 import com.school.dao.TeacherDao;
-import com.school.inter.CrudInterface;
-import com.school.inter.DaoInterface;
 import com.school.models.Employee;
 import com.school.models.Grade;
 import com.school.models.Student;
@@ -32,8 +30,6 @@ import com.school.models.Teacher;
 public class Service {
 
 	private Scanner scanner = new Scanner(System.in);
-	private CrudInterface crud;
-	private DaoInterface dao;
 	private List<Employee> empList;
 	private List<Grade> gradeList;
 	private List<Student> stuList;
@@ -56,7 +52,7 @@ public class Service {
 			int person = 0;
 			if (management.equals("99")) {
 				scanner.close();
-				new FileSystemManagement().excute(stuList, empList, teacherList, subList,
+				new FileSystemManagement().wirte(stuList, empList, teacherList, subList,
 					gradeList);
 				return;
 			}
@@ -81,10 +77,9 @@ public class Service {
 			}
 
 			if (!crud.equals("4")) {
-				//TODO : 파일 시스템에 입력
 				int revperson = person;
 				Executors.newSingleThreadExecutor().execute(() -> {
-					new FileSystemManagement().excute(management, revperson, stuList, empList, teacherList, subList,
+					new FileSystemManagement().wirte(management, revperson, stuList, empList, teacherList, subList,
 						gradeList);
 				});
 			}
@@ -144,7 +139,6 @@ public class Service {
 
 	//Subject Management
 	private void subjectManagement(String crudString, List<Subject> subList) {
-		//TODO: 입력 수정 삭제 조회
 		switch (crudString) {
 			case "1":
 				this.subList = new SubjectCrud().insert(subList);

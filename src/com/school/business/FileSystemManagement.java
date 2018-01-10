@@ -15,7 +15,7 @@ import com.school.models.Teacher;
 
 public class FileSystemManagement {
 
-	public void excute(String management, int person, List<Student> stuList, List<Employee> empList,
+	public void wirte(String management, int person, List<Student> stuList, List<Employee> empList,
 		List<Teacher> teacherList, List<Subject> subList, List<Grade> gradeList) {
 		switch (management) {
 			case "1":
@@ -37,7 +37,7 @@ public class FileSystemManagement {
 
 	}
 
-	public void excute(List<Student> stuList, List<Employee> empList, List<Teacher> teacherList, List<Subject> subList,
+	public void wirte(List<Student> stuList, List<Employee> empList, List<Teacher> teacherList, List<Subject> subList,
 		List<Grade> gradeList) {
 		new StudentDao().writeDataList(stuList);
 		new EmployeeDao().writeDataList(empList);
