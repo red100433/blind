@@ -36,4 +36,13 @@ public class FileSystemManagement {
 		}
 
 	}
+
+	public void excute(List<Student> stuList, List<Employee> empList, List<Teacher> teacherList, List<Subject> subList,
+		List<Grade> gradeList) {
+		new StudentDao().writeDataList(stuList);
+		new EmployeeDao().writeDataList(empList);
+		new TeacherDao().writeDataList(teacherList);
+		new SubjectDao().writeDataList(subList);
+		new GradeDao().writeDataList(gradeList);
+	}
 }

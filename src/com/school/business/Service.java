@@ -49,11 +49,6 @@ public class Service {
 	}
 
 	public void programStart() {
-		subList.add(new Subject("자료"));
-		subList.add(new Subject("구조"));
-		subList.add(new Subject("네트웤"));
-		subList.add(new Subject("자바"));
-		//		subList.forEach(System.out::println);
 
 		while (true) {
 			System.out.println("1.인원관리  2.과목관리  3.성적관리  99.종료>>");
@@ -61,7 +56,7 @@ public class Service {
 			int person = 0;
 			if (management.equals("99")) {
 				scanner.close();
-				new FileSystemManagement().excute(management, person, stuList, empList, teacherList, subList,
+				new FileSystemManagement().excute(stuList, empList, teacherList, subList,
 					gradeList);
 				return;
 			}

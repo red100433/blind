@@ -22,7 +22,7 @@ public class StudentCrud implements CrudInterface {
 		System.out.println("학생 이름>>");
 		this.tempName = scanner.nextLine();
 		System.out.println("학생 생일>>");
-		this.tempName = scanner.nextLine();
+		this.tempBirth = scanner.nextLine();
 		this.temp = new Student(tempName, tempBirth);
 	}
 
