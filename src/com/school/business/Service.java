@@ -57,9 +57,11 @@ public class Service {
 		while (true) {
 			System.out.println("1.인원관리  2.과목관리  3.성적관리  99.종료>>");
 			String management = scanner.nextLine();
-
+			int person = 0;
 			if (management.equals("99")) {
 				scanner.close();
+				new FileSystemManagement().excute(management, person, stuList, empList, teacherList, subList,
+					gradeList);
 				return;
 			}
 
@@ -69,8 +71,8 @@ public class Service {
 			switch (management) {
 				case "1":
 					System.out.println("1.학생 2.교직원 3.선생님>>");
-					String person = scanner.nextLine();
-					personnelManagement(crud, Integer.parseInt(person), stuList, empList, teacherList);
+					person = Integer.parseInt(scanner.nextLine());
+					personnelManagement(crud, person, stuList, empList, teacherList);
 					break;
 
 				case "2":
@@ -81,8 +83,11 @@ public class Service {
 					performanceManagement(crud, gradeList, stuList, subList);
 					break;
 			}
+
 			if (!crud.equals("4")) {
 				//TODO : 파일 시스템에 입력
+				new FileSystemManagement().excute(management, person, stuList, empList, teacherList, subList,
+					gradeList);
 			}
 		}
 	}
