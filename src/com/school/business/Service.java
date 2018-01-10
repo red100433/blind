@@ -58,7 +58,7 @@ public class Service {
 				case "1":
 					System.out.println("1.학생 2.교직원 3.선생님>>");
 					String person = scanner.nextLine();
-					personnelManagement(crud, person, stuList, empList, teacherList);
+					personnelManagement(crud, Integer.parseInt(person), stuList, empList, teacherList);
 					break;
 
 				case "2":
@@ -119,47 +119,47 @@ public class Service {
 		}
 	}
 
-	private void personnelManagement(String crudString, String person, List<Student> stuList, List<Employee> empList,
+	private void personnelManagement(String crudString, int person, List<Student> stuList, List<Employee> empList,
 		List<Teacher> teacherList) {
 		//TODO: 학생, 교직원, 선생별 별도 관리
 
 		switch (crudString) {
 			case "1":
-				if (person.equals("1")) {
+				if (person == 1) {
 					this.stuList = crud.insert(stuList);
-				} else if (person.equals("2")) {
+				} else if (person == 2) {
 					this.empList = crud.insert(empList);
-				} else if (person.equals("3")) {
+				} else if (person == 3) {
 					this.teacherList = crud.insert(teacherList);
 				}
 				break;
 			case "2":
-				if (person.equals("1")) {
+				if (person == 1) {
 					this.stuList = crud.update(stuList);
-				} else if (person.equals("2")) {
+				} else if (person == 2) {
 					this.empList = crud.update(empList);
-				} else if (person.equals("3")) {
+				} else if (person == 3) {
 					this.teacherList = crud.update(teacherList);
 				}
 
 				break;
 			case "3":
 
-				if (person.equals("1")) {
+				if (person == 1) {
 					this.stuList = crud.delete(stuList);
-				} else if (person.equals("2")) {
+				} else if (person == 2) {
 					this.empList = crud.delete(empList);
-				} else if (person.equals("3")) {
+				} else if (person == 3) {
 					this.teacherList = crud.delete(teacherList);
 				}
 
 				break;
 			case "4":
-				if (person.equals("1")) {
+				if (person == 1) {
 					stuList.forEach(System.out::println);
-				} else if (person.equals("2")) {
+				} else if (person == 2) {
 					empList.forEach(System.out::println);
-				} else if (person.equals("3")) {
+				} else if (person == 3) {
 					teacherList.forEach(System.out::println);
 				}
 				break;
