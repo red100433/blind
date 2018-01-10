@@ -3,7 +3,11 @@ package com.school.business;
 import java.util.List;
 import java.util.Scanner;
 
+import com.school.business.crud.EmployeeCrud;
+import com.school.business.crud.GradeCrud;
+import com.school.business.crud.StudentCrud;
 import com.school.business.crud.SubjectCrud;
+import com.school.business.crud.TeacherCrud;
 import com.school.dao.EmployeeDao;
 import com.school.dao.GradeDao;
 import com.school.dao.StudentDao;
@@ -78,13 +82,13 @@ public class Service {
 		//TODO:검증절차 진행해야됌
 		switch (crudString) {
 			case "1":
-				this.gradeList = crud.insert(gradeList);
+				this.gradeList = new GradeCrud().insert(gradeList);
 				break;
 			case "2":
-				this.gradeList = crud.update(gradeList);
+				this.gradeList = new GradeCrud().update(gradeList);
 				break;
 			case "3":
-				this.gradeList = crud.delete(gradeList);
+				this.gradeList = new GradeCrud().delete(gradeList);
 				break;
 			case "4":
 				gradeList.forEach(System.out::println);
@@ -126,31 +130,31 @@ public class Service {
 		switch (crudString) {
 			case "1":
 				if (person == 1) {
-					this.stuList = crud.insert(stuList);
+					this.stuList = new StudentCrud().insert(stuList);
 				} else if (person == 2) {
-					this.empList = crud.insert(empList);
+					this.empList = new EmployeeCrud().insert(empList);
 				} else if (person == 3) {
-					this.teacherList = crud.insert(teacherList);
+					this.teacherList = new TeacherCrud().insert(teacherList);
 				}
 				break;
 			case "2":
 				if (person == 1) {
-					this.stuList = crud.update(stuList);
+					this.stuList = new StudentCrud().update(stuList);
 				} else if (person == 2) {
-					this.empList = crud.update(empList);
+					this.empList = new EmployeeCrud().update(empList);
 				} else if (person == 3) {
-					this.teacherList = crud.update(teacherList);
+					this.teacherList = new TeacherCrud().update(teacherList);
 				}
 
 				break;
 			case "3":
 
 				if (person == 1) {
-					this.stuList = crud.delete(stuList);
+					this.stuList = new StudentCrud().delete(stuList);
 				} else if (person == 2) {
-					this.empList = crud.delete(empList);
+					this.empList = new EmployeeCrud().delete(empList);
 				} else if (person == 3) {
-					this.teacherList = crud.delete(teacherList);
+					this.teacherList = new TeacherCrud().delete(teacherList);
 				}
 
 				break;
