@@ -2,6 +2,7 @@ package com.school.business.crud;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import com.school.inter.CrudInterface;
 import com.school.models.Employee;
@@ -13,35 +14,29 @@ import com.school.models.Employee;
  */
 public class EmployeeCrud implements CrudInterface {
 	private Scanner scanner = new Scanner(System.in);
-	private String empName;
-	private String empBirth;
-	private Employee emp;
+	private String tempName;
+	private String tempBirth;
+	private Employee temp;
 
 	public EmployeeCrud() {
 		System.out.println("교직원 이름>>");
-		this.empName = scanner.nextLine();
+		this.tempName = scanner.nextLine();
 		System.out.println("교직원 생일>>");
-		this.empName = scanner.nextLine();
-		this.emp = new Employee(empName, empBirth);
+		this.tempName = scanner.nextLine();
+		this.temp = new Employee(tempName, tempBirth);
 	}
 
 	@Override
 	public <T> List<T> insert(List<? super T> list) {
-		for (Object e : list) {
-			if (e.equals(emp)) {
-				return (List<T>)list;
-			}
-			if (e == list.get(list.size() - 1)) {
-				list.add((T)emp);
-			}
-		}
-		return (List<T>)list;
+		list.add((T)temp);
+
+		return (List<T>)list.stream().distinct().collect(Collectors.toList());
 	}
 
 	@Override
 	public <T> List<T> update(List<? super T> list) {
 		for (Object e : list) {
-			if (e.equals(emp)) {
+			if (e.equals(temp)) {
 				System.out.println("수정할 이름>>");
 				String setName = scanner.nextLine();
 				System.out.println("수정할 생일>>");
@@ -57,7 +52,7 @@ public class EmployeeCrud implements CrudInterface {
 
 	@Override
 	public <T> List<T> delete(List<? super T> list) {
-		list.remove(emp);
+		list.remove(temp);
 		return (List<T>)list;
 	}
 
