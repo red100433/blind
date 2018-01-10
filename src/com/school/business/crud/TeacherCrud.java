@@ -40,11 +40,11 @@ public class TeacherCrud implements CrudInterface {
 	public <T> List<T> update(List<? super T> list) {
 		for (Object e : list) {
 			if (e.equals(temp)) {
-				System.out.println("수정할 이름>>");
+				System.out.println("변경될 선생님이름>>");
 				String setName = scanner.nextLine();
-				System.out.println("수정할 생일>>");
+				System.out.println("변경될 생일>>");
 				String setBirth = scanner.nextLine();
-				System.out.println("수정할 교과목>>");
+				System.out.println("변경될 교과목>>");
 				String setSubjectName = scanner.nextLine();
 				((Teacher)e).setTeacherName(setName);
 				((Teacher)e).setBirth((setBirth));

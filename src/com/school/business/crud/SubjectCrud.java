@@ -35,7 +35,7 @@ public class SubjectCrud implements CrudInterface {
 		for (Object e : list) {
 			Subject s = (Subject)e;
 			if (s.equals(temp)) {
-				System.out.println("수정할 이름>>");
+				System.out.println("변경될 과목이름>>");
 				String setName = scanner.nextLine();
 				list.remove(new Subject(setName));
 				((Subject)e).setSubjectName(setName);

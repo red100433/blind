@@ -133,7 +133,7 @@ public class Service {
 					}
 
 					for (Subject sub : subList) {
-						double average = gradeList.stream().filter(s -> s.getStudentName().equals(sub.getSubjectName()))
+						double average = gradeList.stream().filter(s -> s.getSubjectName().equals(sub.getSubjectName()))
 							.mapToInt(Grade::getGrade).average().getAsDouble();
 						System.out.println(sub.getSubjectName() + "의 평균: " + average);
 					}

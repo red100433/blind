@@ -16,6 +16,7 @@ public class GradeCrud implements CrudInterface {
 	private Scanner scanner = new Scanner(System.in);
 	private String tempStudentName;
 	private String tempSubjectName;
+	private int tempGrade;
 	private Grade temp;
 
 	public GradeCrud() {
@@ -28,6 +29,9 @@ public class GradeCrud implements CrudInterface {
 
 	@Override
 	public <T> List<T> insert(List<? super T> list) {
+		System.out.println("성적>>");
+		this.tempGrade = Integer.parseInt(scanner.nextLine());
+		this.temp = new Grade(tempStudentName, tempSubjectName, tempGrade);
 		list.add((T)temp);
 
 		return (List<T>)list.stream().distinct().collect(Collectors.toList());
@@ -37,11 +41,11 @@ public class GradeCrud implements CrudInterface {
 	public <T> List<T> update(List<? super T> list) {
 		for (Object e : list) {
 			if (e.equals(temp)) {
-				System.out.println("수정할 학생이름>>");
+				System.out.println("변경될 학생이름>>");
 				String setStudentName = scanner.nextLine();
-				System.out.println("수정할 과목이름>>");
+				System.out.println("변경될 과목이름>>");
 				String setSubjectName = scanner.nextLine();
-				System.out.println("수정할 점수>>");
+				System.out.println("변경될 점수>>");
 				String setGrade = scanner.nextLine();
 				list.remove(new Grade(setStudentName, setSubjectName));
 				((Grade)e).setStudentName(setStudentName);
