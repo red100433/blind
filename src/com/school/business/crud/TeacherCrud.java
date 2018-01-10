@@ -5,6 +5,7 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import com.school.inter.CrudInterface;
+import com.school.models.Subject;
 import com.school.models.Teacher;
 
 /**
@@ -18,12 +19,24 @@ public class TeacherCrud implements CrudInterface {
 	private String tempBirth;
 	private String tempSubjectName;
 	private Teacher temp;
+	private List<Subject> subList;
+
+	public TeacherCrud(List<Subject> subList) {
+		this.subList = subList;
+		System.out.println("선생님 이름>>");
+		this.tempName = scanner.nextLine();
+		System.out.println("선생님 생일>>");
+		this.tempBirth = scanner.nextLine();
+		System.out.println("선생님 교과목>>");
+		this.tempSubjectName = scanner.nextLine();
+		this.temp = new Teacher(tempSubjectName, tempName, tempBirth);
+	}
 
 	public TeacherCrud() {
 		System.out.println("선생님 이름>>");
 		this.tempName = scanner.nextLine();
 		System.out.println("선생님 생일>>");
-		this.tempName = scanner.nextLine();
+		this.tempBirth = scanner.nextLine();
 		System.out.println("선생님 교과목>>");
 		this.tempSubjectName = scanner.nextLine();
 		this.temp = new Teacher(tempSubjectName, tempName, tempBirth);
@@ -31,7 +44,11 @@ public class TeacherCrud implements CrudInterface {
 
 	@Override
 	public <T> List<T> insert(List<? super T> list) {
-		list.add((T)temp);
+		for (Subject sub : subList) {
+			if (sub.getSubjectName().equals(tempSubjectName)) {
+				list.add((T)temp);
+			}
+		}
 
 		return (List<T>)list.stream().distinct().collect(Collectors.toList());
 	}
@@ -46,10 +63,15 @@ public class TeacherCrud implements CrudInterface {
 				String setBirth = scanner.nextLine();
 				System.out.println("변경될 교과목>>");
 				String setSubjectName = scanner.nextLine();
-				((Teacher)e).setTeacherName(setName);
-				((Teacher)e).setBirth((setBirth));
-				((Teacher)e).setSubjectName((setSubjectName));
-				return (List<T>)list;
+
+				for (Subject sub : subList) {
+					if (sub.getSubjectName().equals(setSubjectName)) {
+						list.remove(new Teacher(setSubjectName, setName, setBirth));
+						((Teacher)e).setTeacherName(setName);
+						((Teacher)e).setBirth((setBirth));
+						((Teacher)e).setSubjectName((setSubjectName));
+					}
+				}
 			}
 		}
 		return (List<T>)list;

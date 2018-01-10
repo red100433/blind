@@ -64,7 +64,7 @@ public class Service {
 				case "1":
 					System.out.println("1.학생 2.교직원 3.선생님>>");
 					person = Integer.parseInt(scanner.nextLine());
-					personnelManagement(crud, person, stuList, empList, teacherList);
+					personnelManagement(crud, person, stuList, empList, teacherList, subList);
 					break;
 
 				case "2":
@@ -157,7 +157,7 @@ public class Service {
 
 	//person Management
 	private void personnelManagement(String crudString, int person, List<Student> stuList, List<Employee> empList,
-		List<Teacher> teacherList) {
+		List<Teacher> teacherList, List<Subject> subList) {
 		//TODO: 선생님의 경우 삽입과 수정이 이루어질 때, 과목리스트에 실제로 과목이 있는지 체크해야됌
 		switch (crudString) {
 			case "1":
@@ -166,7 +166,7 @@ public class Service {
 				} else if (person == 2) {
 					this.empList = new EmployeeCrud().insert(empList);
 				} else if (person == 3) {
-					this.teacherList = new TeacherCrud().insert(teacherList);
+					this.teacherList = new TeacherCrud(subList).insert(teacherList);
 				}
 				break;
 			case "2":
@@ -175,7 +175,7 @@ public class Service {
 				} else if (person == 2) {
 					this.empList = new EmployeeCrud().update(empList);
 				} else if (person == 3) {
-					this.teacherList = new TeacherCrud().update(teacherList);
+					this.teacherList = new TeacherCrud(subList).update(teacherList);
 				}
 
 				break;
