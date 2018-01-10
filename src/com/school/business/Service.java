@@ -81,6 +81,9 @@ public class Service {
 					performanceManagement(crud, gradeList, stuList, subList);
 					break;
 			}
+			if (!crud.equals("4")) {
+				//TODO : 파일 시스템에 입력
+			}
 		}
 	}
 
@@ -88,7 +91,7 @@ public class Service {
 	private void performanceManagement(String crudString, List<Grade> gradeList, List<Student> stuList,
 		List<Subject> subList) {
 
-		//TODO:검증절차 진행해야됌
+		//TODO:삽입과 수정이 이루어 질때, 과목과 학생리스트에 있는지 검증절차를 진행 해야됌
 		switch (crudString) {
 			case "1":
 				this.gradeList = new GradeCrud().insert(gradeList);
@@ -157,8 +160,7 @@ public class Service {
 	//person Management
 	private void personnelManagement(String crudString, int person, List<Student> stuList, List<Employee> empList,
 		List<Teacher> teacherList) {
-		//TODO: 학생, 교직원, 선생별 별도 관리
-
+		//TODO: 선생님의 경우 삽입과 수정이 이루어질 때, 과목리스트에 실제로 과목이 있는지 체크해야됌
 		switch (crudString) {
 			case "1":
 				if (person == 1) {
