@@ -2,6 +2,7 @@ package com.school.business.crud;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import com.school.inter.CrudInterface;
 import com.school.models.Subject;
@@ -24,21 +25,16 @@ public class SubjectCrud implements CrudInterface {
 
 	@Override
 	public <T> List<T> insert(List<? super T> list) {
-		for (Object e : list) {
-			if (e.equals(temp)) {
-				return (List<T>)list;
-			}
-			if (e == list.get(list.size() - 1)) {
-				list.add((T)temp);
-			}
-		}
-		return (List<T>)list;
+		list.add((T)temp);
+
+		return (List<T>)list.stream().distinct().collect(Collectors.toList());
 	}
 
 	@Override
 	public <T> List<T> update(List<? super T> list) {
 		for (Object e : list) {
-			if (e.equals(temp)) {
+			Subject s = (Subject)e;
+			if (s.equals(temp)) {
 				System.out.println("수정할 이름>>");
 				String setName = scanner.nextLine();
 				list.remove(new Subject(setName));

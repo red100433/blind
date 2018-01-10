@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class FileSystem {
@@ -43,7 +44,7 @@ public class FileSystem {
 	}
 
 	public <T> List<? extends T> readListObject(String path) {
-		List<T> rev = new ArrayList<T>();
+		List<T> rev = Collections.emptyList();
 		try (FileInputStream f = new FileInputStream(new File(path));
 			ObjectInputStream oi = new ObjectInputStream(new BufferedInputStream(f))) {
 
