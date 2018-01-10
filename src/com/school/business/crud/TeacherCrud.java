@@ -44,10 +44,16 @@ public class TeacherCrud implements CrudInterface {
 
 	@Override
 	public <T> List<T> insert(List<? super T> list) {
+		boolean teacherFlag = false;
 		for (Subject sub : subList) {
 			if (sub.getSubjectName().equals(tempSubjectName)) {
-				list.add((T)temp);
+				teacherFlag = true;
 			}
+		}
+		if (teacherFlag) {
+			list.add((T)temp);
+		} else {
+			System.out.println("등록된 과목이  아닙니다.");
 		}
 
 		return (List<T>)list.stream().distinct().collect(Collectors.toList());
@@ -55,6 +61,8 @@ public class TeacherCrud implements CrudInterface {
 
 	@Override
 	public <T> List<T> update(List<? super T> list) {
+		boolean teacherFlag = false;
+
 		for (Object e : list) {
 			if (e.equals(temp)) {
 				System.out.println("변경될 선생님이름>>");
@@ -66,11 +74,17 @@ public class TeacherCrud implements CrudInterface {
 
 				for (Subject sub : subList) {
 					if (sub.getSubjectName().equals(setSubjectName)) {
-						list.remove(new Teacher(setSubjectName, setName, setBirth));
-						((Teacher)e).setTeacherName(setName);
-						((Teacher)e).setBirth((setBirth));
-						((Teacher)e).setSubjectName((setSubjectName));
+						teacherFlag = true;
 					}
+				}
+
+				if (teacherFlag) {
+					list.remove(new Teacher(setSubjectName, setName, setBirth));
+					((Teacher)e).setTeacherName(setName);
+					((Teacher)e).setBirth((setBirth));
+					((Teacher)e).setSubjectName((setSubjectName));
+				} else {
+					System.out.println("변경될 교과목이 등록되지 않은 과목입니다. 먼저 교과목을 등록해주세요");
 				}
 			}
 		}

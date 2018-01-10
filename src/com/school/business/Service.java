@@ -93,10 +93,10 @@ public class Service {
 		//TODO:삽입과 수정이 이루어 질때, 과목과 학생리스트에 있는지 검증절차를 진행 해야됌
 		switch (crudString) {
 			case "1":
-				this.gradeList = new GradeCrud().insert(gradeList);
+				this.gradeList = new GradeCrud(subList, stuList).insert(gradeList);
 				break;
 			case "2":
-				this.gradeList = new GradeCrud().update(gradeList);
+				this.gradeList = new GradeCrud(subList, stuList).update(gradeList);
 				break;
 			case "3":
 				this.gradeList = new GradeCrud().delete(gradeList);
