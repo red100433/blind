@@ -2,6 +2,7 @@ package com.school.business;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.Executors;
 
 import com.school.business.crud.EmployeeCrud;
 import com.school.business.crud.GradeCrud;
@@ -86,8 +87,11 @@ public class Service {
 
 			if (!crud.equals("4")) {
 				//TODO : 파일 시스템에 입력
-				new FileSystemManagement().excute(management, person, stuList, empList, teacherList, subList,
-					gradeList);
+				int revperson = person;
+				Executors.newSingleThreadExecutor().execute(() -> {
+					new FileSystemManagement().excute(management, revperson, stuList, empList, teacherList, subList,
+						gradeList);
+				});
 			}
 		}
 	}
