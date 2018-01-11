@@ -29,6 +29,19 @@ import com.school.models.Teacher;
 
 //Main Service Logic
 public class Service {
+	private static final String EXIT = "99";
+	private static final String PERSON_MANAGE = "1";
+	private static final String SUBJECT_MANAGE = "2";
+	private static final String GRADE_MANAGE = "3";
+
+	private static final String INSERT = "1";
+	private static final String UPDATE = "2";
+	private static final String DELETE = "3";
+	private static final String SELECT = "4";
+
+	private static final int STUDENT = 1;
+	private static final int EMPLOYEE = 2;
+	private static final int TEACHER = 3;
 
 	private Scanner scanner = new Scanner(System.in);
 	private List<Employee> empList;
@@ -52,7 +65,7 @@ public class Service {
 			System.out.println("1.인원관리  2.과목관리  3.성적관리  99.종료>>");
 			String management = scanner.nextLine();
 			int person = 0;
-			if (management.equals("99")) {
+			if (management.equals(EXIT)) {
 				new FileSystemManagement().wirte(stuList, empList, teacherList, subList,
 					gradeList);
 				scanner.close();
@@ -64,22 +77,22 @@ public class Service {
 			String crud = scanner.nextLine();
 
 			switch (management) {
-				case "1":
+				case PERSON_MANAGE:
 					System.out.println("1.학생 2.교직원 3.선생님>>");
 					person = Integer.parseInt(scanner.nextLine());
 					personnelManagement(crud, person, stuList, empList, teacherList, subList);
 					break;
 
-				case "2":
+				case SUBJECT_MANAGE:
 					subjectManagement(crud, subList);
 					break;
 
-				case "3":
+				case GRADE_MANAGE:
 					performanceManagement(crud, gradeList, stuList, subList);
 					break;
 			}
 
-			if (!crud.equals("4")) {
+			if (!crud.equals(SELECT)) {
 				int revperson = person;
 				executor.submit(() -> {
 					new FileSystemManagement().wirte(management, revperson, stuList, empList, teacherList, subList,
@@ -95,47 +108,17 @@ public class Service {
 
 		//TODO:삽입과 수정이 이루어 질때, 과목과 학생리스트에 있는지 검증절차를 진행 해야됌
 		switch (crudString) {
-			case "1":
+			case INSERT:
 				this.gradeList = new GradeCrud(subList, stuList).insert(gradeList);
 				break;
-			case "2":
+			case UPDATE:
 				this.gradeList = new GradeCrud(subList, stuList).update(gradeList);
 				break;
-			case "3":
+			case DELETE:
 				this.gradeList = new GradeCrud().delete(gradeList);
 				break;
-			case "4":
-				System.out.println("1.전체조회 2.학생별 조회 3.학생 평균 4.전체 평균>>");
-				int check = Integer.parseInt(scanner.nextLine());
-
-				if (check == 1) {
-					gradeList.forEach(System.out::println);
-				} else if (check == 2) {
-					System.out.println("학생 이름>>");
-					String name = scanner.nextLine();
-					gradeList.stream().filter(s -> s.getStudentName().equals(name)).forEach(System.out::println);
-					double average = gradeList.stream().filter(s -> s.getStudentName().equals(name))
-						.mapToInt(Grade::getGrade).average().getAsDouble();
-					System.out.println(name + "의 평균: " + average);
-				} else if (check == 3) {
-					for (Student stu : stuList) {
-						double average = gradeList.stream().filter(s -> s.getStudentName().equals(stu.getStudentName()))
-							.mapToInt(Grade::getGrade).average().getAsDouble();
-						System.out.println(stu.getStudentName() + "의 평균: " + average);
-					}
-				} else if (check == 4) {
-					for (Student stu : stuList) {
-						double average = gradeList.stream().filter(s -> s.getStudentName().equals(stu.getStudentName()))
-							.mapToInt(Grade::getGrade).average().getAsDouble();
-						System.out.println(stu.getStudentName() + "의 평균: " + average);
-					}
-
-					for (Subject sub : subList) {
-						double average = gradeList.stream().filter(s -> s.getSubjectName().equals(sub.getSubjectName()))
-							.mapToInt(Grade::getGrade).average().getAsDouble();
-						System.out.println(sub.getSubjectName() + "의 평균: " + average);
-					}
-				}
+			case SELECT:
+				new GradeCrud().read(gradeList, subList, stuList);
 				break;
 		}
 	}
@@ -143,16 +126,16 @@ public class Service {
 	//Subject Management
 	private void subjectManagement(String crudString, List<Subject> subList) {
 		switch (crudString) {
-			case "1":
+			case INSERT:
 				this.subList = new SubjectCrud().insert(subList);
 				break;
-			case "2":
+			case UPDATE:
 				this.subList = new SubjectCrud().update(subList);
 				break;
-			case "3":
+			case DELETE:
 				this.subList = new SubjectCrud().delete(subList);
 				break;
-			case "4":
+			case SELECT:
 				subList.forEach(System.out::println);
 				break;
 		}
@@ -163,42 +146,42 @@ public class Service {
 		List<Teacher> teacherList, List<Subject> subList) {
 		//TODO: 선생님의 경우 삽입과 수정이 이루어질 때, 과목리스트에 실제로 과목이 있는지 체크해야됌
 		switch (crudString) {
-			case "1":
-				if (person == 1) {
+			case INSERT:
+				if (person == STUDENT) {
 					this.stuList = new StudentCrud().insert(stuList);
-				} else if (person == 2) {
+				} else if (person == EMPLOYEE) {
 					this.empList = new EmployeeCrud().insert(empList);
-				} else if (person == 3) {
+				} else if (person == TEACHER) {
 					this.teacherList = new TeacherCrud(subList).insert(teacherList);
 				}
 				break;
-			case "2":
-				if (person == 1) {
+			case UPDATE:
+				if (person == STUDENT) {
 					this.stuList = new StudentCrud().update(stuList);
-				} else if (person == 2) {
+				} else if (person == EMPLOYEE) {
 					this.empList = new EmployeeCrud().update(empList);
-				} else if (person == 3) {
+				} else if (person == TEACHER) {
 					this.teacherList = new TeacherCrud(subList).update(teacherList);
 				}
 
 				break;
-			case "3":
+			case DELETE:
 
-				if (person == 1) {
+				if (person == STUDENT) {
 					this.stuList = new StudentCrud().delete(stuList);
-				} else if (person == 2) {
+				} else if (person == EMPLOYEE) {
 					this.empList = new EmployeeCrud().delete(empList);
-				} else if (person == 3) {
+				} else if (person == TEACHER) {
 					this.teacherList = new TeacherCrud().delete(teacherList);
 				}
 
 				break;
-			case "4":
-				if (person == 1) {
+			case SELECT:
+				if (person == STUDENT) {
 					stuList.forEach(System.out::println);
-				} else if (person == 2) {
+				} else if (person == EMPLOYEE) {
 					empList.forEach(System.out::println);
-				} else if (person == 3) {
+				} else if (person == TEACHER) {
 					teacherList.forEach(System.out::println);
 				}
 				break;

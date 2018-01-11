@@ -14,23 +14,29 @@ import com.school.models.Subject;
 import com.school.models.Teacher;
 
 public class FileSystemManagement {
+	private static final String PERSON_MANAGE = "1";
+	private static final String SUBJECT_MANAGE = "2";
+	private static final String GRADE_MANAGE = "3";
+	private static final int STUDENT = 1;
+	private static final int EMPLOYEE = 2;
+	private static final int TEACHER = 3;
 
 	public void wirte(String management, int person, List<Student> stuList, List<Employee> empList,
 		List<Teacher> teacherList, List<Subject> subList, List<Grade> gradeList) {
 		switch (management) {
-			case "1":
-				if (person == 1) {
+			case PERSON_MANAGE:
+				if (person == STUDENT) {
 					new StudentDao().writeDataList(stuList);
-				} else if (person == 2) {
+				} else if (person == EMPLOYEE) {
 					new EmployeeDao().writeDataList(empList);
-				} else if (person == 3) {
+				} else if (person == TEACHER) {
 					new TeacherDao().writeDataList(teacherList);
 				}
 				break;
-			case "2":
+			case SUBJECT_MANAGE:
 				new SubjectDao().writeDataList(subList);
 				break;
-			case "3":
+			case GRADE_MANAGE:
 				new GradeDao().writeDataList(gradeList);
 				break;
 		}

@@ -15,5 +15,4 @@ public interface CrudInterface {
 	public <T> List<T> update(List<? super T> list);
 
 	public <T> List<T> delete(List<? super T> list);
-
 }

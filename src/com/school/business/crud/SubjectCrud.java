@@ -50,4 +50,5 @@ public class SubjectCrud implements CrudInterface {
 		list.remove(temp);
 		return (List<T>)list;
 	}
+
 }

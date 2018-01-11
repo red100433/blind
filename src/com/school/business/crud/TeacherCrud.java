@@ -96,4 +96,5 @@ public class TeacherCrud implements CrudInterface {
 		list.remove(temp);
 		return (List<T>)list;
 	}
+
 }
