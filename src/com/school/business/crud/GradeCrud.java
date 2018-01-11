@@ -1,9 +1,9 @@
 package com.school.business.crud;
 
 import java.util.List;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
+import com.school.handler.ScannerHandler;
 import com.school.inter.CrudInterface;
 import com.school.models.Grade;
 import com.school.models.Student;
@@ -20,17 +20,18 @@ public class GradeCrud implements CrudInterface {
 	private static final int STUDENT_SELECT = 2;
 	private static final int STUDENT_AVERAGE_SELECT = 3;
 	private static final int ALL_AVERAGE_SELECT = 4;
+	private final ScannerHandler scanner = ScannerHandler.getInstance();
 
-	private Scanner scanner = new Scanner(System.in);
 	private String tempStudentName;
 	private String tempSubjectName;
 	private int tempGrade;
 	private Grade temp;
 	private List<Subject> subList;
 	private List<Student> stuList;
-	private final GradeUI gradeUI = new GradeUI(scanner);
+	private final GradeUI gradeUI;
 
 	public GradeCrud() {
+		this.gradeUI = new GradeUI(scanner.getScanner());
 		this.tempStudentName = gradeUI.inputStudentName();
 		this.tempSubjectName = gradeUI.inputSubjectName();
 		this.temp = new Grade(tempStudentName, tempSubjectName);
@@ -39,6 +40,7 @@ public class GradeCrud implements CrudInterface {
 	public GradeCrud(List<Subject> subList, List<Student> stuList) {
 		this.subList = subList;
 		this.stuList = stuList;
+		this.gradeUI = new GradeUI(scanner.getScanner());
 		this.tempStudentName = gradeUI.inputStudentName();
 		this.tempSubjectName = gradeUI.inputSubjectName();
 		this.temp = new Grade(tempStudentName, tempSubjectName);

@@ -1,9 +1,9 @@
 package com.school.business.crud;
 
 import java.util.List;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
+import com.school.handler.ScannerHandler;
 import com.school.inter.CrudInterface;
 import com.school.models.Subject;
 import com.school.models.Teacher;
@@ -15,15 +15,16 @@ import com.school.view.TeacherUI;
  *
  */
 public class TeacherCrud implements CrudInterface {
-	private Scanner scanner = new Scanner(System.in);
+	private final ScannerHandler scanner = ScannerHandler.getInstance();
 	private String tempName;
 	private String tempBirth;
 	private String tempSubjectName;
 	private Teacher temp;
 	private List<Subject> subList;
-	private TeacherUI teacherUi = new TeacherUI(scanner);
+	private TeacherUI teacherUi;
 
 	public TeacherCrud() {
+		this.teacherUi = new TeacherUI(scanner.getScanner());
 		this.tempName = teacherUi.inputTeacherName();
 		this.tempBirth = teacherUi.inputTeacherBirth();
 		this.tempSubjectName = teacherUi.inputTeacherSubject();
@@ -32,6 +33,7 @@ public class TeacherCrud implements CrudInterface {
 
 	public TeacherCrud(List<Subject> subList) {
 		this.subList = subList;
+		this.teacherUi = new TeacherUI(scanner.getScanner());
 		this.tempName = teacherUi.inputTeacherName();
 		this.tempBirth = teacherUi.inputTeacherBirth();
 		this.tempSubjectName = teacherUi.inputTeacherSubject();

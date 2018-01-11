@@ -1,9 +1,9 @@
 package com.school.business.crud;
 
 import java.util.List;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
+import com.school.handler.ScannerHandler;
 import com.school.inter.CrudInterface;
 import com.school.models.Subject;
 import com.school.view.SubjectUI;
@@ -14,12 +14,13 @@ import com.school.view.SubjectUI;
  *
  */
 public class SubjectCrud implements CrudInterface {
-	private Scanner scanner = new Scanner(System.in);
+	private final ScannerHandler scanner = ScannerHandler.getInstance();
 	private String tempName;
 	private Subject temp;
-	private SubjectUI subjectUi = new SubjectUI(scanner);
+	private SubjectUI subjectUi;
 
 	public SubjectCrud() {
+		this.subjectUi = new SubjectUI(scanner.getScanner());
 		this.tempName = subjectUi.inputSubjectName();
 		this.temp = new Subject(tempName);
 	}

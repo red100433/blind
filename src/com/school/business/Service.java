@@ -1,7 +1,6 @@
 package com.school.business;
 
 import java.util.List;
-import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -15,6 +14,7 @@ import com.school.dao.GradeDao;
 import com.school.dao.StudentDao;
 import com.school.dao.SubjectDao;
 import com.school.dao.TeacherDao;
+import com.school.handler.ScannerHandler;
 import com.school.models.Employee;
 import com.school.models.Grade;
 import com.school.models.Student;
@@ -44,13 +44,13 @@ public class Service {
 	private static final int EMPLOYEE = 2;
 	private static final int TEACHER = 3;
 
-	private Scanner scanner = new Scanner(System.in);
 	private List<Employee> empList;
 	private List<Grade> gradeList;
 	private List<Student> stuList;
 	private List<Subject> subList;
 	private List<Teacher> teacherList;
 	private final ServiceUI serviceUi;
+	private final ScannerHandler scanner;
 
 	public Service() {
 		this.empList = new EmployeeDao().readDataList();
@@ -58,7 +58,8 @@ public class Service {
 		this.stuList = new StudentDao().readDataList();
 		this.subList = new SubjectDao().readDataList();
 		this.teacherList = new TeacherDao().readDataList();
-		this.serviceUi = new ServiceUI(scanner);
+		this.scanner = new ScannerHandler();
+		this.serviceUi = new ServiceUI(scanner.getScanner());
 	}
 
 	public void programStart() {
