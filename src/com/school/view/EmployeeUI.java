@@ -2,6 +2,11 @@ package com.school.view;
 
 import java.util.Scanner;
 
+/**
+ *
+ * @author daeyun-jang
+ *
+ */
 public class EmployeeUI {
 	Scanner scanner;
 

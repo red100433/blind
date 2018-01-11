@@ -93,6 +93,7 @@ public class Service {
 					break;
 			}
 
+			//조회를 제외한 수정 삭제 입력일떄, Thread를 생성해서 FileSystem에 저장함
 			if (!crud.equals(SELECT)) {
 				int revperson = person;
 				executor.submit(() -> {
@@ -107,7 +108,6 @@ public class Service {
 	private void performanceManagement(String crudString, List<Grade> gradeList, List<Student> stuList,
 		List<Subject> subList) {
 
-		//TODO:삽입과 수정이 이루어 질때, 과목과 학생리스트에 있는지 검증절차를 진행 해야됌
 		switch (crudString) {
 			case INSERT:
 				this.gradeList = new GradeCrud(subList, stuList).insert(gradeList);
@@ -145,7 +145,6 @@ public class Service {
 	//person Management
 	private void personnelManagement(String crudString, int person, List<Student> stuList, List<Employee> empList,
 		List<Teacher> teacherList, List<Subject> subList) {
-		//TODO: 선생님의 경우 삽입과 수정이 이루어질 때, 과목리스트에 실제로 과목이 있는지 체크해야됌
 		switch (crudString) {
 			case INSERT:
 				if (person == STUDENT) {

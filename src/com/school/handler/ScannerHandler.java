@@ -2,6 +2,11 @@ package com.school.handler;
 
 import java.util.Scanner;
 
+/**
+ *
+ * @author daeyun-jang
+ *
+ */
 public class ScannerHandler {
 	private static ScannerHandler t;
 	Scanner scanner;

@@ -6,17 +6,22 @@ import com.school.business.FileSystem;
 import com.school.inter.DaoInterface;
 import com.school.models.Student;
 
+/**
+ *
+ * @author daeyun-jang
+ *
+ */
 public class StudentDao implements DaoInterface {
-	static final String stuPath = "stuObject.txt";
+	static final String STU_PATH = "stuObject.txt";
 	FileSystem fs = FileSystem.getInstance();
 
 	@Override
 	public List<Student> readDataList() {
-		return (List<Student>)fs.readListObject(stuPath);
+		return (List<Student>)fs.readListObject(STU_PATH);
 	}
 
 	@Override
 	public void writeDataList(List<?> stuList) {
-		fs.writeListObject(stuList, stuPath);
+		fs.writeListObject(stuList, STU_PATH);
 	}
 }

@@ -3,6 +3,11 @@ package com.school.models;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ *
+ * @author daeyun-jang
+ *
+ */
 public class Employee implements Serializable {
 	private int employeeId;
 	private String employeeName;
