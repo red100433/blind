@@ -2,6 +2,7 @@ package com.school.business;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import com.school.business.crud.EmployeeCrud;
@@ -45,15 +46,17 @@ public class Service {
 	}
 
 	public void programStart() {
+		ExecutorService executor = Executors.newSingleThreadExecutor();
 
 		while (true) {
 			System.out.println("1.인원관리  2.과목관리  3.성적관리  99.종료>>");
 			String management = scanner.nextLine();
 			int person = 0;
 			if (management.equals("99")) {
-				scanner.close();
 				new FileSystemManagement().wirte(stuList, empList, teacherList, subList,
 					gradeList);
+				scanner.close();
+				executor.shutdown();
 				return;
 			}
 
@@ -78,7 +81,7 @@ public class Service {
 
 			if (!crud.equals("4")) {
 				int revperson = person;
-				Executors.newSingleThreadExecutor().execute(() -> {
+				executor.submit(() -> {
 					new FileSystemManagement().wirte(management, revperson, stuList, empList, teacherList, subList,
 						gradeList);
 				});
