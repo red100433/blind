@@ -3,6 +3,7 @@ package com.school.business.crud;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.school.exception.InvalidException;
 import com.school.handler.ScannerHandler;
 import com.school.inter.CrudInterface;
 import com.school.models.Subject;
@@ -51,7 +52,7 @@ public class TeacherCrud implements CrudInterface {
 		if (teacherFlag) {
 			list.add((T)temp);
 		} else {
-			System.out.println("등록된 과목이  아닙니다.");
+			throw new InvalidException("등록된 과목이  아닙니다.");
 		}
 
 		return (List<T>)list.stream().distinct().collect(Collectors.toList());
@@ -79,7 +80,7 @@ public class TeacherCrud implements CrudInterface {
 					((Teacher)e).setBirth((setBirth));
 					((Teacher)e).setSubjectName((setSubjectName));
 				} else {
-					System.out.println("변경될 교과목이 등록되지 않은 과목입니다. 먼저 교과목을 등록해주세요");
+					throw new InvalidException("변경될 교과목이 등록되지 않은 과목입니다. 먼저 교과목을 등록해주세요");
 				}
 			}
 		}
