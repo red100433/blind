@@ -1,0 +1,31 @@
+package com.school.view;
+
+import java.util.Scanner;
+
+public class EmployeeUI {
+	Scanner scanner;
+
+	public EmployeeUI(Scanner scanner) {
+		this.scanner = scanner;
+	}
+
+	public String inputEmployeeName() {
+		System.out.println("교직원 이름>>");
+		return scanner.nextLine();
+	}
+
+	public String inputEmployeeBirth() {
+		System.out.println("교직원 생일>>");
+		return scanner.nextLine();
+	}
+
+	public String changeEmployeeName() {
+		System.out.println("변경될 교직원이름>>");
+		return scanner.nextLine();
+	}
+
+	public String changeEmployeeBirth() {
+		System.out.println("변경될 생일>>");
+		return scanner.nextLine();
+	}
+}

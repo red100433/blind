@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import com.school.inter.CrudInterface;
 import com.school.models.Subject;
 import com.school.models.Teacher;
+import com.school.view.TeacherUI;
 
 /**
  *
@@ -20,25 +21,20 @@ public class TeacherCrud implements CrudInterface {
 	private String tempSubjectName;
 	private Teacher temp;
 	private List<Subject> subList;
+	private TeacherUI teacherUi = new TeacherUI(scanner);
 
-	public TeacherCrud(List<Subject> subList) {
-		this.subList = subList;
-		System.out.println("선생님 이름>>");
-		this.tempName = scanner.nextLine();
-		System.out.println("선생님 생일>>");
-		this.tempBirth = scanner.nextLine();
-		System.out.println("선생님 교과목>>");
-		this.tempSubjectName = scanner.nextLine();
+	public TeacherCrud() {
+		this.tempName = teacherUi.inputTeacherName();
+		this.tempBirth = teacherUi.inputTeacherBirth();
+		this.tempSubjectName = teacherUi.inputTeacherSubject();
 		this.temp = new Teacher(tempSubjectName, tempName, tempBirth);
 	}
 
-	public TeacherCrud() {
-		System.out.println("선생님 이름>>");
-		this.tempName = scanner.nextLine();
-		System.out.println("선생님 생일>>");
-		this.tempBirth = scanner.nextLine();
-		System.out.println("선생님 교과목>>");
-		this.tempSubjectName = scanner.nextLine();
+	public TeacherCrud(List<Subject> subList) {
+		this.subList = subList;
+		this.tempName = teacherUi.inputTeacherName();
+		this.tempBirth = teacherUi.inputTeacherBirth();
+		this.tempSubjectName = teacherUi.inputTeacherSubject();
 		this.temp = new Teacher(tempSubjectName, tempName, tempBirth);
 	}
 
@@ -65,12 +61,9 @@ public class TeacherCrud implements CrudInterface {
 
 		for (Object e : list) {
 			if (e.equals(temp)) {
-				System.out.println("변경될 선생님이름>>");
-				String setName = scanner.nextLine();
-				System.out.println("변경될 생일>>");
-				String setBirth = scanner.nextLine();
-				System.out.println("변경될 교과목>>");
-				String setSubjectName = scanner.nextLine();
+				String setName = teacherUi.changeTeacherName();
+				String setBirth = teacherUi.changeTeacherBirth();
+				String setSubjectName = teacherUi.changeTeacherSubject();
 
 				for (Subject sub : subList) {
 					if (sub.getSubjectName().equals(setSubjectName)) {

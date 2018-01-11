@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import com.school.inter.CrudInterface;
 import com.school.models.Subject;
+import com.school.view.SubjectUI;
 
 /**
  *
@@ -16,10 +17,10 @@ public class SubjectCrud implements CrudInterface {
 	private Scanner scanner = new Scanner(System.in);
 	private String tempName;
 	private Subject temp;
+	private SubjectUI subjectUi = new SubjectUI(scanner);
 
 	public SubjectCrud() {
-		System.out.println("과목 이름>>");
-		this.tempName = scanner.nextLine();
+		this.tempName = subjectUi.inputSubjectName();
 		this.temp = new Subject(tempName);
 	}
 
@@ -35,8 +36,7 @@ public class SubjectCrud implements CrudInterface {
 		for (Object e : list) {
 			Subject s = (Subject)e;
 			if (s.equals(temp)) {
-				System.out.println("변경될 과목이름>>");
-				String setName = scanner.nextLine();
+				String setName = subjectUi.changeSubjectName();
 				list.remove(new Subject(setName));
 				((Subject)e).setSubjectName(setName);
 				return (List<T>)list;

@@ -20,6 +20,7 @@ import com.school.models.Grade;
 import com.school.models.Student;
 import com.school.models.Subject;
 import com.school.models.Teacher;
+import com.school.view.ServiceUI;
 
 /**
  *
@@ -49,6 +50,7 @@ public class Service {
 	private List<Student> stuList;
 	private List<Subject> subList;
 	private List<Teacher> teacherList;
+	private final ServiceUI serviceUi;
 
 	public Service() {
 		this.empList = new EmployeeDao().readDataList();
@@ -56,14 +58,14 @@ public class Service {
 		this.stuList = new StudentDao().readDataList();
 		this.subList = new SubjectDao().readDataList();
 		this.teacherList = new TeacherDao().readDataList();
+		this.serviceUi = new ServiceUI(scanner);
 	}
 
 	public void programStart() {
 		ExecutorService executor = Executors.newSingleThreadExecutor();
 
 		while (true) {
-			System.out.println("1.인원관리  2.과목관리  3.성적관리  99.종료>>");
-			String management = scanner.nextLine();
+			String management = serviceUi.selectManageMent();
 			int person = 0;
 			if (management.equals(EXIT)) {
 				new FileSystemManagement().wirte(stuList, empList, teacherList, subList,
@@ -73,13 +75,11 @@ public class Service {
 				return;
 			}
 
-			System.out.println("1.입력   2.수정  3.삭제  4.조회>>");
-			String crud = scanner.nextLine();
+			String crud = serviceUi.selectCrud();
 
 			switch (management) {
 				case PERSON_MANAGE:
-					System.out.println("1.학생 2.교직원 3.선생님>>");
-					person = Integer.parseInt(scanner.nextLine());
+					person = serviceUi.selectPerson();
 					personnelManagement(crud, person, stuList, empList, teacherList, subList);
 					break;
 

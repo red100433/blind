@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import com.school.inter.CrudInterface;
 import com.school.models.Employee;
+import com.school.view.EmployeeUI;
 
 /**
  *
@@ -17,12 +18,12 @@ public class EmployeeCrud implements CrudInterface {
 	private String tempName;
 	private String tempBirth;
 	private Employee temp;
+	private final EmployeeUI employeeUI = new EmployeeUI(scanner);
 
 	public EmployeeCrud() {
-		System.out.println("교직원 이름>>");
-		this.tempName = scanner.nextLine();
-		System.out.println("교직원 생일>>");
-		this.tempName = scanner.nextLine();
+
+		this.tempName = employeeUI.inputEmployeeName();
+		this.tempBirth = employeeUI.inputEmployeeBirth();
 		this.temp = new Employee(tempName, tempBirth);
 	}
 
@@ -37,10 +38,8 @@ public class EmployeeCrud implements CrudInterface {
 	public <T> List<T> update(List<? super T> list) {
 		for (Object e : list) {
 			if (e.equals(temp)) {
-				System.out.println("변경될 교직원이름>>");
-				String setName = scanner.nextLine();
-				System.out.println("변경될 생일>>");
-				String setBirth = scanner.nextLine();
+				String setName = employeeUI.changeEmployeeName();
+				String setBirth = employeeUI.changeEmployeeBirth();
 				list.remove(new Employee(setName, setBirth));
 				((Employee)e).setEmployeeName(setName);
 				((Employee)e).setBirth((setBirth));

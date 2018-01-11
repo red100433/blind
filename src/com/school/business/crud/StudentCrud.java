@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import com.school.inter.CrudInterface;
 import com.school.models.Student;
+import com.school.view.StudentUI;
 
 /**
  *
@@ -17,12 +18,11 @@ public class StudentCrud implements CrudInterface {
 	private String tempName;
 	private String tempBirth;
 	private Student temp;
+	private StudentUI studentUI = new StudentUI(scanner);
 
 	public StudentCrud() {
-		System.out.println("학생 이름>>");
-		this.tempName = scanner.nextLine();
-		System.out.println("학생 생일>>");
-		this.tempBirth = scanner.nextLine();
+		this.tempName = studentUI.inputStudentName();
+		this.tempBirth = studentUI.inputStudentBirth();
 		this.temp = new Student(tempName, tempBirth);
 	}
 
@@ -37,10 +37,8 @@ public class StudentCrud implements CrudInterface {
 	public <T> List<T> update(List<? super T> list) {
 		for (Object e : list) {
 			if (e.equals(temp)) {
-				System.out.println("변경될 학생이름>>");
-				String setName = scanner.nextLine();
-				System.out.println("변경될 생일>>");
-				String setBirth = scanner.nextLine();
+				String setName = studentUI.changeStudentName();
+				String setBirth = studentUI.changeStudentBirth();
 				list.remove(new Student(setName, setBirth));
 				((Student)e).setStudentName(setName);
 				((Student)e).setBirth((setBirth));

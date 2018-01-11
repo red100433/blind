@@ -8,6 +8,7 @@ import com.school.inter.CrudInterface;
 import com.school.models.Grade;
 import com.school.models.Student;
 import com.school.models.Subject;
+import com.school.view.GradeUI;
 
 /**
  *
@@ -27,23 +28,19 @@ public class GradeCrud implements CrudInterface {
 	private Grade temp;
 	private List<Subject> subList;
 	private List<Student> stuList;
+	private final GradeUI gradeUI = new GradeUI(scanner);
 
 	public GradeCrud() {
-		System.out.println("학생 이름>>");
-		this.tempStudentName = scanner.nextLine();
-		System.out.println("과목 이름>>");
-		this.tempSubjectName = scanner.nextLine();
+		this.tempStudentName = gradeUI.inputStudentName();
+		this.tempSubjectName = gradeUI.inputSubjectName();
 		this.temp = new Grade(tempStudentName, tempSubjectName);
 	}
 
 	public GradeCrud(List<Subject> subList, List<Student> stuList) {
 		this.subList = subList;
 		this.stuList = stuList;
-
-		System.out.println("학생 이름>>");
-		this.tempStudentName = scanner.nextLine();
-		System.out.println("과목 이름>>");
-		this.tempSubjectName = scanner.nextLine();
+		this.tempStudentName = gradeUI.inputStudentName();
+		this.tempSubjectName = gradeUI.inputSubjectName();
 		this.temp = new Grade(tempStudentName, tempSubjectName);
 	}
 
@@ -63,12 +60,11 @@ public class GradeCrud implements CrudInterface {
 		}
 
 		if (stuFlag & subFlag) {
-			System.out.println("성적>>");
-			this.tempGrade = Integer.parseInt(scanner.nextLine());
+			this.tempGrade = gradeUI.inputGrade();
 			this.temp = new Grade(tempStudentName, tempSubjectName, tempGrade);
 			list.add((T)temp);
 		} else {
-			System.out.println("등록된 학생이나 과목이  아닙니다. 먼저 등록해주세요");
+			System.out.println("등록된 학생이나 과목이  아닙니다. 먼저 등록해주세요"); // exception
 		}
 		return (List<T>)list.stream().distinct().collect(Collectors.toList());
 	}
@@ -80,10 +76,9 @@ public class GradeCrud implements CrudInterface {
 
 		for (Object e : list) {
 			if (e.equals(temp)) {
-				System.out.println("변경될 학생이름>>");
-				String setStudentName = scanner.nextLine();
-				System.out.println("변경될 과목이름>>");
-				String setSubjectName = scanner.nextLine();
+
+				String setStudentName = gradeUI.changeStudentName();
+				String setSubjectName = gradeUI.changeSubjectName();
 
 				for (Student stu : stuList) {
 					if (stu.getStudentName().equals(setStudentName)) {
@@ -97,13 +92,12 @@ public class GradeCrud implements CrudInterface {
 				}
 
 				if (stuFlag & subFlag) {
-					System.out.println("변경될 점수>>");
-					String setGrade = scanner.nextLine();
+					int setGrade = gradeUI.exchangeGrade();
 
 					list.remove(new Grade(setStudentName, setSubjectName));
 					((Grade)e).setStudentName(setStudentName);
 					((Grade)e).setSubjectName((setSubjectName));
-					((Grade)e).setGrade(Integer.parseInt(setGrade));
+					((Grade)e).setGrade(setGrade);
 				} else {
 					System.out.println("변경될 학생이나 과목이 등록되지 않았습니다. 먼저 등록해주세요");
 				}
@@ -120,14 +114,13 @@ public class GradeCrud implements CrudInterface {
 	}
 
 	public void read(List<Grade> list, List<Subject> subList, List<Student> stuList) {
-		System.out.println("1.전체조회 2.학생별 조회 3.학생 평균 4.전체 평균>>");
-		int check = Integer.parseInt(scanner.nextLine());
+		int check = gradeUI.selectWay();
 
 		if (check == ALL_SELECT) {
 			list.forEach(System.out::println);
 		} else if (check == STUDENT_SELECT) {
-			System.out.println("학생 이름>>");
-			String name = scanner.nextLine();
+			String name = gradeUI.searchName();
+
 			list.stream().filter(s -> s.getStudentName().equals(name)).forEach(System.out::println);
 			double average = list.stream().filter(s -> s.getStudentName().equals(name))
 				.mapToInt(Grade::getGrade).average().getAsDouble();
