@@ -80,27 +80,27 @@ public class GradeCrud implements CrudInterface {
 		for (Object e : list) {
 			if (e.equals(temp)) {
 
-				String setStudentName = gradeUI.changeStudentName();
-				String setSubjectName = gradeUI.changeSubjectName();
+				String changeStudentName = gradeUI.changeStudentName();
+				String changeSubjectName = gradeUI.changeSubjectName();
 
 				for (Student stu : stuList) {
-					if (stu.getStudentName().equals(setStudentName)) {
+					if (stu.getStudentName().equals(changeStudentName)) {
 						stuFlag = true;
 					}
 				}
 				for (Subject sub : subList) {
-					if (sub.getSubjectName().equals(setSubjectName)) {
+					if (sub.getSubjectName().equals(changeSubjectName)) {
 						subFlag = true;
 					}
 				}
 
 				if (stuFlag & subFlag) {
-					int setGrade = gradeUI.exchangeGrade();
+					int changeGrade = gradeUI.exchangeGrade();
 
-					list.remove(new Grade(setStudentName, setSubjectName));
-					((Grade)e).setStudentName(setStudentName);
-					((Grade)e).setSubjectName((setSubjectName));
-					((Grade)e).setGrade(setGrade);
+					list.remove(new Grade(changeStudentName, changeSubjectName));
+					((Grade)e).setStudentName(changeStudentName);
+					((Grade)e).setSubjectName((changeSubjectName));
+					((Grade)e).setGrade(changeGrade);
 				} else {
 					throw new InvalidException("변경될 학생이나 과목이 등록되지 않았습니다. 먼저 등록해주세요");
 				}

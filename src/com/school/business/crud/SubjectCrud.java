@@ -37,9 +37,9 @@ public class SubjectCrud implements CrudInterface {
 		for (Object e : list) {
 			Subject s = (Subject)e;
 			if (s.equals(temp)) {
-				String setName = subjectUi.changeSubjectName();
-				list.remove(new Subject(setName));
-				((Subject)e).setSubjectName(setName);
+				String changeName = subjectUi.changeSubjectName();
+				list.remove(new Subject(changeName));
+				((Subject)e).setSubjectName(changeName);
 				return (List<T>)list;
 			}
 		}

@@ -64,21 +64,21 @@ public class TeacherCrud implements CrudInterface {
 
 		for (Object e : list) {
 			if (e.equals(temp)) {
-				String setName = teacherUi.changeTeacherName();
-				String setBirth = teacherUi.changeTeacherBirth();
-				String setSubjectName = teacherUi.changeTeacherSubject();
+				String changeName = teacherUi.changeTeacherName();
+				String changeBirth = teacherUi.changeTeacherBirth();
+				String changeSubjectName = teacherUi.changeTeacherSubject();
 
 				for (Subject sub : subList) {
-					if (sub.getSubjectName().equals(setSubjectName)) {
+					if (sub.getSubjectName().equals(changeSubjectName)) {
 						teacherFlag = true;
 					}
 				}
 
 				if (teacherFlag) {
-					list.remove(new Teacher(setSubjectName, setName, setBirth));
-					((Teacher)e).setTeacherName(setName);
-					((Teacher)e).setBirth((setBirth));
-					((Teacher)e).setSubjectName((setSubjectName));
+					list.remove(new Teacher(changeSubjectName, changeName, changeBirth));
+					((Teacher)e).setTeacherName(changeName);
+					((Teacher)e).setBirth((changeBirth));
+					((Teacher)e).setSubjectName((changeSubjectName));
 				} else {
 					throw new InvalidException("변경될 교과목이 등록되지 않은 과목입니다. 먼저 교과목을 등록해주세요");
 				}

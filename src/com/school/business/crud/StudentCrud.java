@@ -38,11 +38,11 @@ public class StudentCrud implements CrudInterface {
 	public <T> List<T> update(List<? super T> list) {
 		for (Object e : list) {
 			if (e.equals(temp)) {
-				String setName = studentUI.changeStudentName();
-				String setBirth = studentUI.changeStudentBirth();
-				list.remove(new Student(setName, setBirth));
-				((Student)e).setStudentName(setName);
-				((Student)e).setBirth((setBirth));
+				String changeName = studentUI.changeStudentName();
+				String changeBirth = studentUI.changeStudentBirth();
+				list.remove(new Student(changeName, changeBirth));
+				((Student)e).setStudentName(changeName);
+				((Student)e).setBirth((changeBirth));
 				return (List<T>)list;
 			}
 		}

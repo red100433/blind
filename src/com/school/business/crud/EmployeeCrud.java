@@ -38,11 +38,11 @@ public class EmployeeCrud implements CrudInterface {
 	public <T> List<T> update(List<? super T> list) {
 		for (Object e : list) {
 			if (e.equals(temp)) {
-				String setName = employeeUI.changeEmployeeName();
-				String setBirth = employeeUI.changeEmployeeBirth();
-				list.remove(new Employee(setName, setBirth));
-				((Employee)e).setEmployeeName(setName);
-				((Employee)e).setBirth((setBirth));
+				String changeName = employeeUI.changeEmployeeName();
+				String changeBirth = employeeUI.changeEmployeeBirth();
+				list.remove(new Employee(changeName, changeBirth));
+				((Employee)e).setEmployeeName(changeName);
+				((Employee)e).setBirth((changeBirth));
 				return (List<T>)list;
 			}
 		}
