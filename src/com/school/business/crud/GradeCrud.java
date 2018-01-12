@@ -17,10 +17,7 @@ import com.school.view.GradeUI;
  *
  */
 public class GradeCrud implements CrudInterface {
-	private static final int ALL_SELECT = 1;
-	private static final int STUDENT_SELECT = 2;
-	private static final int STUDENT_AVERAGE_SELECT = 3;
-	private static final int ALL_AVERAGE_SELECT = 4;
+
 	private final ScannerHandler scanner = ScannerHandler.getInstance();
 
 	private String tempStudentName;
@@ -115,38 +112,4 @@ public class GradeCrud implements CrudInterface {
 		list.remove(temp);
 		return (List<T>)list;
 	}
-
-	public void read(List<Grade> list, List<Subject> subList, List<Student> stuList) {
-		int check = gradeUI.selectWay();
-
-		if (check == ALL_SELECT) {
-			list.forEach(System.out::println);
-		} else if (check == STUDENT_SELECT) {
-			String name = gradeUI.searchName();
-
-			list.stream().filter(s -> s.getStudentName().equals(name)).forEach(System.out::println);
-			double average = list.stream().filter(s -> s.getStudentName().equals(name))
-				.mapToInt(Grade::getGrade).average().getAsDouble();
-			System.out.println(name + "의 평균: " + average);
-		} else if (check == STUDENT_AVERAGE_SELECT) {
-			for (Student stu : stuList) {
-				double average = list.stream().filter(s -> s.getStudentName().equals(stu.getStudentName()))
-					.mapToInt(Grade::getGrade).average().getAsDouble();
-				System.out.println(stu.getStudentName() + "의 평균: " + average);
-			}
-		} else if (check == ALL_AVERAGE_SELECT) {
-			for (Student stu : stuList) {
-				double average = list.stream().filter(s -> s.getStudentName().equals(stu.getStudentName()))
-					.mapToInt(Grade::getGrade).average().getAsDouble();
-				System.out.println(stu.getStudentName() + "의 평균: " + average);
-			}
-
-			for (Subject sub : subList) {
-				double average = list.stream().filter(s -> s.getSubjectName().equals(sub.getSubjectName()))
-					.mapToInt(Grade::getGrade).average().getAsDouble();
-				System.out.println(sub.getSubjectName() + "의 평균: " + average);
-			}
-		}
-	}
-
 }

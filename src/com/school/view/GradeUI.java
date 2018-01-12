@@ -1,6 +1,11 @@
 package com.school.view;
 
+import java.util.List;
 import java.util.Scanner;
+
+import com.school.models.Grade;
+import com.school.models.Student;
+import com.school.models.Subject;
 
 /**
  *
@@ -8,7 +13,11 @@ import java.util.Scanner;
  *
  */
 public class GradeUI {
-	Scanner scanner;
+	private static final int ALL_SELECT = 1;
+	private static final int STUDENT_SELECT = 2;
+	private static final int STUDENT_AVERAGE_SELECT = 3;
+	private static final int ALL_AVERAGE_SELECT = 4;
+	private Scanner scanner;
 
 	public GradeUI(Scanner scanner) {
 		this.scanner = scanner;
@@ -68,5 +77,39 @@ public class GradeUI {
 	public String searchName() {
 		System.out.println("찾으실 학생의 이름>>");
 		return scanner.nextLine();
+	}
+
+	public void getGradePrint(List<Grade> gradeList, List<Student> stuList,
+		List<Subject> subList) {
+		int check = selectWay();
+
+		if (check == ALL_SELECT) {
+			gradeList.forEach(System.out::println);
+		} else if (check == STUDENT_SELECT) {
+			String name = searchName();
+
+			stuList.stream().filter(s -> s.getStudentName().equals(name)).forEach(System.out::println);
+			double average = gradeList.stream().filter(s -> s.getStudentName().equals(name))
+				.mapToInt(Grade::getGrade).average().getAsDouble();
+			System.out.println(name + "의 평균: " + average);
+		} else if (check == STUDENT_AVERAGE_SELECT) {
+			for (Student stu : stuList) {
+				double average = gradeList.stream().filter(s -> s.getStudentName().equals(stu.getStudentName()))
+					.mapToInt(Grade::getGrade).average().getAsDouble();
+				System.out.println(stu.getStudentName() + "의 평균: " + average);
+			}
+		} else if (check == ALL_AVERAGE_SELECT) {
+			for (Student stu : stuList) {
+				double average = gradeList.stream().filter(s -> s.getStudentName().equals(stu.getStudentName()))
+					.mapToInt(Grade::getGrade).average().getAsDouble();
+				System.out.println(stu.getStudentName() + "의 평균: " + average);
+			}
+
+			for (Subject sub : subList) {
+				double average = gradeList.stream().filter(s -> s.getSubjectName().equals(sub.getSubjectName()))
+					.mapToInt(Grade::getGrade).average().getAsDouble();
+				System.out.println(sub.getSubjectName() + "의 평균: " + average);
+			}
+		}
 	}
 }

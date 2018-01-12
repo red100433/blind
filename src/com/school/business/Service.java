@@ -20,6 +20,7 @@ import com.school.models.Grade;
 import com.school.models.Student;
 import com.school.models.Subject;
 import com.school.models.Teacher;
+import com.school.view.GradeUI;
 import com.school.view.ServiceUI;
 
 /**
@@ -51,6 +52,7 @@ public class Service {
 	private List<Teacher> teacherList;
 	private final ServiceUI serviceUi;
 	private final ScannerHandler scanner;
+	private final GradeUI gradeUI;
 
 	public Service() {
 		this.empList = new EmployeeDao().readDataList();
@@ -60,6 +62,7 @@ public class Service {
 		this.teacherList = new TeacherDao().readDataList();
 		this.scanner = new ScannerHandler();
 		this.serviceUi = new ServiceUI(scanner.getScanner());
+		this.gradeUI = new GradeUI(scanner.getScanner());
 	}
 
 	public void programStart() {
@@ -119,7 +122,7 @@ public class Service {
 				this.gradeList = new GradeCrud().delete(gradeList);
 				break;
 			case SELECT:
-				new GradeCrud().read(gradeList, subList, stuList);
+				gradeUI.getGradePrint(gradeList, stuList, subList);
 				break;
 		}
 	}
