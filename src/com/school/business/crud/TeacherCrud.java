@@ -16,6 +16,7 @@ import com.school.view.TeacherUI;
  *
  */
 public class TeacherCrud implements CrudInterface {
+	private static final int LIMIT_TEACHER = 1000;
 	private final ScannerHandler scanner = ScannerHandler.getInstance();
 	private String tempName;
 	private String tempBirth;
@@ -49,10 +50,10 @@ public class TeacherCrud implements CrudInterface {
 				teacherFlag = true;
 			}
 		}
-		if (teacherFlag) {
+		if (teacherFlag & list.size() != LIMIT_TEACHER) {
 			list.add((T)temp);
 		} else {
-			throw new InvalidException("등록된 과목이  아닙니다.");
+			throw new InvalidException("등록된 과목이  아니거나 제한된 선생님의 수를 넘었습니다. 확인해주세요");
 		}
 
 		return (List<T>)list.stream().distinct().collect(Collectors.toList());

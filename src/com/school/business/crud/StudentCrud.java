@@ -14,6 +14,7 @@ import com.school.view.StudentUI;
  *
  */
 public class StudentCrud implements CrudInterface {
+	private static final int LIMIT_STUDENT = 1000;
 	private final ScannerHandler scanner = ScannerHandler.getInstance();
 	private String tempName;
 	private String tempBirth;
@@ -29,7 +30,11 @@ public class StudentCrud implements CrudInterface {
 
 	@Override
 	public <T> List<T> insert(List<? super T> list) {
-		list.add((T)temp);
+		if (list.size() != LIMIT_STUDENT) {
+			list.add((T)temp);
+		} else {
+			this.studentUI.limitStudent();
+		}
 
 		return (List<T>)list.stream().distinct().collect(Collectors.toList());
 	}

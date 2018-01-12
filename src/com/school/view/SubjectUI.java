@@ -24,4 +24,7 @@ public class SubjectUI {
 		return scanner.nextLine();
 	}
 
+	public void limitSubject() {
+		System.out.println("제한수된 과목수를 넘었습니다. 삭제해 주세요");
+	}
 }

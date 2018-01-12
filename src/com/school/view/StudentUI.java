@@ -33,4 +33,8 @@ public class StudentUI {
 		System.out.println("변경될 생일>>");
 		return scanner.nextLine();
 	}
+
+	public void limitStudent() {
+		System.out.println("제한수된 학생수를 넘었습니다. 삭제해 주세요");
+	}
 }

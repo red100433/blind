@@ -14,6 +14,7 @@ import com.school.view.SubjectUI;
  *
  */
 public class SubjectCrud implements CrudInterface {
+	private static final int LIMIT_SUBJECT = 100;
 	private final ScannerHandler scanner = ScannerHandler.getInstance();
 	private String tempName;
 	private Subject temp;
@@ -27,7 +28,11 @@ public class SubjectCrud implements CrudInterface {
 
 	@Override
 	public <T> List<T> insert(List<? super T> list) {
-		list.add((T)temp);
+		if (list.size() != LIMIT_SUBJECT) {
+			list.add((T)temp);
+		} else {
+			this.subjectUi.limitSubject();
+		}
 
 		return (List<T>)list.stream().distinct().collect(Collectors.toList());
 	}

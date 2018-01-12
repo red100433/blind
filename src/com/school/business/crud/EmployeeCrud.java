@@ -14,6 +14,7 @@ import com.school.view.EmployeeUI;
  *
  */
 public class EmployeeCrud implements CrudInterface {
+	private static final int LIMIT_EMPLOYEE = 1000;
 	private String tempName;
 	private String tempBirth;
 	private Employee temp;
@@ -29,7 +30,11 @@ public class EmployeeCrud implements CrudInterface {
 
 	@Override
 	public <T> List<T> insert(List<? super T> list) {
-		list.add((T)temp);
+		if (list.size() != LIMIT_EMPLOYEE) {
+			list.add((T)temp);
+		} else {
+			this.employeeUI.limitEmployee();
+		}
 
 		return (List<T>)list.stream().distinct().collect(Collectors.toList());
 	}
