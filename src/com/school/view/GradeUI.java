@@ -1,7 +1,6 @@
 package com.school.view;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.OptionalDouble;
 import java.util.Scanner;
 
@@ -147,9 +146,4 @@ public class GradeUI {
 		}
 	}
 
-	public int OptionalData(Grade grade) {
-		return Optional.ofNullable(grade.getGrade())
-			.filter(s -> s >= 0)
-			.orElse(0);
-	}
 }
