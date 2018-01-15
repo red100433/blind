@@ -8,7 +8,7 @@ import java.util.Scanner;
  *
  */
 public class SubjectUI {
-	Scanner scanner;
+	private final Scanner scanner;
 
 	public SubjectUI(Scanner scanner) {
 		this.scanner = scanner;

@@ -8,7 +8,7 @@ import java.util.Scanner;
  *
  */
 public class TeacherUI {
-	Scanner scanner;
+	private final Scanner scanner;
 
 	public TeacherUI(Scanner scanner) {
 		this.scanner = scanner;
