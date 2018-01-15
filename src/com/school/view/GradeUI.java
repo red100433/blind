@@ -1,6 +1,8 @@
 package com.school.view;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.OptionalDouble;
 import java.util.Scanner;
 
 import com.school.models.Grade;
@@ -89,43 +91,65 @@ public class GradeUI {
 			String name = searchName();
 
 			gradeList.stream().filter(s -> s.getStudentName().equals(name)).forEach(System.out::println);
-			double average = gradeList.stream()
+			OptionalDouble average = gradeList.stream()
 				.filter(s -> s.getStudentName().equals(name))
 				.mapToInt(Grade::getGrade)
-				.average()
-				.getAsDouble();
+				.average();
 
-			System.out.println(name + "의 평균: " + average);
+			if (average.isPresent()) {
+				System.out.println(name + "의 평균: " + average.getAsDouble());
+			} else {
+				System.out.println(name + "의 등록된 성적이 없습니다.");
+			}
+
 		} else if (check == STUDENT_AVERAGE_SELECT) {
 			for (Student stu : stuList) {
-				double average = gradeList.stream()
+				OptionalDouble average = gradeList.stream()
 					.filter(s -> s.getStudentName().equals(stu.getStudentName()))
+
 					.mapToInt(Grade::getGrade)
-					.average()
-					.getAsDouble();
-				System.out.println(stu.getStudentName() + "의 평균: " + average);
+					.average();
+
+				if (average.isPresent()) {
+					System.out.println(stu.getStudentName() + "의 평균: " + average.getAsDouble());
+				} else {
+					System.out.println(stu.getStudentName() + "의 등록된 성적이 없습니다.");
+				}
 			}
 
 		} else if (check == ALL_AVERAGE_SELECT) {
 			for (Student stu : stuList) {
-				double average = gradeList.stream()
+				OptionalDouble average = gradeList.stream()
 					.filter(s -> s.getStudentName().equals(stu.getStudentName()))
-					.mapToInt(Grade::getGrade)
-					.average()
-					.getAsDouble();
-				System.out.println(stu.getStudentName() + "의 평균: " + average);
+					.mapToInt(s -> s.getGrade())
+					.average();
+
+				if (average.isPresent()) {
+					System.out.println(stu.getStudentName() + "의 평균: " + average.getAsDouble());
+				} else {
+					System.out.println(stu.getStudentName() + "의 등록된 성적이 없습니다.");
+				}
 			}
 
 			for (Subject sub : subList) {
-				double average = gradeList.stream()
+				OptionalDouble average = gradeList.stream()
 					.filter(s -> s.getSubjectName()
 						.equals(sub.getSubjectName()))
 					.mapToInt(Grade::getGrade)
-					.average()
-					.getAsDouble();
-				System.out.println(sub.getSubjectName() + "의 평균: " + average);
+					.average();
+				if (average.isPresent()) {
+					System.out.println(sub.getSubjectName() + "의 평균: " + average.getAsDouble());
+				} else {
+					System.out.println(sub.getSubjectName() + " 과목의 등록된 성적이 없습니다.");
+				}
 			}
 
 		}
+	}
+
+	public int OptionalData(Grade grade) {
+		return Optional.ofNullable(grade.getGrade())
+			.filter(s -> s >= 0)
+			.orElse(0);
 	}
 }
