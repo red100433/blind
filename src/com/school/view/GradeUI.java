@@ -88,28 +88,44 @@ public class GradeUI {
 		} else if (check == STUDENT_SELECT) {
 			String name = searchName();
 
-			stuList.stream().filter(s -> s.getStudentName().equals(name)).forEach(System.out::println);
-			double average = gradeList.stream().filter(s -> s.getStudentName().equals(name))
-				.mapToInt(Grade::getGrade).average().getAsDouble();
+			gradeList.stream().filter(s -> s.getStudentName().equals(name)).forEach(System.out::println);
+			double average = gradeList.stream()
+				.filter(s -> s.getStudentName().equals(name))
+				.mapToInt(Grade::getGrade)
+				.average()
+				.getAsDouble();
+
 			System.out.println(name + "의 평균: " + average);
 		} else if (check == STUDENT_AVERAGE_SELECT) {
 			for (Student stu : stuList) {
-				double average = gradeList.stream().filter(s -> s.getStudentName().equals(stu.getStudentName()))
-					.mapToInt(Grade::getGrade).average().getAsDouble();
+				double average = gradeList.stream()
+					.filter(s -> s.getStudentName().equals(stu.getStudentName()))
+					.mapToInt(Grade::getGrade)
+					.average()
+					.getAsDouble();
 				System.out.println(stu.getStudentName() + "의 평균: " + average);
 			}
+
 		} else if (check == ALL_AVERAGE_SELECT) {
 			for (Student stu : stuList) {
-				double average = gradeList.stream().filter(s -> s.getStudentName().equals(stu.getStudentName()))
-					.mapToInt(Grade::getGrade).average().getAsDouble();
+				double average = gradeList.stream()
+					.filter(s -> s.getStudentName().equals(stu.getStudentName()))
+					.mapToInt(Grade::getGrade)
+					.average()
+					.getAsDouble();
 				System.out.println(stu.getStudentName() + "의 평균: " + average);
 			}
 
 			for (Subject sub : subList) {
-				double average = gradeList.stream().filter(s -> s.getSubjectName().equals(sub.getSubjectName()))
-					.mapToInt(Grade::getGrade).average().getAsDouble();
+				double average = gradeList.stream()
+					.filter(s -> s.getSubjectName()
+						.equals(sub.getSubjectName()))
+					.mapToInt(Grade::getGrade)
+					.average()
+					.getAsDouble();
 				System.out.println(sub.getSubjectName() + "의 평균: " + average);
 			}
+
 		}
 	}
 }
