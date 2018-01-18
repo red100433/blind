@@ -8,6 +8,10 @@ tmp/
 *.swp
 *.txt
 *~.nib
+
+.idea/
+2018_1st_intern.iml
+
 local.properties
 .settings/
 .loadpath
@@ -78,3 +82,4 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+/target/
