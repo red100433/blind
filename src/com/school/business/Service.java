@@ -65,6 +65,10 @@ public class Service {
 		this.gradeUI = new GradeUI(scanner.getScanner());
 	}
 
+	public List<Subject> readSubject() {
+		return this.subList;
+	}
+
 	public void programStart() {
 		ExecutorService executor = Executors.newSingleThreadExecutor();
 
