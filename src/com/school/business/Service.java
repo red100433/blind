@@ -54,7 +54,18 @@ public class Service {
 	private final ScannerHandler scanner;
 	private final GradeUI gradeUI;
 
-	public Service() {
+	private static Service t;
+
+	public static Service getInstance() {
+		synchronized (Service.class) {
+			if (t == null) {
+				t = new Service();
+			}
+		}
+		return t;
+	}
+
+	private Service() {
 		this.empList = new EmployeeDao().readDataList();
 		this.gradeList = new GradeDao().readDataList();
 		this.stuList = new StudentDao().readDataList();
