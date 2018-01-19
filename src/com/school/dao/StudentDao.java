@@ -12,7 +12,7 @@ import com.school.models.Student;
  *
  */
 public class StudentDao implements DaoInterface {
-	static final String STU_PATH = "stuObject.txt";
+	static final String STU_PATH = "C:\\Users\\NAVER\\Desktop\\java\\basicJava\\stuObject.txt";
 	FileSystem fs = FileSystem.getInstance();
 
 	@Override

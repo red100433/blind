@@ -12,7 +12,7 @@ import com.school.models.Employee;
  *
  */
 public class EmployeeDao implements DaoInterface {
-	static final String EMP_PATH = "empObject.txt";
+	static final String EMP_PATH = "C:\\Users\\NAVER\\Desktop\\java\\basicJava\\empObject.txt";
 	FileSystem fs = FileSystem.getInstance();
 
 	@Override

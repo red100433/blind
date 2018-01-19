@@ -12,7 +12,8 @@ import com.school.models.Subject;
  *
  */
 public class SubjectDao implements DaoInterface {
-	static final String SUB_PATH = "subObject.txt";
+	static final String SUB_PATH = "C:\\Users\\NAVER\\Desktop\\java\\basicJava\\subObject.txt";
+	//	static final String SUB_PATH = "subObject.txt";
 	FileSystem fs = FileSystem.getInstance();
 
 	@Override
