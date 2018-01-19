@@ -11,7 +11,7 @@
 <h1>JSTL MENU Sample</h1>
 
   <c:forEach items="${menulist}" var="menu">
-       <B><c:out value="${menu}" /></B>
+       <B><c:out value="${menu.subjectName}" /></B>
    </c:forEach>
 
 </body>

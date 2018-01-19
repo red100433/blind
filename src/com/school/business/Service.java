@@ -80,46 +80,42 @@ public class Service {
 		return this.subList;
 	}
 
-	public void programStart() {
+	public void programStart(String management, String crud) {
 		ExecutorService executor = Executors.newSingleThreadExecutor();
 
-		while (true) {
-			String management = serviceUi.selectManageMent();
-			int person = 0;
-			if (management.equals(EXIT)) {
-				new FileSystemManagement().wirte(stuList, empList, teacherList, subList,
-					gradeList);
-				scanner.close();
-				executor.shutdown();
-				return;
-			}
-
-			String crud = serviceUi.selectCrud();
-
-			switch (management) {
-				case PERSON_MANAGE:
-					person = serviceUi.selectPerson();
-					personnelManagement(crud, person, stuList, empList, teacherList, subList);
-					break;
-
-				case SUBJECT_MANAGE:
-					subjectManagement(crud, subList);
-					break;
-
-				case GRADE_MANAGE:
-					performanceManagement(crud, gradeList, stuList, subList);
-					break;
-			}
-
-			//조회를 제외한 수정 삭제 입력일떄, Thread를 생성해서 FileSystem에 저장함
-			if (!crud.equals(SELECT)) {
-				int revperson = person;
-				executor.submit(() -> {
-					new FileSystemManagement().wirte(management, revperson, stuList, empList, teacherList, subList,
-						gradeList);
-				});
-			}
+		int person = 0;
+		if (management.equals(EXIT)) {
+			new FileSystemManagement().wirte(stuList, empList, teacherList, subList,
+				gradeList);
+			scanner.close();
+			executor.shutdown();
+			return;
 		}
+
+		switch (management) {
+			case PERSON_MANAGE:
+				person = serviceUi.selectPerson();
+				personnelManagement(crud, person, stuList, empList, teacherList, subList);
+				break;
+
+			case SUBJECT_MANAGE:
+				subjectManagement(crud, subList);
+				break;
+
+			case GRADE_MANAGE:
+				performanceManagement(crud, gradeList, stuList, subList);
+				break;
+		}
+
+		//조회를 제외한 수정 삭제 입력일떄, Thread를 생성해서 FileSystem에 저장함
+		if (!crud.equals(SELECT)) {
+			int revperson = person;
+			executor.submit(() -> {
+				new FileSystemManagement().wirte(management, revperson, stuList, empList, teacherList, subList,
+					gradeList);
+			});
+		}
+
 	}
 
 	//Grade manageMent

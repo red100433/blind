@@ -51,6 +51,7 @@ public class FileSystem {
 
 	public <T> List<? extends T> readListObject(String path) {
 		List<T> rev = new ArrayList<>();
+		System.out.println("Read Object path" + new File(path).getAbsolutePath());
 		try (FileInputStream f = new FileInputStream(new File(path));
 			ObjectInputStream oi = new ObjectInputStream(new BufferedInputStream(f))) {
 

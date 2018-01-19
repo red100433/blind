@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.school.business.Service;
-import com.school.models.Subject;
 
 public class ContextServlet extends HttpServlet {
+	Service service = Service.getInstance();
 
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
@@ -29,15 +29,16 @@ public class ContextServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		PrintWriter out = res.getWriter();
-		String manage = req.getParameter("Manage");
+		String management = req.getParameter("Manage");
 		String crud = req.getParameter("Crud");
 		String name = req.getParameter("name");
 		String birth = req.getParameter("birth");
 
-		List<Subject> list;
-		Service s = new Service();
-		list = s.readSubject();
-
+		List<?> list = service.readSubject();
+		service.programStart(management, crud);
+		//
+		//		list.forEach(System.out::println);
+		//		fs.writeListObject(list, "C:\\Users\\NAVER\\Desktop\\java\\basicJava\\WebContent\\WEB-INF\\subObject.txt");
 		req.setAttribute("menulist", list);
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/result.jsp");
