@@ -14,9 +14,14 @@
       <param-name>messageFile</param-name>
       <param-value>/WEB-INF/message.txt</param-value>
   </context-param>
+  
+  <context-param>
+  	<param-name>subFile</param-name>
+  	<param-value>/WEB-INF/subObject.txt</param-value>
+  </context-param>
   <listener>
       <listener-class>
-          com.school.servlet.MessageLoader
+          com.school.servlet.MessageLoader2
       </listener-class>
   </listener>
 	<servlet>
