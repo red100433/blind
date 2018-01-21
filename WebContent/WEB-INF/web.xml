@@ -38,6 +38,48 @@
     <servlet-class>com.school.servlet.ContextServlet</servlet-class>
   </servlet>
   
+    <servlet>
+    <servlet-name>Student</servlet-name>
+    <servlet-class>com.school.servlet.StudentController</servlet-class>
+  </servlet>
+    <servlet>
+    <servlet-name>Teacher</servlet-name>
+    <servlet-class>com.school.servlet.TeacherController</servlet-class>
+  </servlet>
+    <servlet>
+    <servlet-name>Subject</servlet-name>
+    <servlet-class>com.school.servlet.SubjectController</servlet-class>
+  </servlet>
+    <servlet>
+    <servlet-name>Employee</servlet-name>
+    <servlet-class>com.school.servlet.EmployeeController</servlet-class>
+  </servlet>
+    <servlet>
+    <servlet-name>Grade</servlet-name>
+    <servlet-class>com.school.servlet.GradeController</servlet-class>
+  </servlet>
+  
+    <servlet-mapping>
+    <servlet-name>Student</servlet-name>
+    <url-pattern>/student</url-pattern>
+  </servlet-mapping>
+    <servlet-mapping>
+    <servlet-name>Subject</servlet-name>
+    <url-pattern>/subject</url-pattern>
+  </servlet-mapping>
+    <servlet-mapping>
+    <servlet-name>Teacher</servlet-name>
+    <url-pattern>/teacher</url-pattern>
+  </servlet-mapping>
+    <servlet-mapping>
+    <servlet-name>Grade</servlet-name>
+    <url-pattern>/grade</url-pattern>
+  </servlet-mapping>
+    <servlet-mapping>
+    <servlet-name>Employee</servlet-name>
+    <url-pattern>/employee</url-pattern>
+  </servlet-mapping>
+  
   <servlet-mapping>
     <servlet-name>start</servlet-name>
     <url-pattern>/start</url-pattern>

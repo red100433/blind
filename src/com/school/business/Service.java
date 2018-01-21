@@ -23,6 +23,8 @@ import com.school.models.Teacher;
 import com.school.view.GradeUI;
 import com.school.view.ServiceUI;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  *
  * @author daeyun-jang
@@ -32,14 +34,14 @@ import com.school.view.ServiceUI;
 //Main Service Logic
 public class Service {
 	private static final String EXIT = "99";
-	private static final String PERSON_MANAGE = "1";
-	private static final String SUBJECT_MANAGE = "2";
-	private static final String GRADE_MANAGE = "3";
+	private static final String PERSON_MANAGE = "PERSON_MANAGE";
+	private static final String SUBJECT_MANAGE = "SUBJECT_MANAGE";
+	private static final String GRADE_MANAGE = "GRADE_MANAGE";
 
-	private static final String INSERT = "1";
-	private static final String UPDATE = "2";
-	private static final String DELETE = "3";
-	private static final String SELECT = "4";
+	private static final String INSERT = "INSERT";
+	private static final String UPDATE = "UPDATE";
+	private static final String DELETE = "DELETE";
+	private static final String SELECT = "SELECT";
 
 	private static final int STUDENT = 1;
 	private static final int EMPLOYEE = 2;
@@ -91,7 +93,6 @@ public class Service {
 			executor.shutdown();
 			return;
 		}
-
 		switch (management) {
 			case PERSON_MANAGE:
 				person = serviceUi.selectPerson();
@@ -142,6 +143,7 @@ public class Service {
 	private void subjectManagement(String crudString, List<Subject> subList) {
 		switch (crudString) {
 			case INSERT:
+				System.out.println("insert Subject");
 				this.subList = new SubjectCrud().insert(subList);
 				break;
 			case UPDATE:

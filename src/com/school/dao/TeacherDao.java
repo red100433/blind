@@ -7,7 +7,7 @@ import com.school.inter.DaoInterface;
 import com.school.models.Teacher;
 
 public class TeacherDao implements DaoInterface {
-	static final String TEACHER_PATH = "C:\\Users\\NAVER\\Desktop\\java\\basicJava\\teacherObject.txt";
+	static final String TEACHER_PATH = "C:\\Users\\hey\\Desktop\\javawork\\basicJava\\teacherObject.txt";
 	FileSystem fs = FileSystem.getInstance();
 
 	@Override

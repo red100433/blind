@@ -20,9 +20,9 @@ import com.school.models.Teacher;
  */
 
 public class FileSystemManagement {
-	private static final String PERSON_MANAGE = "1";
-	private static final String SUBJECT_MANAGE = "2";
-	private static final String GRADE_MANAGE = "3";
+	private static final String PERSON_MANAGE = "PERSON_MANAGE";
+	private static final String SUBJECT_MANAGE = "SUBJECT_MANAGE";
+	private static final String GRADE_MANAGE = "GRADE_MANAGE";
 	private static final int STUDENT = 1;
 	private static final int EMPLOYEE = 2;
 	private static final int TEACHER = 3;
