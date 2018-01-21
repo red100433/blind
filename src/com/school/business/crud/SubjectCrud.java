@@ -13,7 +13,7 @@ import com.school.view.SubjectUI;
  * @author daeyun-jang
  *
  */
-public class SubjectCrud implements CrudInterface {
+public class SubjectCrud {
 	private static final int LIMIT_SUBJECT = 100;
 	private final ScannerHandler scanner = ScannerHandler.getInstance();
 	private String tempName;
@@ -25,8 +25,11 @@ public class SubjectCrud implements CrudInterface {
 		this.tempName = subjectUi.inputSubjectName();
 		this.temp = new Subject(tempName);
 	}
-
-	@Override
+	public SubjectCrud(String subName) {
+		this.tempName = subName;
+		this.temp = new Subject(tempName);
+	}
+	
 	public <T> List<T> insert(List<? super T> list) {
 		if (list.size() != LIMIT_SUBJECT) {
 			list.add((T)temp);
@@ -36,8 +39,7 @@ public class SubjectCrud implements CrudInterface {
 
 		return (List<T>)list.stream().distinct().collect(Collectors.toList());
 	}
-
-	@Override
+	
 	public <T> List<T> update(List<? super T> list) {
 		for (Object e : list) {
 			Subject s = (Subject)e;
@@ -50,8 +52,19 @@ public class SubjectCrud implements CrudInterface {
 		}
 		return (List<T>)list;
 	}
+	
+	public <T> List<T> update(List<? super T> list, String changeName) {
+		for (Object e : list) {
+			Subject s = (Subject)e;
+			if (s.equals(temp)) {
+				list.remove(new Subject(changeName));
+				((Subject)e).setSubjectName(changeName);
+				return (List<T>)list;
+			}
+		}
+		return (List<T>)list;
+	}
 
-	@Override
 	public <T> List<T> delete(List<? super T> list) {
 		list.remove(temp);
 		return (List<T>)list;

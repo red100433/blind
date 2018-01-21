@@ -13,7 +13,7 @@ import com.school.view.StudentUI;
  * @author daeyun-jang
  *
  */
-public class StudentCrud implements CrudInterface {
+public class StudentCrud {
 	private static final int LIMIT_STUDENT = 1000;
 	private final ScannerHandler scanner = ScannerHandler.getInstance();
 	private String tempName;
@@ -27,8 +27,12 @@ public class StudentCrud implements CrudInterface {
 		this.tempBirth = studentUI.inputStudentBirth();
 		this.temp = new Student(tempName, tempBirth);
 	}
+	public StudentCrud(String studentName, String birth) {
+		this.tempName = studentName;
+		this.tempBirth = birth;
+		this.temp = new Student(tempName, tempBirth);
+	}
 
-	@Override
 	public <T> List<T> insert(List<? super T> list) {
 		if (list.size() != LIMIT_STUDENT) {
 			list.add((T)temp);
@@ -39,7 +43,6 @@ public class StudentCrud implements CrudInterface {
 		return (List<T>)list.stream().distinct().collect(Collectors.toList());
 	}
 
-	@Override
 	public <T> List<T> update(List<? super T> list) {
 		for (Object e : list) {
 			if (e.equals(temp)) {
@@ -53,8 +56,19 @@ public class StudentCrud implements CrudInterface {
 		}
 		return (List<T>)list;
 	}
+	
+	public <T> List<T> update(List<? super T> list, String changeName, String changeBirth) {
+		for (Object e : list) {
+			if (e.equals(temp)) {
+				list.remove(new Student(changeName, changeBirth));
+				((Student)e).setStudentName(changeName);
+				((Student)e).setBirth((changeBirth));
+				return (List<T>)list;
+			}
+		}
+		return (List<T>)list;
+	}
 
-	@Override
 	public <T> List<T> delete(List<? super T> list) {
 		list.remove(temp);
 		return (List<T>)list;
