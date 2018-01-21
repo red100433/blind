@@ -12,6 +12,7 @@
 
   <c:forEach items="${menulist}" var="menu">
        <B><c:out value="${menu.subjectName}" /></B>
+       <br>
    </c:forEach>
 
 </body>

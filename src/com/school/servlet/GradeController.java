@@ -5,18 +5,20 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.school.models.Grade;
 import com.school.service.GradeService;
 
-public class GradeController {
+public class GradeController extends HttpServlet  {
 	private static final String INSERT = "INSERT";
 	private static final String UPDATE = "UPDATE";
 	private static final String DELETE = "DELETE";
 	GradeService gradeService = GradeService.getInstance();
 	
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String management = req.getParameter("Manage");
 		String crud = req.getParameter("Crud");

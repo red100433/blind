@@ -31,15 +31,18 @@ public class TeacherService {
 	
 	public void insert(String teacherName, String birth, String subjectName) {
 		this.teacherList = new TeacherCrud(teacherName, birth, subjectName).insert(teacherList);
+		writeFileSystem();
 	}
 	
 	public void update(String teacherName, String birth, String subjectName, String changeName, String changeBirth, String changeSubjectName) {
 		this.teacherList = new TeacherCrud(teacherName, birth, subjectName)
 							.update(teacherList, changeName, changeBirth, changeSubjectName);
+		writeFileSystem();
 	}
 	
 	public void delete(String teacherName, String birth, String subjectName) {
 		this.teacherList = new TeacherCrud(teacherName, birth, subjectName).delete(teacherList);
+		writeFileSystem();
 	}
 	
 	public List<Teacher> select() {

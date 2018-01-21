@@ -33,15 +33,18 @@ public class StudentService {
 	
 	public void insert(String studentName, String birth) {
 		this.stuList = new StudentCrud(studentName, birth).insert(stuList);
+		writeFileSystem();
 	}
 	
 	public void update(String studentName, String birth, String changeName, String changeBirth) {
 		this.stuList = new StudentCrud(studentName, birth)
 							.update(stuList, changeName, changeBirth);
+		writeFileSystem();
 	}
 	
 	public void delete(String studentName, String birth) {
 		this.stuList = new StudentCrud(studentName, birth).delete(stuList);
+		writeFileSystem();
 	}
 	
 	public List<Student> select() {

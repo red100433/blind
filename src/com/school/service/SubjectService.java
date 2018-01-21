@@ -28,14 +28,17 @@ public class SubjectService {
 	
 	public void insert(String subName) {
 		this.subList = new SubjectCrud(subName).insert(subList);
+		writeFileSystem();
 	}
 	
 	public void update(String subName, String changeName) {
 		this.subList = new SubjectCrud(subName).update(subList, changeName);
+		writeFileSystem();
 	}
 	
 	public void delete(String subName) {
 		this.subList = new SubjectCrud(subName).delete(subList);
+		writeFileSystem();
 	}
 	
 	public List<Subject> select() {

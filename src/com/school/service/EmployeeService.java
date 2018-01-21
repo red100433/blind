@@ -33,15 +33,18 @@ public class EmployeeService {
 	
 	public void insert(String employeeName, String birth) {
 		this.empList = new EmployeeCrud(employeeName, birth).insert(empList);
+		writeFileSystem();
 	}
 	
 	public void update(String employeeName, String birth, String changeName, String changeBirth) {
 		this.empList = new EmployeeCrud(employeeName, birth)
 							.update(empList, changeName, changeBirth);
+		writeFileSystem();
 	}
 	
 	public void delete(String employeeName, String birth) {
 		this.empList = new EmployeeCrud(employeeName, birth).delete(empList);
+		writeFileSystem();
 	}
 	
 	public List<Employee> select() {

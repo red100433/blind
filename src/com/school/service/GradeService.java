@@ -31,15 +31,18 @@ public class GradeService {
 	
 	public void insert(String studentName, String subjectName, int grade) {
 		this.gradeList = new GradeCrud(studentName, subjectName).insert(gradeList, grade);
+		writeFileSystem();
 	}
 	
 	public void update(String studentName, String subjectName, String changeStudentName, String changeSubjectName, int changeGrade) {
 		this.gradeList = new GradeCrud(studentName, subjectName)
 							.update(gradeList, changeStudentName, changeSubjectName, changeGrade);
+		writeFileSystem();
 	}
 	
 	public void delete(String studentName, String subjectName) {
 		this.gradeList = new GradeCrud(studentName, subjectName).delete(gradeList);
+		writeFileSystem();
 	}
 	
 	public List<Grade> select() {

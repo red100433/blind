@@ -39,46 +39,57 @@
   </servlet>
   
     <servlet>
-    <servlet-name>Student</servlet-name>
+    <servlet-name>StudentSendValue</servlet-name>
     <servlet-class>com.school.servlet.StudentController</servlet-class>
   </servlet>
     <servlet>
-    <servlet-name>Teacher</servlet-name>
+    <servlet-name>TeacherSendValue</servlet-name>
     <servlet-class>com.school.servlet.TeacherController</servlet-class>
   </servlet>
     <servlet>
-    <servlet-name>Subject</servlet-name>
+    <servlet-name>SubjectSendValue</servlet-name>
     <servlet-class>com.school.servlet.SubjectController</servlet-class>
   </servlet>
     <servlet>
-    <servlet-name>Employee</servlet-name>
+    <servlet-name>EmployeeSendValue</servlet-name>
     <servlet-class>com.school.servlet.EmployeeController</servlet-class>
   </servlet>
     <servlet>
-    <servlet-name>Grade</servlet-name>
+    <servlet-name>GradeSendValue</servlet-name>
     <servlet-class>com.school.servlet.GradeController</servlet-class>
   </servlet>
   
     <servlet-mapping>
-    <servlet-name>Student</servlet-name>
-    <url-pattern>/student</url-pattern>
+    <servlet-name>StudentSendValue</servlet-name>
+    <url-pattern>/studentSendValue</url-pattern>
   </servlet-mapping>
     <servlet-mapping>
-    <servlet-name>Subject</servlet-name>
-    <url-pattern>/subject</url-pattern>
+    <servlet-name>SubjectSendValue</servlet-name>
+    <url-pattern>/subjectSendValue</url-pattern>
   </servlet-mapping>
     <servlet-mapping>
-    <servlet-name>Teacher</servlet-name>
-    <url-pattern>/teacher</url-pattern>
+    <servlet-name>TeacherSendValue</servlet-name>
+    <url-pattern>/teacherSendValue</url-pattern>
   </servlet-mapping>
     <servlet-mapping>
-    <servlet-name>Grade</servlet-name>
-    <url-pattern>/grade</url-pattern>
+    <servlet-name>GradeSendValue</servlet-name>
+    <url-pattern>/gradeSendValue</url-pattern>
   </servlet-mapping>
     <servlet-mapping>
-    <servlet-name>Employee</servlet-name>
-    <url-pattern>/employee</url-pattern>
+    <servlet-name>EmployeeSendValue</servlet-name>
+    <url-pattern>/employeeSendValue</url-pattern>
   </servlet-mapping>
+  
+ 	<servlet>
+		<servlet-name>dispatcherServlet</servlet-name>
+		<servlet-class>com.school.servlet.MainController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>dispatcherServlet</servlet-name>
+		<url-pattern>/Management/*</url-pattern>
+	</servlet-mapping>
+  
   
   <servlet-mapping>
     <servlet-name>start</servlet-name>

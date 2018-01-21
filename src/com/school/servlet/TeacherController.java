@@ -5,19 +5,23 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.school.business.Service;
 import com.school.models.Teacher;
 import com.school.service.TeacherService;
 
-public class TeacherController {
+import lombok.extern.java.Log;
+
+@Log
+public class TeacherController extends HttpServlet {
 	private static final String INSERT = "INSERT";
 	private static final String UPDATE = "UPDATE";
 	private static final String DELETE = "DELETE";
 	TeacherService teacherService = TeacherService.getInstance();
 	
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String management = req.getParameter("Manage");
 		String crud = req.getParameter("Crud");
@@ -27,7 +31,6 @@ public class TeacherController {
 		String changeName = req.getParameter("changeName");
 		String changeBirth = req.getParameter("changBirth");
 		String changeSubject = req.getParameter("changeSubject");
-		
 		
 		switch(crud) {
 		case INSERT :
