@@ -5,6 +5,7 @@ import java.util.List;
 import com.school.business.FileSystem;
 import com.school.inter.DaoInterface;
 import com.school.models.Student;
+import com.school.models.Type;
 
 /**
  *
@@ -12,7 +13,7 @@ import com.school.models.Student;
  *
  */
 public class StudentDao implements DaoInterface {
-	static final String STU_PATH = "C:\\Users\\USER\\Desktop\\java\\basicJava\\WebContent\\WEB-INF\\stuObject.txt";
+	static final String STU_PATH = Type.BASIC_PATH + "stuObject.txt";
 	FileSystem fs = FileSystem.getInstance();
 
 	@Override

@@ -5,9 +5,10 @@ import java.util.List;
 import com.school.business.FileSystem;
 import com.school.inter.DaoInterface;
 import com.school.models.Teacher;
+import com.school.models.Type;
 
 public class TeacherDao implements DaoInterface {
-	static final String TEACHER_PATH = "C:\\Users\\USER\\Desktop\\java\\basicJava\\WebContent\\WEB-INF\\teacherObject.txt";
+	static final String TEACHER_PATH = Type.BASIC_PATH + "teacherObject.txt";
 	FileSystem fs = FileSystem.getInstance();
 
 	@Override

@@ -10,14 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.school.models.Student;
+import com.school.models.Type;
 import com.school.service.StudentService;
 
 public class StudentController extends HttpServlet {
-	private static final String INSERT = "INSERT";
-	private static final String UPDATE = "UPDATE";
-	private static final String DELETE = "DELETE";
 	StudentService studentService = StudentService.getInstance();
-	
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String management = req.getParameter("Manage");
@@ -26,23 +24,22 @@ public class StudentController extends HttpServlet {
 		String birth = req.getParameter("birth");
 		String changeName = req.getParameter("changeName");
 		String changeBirth = req.getParameter("changBirth");
-		
-		
-		switch(crud) {
-		case INSERT :
-			studentService.insert(name, birth);
-			break;
-		case UPDATE :
-			studentService.update(name, birth, changeName, changeBirth);
-			break;
-		case DELETE :
-			studentService.delete(name, birth);
-			break;
+
+		switch (crud) {
+			case Type.INSERT:
+				studentService.insert(name, birth);
+				break;
+			case Type.UPDATE:
+				studentService.update(name, birth, changeName, changeBirth);
+				break;
+			case Type.DELETE:
+				studentService.delete(name, birth);
+				break;
 		}
-		
+
 		List<Student> list = studentService.select();
-		
-		System.out.println("ManageMent Data:" +management);
+
+		System.out.println("ManageMent Data:" + management);
 		System.out.println("Curd Data:" + crud);
 		//
 		//		list.forEach(System.out::println);

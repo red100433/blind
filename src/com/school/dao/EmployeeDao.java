@@ -5,6 +5,7 @@ import java.util.List;
 import com.school.business.FileSystem;
 import com.school.inter.DaoInterface;
 import com.school.models.Employee;
+import com.school.models.Type;
 
 /**
  *
@@ -12,7 +13,7 @@ import com.school.models.Employee;
  *
  */
 public class EmployeeDao implements DaoInterface {
-	static final String EMP_PATH = "C:\\Users\\USER\\Desktop\\java\\basicJava\\WebContent\\WEB-INF\\empObject.txt";
+	static final String EMP_PATH = Type.BASIC_PATH + "empObject.txt";
 	FileSystem fs = FileSystem.getInstance();
 
 	@Override
