@@ -12,7 +12,7 @@ import com.school.models.Subject;
  *
  */
 public class SubjectDao implements DaoInterface {
-	static final String SUB_PATH = "C:\\Users\\hey\\Desktop\\javawork\\basicJava\\subObject.txt";
+	static final String SUB_PATH = "C:\\Users\\USER\\Desktop\\java\\basicJava\\WebContent\\WEB-INF\\subObject.txt";
 	//	static final String SUB_PATH = "subObject.txt";
 	FileSystem fs = FileSystem.getInstance();
 

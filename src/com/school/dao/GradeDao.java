@@ -12,7 +12,7 @@ import com.school.models.Grade;
  *
  */
 public class GradeDao implements DaoInterface {
-	static final String GRADE_PATH = "C:\\Users\\hey\\Desktop\\javawork\\basicJava\\gradeObject.txt";
+	static final String GRADE_PATH = "C:\\Users\\USER\\Desktop\\java\\basicJava\\WebContent\\WEB-INF\\gradeObject.txt";
 	FileSystem fs = FileSystem.getInstance();
 
 	@Override
