@@ -111,7 +111,7 @@ public class GradeController extends HttpServlet {
 				}
 				return result3;
 		}
-		return Collections.emptyList();
+		return new ArrayList<>();
 
 	}
 
