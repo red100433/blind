@@ -13,6 +13,9 @@ import com.school.models.Subject;
 import com.school.models.Type;
 import com.school.service.SubjectService;
 
+import lombok.extern.java.Log;
+
+@Log
 public class SubjectController extends HttpServlet {
 	SubjectService subjectService = SubjectService.getInstance();
 
@@ -22,6 +25,9 @@ public class SubjectController extends HttpServlet {
 		String crud = req.getParameter("Crud");
 		String name = req.getParameter("name");
 		String changeName = req.getParameter("changeName");
+		log.info(crud);
+		log.info(name);
+		log.info(name);
 		switch (crud) {
 			case Type.INSERT:
 				subjectService.insert(name);

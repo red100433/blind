@@ -18,7 +18,6 @@ public class StudentController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		String management = req.getParameter("Manage");
 		String crud = req.getParameter("Crud");
 		String name = req.getParameter("name");
 		String birth = req.getParameter("birth");
