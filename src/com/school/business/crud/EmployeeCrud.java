@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.school.handler.ScannerHandler;
-import com.school.inter.CrudInterface;
 import com.school.models.Employee;
 import com.school.view.EmployeeUI;
 
@@ -33,7 +32,8 @@ public class EmployeeCrud {
 		this.tempBirth = birth;
 		this.temp = new Employee(tempName, tempBirth);
 	}
-	
+
+	//TODO contain으로 바꾸기
 	public <T> List<T> insert(List<? super T> list) {
 		if (list.size() != LIMIT_EMPLOYEE) {
 			list.add((T)temp);
@@ -69,7 +69,7 @@ public class EmployeeCrud {
 		}
 		return (List<T>)list;
 	}
-	
+
 	public <T> List<T> delete(List<? super T> list) {
 		list.remove(temp);
 		return (List<T>)list;
