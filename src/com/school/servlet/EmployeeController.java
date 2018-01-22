@@ -39,11 +39,6 @@ public class EmployeeController extends HttpServlet {
 
 		List<Employee> list = employeeService.select();
 
-		System.out.println("ManageMent Data:" + management);
-		System.out.println("Curd Data:" + crud);
-		//
-		//		list.forEach(System.out::println);
-		//		fs.writeListObject(list, "C:\\Users\\NAVER\\Desktop\\java\\basicJava\\WebContent\\WEB-INF\\subObject.txt");
 		req.setAttribute("menulist", list);
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/result.jsp");
