@@ -37,7 +37,7 @@ public class GradeCrud {
 	public List<Grade> insert(List<Grade> list, int grade) {
 		if (grade > 100) {
 			grade = 100;
-		} else if (grade < 100) {
+		} else if (grade < 0) {
 			grade = 0;
 		}
 
@@ -54,7 +54,7 @@ public class GradeCrud {
 
 		if (changeGrade > 100) {
 			changeGrade = 100;
-		} else if (changeGrade < 100) {
+		} else if (changeGrade < 0) {
 			changeGrade = 0;
 		}
 
