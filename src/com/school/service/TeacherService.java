@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.school.business.crud.TeacherCrud;
 import com.school.dao.TeacherDao;
-import com.school.models.Teacher;
 import com.school.models.request.TeacherRequest;
+import com.school.models.vo.Teacher;
 
 public class TeacherService {
 	private static TeacherService t;

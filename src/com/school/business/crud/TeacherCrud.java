@@ -3,9 +3,9 @@ package com.school.business.crud;
 import java.util.List;
 
 import com.school.exception.InvalidException;
-import com.school.models.Subject;
-import com.school.models.Teacher;
 import com.school.models.Type;
+import com.school.models.vo.Subject;
+import com.school.models.vo.Teacher;
 import com.school.service.SubjectService;
 
 import lombok.extern.java.Log;

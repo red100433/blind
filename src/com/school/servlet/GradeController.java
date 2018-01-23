@@ -13,11 +13,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.school.models.Grade;
-import com.school.models.Student;
-import com.school.models.Subject;
 import com.school.models.Type;
 import com.school.models.request.GradeRequest;
+import com.school.models.vo.Grade;
+import com.school.models.vo.Student;
+import com.school.models.vo.Subject;
 import com.school.service.GradeService;
 import com.school.service.StudentService;
 import com.school.service.SubjectService;

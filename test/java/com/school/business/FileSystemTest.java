@@ -17,7 +17,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import com.school.models.Subject;
+import com.school.models.vo.Subject;
 
 public class FileSystemTest {
 

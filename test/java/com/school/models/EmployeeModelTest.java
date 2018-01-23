@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-import com.school.models.Employee;
+import com.school.models.vo.Employee;
 
 @RunWith(Parameterized.class)
 public class EmployeeModelTest {

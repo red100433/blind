@@ -1,4 +1,4 @@
-package com.school.models;
+package com.school.models.vo;
 
 import java.io.Serializable;
 

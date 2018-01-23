@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.school.models.Subject;
 import com.school.models.Type;
 import com.school.models.request.SubjectRequest;
+import com.school.models.vo.Subject;
 import com.school.service.SubjectService;
 
 import lombok.extern.java.Log;

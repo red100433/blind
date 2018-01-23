@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.school.business.FileSystem;
 import com.school.inter.DaoInterface;
-import com.school.models.Student;
 import com.school.models.Type;
+import com.school.models.vo.Student;
 
 /**
  *

@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.school.business.crud.GradeCrud;
 import com.school.dao.GradeDao;
-import com.school.models.Grade;
 import com.school.models.request.GradeRequest;
+import com.school.models.vo.Grade;
 
 public class GradeService {
 	private static GradeService t;

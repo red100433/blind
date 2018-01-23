@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.school.models.Employee;
 import com.school.models.Type;
 import com.school.models.request.EmployeeRequest;
+import com.school.models.vo.Employee;
 import com.school.service.EmployeeService;
 
 public class EmployeeController extends HttpServlet {

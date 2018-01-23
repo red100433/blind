@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.school.business.crud.EmployeeCrud;
 import com.school.dao.EmployeeDao;
-import com.school.models.Employee;
 import com.school.models.request.EmployeeRequest;
+import com.school.models.vo.Employee;
 
 public class EmployeeService {
 	private static EmployeeService t;

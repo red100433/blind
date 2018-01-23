@@ -2,8 +2,8 @@ package com.school.business.crud;
 
 import java.util.List;
 
-import com.school.models.Subject;
 import com.school.models.Type;
+import com.school.models.vo.Subject;
 
 /**
  *

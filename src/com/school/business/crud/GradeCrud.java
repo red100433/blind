@@ -3,9 +3,9 @@ package com.school.business.crud;
 import java.util.List;
 
 import com.school.exception.InvalidException;
-import com.school.models.Grade;
-import com.school.models.Student;
-import com.school.models.Subject;
+import com.school.models.vo.Grade;
+import com.school.models.vo.Student;
+import com.school.models.vo.Subject;
 import com.school.service.StudentService;
 import com.school.service.SubjectService;
 

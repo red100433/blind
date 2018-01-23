@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.school.business.crud.SubjectCrud;
 import com.school.dao.SubjectDao;
-import com.school.models.Subject;
 import com.school.models.request.SubjectRequest;
+import com.school.models.vo.Subject;
 
 public class SubjectService {
 	private static SubjectService t;

@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.school.business.crud.StudentCrud;
 import com.school.dao.StudentDao;
-import com.school.models.Student;
 import com.school.models.request.StudentRequest;
+import com.school.models.vo.Student;
 
 public class StudentService {
 	private static StudentService t;
