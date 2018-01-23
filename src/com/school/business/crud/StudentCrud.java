@@ -1,10 +1,8 @@
 package com.school.business.crud;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.school.handler.ScannerHandler;
-import com.school.inter.CrudInterface;
 import com.school.models.Student;
 import com.school.view.StudentUI;
 
@@ -27,6 +25,7 @@ public class StudentCrud {
 		this.tempBirth = studentUI.inputStudentBirth();
 		this.temp = new Student(tempName, tempBirth);
 	}
+
 	public StudentCrud(String studentName, String birth) {
 		this.tempName = studentName;
 		this.tempBirth = birth;
@@ -34,13 +33,10 @@ public class StudentCrud {
 	}
 
 	public <T> List<T> insert(List<? super T> list) {
-		if (list.size() != LIMIT_STUDENT) {
+		if (list.size() != LIMIT_STUDENT & list.contains(temp) == false) {
 			list.add((T)temp);
-		} else {
-			this.studentUI.limitStudent();
 		}
-
-		return (List<T>)list.stream().distinct().collect(Collectors.toList());
+		return (List<T>)list;
 	}
 
 	public <T> List<T> update(List<? super T> list) {
@@ -56,7 +52,7 @@ public class StudentCrud {
 		}
 		return (List<T>)list;
 	}
-	
+
 	public <T> List<T> update(List<? super T> list, String changeName, String changeBirth) {
 		for (Object e : list) {
 			if (e.equals(temp)) {

@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 
 import com.school.exception.InvalidException;
 import com.school.handler.ScannerHandler;
-import com.school.inter.CrudInterface;
 import com.school.models.Grade;
 import com.school.models.Student;
 import com.school.models.Subject;
@@ -13,11 +12,14 @@ import com.school.service.StudentService;
 import com.school.service.SubjectService;
 import com.school.view.GradeUI;
 
+import lombok.extern.java.Log;
+
 /**
  *
  * @author daeyun-jang
  *
  */
+@Log
 public class GradeCrud {
 
 	private final ScannerHandler scanner = ScannerHandler.getInstance();
@@ -44,7 +46,7 @@ public class GradeCrud {
 		this.tempSubjectName = subjectName;
 		this.temp = new Grade(tempStudentName, tempSubjectName);
 	}
-	
+
 	public GradeCrud(List<Subject> subList, List<Student> stuList) {
 		this.subList = subList;
 		this.stuList = stuList;
@@ -77,7 +79,7 @@ public class GradeCrud {
 		}
 		return (List<T>)list.stream().distinct().collect(Collectors.toList());
 	}
-	
+
 	public <T> List<T> insert(List<? super T> list, int grade) {
 		boolean stuFlag = false;
 		boolean subFlag = false;
@@ -94,17 +96,13 @@ public class GradeCrud {
 			}
 		}
 
-		if (stuFlag & subFlag) {
+		if (stuFlag & subFlag & list.contains(temp) == false) {
 			this.tempGrade = grade;
 			this.temp = new Grade(tempStudentName, tempSubjectName, tempGrade);
 			list.add((T)temp);
-		} else {
-			throw new InvalidException("등록된 학생이나 과목이  아닙니다. 먼저 등록해주세요"); // exception
 		}
-		return (List<T>)list.stream().distinct().collect(Collectors.toList());
+		return (List<T>)list;
 	}
-	
-	
 
 	public <T> List<T> update(List<? super T> list) {
 		boolean stuFlag = false;
@@ -142,30 +140,31 @@ public class GradeCrud {
 		}
 		return (List<T>)list;
 	}
-	
-	public <T> List<T> update(List<? super T> list, String changeStudentName, String changeSubjectName, int changeGrade) {
+
+	public <T> List<T> update(List<? super T> list, String changeStudentName, String changeSubjectName,
+		int changeGrade) {
 		boolean stuFlag = false;
 		boolean subFlag = false;
-
+		for (Student stu : stuList) {
+			if (stu.getStudentName().equals(changeStudentName)) {
+				stuFlag = true;
+				break;
+			}
+		}
+		for (Subject sub : subList) {
+			if (sub.getSubjectName().equals(changeSubjectName)) {
+				subFlag = true;
+				break;
+			}
+		}
 		for (Object e : list) {
 			if (e.equals(temp)) {
 
-				for (Student stu : stuList) {
-					if (stu.getStudentName().equals(changeStudentName)) {
-						stuFlag = true;
-						break;
-					}
-				}
-				for (Subject sub : subList) {
-					if (sub.getSubjectName().equals(changeSubjectName)) {
-						subFlag = true;
-						break;
-					}
-				}
-
+				log.info(changeStudentName);
+				log.info(changeSubjectName);
+				log.info(String.valueOf(changeGrade));
 				if (stuFlag & subFlag) {
 
-					list.remove(new Grade(changeStudentName, changeSubjectName));
 					((Grade)e).setStudentName(changeStudentName);
 					((Grade)e).setSubjectName((changeSubjectName));
 					((Grade)e).setGrade(changeGrade);
@@ -177,7 +176,6 @@ public class GradeCrud {
 		}
 		return (List<T>)list;
 	}
-	
 
 	public <T> List<T> delete(List<? super T> list) {
 		list.remove(temp);

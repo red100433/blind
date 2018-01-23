@@ -27,7 +27,7 @@ public class TeacherController extends HttpServlet {
 		String birth = req.getParameter("birth");
 		String subject = req.getParameter("subject");
 		String changeName = req.getParameter("changeName");
-		String changeBirth = req.getParameter("changBirth");
+		String changeBirth = req.getParameter("changeBirth");
 		String changeSubject = req.getParameter("changeSubject");
 
 		switch (crud) {

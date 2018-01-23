@@ -1,7 +1,6 @@
 package com.school.business.crud;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.school.handler.ScannerHandler;
 import com.school.models.Employee;
@@ -35,13 +34,11 @@ public class EmployeeCrud {
 
 	//TODO contain으로 바꾸기
 	public <T> List<T> insert(List<? super T> list) {
-		if (list.size() != LIMIT_EMPLOYEE) {
+		if (list.size() != LIMIT_EMPLOYEE & list.contains(temp) == false) {
 			list.add((T)temp);
-		} else {
-			this.employeeUI.limitEmployee();
 		}
 
-		return (List<T>)list.stream().distinct().collect(Collectors.toList());
+		return (List<T>)list;
 	}
 
 	public <T> List<T> update(List<? super T> list) {

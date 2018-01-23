@@ -21,6 +21,9 @@ import com.school.service.GradeService;
 import com.school.service.StudentService;
 import com.school.service.SubjectService;
 
+import lombok.extern.java.Log;
+
+@Log
 public class GradeController extends HttpServlet {
 	GradeService gradeService = GradeService.getInstance();
 	StudentService studentService = StudentService.getInstance();
@@ -36,7 +39,7 @@ public class GradeController extends HttpServlet {
 		String grade = req.getParameter("grade");
 		String subject = req.getParameter("subject");
 		String changeName = req.getParameter("changeName");
-		String changeGrade = req.getParameter("changBirth");
+		String changeGrade = req.getParameter("changeGrade");
 		String changeSubject = req.getParameter("changeSubject");
 
 		List<String> list = Collections.emptyList();
@@ -74,18 +77,11 @@ public class GradeController extends HttpServlet {
 
 				gradeService.select().forEach(System.out::println);
 				return result;
-			case Type.STUDENT_SELECT:
-				OptionalDouble studentAverage = getAverage(name);
-				List<String> result1 = new ArrayList<>();
-				studentAverage.ifPresent(o -> {
-					System.out.println(name + "의 평균: " + o);
-					result1.add(name + "의 평균: " + o);
-				});
-				return result1;
+
 			case Type.ALL_STUDENT_AVERAGE_SELECT:
 				List<String> result2 = new ArrayList<>();
 				for (Student stu : studentService.select()) {
-					OptionalDouble allStudentAverage = getAverage(stu.getStudentName());
+					OptionalDouble allStudentAverage = getStudentAverage(stu.getStudentName());
 
 					allStudentAverage.ifPresent(
 						o -> {
@@ -97,8 +93,7 @@ public class GradeController extends HttpServlet {
 			case Type.ALL_SUBJECT_AVERAGE_SELECT:
 				List<String> result3 = new ArrayList<>();
 				for (Subject sub : subjectService.select()) {
-					OptionalDouble allSubjectAverage = getAverage(sub.getSubjectName());
-
+					OptionalDouble allSubjectAverage = getSubjectAverage(sub.getSubjectName());
 					allSubjectAverage.ifPresent(o -> {
 						System.out.println(sub.getSubjectName() + "의 평균: " + o);
 						result3.add(sub.getSubjectName() + "의 평균: " + o);
@@ -110,9 +105,16 @@ public class GradeController extends HttpServlet {
 
 	}
 
-	private OptionalDouble getAverage(String name) {
+	private OptionalDouble getStudentAverage(String name) {
 		return gradeService.select().stream()
 			.filter(s -> s.getStudentName().equals(name))
+			.mapToInt(Grade::getGrade)
+			.average();
+	}
+
+	private OptionalDouble getSubjectAverage(String subject) {
+		return gradeService.select().stream()
+			.filter(s -> s.getSubjectName().equals(subject))
 			.mapToInt(Grade::getGrade)
 			.average();
 	}

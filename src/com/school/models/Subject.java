@@ -17,6 +17,8 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString(exclude = "subjectId")
 public class Subject implements Serializable {
+	private static final long serialVersionUID = -2910796104540445977L;
+
 	private int subjectId;
 	@Setter
 	private String subjectName;

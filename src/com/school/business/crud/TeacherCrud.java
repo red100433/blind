@@ -1,21 +1,23 @@
 package com.school.business.crud;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.school.exception.InvalidException;
 import com.school.handler.ScannerHandler;
-import com.school.inter.CrudInterface;
 import com.school.models.Subject;
 import com.school.models.Teacher;
 import com.school.service.SubjectService;
 import com.school.view.TeacherUI;
+
+import lombok.extern.java.Log;
 
 /**
  *
  * @author daeyun-jang
  *
  */
+
+@Log
 public class TeacherCrud {
 	private static final int LIMIT_TEACHER = 1000;
 	private final ScannerHandler scanner = ScannerHandler.getInstance();
@@ -33,7 +35,7 @@ public class TeacherCrud {
 		this.tempSubjectName = teacherUi.inputTeacherSubject();
 		this.temp = new Teacher(tempSubjectName, tempName, tempBirth);
 	}
-	
+
 	public TeacherCrud(String teacherName, String birth, String subName) {
 		this.tempName = teacherName;
 		this.tempBirth = birth;
@@ -58,13 +60,11 @@ public class TeacherCrud {
 				teacherFlag = true;
 			}
 		}
-		if (teacherFlag & list.size() != LIMIT_TEACHER) {
+		if (teacherFlag & list.size() != LIMIT_TEACHER & list.contains(temp) == false) {
 			list.add((T)temp);
-		} else {
-			throw new InvalidException("등록된 과목이  아니거나 제한된 선생님의 수를 넘었습니다. 확인해주세요");
 		}
 
-		return (List<T>)list.stream().distinct().collect(Collectors.toList());
+		return (List<T>)list;
 	}
 
 	public <T> List<T> update(List<? super T> list) {
@@ -94,10 +94,13 @@ public class TeacherCrud {
 		}
 		return (List<T>)list;
 	}
-	
+
 	public <T> List<T> update(List<? super T> list, String changeName, String changeBirth, String changeSubject) {
 		boolean teacherFlag = false;
 
+		log.info(changeName);
+		log.info(changeSubject);
+		log.info(changeBirth);
 		for (Object e : list) {
 			if (e.equals(temp)) {
 

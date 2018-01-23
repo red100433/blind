@@ -1,10 +1,8 @@
 package com.school.business.crud;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.school.handler.ScannerHandler;
-import com.school.inter.CrudInterface;
 import com.school.models.Subject;
 import com.school.view.SubjectUI;
 
@@ -25,21 +23,19 @@ public class SubjectCrud {
 		this.tempName = subjectUi.inputSubjectName();
 		this.temp = new Subject(tempName);
 	}
+
 	public SubjectCrud(String subName) {
 		this.tempName = subName;
 		this.temp = new Subject(tempName);
 	}
-	
-	public <T> List<T> insert(List<? super T> list) {
-		if (list.size() != LIMIT_SUBJECT) {
-			list.add((T)temp);
-		} else {
-			this.subjectUi.limitSubject();
-		}
 
-		return (List<T>)list.stream().distinct().collect(Collectors.toList());
+	public <T> List<T> insert(List<? super T> list) {
+		if (list.size() != LIMIT_SUBJECT & list.contains(temp) == false) {
+			list.add((T)temp);
+		}
+		return (List<T>)list;
 	}
-	
+
 	public <T> List<T> update(List<? super T> list) {
 		for (Object e : list) {
 			Subject s = (Subject)e;
@@ -52,7 +48,7 @@ public class SubjectCrud {
 		}
 		return (List<T>)list;
 	}
-	
+
 	public <T> List<T> update(List<? super T> list, String changeName) {
 		for (Object e : list) {
 			Subject s = (Subject)e;

@@ -17,6 +17,8 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString(exclude = "employeeId")
 public class Employee implements Serializable {
+	private static final long serialVersionUID = -7708695675154867454L;
+
 	private int employeeId;
 	@Setter
 	private String employeeName;

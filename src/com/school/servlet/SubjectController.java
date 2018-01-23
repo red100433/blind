@@ -27,7 +27,7 @@ public class SubjectController extends HttpServlet {
 		String changeName = req.getParameter("changeName");
 		log.info(crud);
 		log.info(name);
-		log.info(name);
+		log.info(changeName);
 		switch (crud) {
 			case Type.INSERT:
 				subjectService.insert(name);
