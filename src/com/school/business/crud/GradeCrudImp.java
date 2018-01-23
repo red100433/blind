@@ -113,7 +113,7 @@ public class GradeCrudImp implements GradeCrud {
 				
 			case Type.ALL_SUBJECT_AVERAGE_SELECT:
 				List<String> result3 = new ArrayList<>();
-				subList.stream().peek(s->getStudentAverage(list, s.getSubjectName()).ifPresent(
+				subList.stream().peek(s->getSubjectAverage(list, s.getSubjectName()).ifPresent(
 						o -> result3.add(s.getSubjectName() + "의 평균:" + o)));
 				return result3;
 		}
