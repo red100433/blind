@@ -1,4 +1,4 @@
-package com.school.inter.custom;
+package com.school.custom;
 
 import java.util.List;
 

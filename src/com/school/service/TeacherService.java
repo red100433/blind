@@ -3,8 +3,8 @@ package com.school.service;
 import java.util.List;
 
 import com.school.business.crud.TeacherCrudImp;
+import com.school.custom.TeacherCrud;
 import com.school.dao.TeacherDao;
-import com.school.inter.custom.TeacherCrud;
 import com.school.models.request.TeacherRequest;
 import com.school.models.vo.Teacher;
 

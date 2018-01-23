@@ -2,7 +2,7 @@ package com.school.business.crud;
 
 import java.util.List;
 
-import com.school.inter.custom.SubjectCrud;
+import com.school.custom.SubjectCrud;
 import com.school.models.Type;
 import com.school.models.vo.Subject;
 

@@ -2,8 +2,8 @@ package com.school.business.crud;
 
 import java.util.List;
 
+import com.school.custom.TeacherCrud;
 import com.school.exception.InvalidException;
-import com.school.inter.custom.TeacherCrud;
 import com.school.models.Type;
 import com.school.models.vo.Subject;
 import com.school.models.vo.Teacher;

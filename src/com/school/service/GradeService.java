@@ -3,8 +3,8 @@ package com.school.service;
 import java.util.List;
 
 import com.school.business.crud.GradeCrudImp;
+import com.school.custom.GradeCrud;
 import com.school.dao.GradeDao;
-import com.school.inter.custom.GradeCrud;
 import com.school.models.request.GradeRequest;
 import com.school.models.vo.Grade;
 

@@ -3,7 +3,7 @@ package com.school.dao;
 import java.util.List;
 
 import com.school.business.FileSystem;
-import com.school.inter.DaoInterface;
+import com.school.custom.DaoInterface;
 import com.school.models.Type;
 import com.school.models.vo.Student;
 

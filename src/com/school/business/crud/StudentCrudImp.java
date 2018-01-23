@@ -2,7 +2,7 @@ package com.school.business.crud;
 
 import java.util.List;
 
-import com.school.inter.custom.StudentCrud;
+import com.school.custom.StudentCrud;
 import com.school.models.Type;
 import com.school.models.vo.Student;
 
