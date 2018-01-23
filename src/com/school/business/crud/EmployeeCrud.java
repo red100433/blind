@@ -57,10 +57,9 @@ public class EmployeeCrud {
 
 	public <T> List<T> update(List<? super T> list, String changeName, String changeBirth) {
 		for (Object e : list) {
-			if (e.equals(temp)) {
-				list.remove(new Employee(changeName, changeBirth));
-				((Employee)e).setEmployeeName(changeName);
-				((Employee)e).setBirth((changeBirth));
+			if (e.equals(temp) & list.contains(new Employee(changeName, changeBirth)) == false) {
+				list.remove(temp);
+				list.add((T)new Employee(changeName, changeBirth));
 				return (List<T>)list;
 			}
 		}

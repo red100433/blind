@@ -163,11 +163,9 @@ public class GradeCrud {
 				log.info(changeStudentName);
 				log.info(changeSubjectName);
 				log.info(String.valueOf(changeGrade));
-				if (stuFlag & subFlag) {
-
-					((Grade)e).setStudentName(changeStudentName);
-					((Grade)e).setSubjectName((changeSubjectName));
-					((Grade)e).setGrade(changeGrade);
+				if (stuFlag & subFlag & list.contains(new Grade(changeStudentName, changeSubjectName)) == false) {
+					list.remove(temp);
+					list.add((T)new Grade(changeStudentName, changeSubjectName, changeGrade));
 				} else {
 					throw new InvalidException("변경될 학생이나 과목이 등록되지 않았습니다. 먼저 등록해주세요");
 				}

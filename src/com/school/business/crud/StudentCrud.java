@@ -55,10 +55,9 @@ public class StudentCrud {
 
 	public <T> List<T> update(List<? super T> list, String changeName, String changeBirth) {
 		for (Object e : list) {
-			if (e.equals(temp)) {
-				list.remove(new Student(changeName, changeBirth));
-				((Student)e).setStudentName(changeName);
-				((Student)e).setBirth((changeBirth));
+			if (e.equals(temp) & list.contains(new Student(changeName, changeBirth)) == false) {
+				list.remove(temp);
+				list.add((T)new Student(changeName, changeBirth));
 				return (List<T>)list;
 			}
 		}

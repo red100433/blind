@@ -51,10 +51,9 @@ public class SubjectCrud {
 
 	public <T> List<T> update(List<? super T> list, String changeName) {
 		for (Object e : list) {
-			Subject s = (Subject)e;
-			if (s.equals(temp)) {
-				list.remove(new Subject(changeName));
-				((Subject)e).setSubjectName(changeName);
+			if (e.equals(temp) & list.contains(new Subject(changeName)) == false) {
+				list.remove(temp);
+				list.add((T)new Subject(changeName));
 				return (List<T>)list;
 			}
 		}

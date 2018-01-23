@@ -82,11 +82,9 @@ public class TeacherCrud {
 					}
 				}
 
-				if (teacherFlag) {
-					list.remove(new Teacher(changeSubjectName, changeName, changeBirth));
-					((Teacher)e).setTeacherName(changeName);
-					((Teacher)e).setBirth((changeBirth));
-					((Teacher)e).setSubjectName((changeSubjectName));
+				if (teacherFlag & list.contains(new Teacher(changeSubjectName, changeName, changeBirth)) == false) {
+					list.remove(temp);
+					list.add((T)new Teacher(changeSubjectName, changeName, changeBirth));
 				} else {
 					throw new InvalidException("변경될 교과목이 등록되지 않은 과목입니다. 먼저 교과목을 등록해주세요");
 				}
@@ -110,11 +108,9 @@ public class TeacherCrud {
 					}
 				}
 
-				if (teacherFlag) {
-					list.remove(new Teacher(changeSubject, changeName, changeBirth));
-					((Teacher)e).setTeacherName(changeName);
-					((Teacher)e).setBirth((changeBirth));
-					((Teacher)e).setSubjectName((changeSubject));
+				if (teacherFlag & list.contains(new Teacher(changeSubject, changeName, changeBirth)) == false) {
+					list.remove(temp);
+					list.add((T)new Teacher(changeSubject, changeName, changeBirth));
 				} else {
 					throw new InvalidException("변경될 교과목이 등록되지 않은 과목입니다. 먼저 교과목을 등록해주세요");
 				}
