@@ -42,11 +42,11 @@ public class TeacherCrud {
 	}
 
 	public List<Teacher> update(List<Teacher> list, String changeName, String changeBirth, String changeSubject) {
-
+		Teacher change = new Teacher(changeSubject, changeName, changeBirth);
 		if (list.contains(temp) & flagSubject(changeSubject)
-			& (list.contains(new Teacher(changeSubject, changeName, changeBirth)) == false)) {
+			& (list.contains(change) == false)) {
 			list.remove(temp);
-			list.add(new Teacher(changeSubject, changeName, changeBirth));
+			list.add(change);
 		} else {
 			throw new InvalidException("변경될 교과목이 등록되지 않은 과목입니다. 먼저 교과목을 등록해주세요");
 		}

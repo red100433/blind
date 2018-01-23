@@ -27,10 +27,10 @@ public class SubjectCrud {
 	}
 
 	public List<Subject> update(List<Subject> list, String changeName) {
-
-		if (list.contains(temp) & (list.contains(new Subject(changeName)) == false)) {
+		Subject change = new Subject(changeName);
+		if (list.contains(temp) & (list.contains(change) == false)) {
 			list.remove(temp);
-			list.add(new Subject(changeName));
+			list.add(change);
 		}
 
 		return list;

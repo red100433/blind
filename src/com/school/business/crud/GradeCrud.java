@@ -57,10 +57,12 @@ public class GradeCrud {
 		} else if (changeGrade < 0) {
 			changeGrade = 0;
 		}
-
-		if (list.contains(temp) & flagSubject(changeSubjectName) & flagStudent(changeStudentName)) {
+		Grade change = new Grade(changeStudentName, changeSubjectName);
+		if (list.contains(temp) & (list.contains(change) == false) & flagSubject(changeSubjectName)
+			& flagStudent(changeStudentName)) {
 			list.remove(temp);
-			list.add(new Grade(changeStudentName, changeSubjectName, changeGrade));
+			change.setGrade(changeGrade);
+			list.add(change);
 		} else {
 			throw new InvalidException("변경될 학생이나 과목이 등록되지 않았습니다. 먼저 등록해주세요");
 		}

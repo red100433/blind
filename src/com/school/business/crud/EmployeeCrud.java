@@ -30,10 +30,10 @@ public class EmployeeCrud {
 	}
 
 	public List<Employee> update(List<Employee> list, String changeName, String changeBirth) {
-
-		if (list.contains(temp) & (list.contains(new Employee(changeName, changeBirth)) == false)) {
+		Employee change = new Employee(changeName, changeBirth);
+		if (list.contains(temp) & (list.contains(change) == false)) {
 			list.remove(temp);
-			list.add(new Employee(changeName, changeBirth));
+			list.add(change);
 		}
 		return list;
 	}

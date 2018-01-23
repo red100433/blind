@@ -29,10 +29,11 @@ public class StudentCrud {
 	}
 
 	public List<Student> update(List<Student> list, String changeName, String changeBirth) {
+		Student change = new Student(changeName, changeBirth);
 
-		if (list.contains(temp) & (list.contains(new Student(changeName, changeBirth)) == false)) {
+		if (list.contains(temp) & (list.contains(change) == false)) {
 			list.remove(temp);
-			list.add(new Student(changeName, changeBirth));
+			list.add(change);
 		}
 		return list;
 	}
