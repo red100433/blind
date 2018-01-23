@@ -23,7 +23,7 @@ public class EmployeeController extends HttpServlet {
 		String name = req.getParameter("name");
 		String birth = req.getParameter("birth");
 		String changeName = req.getParameter("changeName");
-		String changeBirth = req.getParameter("changBirth");
+		String changeBirth = req.getParameter("changeBirth");
 
 		switch (crud) {
 			case Type.INSERT:
