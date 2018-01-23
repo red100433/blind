@@ -5,6 +5,7 @@ import java.util.List;
 import com.school.exception.InvalidException;
 import com.school.models.Subject;
 import com.school.models.Teacher;
+import com.school.models.Type;
 import com.school.service.SubjectService;
 
 import lombok.extern.java.Log;
@@ -17,7 +18,6 @@ import lombok.extern.java.Log;
 
 @Log
 public class TeacherCrud {
-	private static final int LIMIT_TEACHER = 1000;
 	private String tempName;
 	private String tempBirth;
 	private String tempSubjectName;
@@ -34,7 +34,7 @@ public class TeacherCrud {
 
 	public <T> List<T> insert(List<? super T> list) {
 
-		if (flagSubject(tempSubjectName) & list.size() != LIMIT_TEACHER & list.contains(temp) == false) {
+		if (flagSubject(tempSubjectName) & list.size() != Type.LIMIT_PERSON & list.contains(temp) == false) {
 			list.add((T)temp);
 		}
 

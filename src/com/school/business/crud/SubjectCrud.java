@@ -3,6 +3,7 @@ package com.school.business.crud;
 import java.util.List;
 
 import com.school.models.Subject;
+import com.school.models.Type;
 
 /**
  *
@@ -10,7 +11,6 @@ import com.school.models.Subject;
  *
  */
 public class SubjectCrud {
-	private static final int LIMIT_SUBJECT = 100;
 	private String tempName;
 	private Subject temp;
 
@@ -20,7 +20,7 @@ public class SubjectCrud {
 	}
 
 	public <T> List<T> insert(List<? super T> list) {
-		if (list.size() != LIMIT_SUBJECT & list.contains(temp) == false) {
+		if (list.size() != Type.LIMIT_SUBJECT & list.contains(temp) == false) {
 			list.add((T)temp);
 		}
 		return (List<T>)list;

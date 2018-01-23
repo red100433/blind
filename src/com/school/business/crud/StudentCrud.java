@@ -3,6 +3,7 @@ package com.school.business.crud;
 import java.util.List;
 
 import com.school.models.Student;
+import com.school.models.Type;
 
 /**
  *
@@ -10,7 +11,6 @@ import com.school.models.Student;
  *
  */
 public class StudentCrud {
-	private static final int LIMIT_STUDENT = 1000;
 	private String tempName;
 	private String tempBirth;
 	private Student temp;
@@ -22,7 +22,7 @@ public class StudentCrud {
 	}
 
 	public <T> List<T> insert(List<? super T> list) {
-		if (list.size() != LIMIT_STUDENT & list.contains(temp) == false) {
+		if (list.size() != Type.LIMIT_PERSON & list.contains(temp) == false) {
 			list.add((T)temp);
 		}
 		return (List<T>)list;

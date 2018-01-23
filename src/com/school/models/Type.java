@@ -10,4 +10,6 @@ public class Type {
 	public static final String STUDENT_SELECT = "STUDENT_SELECT";
 	public static final String ALL_STUDENT_AVERAGE_SELECT = "ALL_STUDENT_AVERAGE_SELECT";
 	public static final String ALL_SUBJECT_AVERAGE_SELECT = "ALL_SUBJECT_AVERAGE_SELECT";
+	public static final int LIMIT_PERSON = 1000;
+	public static final int LIMIT_SUBJECT = 100;
 }
