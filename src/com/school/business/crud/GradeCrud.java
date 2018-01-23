@@ -35,14 +35,8 @@ public class GradeCrud {
 	}
 
 	public List<Grade> insert(List<Grade> list, int grade) {
-		if (grade > 100) {
-			grade = 100;
-		} else if (grade < 0) {
-			grade = 0;
-		}
-
 		if (flagSubject(tempSubjectName) & flagStudent(tempStudentName) & list.contains(temp) == false) {
-			this.tempGrade = grade;
+			this.tempGrade = gradeLimit(grade);
 			this.temp = new Grade(tempStudentName, tempSubjectName, tempGrade);
 			list.add(temp);
 		}
@@ -51,17 +45,11 @@ public class GradeCrud {
 
 	public List<Grade> update(List<Grade> list, String changeStudentName, String changeSubjectName,
 		int changeGrade) {
-
-		if (changeGrade > 100) {
-			changeGrade = 100;
-		} else if (changeGrade < 0) {
-			changeGrade = 0;
-		}
 		Grade change = new Grade(changeStudentName, changeSubjectName);
 		if (list.contains(temp) & (list.contains(change) == false) & flagSubject(changeSubjectName)
 			& flagStudent(changeStudentName)) {
 			list.remove(temp);
-			change.setGrade(changeGrade);
+			change.setGrade(gradeLimit(changeGrade));
 			list.add(change);
 		} else {
 			throw new InvalidException("변경될 학생이나 과목이 등록되지 않았습니다. 먼저 등록해주세요");
@@ -82,4 +70,14 @@ public class GradeCrud {
 	private boolean flagStudent(String studentName) {
 		return stuList.stream().anyMatch(s -> s.getStudentName().equals(studentName));
 	}
+
+	private int gradeLimit(int grade) {
+		if (grade > 100) {
+			grade = 100;
+		} else if (grade < 0) {
+			grade = 0;
+		}
+		return grade;
+	}
+
 }
