@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.school.business.crud.StudentCrudImp;
 import com.school.dao.StudentDao;
+import com.school.inter.custom.StudentCrud;
 import com.school.models.request.StudentRequest;
 import com.school.models.vo.Student;
 
@@ -29,22 +30,26 @@ public class StudentService {
 	}
 
 	public void insert(StudentRequest stuRequest) {
-		this.stuList = new StudentCrudImp(stuRequest.getName(), stuRequest.getBirth()).insert(stuList);
+		this.stuList = init(stuRequest).insert(stuList);
 		writeFileSystem();
 	}
 
 	public void update(StudentRequest stuRequest) {
-		this.stuList = new StudentCrudImp(stuRequest.getName(), stuRequest.getBirth())
+		this.stuList = init(stuRequest)
 			.update(stuList, stuRequest.getChangeName(), stuRequest.getChangeBirth());
 		writeFileSystem();
 	}
 
 	public void delete(StudentRequest stuRequest) {
-		this.stuList = new StudentCrudImp(stuRequest.getName(), stuRequest.getBirth()).delete(stuList);
+		this.stuList = init(stuRequest).delete(stuList);
 		writeFileSystem();
 	}
 
 	public List<Student> select() {
 		return this.stuList;
+	}
+
+	private StudentCrud init(StudentRequest stuRequest) {
+		return new StudentCrudImp(stuRequest.getName(), stuRequest.getBirth());
 	}
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.school.business.crud.TeacherCrudImp;
 import com.school.dao.TeacherDao;
+import com.school.inter.custom.TeacherCrud;
 import com.school.models.request.TeacherRequest;
 import com.school.models.vo.Teacher;
 
@@ -29,28 +30,30 @@ public class TeacherService {
 	}
 
 	public void insert(TeacherRequest teacherRequest) {
-		this.teacherList = new TeacherCrudImp(teacherRequest.getName(), teacherRequest.getBirth(),
-			teacherRequest.getSubject())
-				.insert(teacherList);
+		this.teacherList = init(teacherRequest)
+			.insert(teacherList);
 		writeFileSystem();
 	}
 
 	public void update(TeacherRequest teacherRequest) {
-		this.teacherList = new TeacherCrudImp(teacherRequest.getName(), teacherRequest.getBirth(),
-			teacherRequest.getSubject())
-				.update(teacherList, teacherRequest.getChangeName(), teacherRequest.getChangeBirth(),
-					teacherRequest.getChangeSuject());
+		this.teacherList = init(teacherRequest)
+			.update(teacherList, teacherRequest.getChangeName(), teacherRequest.getChangeBirth(),
+				teacherRequest.getChangeSuject());
 		writeFileSystem();
 	}
 
 	public void delete(TeacherRequest teacherRequest) {
-		this.teacherList = new TeacherCrudImp(teacherRequest.getName(), teacherRequest.getBirth(),
-			teacherRequest.getSubject())
-				.delete(teacherList);
+		this.teacherList = init(teacherRequest)
+			.delete(teacherList);
 		writeFileSystem();
 	}
 
 	public List<Teacher> select() {
 		return this.teacherList;
+	}
+
+	private TeacherCrud init(TeacherRequest teacherRequest) {
+		return new TeacherCrudImp(teacherRequest.getName(), teacherRequest.getBirth(),
+			teacherRequest.getSubject());
 	}
 }

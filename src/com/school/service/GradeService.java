@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.school.business.crud.GradeCrudImp;
 import com.school.dao.GradeDao;
+import com.school.inter.custom.GradeCrud;
 import com.school.models.request.GradeRequest;
 import com.school.models.vo.Grade;
 
@@ -29,24 +30,28 @@ public class GradeService {
 	}
 
 	public void insert(GradeRequest gradeRequest) {
-		this.gradeList = new GradeCrudImp(gradeRequest.getName(), gradeRequest.getSubject()).insert(gradeList,
+		this.gradeList = init(gradeRequest).insert(gradeList,
 			gradeRequest.getGrade());
 		writeFileSystem();
 	}
 
 	public void update(GradeRequest gradeRequest) {
-		this.gradeList = new GradeCrudImp(gradeRequest.getName(), gradeRequest.getSubject())
+		this.gradeList = init(gradeRequest)
 			.update(gradeList, gradeRequest.getChangeName(), gradeRequest.getChangeSubject(),
 				gradeRequest.getChangeGrade());
 		writeFileSystem();
 	}
 
 	public void delete(GradeRequest gradeRequest) {
-		this.gradeList = new GradeCrudImp(gradeRequest.getName(), gradeRequest.getSubject()).delete(gradeList);
+		this.gradeList = init(gradeRequest).delete(gradeList);
 		writeFileSystem();
 	}
 
 	public List<Grade> select() {
 		return this.gradeList;
+	}
+
+	private GradeCrud init(GradeRequest gradeRequest) {
+		return new GradeCrudImp(gradeRequest.getName(), gradeRequest.getSubject());
 	}
 }
