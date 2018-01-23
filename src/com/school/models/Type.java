@@ -1,7 +1,7 @@
 package com.school.models;
 
 public class Type {
-	public static final String BASIC_PATH = "C:\\Users\\USER\\Desktop\\java\\basicJava\\WebContent\\WEB-INF\\files\\";
+	public static final String BASIC_PATH = "C:\\Users\\NAVER\\Desktop\\java\\basicJava\\WebContent\\WEB-INF\\files\\";
 	public static final String INSERT = "INSERT";
 	public static final String UPDATE = "UPDATE";
 	public static final String DELETE = "DELETE";

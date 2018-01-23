@@ -35,6 +35,12 @@ public class GradeCrud {
 	}
 
 	public List<Grade> insert(List<Grade> list, int grade) {
+		if (grade > 100) {
+			grade = 100;
+		} else if (grade < 100) {
+			grade = 0;
+		}
+
 		if (flagSubject(tempSubjectName) & flagStudent(tempStudentName) & list.contains(temp) == false) {
 			this.tempGrade = grade;
 			this.temp = new Grade(tempStudentName, tempSubjectName, tempGrade);
@@ -45,6 +51,12 @@ public class GradeCrud {
 
 	public List<Grade> update(List<Grade> list, String changeStudentName, String changeSubjectName,
 		int changeGrade) {
+
+		if (changeGrade > 100) {
+			changeGrade = 100;
+		} else if (changeGrade < 100) {
+			changeGrade = 0;
+		}
 
 		if (list.contains(temp) & flagSubject(changeSubjectName) & flagStudent(changeStudentName)) {
 			list.remove(temp);

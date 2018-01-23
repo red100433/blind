@@ -8,7 +8,7 @@
 <title>JSTL</title>
 </head>
 <body>
-<h1>JSTL MENU Sample</h1>
+<h1>Result</h1>
 
   <c:forEach items="${menulist}" var="menu">
        <B><c:out value="${menu}" /></B>
