@@ -2,7 +2,7 @@ package com.school.service;
 
 import java.util.List;
 
-import com.school.business.crud.GradeCrud;
+import com.school.business.crud.GradeCrudImp;
 import com.school.dao.GradeDao;
 import com.school.models.request.GradeRequest;
 import com.school.models.vo.Grade;
@@ -29,20 +29,20 @@ public class GradeService {
 	}
 
 	public void insert(GradeRequest gradeRequest) {
-		this.gradeList = new GradeCrud(gradeRequest.getName(), gradeRequest.getSubject()).insert(gradeList,
+		this.gradeList = new GradeCrudImp(gradeRequest.getName(), gradeRequest.getSubject()).insert(gradeList,
 			gradeRequest.getGrade());
 		writeFileSystem();
 	}
 
 	public void update(GradeRequest gradeRequest) {
-		this.gradeList = new GradeCrud(gradeRequest.getName(), gradeRequest.getSubject())
+		this.gradeList = new GradeCrudImp(gradeRequest.getName(), gradeRequest.getSubject())
 			.update(gradeList, gradeRequest.getChangeName(), gradeRequest.getChangeSubject(),
 				gradeRequest.getChangeGrade());
 		writeFileSystem();
 	}
 
 	public void delete(GradeRequest gradeRequest) {
-		this.gradeList = new GradeCrud(gradeRequest.getName(), gradeRequest.getSubject()).delete(gradeList);
+		this.gradeList = new GradeCrudImp(gradeRequest.getName(), gradeRequest.getSubject()).delete(gradeList);
 		writeFileSystem();
 	}
 

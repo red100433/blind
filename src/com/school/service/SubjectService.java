@@ -2,7 +2,7 @@ package com.school.service;
 
 import java.util.List;
 
-import com.school.business.crud.SubjectCrud;
+import com.school.business.crud.SubjectCrudImp;
 import com.school.dao.SubjectDao;
 import com.school.models.request.SubjectRequest;
 import com.school.models.vo.Subject;
@@ -29,17 +29,17 @@ public class SubjectService {
 	}
 
 	public void insert(SubjectRequest subjectRequest) {
-		this.subList = new SubjectCrud(subjectRequest.getName()).insert(subList);
+		this.subList = new SubjectCrudImp(subjectRequest.getName()).insert(subList);
 		writeFileSystem();
 	}
 
 	public void update(SubjectRequest subjectRequest) {
-		this.subList = new SubjectCrud(subjectRequest.getName()).update(subList, subjectRequest.getChangeName());
+		this.subList = new SubjectCrudImp(subjectRequest.getName()).update(subList, subjectRequest.getChangeName());
 		writeFileSystem();
 	}
 
 	public void delete(SubjectRequest subjectRequest) {
-		this.subList = new SubjectCrud(subjectRequest.getName()).delete(subList);
+		this.subList = new SubjectCrudImp(subjectRequest.getName()).delete(subList);
 		writeFileSystem();
 	}
 

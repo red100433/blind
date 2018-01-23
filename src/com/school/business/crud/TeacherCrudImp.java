@@ -3,6 +3,7 @@ package com.school.business.crud;
 import java.util.List;
 
 import com.school.exception.InvalidException;
+import com.school.inter.custom.TeacherCrud;
 import com.school.models.Type;
 import com.school.models.vo.Subject;
 import com.school.models.vo.Teacher;
@@ -17,14 +18,14 @@ import lombok.extern.java.Log;
  */
 
 @Log
-public class TeacherCrud {
+public class TeacherCrudImp implements TeacherCrud {
 	private String tempName;
 	private String tempBirth;
 	private String tempSubjectName;
 	private Teacher temp;
 	private List<Subject> subList;
 
-	public TeacherCrud(String teacherName, String birth, String subName) {
+	public TeacherCrudImp(String teacherName, String birth, String subName) {
 		this.tempName = teacherName;
 		this.tempBirth = birth;
 		this.tempSubjectName = subName;
@@ -32,6 +33,10 @@ public class TeacherCrud {
 		this.temp = new Teacher(tempSubjectName, tempName, tempBirth);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.school.business.crud.TeacherCrud#insert(java.util.List)
+	 */
+	@Override
 	public List<Teacher> insert(List<Teacher> list) {
 
 		if (flagSubject(tempSubjectName) & list.size() != Type.LIMIT_PERSON & list.contains(temp) == false) {
@@ -41,6 +46,10 @@ public class TeacherCrud {
 		return list;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.school.business.crud.TeacherCrud#update(java.util.List, java.lang.String, java.lang.String, java.lang.String)
+	 */
+	@Override
 	public List<Teacher> update(List<Teacher> list, String changeName, String changeBirth, String changeSubject) {
 		Teacher change = new Teacher(changeSubject, changeName, changeBirth);
 		if (list.contains(temp) & flagSubject(changeSubject)
@@ -54,6 +63,10 @@ public class TeacherCrud {
 		return list;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.school.business.crud.TeacherCrud#delete(java.util.List)
+	 */
+	@Override
 	public List<Teacher> delete(List<Teacher> list) {
 		list.remove(temp);
 		return list;

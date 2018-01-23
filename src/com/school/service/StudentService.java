@@ -2,7 +2,7 @@ package com.school.service;
 
 import java.util.List;
 
-import com.school.business.crud.StudentCrud;
+import com.school.business.crud.StudentCrudImp;
 import com.school.dao.StudentDao;
 import com.school.models.request.StudentRequest;
 import com.school.models.vo.Student;
@@ -29,18 +29,18 @@ public class StudentService {
 	}
 
 	public void insert(StudentRequest stuRequest) {
-		this.stuList = new StudentCrud(stuRequest.getName(), stuRequest.getBirth()).insert(stuList);
+		this.stuList = new StudentCrudImp(stuRequest.getName(), stuRequest.getBirth()).insert(stuList);
 		writeFileSystem();
 	}
 
 	public void update(StudentRequest stuRequest) {
-		this.stuList = new StudentCrud(stuRequest.getName(), stuRequest.getBirth())
+		this.stuList = new StudentCrudImp(stuRequest.getName(), stuRequest.getBirth())
 			.update(stuList, stuRequest.getChangeName(), stuRequest.getChangeBirth());
 		writeFileSystem();
 	}
 
 	public void delete(StudentRequest stuRequest) {
-		this.stuList = new StudentCrud(stuRequest.getName(), stuRequest.getBirth()).delete(stuList);
+		this.stuList = new StudentCrudImp(stuRequest.getName(), stuRequest.getBirth()).delete(stuList);
 		writeFileSystem();
 	}
 

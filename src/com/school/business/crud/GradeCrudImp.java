@@ -3,6 +3,7 @@ package com.school.business.crud;
 import java.util.List;
 
 import com.school.exception.InvalidException;
+import com.school.inter.custom.GradeCrud;
 import com.school.models.vo.Grade;
 import com.school.models.vo.Student;
 import com.school.models.vo.Subject;
@@ -17,7 +18,7 @@ import lombok.extern.java.Log;
  *
  */
 @Log
-public class GradeCrud {
+public class GradeCrudImp implements GradeCrud {
 
 	private String tempStudentName;
 	private String tempSubjectName;
@@ -26,7 +27,7 @@ public class GradeCrud {
 	private List<Subject> subList;
 	private List<Student> stuList;
 
-	public GradeCrud(String studentName, String subjectName) {
+	public GradeCrudImp(String studentName, String subjectName) {
 		this.subList = SubjectService.getInstance().select();
 		this.stuList = StudentService.getInstance().select();
 		this.tempStudentName = studentName;
@@ -34,6 +35,10 @@ public class GradeCrud {
 		this.temp = new Grade(tempStudentName, tempSubjectName);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.school.business.crud.GradeCrud#insert(java.util.List, int)
+	 */
+	@Override
 	public List<Grade> insert(List<Grade> list, int grade) {
 		if (flagSubject(tempSubjectName) & flagStudent(tempStudentName) & list.contains(temp) == false) {
 			this.tempGrade = gradeLimit(grade);
@@ -43,6 +48,10 @@ public class GradeCrud {
 		return list;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.school.business.crud.GradeCrud#update(java.util.List, java.lang.String, java.lang.String, int)
+	 */
+	@Override
 	public List<Grade> update(List<Grade> list, String changeStudentName, String changeSubjectName,
 		int changeGrade) {
 		Grade change = new Grade(changeStudentName, changeSubjectName);
@@ -58,6 +67,10 @@ public class GradeCrud {
 		return list;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.school.business.crud.GradeCrud#delete(java.util.List)
+	 */
+	@Override
 	public List<Grade> delete(List<Grade> list) {
 		list.remove(temp);
 		return list;
