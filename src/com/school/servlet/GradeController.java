@@ -53,11 +53,11 @@ public class GradeController extends HttpServlet {
 				gradeService.delete(gradeRequest);
 				break;
 			case Type.SLELCT:
-				list = selectOption(selectOption, gradeRequest.getName());
+				list = gradeService.selectOption(selectOption, gradeRequest);
 				break;
 		}
 		if ("".equals(selectOption)) {
-			list = selectOption(Type.ALL_SELECT, gradeRequest.getName());
+			list = gradeService.selectOption(Type.ALL_SELECT, gradeRequest);
 		}
 
 		req.setAttribute("menulist", list);
@@ -66,55 +66,5 @@ public class GradeController extends HttpServlet {
 		dispatcher.forward(req, res);
 	}
 
-	private List<String> selectOption(String selectOption, String name) {
-
-		switch (selectOption) {
-			case Type.ALL_SELECT:
-				List<String> result = gradeService.select().stream()
-					.map(o -> o.toString())
-					.collect(Collectors.toList());
-
-				gradeService.select().forEach(System.out::println);
-				return result;
-
-			case Type.ALL_STUDENT_AVERAGE_SELECT:
-				List<String> result2 = new ArrayList<>();
-				for (Student stu : studentService.select()) {
-					OptionalDouble allStudentAverage = getStudentAverage(stu.getStudentName());
-
-					allStudentAverage.ifPresent(
-						o -> {
-							System.out.println(stu.getStudentName() + "의 평균: " + o);
-							result2.add(stu.getStudentName() + "의 평균:" + o);
-						});
-				}
-				return result2;
-			case Type.ALL_SUBJECT_AVERAGE_SELECT:
-				List<String> result3 = new ArrayList<>();
-				for (Subject sub : subjectService.select()) {
-					OptionalDouble allSubjectAverage = getSubjectAverage(sub.getSubjectName());
-					allSubjectAverage.ifPresent(o -> {
-						System.out.println(sub.getSubjectName() + "의 평균: " + o);
-						result3.add(sub.getSubjectName() + "의 평균: " + o);
-					});
-				}
-				return result3;
-		}
-		return new ArrayList<>();
-
-	}
-
-	private OptionalDouble getStudentAverage(String name) {
-		return gradeService.select().stream()
-			.filter(s -> s.getStudentName().equals(name))
-			.mapToInt(Grade::getGrade)
-			.average();
-	}
-
-	private OptionalDouble getSubjectAverage(String subject) {
-		return gradeService.select().stream()
-			.filter(s -> s.getSubjectName().equals(subject))
-			.mapToInt(Grade::getGrade)
-			.average();
-	}
+	
 }

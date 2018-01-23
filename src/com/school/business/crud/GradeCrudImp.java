@@ -1,9 +1,13 @@
 package com.school.business.crud;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.OptionalDouble;
+import java.util.stream.Collectors;
 
 import com.school.custom.GradeCrud;
 import com.school.exception.InvalidException;
+import com.school.models.Type;
 import com.school.models.vo.Grade;
 import com.school.models.vo.Student;
 import com.school.models.vo.Subject;
@@ -91,6 +95,54 @@ public class GradeCrudImp implements GradeCrud {
 			grade = 0;
 		}
 		return grade;
+	}
+	
+	@Override
+	public List<String> selectOption(List<Grade> list, String selectOption, String name) {
+		switch (selectOption) {
+			case Type.ALL_SELECT:
+				return list.stream()
+						.map(o -> o.toString())
+						.collect(Collectors.toList());
+
+			case Type.ALL_STUDENT_AVERAGE_SELECT:
+				List<String> result2 = new ArrayList<>();
+				
+				for (Student stu : stuList) {
+					OptionalDouble allStudentAverage = getStudentAverage(list, stu.getStudentName());
+
+					allStudentAverage.ifPresent(
+						o -> 
+							result2.add(stu.getStudentName() + "의 평균:" + o)
+						);
+				}
+				return result2;
+			case Type.ALL_SUBJECT_AVERAGE_SELECT:
+				List<String> result3 = new ArrayList<>();
+				for (Subject sub : subList) {
+					OptionalDouble allSubjectAverage = getSubjectAverage(list, sub.getSubjectName());
+					allSubjectAverage.ifPresent(o -> 
+						result3.add(sub.getSubjectName() + "의 평균: " + o)
+					);
+				}
+				return result3;
+		}
+		return new ArrayList<>();
+
+	}
+
+	private OptionalDouble getStudentAverage(List<Grade> list, String name) {
+		return list.stream()
+			.filter(s -> s.getStudentName().equals(name))
+			.mapToInt(Grade::getGrade)
+			.average();
+	}
+
+	private OptionalDouble getSubjectAverage(List<Grade> list, String subject) {
+		return list.stream()
+			.filter(s -> s.getSubjectName().equals(subject))
+			.mapToInt(Grade::getGrade)
+			.average();
 	}
 
 }

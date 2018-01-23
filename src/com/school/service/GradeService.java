@@ -54,4 +54,9 @@ public class GradeService {
 	private GradeCrud init(GradeRequest gradeRequest) {
 		return new GradeCrudImp(gradeRequest.getName(), gradeRequest.getSubject());
 	}
+
+	public List<String> selectOption(String selectOption, GradeRequest gradeRequest) {
+		
+		return init(gradeRequest).selectOption(gradeList, selectOption, gradeRequest.getName());
+	}
 }

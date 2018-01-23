@@ -13,4 +13,6 @@ public interface GradeCrud {
 
 	List<Grade> delete(List<Grade> list);
 
+	List<String> selectOption(List<Grade> list, String selectOption, String name);
+
 }
