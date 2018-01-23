@@ -2,9 +2,7 @@ package com.school.business.crud;
 
 import java.util.List;
 
-import com.school.handler.ScannerHandler;
 import com.school.models.Employee;
-import com.school.view.EmployeeUI;
 
 /**
  *
@@ -13,18 +11,9 @@ import com.school.view.EmployeeUI;
  */
 public class EmployeeCrud {
 	private static final int LIMIT_EMPLOYEE = 1000;
-	private final ScannerHandler scanner = ScannerHandler.getInstance();
 	private String tempName;
 	private String tempBirth;
 	private Employee temp;
-	private EmployeeUI employeeUI;
-
-	public EmployeeCrud() {
-		this.employeeUI = new EmployeeUI(scanner.getScanner());
-		this.tempName = employeeUI.inputEmployeeName();
-		this.tempBirth = employeeUI.inputEmployeeBirth();
-		this.temp = new Employee(tempName, tempBirth);
-	}
 
 	public EmployeeCrud(String employeeName, String birth) {
 		this.tempName = employeeName;
@@ -37,20 +26,6 @@ public class EmployeeCrud {
 			list.add((T)temp);
 		}
 
-		return (List<T>)list;
-	}
-
-	public <T> List<T> update(List<? super T> list) {
-		for (Object e : list) {
-			if (e.equals(temp)) {
-				String changeName = employeeUI.changeEmployeeName();
-				String changeBirth = employeeUI.changeEmployeeBirth();
-				list.remove(new Employee(changeName, changeBirth));
-				((Employee)e).setEmployeeName(changeName);
-				((Employee)e).setBirth((changeBirth));
-				return (List<T>)list;
-			}
-		}
 		return (List<T>)list;
 	}
 

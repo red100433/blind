@@ -2,9 +2,7 @@ package com.school.business.crud;
 
 import java.util.List;
 
-import com.school.handler.ScannerHandler;
 import com.school.models.Subject;
-import com.school.view.SubjectUI;
 
 /**
  *
@@ -13,16 +11,8 @@ import com.school.view.SubjectUI;
  */
 public class SubjectCrud {
 	private static final int LIMIT_SUBJECT = 100;
-	private final ScannerHandler scanner = ScannerHandler.getInstance();
 	private String tempName;
 	private Subject temp;
-	private SubjectUI subjectUi;
-
-	public SubjectCrud() {
-		this.subjectUi = new SubjectUI(scanner.getScanner());
-		this.tempName = subjectUi.inputSubjectName();
-		this.temp = new Subject(tempName);
-	}
 
 	public SubjectCrud(String subName) {
 		this.tempName = subName;
@@ -32,19 +22,6 @@ public class SubjectCrud {
 	public <T> List<T> insert(List<? super T> list) {
 		if (list.size() != LIMIT_SUBJECT & list.contains(temp) == false) {
 			list.add((T)temp);
-		}
-		return (List<T>)list;
-	}
-
-	public <T> List<T> update(List<? super T> list) {
-		for (Object e : list) {
-			Subject s = (Subject)e;
-			if (s.equals(temp)) {
-				String changeName = subjectUi.changeSubjectName();
-				list.remove(new Subject(changeName));
-				((Subject)e).setSubjectName(changeName);
-				return (List<T>)list;
-			}
 		}
 		return (List<T>)list;
 	}
