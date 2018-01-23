@@ -14,7 +14,6 @@ import com.school.models.Type;
  */
 public class SubjectDao implements DaoInterface {
 	static final String SUB_PATH = Type.BASIC_PATH + "subObject.txt";
-	//	static final String SUB_PATH = "subObject.txt";
 	FileSystem fs = FileSystem.getInstance();
 
 	@Override
