@@ -21,27 +21,25 @@ public class EmployeeCrud {
 		this.temp = new Employee(tempName, tempBirth);
 	}
 
-	public <T> List<T> insert(List<? super T> list) {
+	public List<Employee> insert(List<Employee> list) {
 		if (list.size() != Type.LIMIT_PERSON & list.contains(temp) == false) {
-			list.add((T)temp);
+			list.add(temp);
 		}
 
-		return (List<T>)list;
+		return list;
 	}
 
-	public <T> List<T> update(List<? super T> list, String changeName, String changeBirth) {
+	public List<Employee> update(List<Employee> list, String changeName, String changeBirth) {
 
 		if (list.contains(temp) & (list.contains(new Employee(changeName, changeBirth)) == false)) {
 			list.remove(temp);
-			list.add((T)new Employee(changeName, changeBirth));
-			return (List<T>)list;
+			list.add(new Employee(changeName, changeBirth));
 		}
-
-		return (List<T>)list;
+		return list;
 	}
 
-	public <T> List<T> delete(List<? super T> list) {
+	public List<Employee> delete(List<Employee> list) {
 		list.remove(temp);
-		return (List<T>)list;
+		return list;
 	}
 }

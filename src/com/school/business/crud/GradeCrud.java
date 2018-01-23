@@ -34,31 +34,31 @@ public class GradeCrud {
 		this.temp = new Grade(tempStudentName, tempSubjectName);
 	}
 
-	public <T> List<T> insert(List<? super T> list, int grade) {
+	public List<Grade> insert(List<Grade> list, int grade) {
 		if (flagSubject(tempSubjectName) & flagStudent(tempStudentName) & list.contains(temp) == false) {
 			this.tempGrade = grade;
 			this.temp = new Grade(tempStudentName, tempSubjectName, tempGrade);
-			list.add((T)temp);
+			list.add(temp);
 		}
-		return (List<T>)list;
+		return list;
 	}
 
-	public <T> List<T> update(List<? super T> list, String changeStudentName, String changeSubjectName,
+	public List<Grade> update(List<Grade> list, String changeStudentName, String changeSubjectName,
 		int changeGrade) {
 
 		if (list.contains(temp) & flagSubject(changeSubjectName) & flagStudent(changeStudentName)) {
 			list.remove(temp);
-			list.add((T)new Grade(changeStudentName, changeSubjectName, changeGrade));
+			list.add(new Grade(changeStudentName, changeSubjectName, changeGrade));
 		} else {
 			throw new InvalidException("변경될 학생이나 과목이 등록되지 않았습니다. 먼저 등록해주세요");
 		}
 
-		return (List<T>)list;
+		return list;
 	}
 
-	public <T> List<T> delete(List<? super T> list) {
+	public List<Grade> delete(List<Grade> list) {
 		list.remove(temp);
-		return (List<T>)list;
+		return list;
 	}
 
 	private boolean flagSubject(String subjectName) {

@@ -32,31 +32,31 @@ public class TeacherCrud {
 		this.temp = new Teacher(tempSubjectName, tempName, tempBirth);
 	}
 
-	public <T> List<T> insert(List<? super T> list) {
+	public List<Teacher> insert(List<Teacher> list) {
 
 		if (flagSubject(tempSubjectName) & list.size() != Type.LIMIT_PERSON & list.contains(temp) == false) {
-			list.add((T)temp);
+			list.add(temp);
 		}
 
-		return (List<T>)list;
+		return list;
 	}
 
-	public <T> List<T> update(List<? super T> list, String changeName, String changeBirth, String changeSubject) {
+	public List<Teacher> update(List<Teacher> list, String changeName, String changeBirth, String changeSubject) {
 
 		if (list.contains(temp) & flagSubject(changeSubject)
 			& (list.contains(new Teacher(changeSubject, changeName, changeBirth)) == false)) {
 			list.remove(temp);
-			list.add((T)new Teacher(changeSubject, changeName, changeBirth));
+			list.add(new Teacher(changeSubject, changeName, changeBirth));
 		} else {
 			throw new InvalidException("변경될 교과목이 등록되지 않은 과목입니다. 먼저 교과목을 등록해주세요");
 		}
 
-		return (List<T>)list;
+		return list;
 	}
 
-	public <T> List<T> delete(List<? super T> list) {
+	public List<Teacher> delete(List<Teacher> list) {
 		list.remove(temp);
-		return (List<T>)list;
+		return list;
 	}
 
 	private boolean flagSubject(String subjectName) {

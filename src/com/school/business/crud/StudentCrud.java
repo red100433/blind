@@ -21,27 +21,25 @@ public class StudentCrud {
 		this.temp = new Student(tempName, tempBirth);
 	}
 
-	public <T> List<T> insert(List<? super T> list) {
+	public List<Student> insert(List<Student> list) {
 		if (list.size() != Type.LIMIT_PERSON & list.contains(temp) == false) {
-			list.add((T)temp);
+			list.add(temp);
 		}
-		return (List<T>)list;
+		return list;
 	}
 
-	public <T> List<T> update(List<? super T> list, String changeName, String changeBirth) {
+	public List<Student> update(List<Student> list, String changeName, String changeBirth) {
 
 		if (list.contains(temp) & (list.contains(new Student(changeName, changeBirth)) == false)) {
 			list.remove(temp);
-			list.add((T)new Student(changeName, changeBirth));
-			return (List<T>)list;
+			list.add(new Student(changeName, changeBirth));
 		}
-
-		return (List<T>)list;
+		return list;
 	}
 
-	public <T> List<T> delete(List<? super T> list) {
+	public List<Student> delete(List<Student> list) {
 		list.remove(temp);
-		return (List<T>)list;
+		return list;
 	}
 
 }

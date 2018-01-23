@@ -19,27 +19,26 @@ public class SubjectCrud {
 		this.temp = new Subject(tempName);
 	}
 
-	public <T> List<T> insert(List<? super T> list) {
+	public List<Subject> insert(List<Subject> list) {
 		if (list.size() != Type.LIMIT_SUBJECT & list.contains(temp) == false) {
-			list.add((T)temp);
+			list.add(temp);
 		}
-		return (List<T>)list;
+		return list;
 	}
 
-	public <T> List<T> update(List<? super T> list, String changeName) {
+	public List<Subject> update(List<Subject> list, String changeName) {
 
 		if (list.contains(temp) & (list.contains(new Subject(changeName)) == false)) {
 			list.remove(temp);
-			list.add((T)new Subject(changeName));
-			return (List<T>)list;
+			list.add(new Subject(changeName));
 		}
 
-		return (List<T>)list;
+		return list;
 	}
 
-	public <T> List<T> delete(List<? super T> list) {
+	public List<Subject> delete(List<Subject> list) {
 		list.remove(temp);
-		return (List<T>)list;
+		return list;
 	}
 
 }
