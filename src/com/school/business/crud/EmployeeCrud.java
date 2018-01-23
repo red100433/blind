@@ -32,7 +32,6 @@ public class EmployeeCrud {
 		this.temp = new Employee(tempName, tempBirth);
 	}
 
-	//TODO contain으로 바꾸기
 	public <T> List<T> insert(List<? super T> list) {
 		if (list.size() != LIMIT_EMPLOYEE & list.contains(temp) == false) {
 			list.add((T)temp);
@@ -56,13 +55,13 @@ public class EmployeeCrud {
 	}
 
 	public <T> List<T> update(List<? super T> list, String changeName, String changeBirth) {
-		for (Object e : list) {
-			if (e.equals(temp) & list.contains(new Employee(changeName, changeBirth)) == false) {
-				list.remove(temp);
-				list.add((T)new Employee(changeName, changeBirth));
-				return (List<T>)list;
-			}
+
+		if (list.contains(temp) & (list.contains(new Employee(changeName, changeBirth)) == false)) {
+			list.remove(temp);
+			list.add((T)new Employee(changeName, changeBirth));
+			return (List<T>)list;
 		}
+
 		return (List<T>)list;
 	}
 

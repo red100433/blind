@@ -54,13 +54,8 @@ public class TeacherCrud {
 	}
 
 	public <T> List<T> insert(List<? super T> list) {
-		boolean teacherFlag = false;
-		for (Subject sub : subList) {
-			if (sub.getSubjectName().equals(tempSubjectName)) {
-				teacherFlag = true;
-			}
-		}
-		if (teacherFlag & list.size() != LIMIT_TEACHER & list.contains(temp) == false) {
+
+		if (flagSubject(tempSubjectName) & list.size() != LIMIT_TEACHER & list.contains(temp) == false) {
 			list.add((T)temp);
 		}
 
@@ -94,28 +89,15 @@ public class TeacherCrud {
 	}
 
 	public <T> List<T> update(List<? super T> list, String changeName, String changeBirth, String changeSubject) {
-		boolean teacherFlag = false;
 
-		log.info(changeName);
-		log.info(changeSubject);
-		log.info(changeBirth);
-		for (Object e : list) {
-			if (e.equals(temp)) {
-
-				for (Subject sub : subList) {
-					if (sub.getSubjectName().equals(changeSubject)) {
-						teacherFlag = true;
-					}
-				}
-
-				if (teacherFlag & list.contains(new Teacher(changeSubject, changeName, changeBirth)) == false) {
-					list.remove(temp);
-					list.add((T)new Teacher(changeSubject, changeName, changeBirth));
-				} else {
-					throw new InvalidException("변경될 교과목이 등록되지 않은 과목입니다. 먼저 교과목을 등록해주세요");
-				}
-			}
+		if (list.contains(temp) & flagSubject(changeSubject)
+			& (list.contains(new Teacher(changeSubject, changeName, changeBirth)) == false)) {
+			list.remove(temp);
+			list.add((T)new Teacher(changeSubject, changeName, changeBirth));
+		} else {
+			throw new InvalidException("변경될 교과목이 등록되지 않은 과목입니다. 먼저 교과목을 등록해주세요");
 		}
+
 		return (List<T>)list;
 	}
 
@@ -124,4 +106,7 @@ public class TeacherCrud {
 		return (List<T>)list;
 	}
 
+	private boolean flagSubject(String subjectName) {
+		return subList.stream().anyMatch(s -> s.getSubjectName().equals(subjectName));
+	}
 }
