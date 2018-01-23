@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.school.models.Employee;
 import com.school.models.Type;
+import com.school.models.request.EmployeeRequest;
 import com.school.service.EmployeeService;
 
 public class EmployeeController extends HttpServlet {
@@ -18,22 +19,20 @@ public class EmployeeController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		String management = req.getParameter("Manage");
-		String crud = req.getParameter("Crud");
-		String name = req.getParameter("name");
-		String birth = req.getParameter("birth");
-		String changeName = req.getParameter("changeName");
-		String changeBirth = req.getParameter("changeBirth");
-
-		switch (crud) {
+		EmployeeRequest empRequest = EmployeeRequest.builder().name(req.getParameter("name"))
+			.birth(req.getParameter("birth"))
+			.changeName(req.getParameter("changeName"))
+			.changeBirth(req.getParameter("changeBirth"))
+			.build();
+		switch (req.getParameter("Crud")) {
 			case Type.INSERT:
-				employeeService.insert(name, birth);
+				employeeService.insert(empRequest);
 				break;
 			case Type.UPDATE:
-				employeeService.update(name, birth, changeName, changeBirth);
+				employeeService.update(empRequest);
 				break;
 			case Type.DELETE:
-				employeeService.delete(name, birth);
+				employeeService.delete(empRequest);
 				break;
 		}
 

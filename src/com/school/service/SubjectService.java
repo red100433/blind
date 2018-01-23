@@ -4,12 +4,13 @@ import java.util.List;
 
 import com.school.business.crud.SubjectCrud;
 import com.school.dao.SubjectDao;
-import com.school.dao.TeacherDao;
 import com.school.models.Subject;
+import com.school.models.request.SubjectRequest;
 
 public class SubjectService {
 	private static SubjectService t;
 	private List<Subject> subList;
+
 	public static SubjectService getInstance() {
 		synchronized (SubjectService.class) {
 			if (t == null) {
@@ -18,29 +19,30 @@ public class SubjectService {
 		}
 		return t;
 	}
-	private SubjectService() { 
+
+	private SubjectService() {
 		this.subList = new SubjectDao().readDataList();
 	}
-	
+
 	public void writeFileSystem() {
 		new SubjectDao().writeDataList(subList);
 	}
-	
-	public void insert(String subName) {
-		this.subList = new SubjectCrud(subName).insert(subList);
+
+	public void insert(SubjectRequest subjectRequest) {
+		this.subList = new SubjectCrud(subjectRequest.getName()).insert(subList);
 		writeFileSystem();
 	}
-	
-	public void update(String subName, String changeName) {
-		this.subList = new SubjectCrud(subName).update(subList, changeName);
+
+	public void update(SubjectRequest subjectRequest) {
+		this.subList = new SubjectCrud(subjectRequest.getName()).update(subList, subjectRequest.getChangeName());
 		writeFileSystem();
 	}
-	
-	public void delete(String subName) {
-		this.subList = new SubjectCrud(subName).delete(subList);
+
+	public void delete(SubjectRequest subjectRequest) {
+		this.subList = new SubjectCrud(subjectRequest.getName()).delete(subList);
 		writeFileSystem();
 	}
-	
+
 	public List<Subject> select() {
 		return this.subList;
 	}

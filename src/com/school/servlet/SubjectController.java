@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.school.models.Subject;
 import com.school.models.Type;
+import com.school.models.request.SubjectRequest;
 import com.school.service.SubjectService;
 
 import lombok.extern.java.Log;
@@ -21,22 +22,20 @@ public class SubjectController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		String management = req.getParameter("Manage");
-		String crud = req.getParameter("Crud");
-		String name = req.getParameter("name");
-		String changeName = req.getParameter("changeName");
-		log.info(crud);
-		log.info(name);
-		log.info(changeName);
-		switch (crud) {
+		SubjectRequest subjectRequest = SubjectRequest.builder()
+			.name(req.getParameter("name"))
+			.changeName(req.getParameter("changeName"))
+			.build();
+
+		switch (req.getParameter("Crud")) {
 			case Type.INSERT:
-				subjectService.insert(name);
+				subjectService.insert(subjectRequest);
 				break;
 			case Type.UPDATE:
-				subjectService.update(name, changeName);
+				subjectService.update(subjectRequest);
 				break;
 			case Type.DELETE:
-				subjectService.delete(name);
+				subjectService.delete(subjectRequest);
 				break;
 		}
 		List<Subject> list = subjectService.select();

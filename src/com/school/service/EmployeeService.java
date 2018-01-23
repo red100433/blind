@@ -5,6 +5,7 @@ import java.util.List;
 import com.school.business.crud.EmployeeCrud;
 import com.school.dao.EmployeeDao;
 import com.school.models.Employee;
+import com.school.models.request.EmployeeRequest;
 
 public class EmployeeService {
 	private static EmployeeService t;
@@ -27,19 +28,19 @@ public class EmployeeService {
 		new EmployeeDao().writeDataList(empList);
 	}
 
-	public void insert(String employeeName, String birth) {
-		this.empList = new EmployeeCrud(employeeName, birth).insert(empList);
+	public void insert(EmployeeRequest empRequest) {
+		this.empList = new EmployeeCrud(empRequest.getName(), empRequest.getBirth()).insert(empList);
 		writeFileSystem();
 	}
 
-	public void update(String employeeName, String birth, String changeName, String changeBirth) {
-		this.empList = new EmployeeCrud(employeeName, birth)
-			.update(empList, changeName, changeBirth);
+	public void update(EmployeeRequest empRequest) {
+		this.empList = new EmployeeCrud(empRequest.getName(), empRequest.getBirth())
+			.update(empList, empRequest.getChangeName(), empRequest.getChangeBirth());
 		writeFileSystem();
 	}
 
-	public void delete(String employeeName, String birth) {
-		this.empList = new EmployeeCrud(employeeName, birth).delete(empList);
+	public void delete(EmployeeRequest empRequest) {
+		this.empList = new EmployeeCrud(empRequest.getName(), empRequest.getBirth()).delete(empList);
 		writeFileSystem();
 	}
 

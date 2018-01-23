@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.school.models.Student;
 import com.school.models.Type;
+import com.school.models.request.StudentRequest;
 import com.school.service.StudentService;
 
 public class StudentController extends HttpServlet {
@@ -18,21 +19,20 @@ public class StudentController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		String crud = req.getParameter("Crud");
-		String name = req.getParameter("name");
-		String birth = req.getParameter("birth");
-		String changeName = req.getParameter("changeName");
-		String changeBirth = req.getParameter("changeBirth");
-
-		switch (crud) {
+		StudentRequest studentRequest = StudentRequest.builder().name(req.getParameter("name"))
+			.birth(req.getParameter("birth"))
+			.changeName(req.getParameter("changeName"))
+			.changeBirth(req.getParameter("changeBirth"))
+			.build();
+		switch (req.getParameter("Crud")) {
 			case Type.INSERT:
-				studentService.insert(name, birth);
+				studentService.insert(studentRequest);
 				break;
 			case Type.UPDATE:
-				studentService.update(name, birth, changeName, changeBirth);
+				studentService.update(studentRequest);
 				break;
 			case Type.DELETE:
-				studentService.delete(name, birth);
+				studentService.delete(studentRequest);
 				break;
 		}
 

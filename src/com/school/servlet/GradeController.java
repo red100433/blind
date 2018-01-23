@@ -17,6 +17,7 @@ import com.school.models.Grade;
 import com.school.models.Student;
 import com.school.models.Subject;
 import com.school.models.Type;
+import com.school.models.request.GradeRequest;
 import com.school.service.GradeService;
 import com.school.service.StudentService;
 import com.school.service.SubjectService;
@@ -31,34 +32,32 @@ public class GradeController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		String management = req.getParameter("Manage");
-		String crud = req.getParameter("Crud");
+		GradeRequest gradeRequest = GradeRequest.builder().name(req.getParameter("name"))
+			.subject(req.getParameter("subject"))
+			.grade(Integer.parseInt(req.getParameter("grade")))
+			.changeName(req.getParameter("changeName"))
+			.changeSubject(req.getParameter("changeSubject"))
+			.changeGrade(Integer.parseInt(req.getParameter("changeGrade")))
+			.build();
 		String selectOption = req.getParameter("selectOption");
 
-		String name = req.getParameter("name");
-		String grade = req.getParameter("grade");
-		String subject = req.getParameter("subject");
-		String changeName = req.getParameter("changeName");
-		String changeGrade = req.getParameter("changeGrade");
-		String changeSubject = req.getParameter("changeSubject");
-
 		List<String> list = Collections.emptyList();
-		switch (crud) {
+		switch (req.getParameter("Crud")) {
 			case Type.INSERT:
-				gradeService.insert(name, subject, Integer.parseInt(grade));
+				gradeService.insert(gradeRequest);
 				break;
 			case Type.UPDATE:
-				gradeService.update(name, subject, changeName, changeSubject, Integer.parseInt(changeGrade));
+				gradeService.update(gradeRequest);
 				break;
 			case Type.DELETE:
-				gradeService.delete(name, subject);
+				gradeService.delete(gradeRequest);
 				break;
 			case Type.SLELCT:
-				list = selectOption(selectOption, name);
+				list = selectOption(selectOption, gradeRequest.getName());
 				break;
 		}
 		if ("".equals(selectOption)) {
-			list = selectOption(Type.ALL_SELECT, name);
+			list = selectOption(Type.ALL_SELECT, gradeRequest.getName());
 		}
 
 		req.setAttribute("menulist", list);

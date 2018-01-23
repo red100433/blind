@@ -5,6 +5,7 @@ import java.util.List;
 import com.school.business.crud.GradeCrud;
 import com.school.dao.GradeDao;
 import com.school.models.Grade;
+import com.school.models.request.GradeRequest;
 
 public class GradeService {
 	private static GradeService t;
@@ -27,20 +28,21 @@ public class GradeService {
 		new GradeDao().writeDataList(gradeList);
 	}
 
-	public void insert(String studentName, String subjectName, int grade) {
-		this.gradeList = new GradeCrud(studentName, subjectName).insert(gradeList, grade);
+	public void insert(GradeRequest gradeRequest) {
+		this.gradeList = new GradeCrud(gradeRequest.getName(), gradeRequest.getSubject()).insert(gradeList,
+			gradeRequest.getGrade());
 		writeFileSystem();
 	}
 
-	public void update(String studentName, String subjectName, String changeStudentName, String changeSubjectName,
-		int changeGrade) {
-		this.gradeList = new GradeCrud(studentName, subjectName)
-			.update(gradeList, changeStudentName, changeSubjectName, changeGrade);
+	public void update(GradeRequest gradeRequest) {
+		this.gradeList = new GradeCrud(gradeRequest.getName(), gradeRequest.getSubject())
+			.update(gradeList, gradeRequest.getChangeName(), gradeRequest.getChangeSubject(),
+				gradeRequest.getChangeGrade());
 		writeFileSystem();
 	}
 
-	public void delete(String studentName, String subjectName) {
-		this.gradeList = new GradeCrud(studentName, subjectName).delete(gradeList);
+	public void delete(GradeRequest gradeRequest) {
+		this.gradeList = new GradeCrud(gradeRequest.getName(), gradeRequest.getSubject()).delete(gradeList);
 		writeFileSystem();
 	}
 

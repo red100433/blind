@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.school.models.Teacher;
 import com.school.models.Type;
+import com.school.models.request.TeacherRequest;
 import com.school.service.TeacherService;
 
 import lombok.extern.java.Log;
@@ -21,24 +22,23 @@ public class TeacherController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		String management = req.getParameter("Manage");
-		String crud = req.getParameter("Crud");
-		String name = req.getParameter("name");
-		String birth = req.getParameter("birth");
-		String subject = req.getParameter("subject");
-		String changeName = req.getParameter("changeName");
-		String changeBirth = req.getParameter("changeBirth");
-		String changeSubject = req.getParameter("changeSubject");
+		TeacherRequest teacherRequest = TeacherRequest.builder().name(req.getParameter("name"))
+			.birth(req.getParameter("birth"))
+			.subject(req.getParameter("subject"))
+			.changeName(req.getParameter("changeName"))
+			.changeBirth(req.getParameter("changeBirth"))
+			.changeSuject(req.getParameter("changeSubject"))
+			.build();
 
-		switch (crud) {
+		switch (req.getParameter("Crud")) {
 			case Type.INSERT:
-				teacherService.insert(name, birth, subject);
+				teacherService.insert(teacherRequest);
 				break;
 			case Type.UPDATE:
-				teacherService.update(name, birth, subject, changeName, changeBirth, changeSubject);
+				teacherService.update(teacherRequest);
 				break;
 			case Type.DELETE:
-				teacherService.delete(name, birth, subject);
+				teacherService.delete(teacherRequest);
 				break;
 		}
 
