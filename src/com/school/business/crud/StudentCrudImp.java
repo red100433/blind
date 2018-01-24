@@ -44,6 +44,7 @@ public class StudentCrudImp implements StudentCrud {
 		Student change = new Student(changeName, changeBirth);
 
 		if (list.contains(temp) & (list.contains(change) == false)) {
+			GradeService.getInstance().update(tempName, changeName);
 			list.remove(temp);
 			list.add(change);
 		}

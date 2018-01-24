@@ -30,7 +30,7 @@ public class TeacherCrudImp implements TeacherCrud {
 		this.tempBirth = birth;
 		this.tempSubjectName = subName;
 		this.subList = SubjectService.getInstance().select();
-		this.temp = new Teacher(tempSubjectName, tempName, tempBirth);
+		this.temp = new Teacher(tempName, tempSubjectName, tempBirth);
 	}
 
 	public TeacherCrudImp() {
@@ -42,8 +42,9 @@ public class TeacherCrudImp implements TeacherCrud {
 	 */
 	@Override
 	public List<Teacher> insert(List<Teacher> list) {
-
-		if (flagSubject(tempSubjectName) & list.size() != Type.LIMIT_PERSON & list.contains(temp) == false) {
+		if (flagSubject(tempSubjectName)
+			& list.size() != Type.LIMIT_PERSON
+			& list.contains(temp) == false) {
 			list.add(temp);
 		}
 
@@ -67,6 +68,13 @@ public class TeacherCrudImp implements TeacherCrud {
 		return list;
 	}
 
+	public List<Teacher> update(List<Teacher> list, String name, String changeName) {
+		if (flagSubject(name) & flagSubject(changeName) == false) {
+			list.stream().filter(s -> name.equals(s.getSubjectName())).forEach(s -> s.setSubjectName(changeName));
+		}
+		return list;
+	}
+
 	/* (non-Javadoc)
 	 * @see com.school.business.crud.TeacherCrud#delete(java.util.List)
 	 */
@@ -76,14 +84,13 @@ public class TeacherCrudImp implements TeacherCrud {
 		return list;
 	}
 
+	public List<Teacher> delete(List<Teacher> list, String name) {
+		list.stream().filter(s -> name.equals(s.getSubjectName())).forEach(s -> s.setSubjectName(""));
+		return list;
+	}
+
 	private boolean flagSubject(String subjectName) {
 		return subList.stream().anyMatch(s -> s.getSubjectName().equals(subjectName));
 	}
 
-	public List<Teacher> delete(List<Teacher> list, String name) {
-		if (flagSubject(name)) {
-			list.stream().filter(s -> name.equals(s.getSubjectName())).forEach(s -> s.setSubjectName(""));
-		}
-		return list;
-	}
 }

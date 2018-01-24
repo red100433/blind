@@ -41,6 +41,7 @@ public class SubjectCrudImp implements SubjectCrud {
 		Subject change = new Subject(changeName);
 		if (list.contains(temp) & (list.contains(change) == false)) {
 			GradeService.getInstance().update(tempName, changeName);
+			TeacherService.getInstance().update(tempName, changeName);
 			list.remove(temp);
 			list.add(change);
 		}

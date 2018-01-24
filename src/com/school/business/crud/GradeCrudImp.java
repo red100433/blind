@@ -77,9 +77,9 @@ public class GradeCrudImp implements GradeCrud {
 	}
 
 	public List<Grade> update(final List<Grade> list, String name, String changeName) {
-		if (flagSubject(name) & flagSubject(changeName)) {
+		if (flagSubject(name) & flagSubject(changeName) == false) {
 			list.stream().filter(s -> name.equals(s.getSubjectName())).forEach(s -> s.setSubjectName(changeName));
-		} else if (flagStudent(name) & flagStudent(changeName)) {
+		} else if (flagStudent(name) & flagStudent(changeName) == false) {
 			list.stream().filter(s -> name.equals(s.getStudentName())).forEach(s -> s.setStudentName(changeName));
 		}
 		return list;

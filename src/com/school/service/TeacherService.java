@@ -42,10 +42,19 @@ public class TeacherService {
 		writeFileSystem();
 	}
 
+	public void update(String name, String changeName) {
+		this.teacherList = new TeacherCrudImp().update(teacherList, name, changeName);
+		writeFileSystem();
+	}
+
 	public void delete(TeacherRequest teacherRequest) {
 		this.teacherList = init(teacherRequest)
 			.delete(teacherList);
 		writeFileSystem();
+	}
+
+	public void delete(String name) {
+		this.teacherList = new TeacherCrudImp().delete(teacherList, name);
 	}
 
 	public List<Teacher> select() {
@@ -57,7 +66,4 @@ public class TeacherService {
 			teacherRequest.getSubject());
 	}
 
-	public void delete(String name) {
-		this.teacherList = new TeacherCrudImp().delete(teacherList, name);
-	}
 }
