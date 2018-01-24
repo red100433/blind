@@ -2,9 +2,9 @@ package com.school.models.vo;
 
 import java.io.Serializable;
 
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.NonNull;
 import lombok.ToString;
 
 /**
@@ -13,25 +13,16 @@ import lombok.ToString;
  *
  */
 
-@Getter
+@Data
 @EqualsAndHashCode
-@ToString(exclude = "teachId")
+@ToString
 public class Teacher implements Serializable {
 	private static final long serialVersionUID = -8068141543663245843L;
 
-	private int teachId;
-	@Setter
+	@NonNull
 	private String teacherName;
-	@Setter
+	@NonNull
 	private String subjectName;
-	@Setter
+	@NonNull
 	private String birth;
-
-	public Teacher(String subjectName, String teacherName, String birth) {
-		this.teacherName = teacherName;
-		this.subjectName = subjectName;
-		this.birth = birth;
-		this.teachId = hashCode();
-	}
-
 }
