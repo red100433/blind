@@ -19,6 +19,9 @@ import org.junit.rules.TemporaryFolder;
 
 import com.school.models.vo.Subject;
 
+import lombok.extern.java.Log;
+
+@Log
 public class FileSystemTest {
 
 	@Rule
@@ -53,7 +56,7 @@ public class FileSystemTest {
 
 			try {
 				rev = (ArrayList)oi.readObject();
-				rev.forEach(System.out::println);
+				rev.stream().map(s -> s.toString()).forEach(log::info);
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
