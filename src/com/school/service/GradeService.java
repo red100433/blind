@@ -56,7 +56,7 @@ public class GradeService {
 	}
 
 	public List<String> selectOption(String selectOption, GradeRequest gradeRequest) {
-		
-		return init(gradeRequest).selectOption(gradeList, selectOption, gradeRequest.getName());
+
+		return init(gradeRequest).selectOption(gradeList, selectOption);
 	}
 }
