@@ -1,11 +1,8 @@
 package com.school.servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.OptionalDouble;
-import java.util.stream.Collectors;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,9 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.school.models.Type;
 import com.school.models.request.GradeRequest;
-import com.school.models.vo.Grade;
-import com.school.models.vo.Student;
-import com.school.models.vo.Subject;
 import com.school.service.GradeService;
 import com.school.service.StudentService;
 import com.school.service.SubjectService;
@@ -32,12 +26,14 @@ public class GradeController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		GradeRequest gradeRequest = GradeRequest.builder().name(req.getParameter("name"))
-			.subject(req.getParameter("subject"))
-			.grade(Integer.parseInt(req.getParameter("grade")))
-			.changeName(req.getParameter("changeName"))
-			.changeSubject(req.getParameter("changeSubject"))
-			.changeGrade(Integer.parseInt(req.getParameter("changeGrade")))
+		GradeRequest gradeRequest = GradeRequest.builder()
+			.name(req.getParameter("name") == null ? "" : req.getParameter("name"))
+			.subject(req.getParameter("subject") == null ? "" : req.getParameter("subject"))
+			.grade(Integer.parseInt(req.getParameter("grade") == null ? "0" : req.getParameter("grade")))
+			.changeName(req.getParameter("changeName") == null ? "" : req.getParameter("changeName"))
+			.changeSubject(req.getParameter("changeSubject") == null ? "" : req.getParameter("changeSubject"))
+			.changeGrade(
+				Integer.parseInt(req.getParameter("changeGrade") == null ? "0" : req.getParameter("changeGrade")))
 			.build();
 		String selectOption = req.getParameter("selectOption");
 
@@ -53,6 +49,7 @@ public class GradeController extends HttpServlet {
 				gradeService.delete(gradeRequest);
 				break;
 			case Type.SLELCT:
+				log.info(selectOption);
 				list = gradeService.selectOption(selectOption, gradeRequest);
 				break;
 		}
@@ -66,5 +63,4 @@ public class GradeController extends HttpServlet {
 		dispatcher.forward(req, res);
 	}
 
-	
 }
