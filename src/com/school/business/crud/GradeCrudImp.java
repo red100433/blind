@@ -96,25 +96,25 @@ public class GradeCrudImp implements GradeCrud {
 		}
 		return grade;
 	}
-	
+
 	@Override
-	public List<String> selectOption(List<Grade> list, String selectOption, String name) {
+	public List<String> selectOption(List<Grade> list, String selectOption) {
 		switch (selectOption) {
 			case Type.ALL_SELECT:
 				return list.stream()
-						.map(o -> o.toString())
-						.collect(Collectors.toList());
+					.map(o -> o.toString())
+					.collect(Collectors.toList());
 
 			case Type.ALL_STUDENT_AVERAGE_SELECT:
 				List<String> result2 = new ArrayList<>();
-				stuList.stream().peek(s->getStudentAverage(list, s.getStudentName()).ifPresent(
-						o -> result2.add(s.getStudentName() + "의 평균:" + o)));
+				stuList.forEach(s -> getStudentAverage(list, s.getStudentName())
+					.ifPresent(o -> result2.add(s.getStudentName() + "의 평균:" + o)));
 				return result2;
-				
+
 			case Type.ALL_SUBJECT_AVERAGE_SELECT:
 				List<String> result3 = new ArrayList<>();
-				subList.stream().peek(s->getSubjectAverage(list, s.getSubjectName()).ifPresent(
-						o -> result3.add(s.getSubjectName() + "의 평균:" + o)));
+				subList.forEach(s -> getSubjectAverage(list, s.getSubjectName()).ifPresent(
+					o -> result3.add(s.getSubjectName() + "의 평균:" + o)));
 				return result3;
 		}
 		return new ArrayList<>();
