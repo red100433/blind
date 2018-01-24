@@ -3,8 +3,7 @@ package com.school.models.vo;
 import java.io.Serializable;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.NonNull;
 
 /**
  *
@@ -13,15 +12,9 @@ import lombok.ToString;
  */
 
 @Data
-@EqualsAndHashCode
-@ToString(exclude = "subjectId")
 public class Subject implements Serializable {
 	private static final long serialVersionUID = -2910796104540445977L;
 
+	@NonNull
 	private String subjectName;
-
-	public Subject(String subjectName) {
-		this.subjectName = subjectName;
-	}
-
 }

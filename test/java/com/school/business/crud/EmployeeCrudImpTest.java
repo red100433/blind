@@ -22,9 +22,6 @@ public class EmployeeCrudImpTest {
 	@Parameters
 	public static Collection<Object[]> data() {
 		return Arrays.asList(new Object[][] {
-			{new Employee(null, null), false},
-			{new Employee("jangTeacher", null), false},
-			{new Employee(null, "123"), false},
 			{new Employee("", ""), true},
 			{new Employee("jangTT", "1234"), true}
 		});
@@ -71,11 +68,11 @@ public class EmployeeCrudImpTest {
 class EmployeeTest {
 	public static boolean test(Employee fInput) {
 		boolean result = true;
-		if (fInput.getBirth() == null) {
+		if (fInput.getBirth().equals("")) {
 			result = false;
 		}
 
-		if (fInput.getEmployeeName() == null) {
+		if (fInput.getEmployeeName().equals("")) {
 			result = false;
 		}
 

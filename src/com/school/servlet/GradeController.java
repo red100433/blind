@@ -53,9 +53,7 @@ public class GradeController extends HttpServlet {
 				list = gradeService.selectOption(selectOption, gradeRequest);
 				break;
 		}
-		if ("".equals(selectOption)) {
-			list = gradeService.selectOption(Type.ALL_SELECT, gradeRequest);
-		}
+		list = gradeService.selectOption(Type.ALL_SELECT, gradeRequest);
 
 		req.setAttribute("menulist", list);
 

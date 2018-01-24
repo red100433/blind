@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 @EqualsAndHashCode(exclude = "grade")
 @RequiredArgsConstructor
 @AllArgsConstructor
-
 public class Grade implements Serializable {
 	private static final long serialVersionUID = -6298676113379834491L;
 

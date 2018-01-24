@@ -3,7 +3,6 @@ package com.school.models.vo;
 import java.io.Serializable;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 
 /**
@@ -13,7 +12,6 @@ import lombok.NonNull;
  */
 
 @Data
-@EqualsAndHashCode
 public class Employee implements Serializable {
 	private static final long serialVersionUID = -7708695675154867454L;
 
