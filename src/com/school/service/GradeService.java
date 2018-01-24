@@ -42,8 +42,18 @@ public class GradeService {
 		writeFileSystem();
 	}
 
+	public void update(String tempName, String changeName) {
+		this.gradeList = new GradeCrudImp().update(gradeList, tempName, changeName);
+		writeFileSystem();
+	}
+
 	public void delete(GradeRequest gradeRequest) {
 		this.gradeList = init(gradeRequest).delete(gradeList);
+		writeFileSystem();
+	}
+
+	public void delete(String name) {
+		this.gradeList = new GradeCrudImp().delete(gradeList, name);
 		writeFileSystem();
 	}
 
@@ -59,4 +69,5 @@ public class GradeService {
 
 		return init(gradeRequest).selectOption(gradeList, selectOption);
 	}
+
 }

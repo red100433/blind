@@ -39,6 +39,11 @@ public class GradeCrudImp implements GradeCrud {
 		this.temp = new Grade(tempStudentName, tempSubjectName);
 	}
 
+	public GradeCrudImp() {
+		this.subList = SubjectService.getInstance().select();
+		this.stuList = StudentService.getInstance().select();
+	}
+
 	/* (non-Javadoc)
 	 * @see com.school.business.crud.GradeCrud#insert(java.util.List, int)
 	 */
@@ -71,12 +76,30 @@ public class GradeCrudImp implements GradeCrud {
 		return list;
 	}
 
+	public List<Grade> update(final List<Grade> list, String name, String changeName) {
+		if (flagSubject(name) & flagSubject(changeName)) {
+			list.stream().filter(s -> name.equals(s.getSubjectName())).forEach(s -> s.setSubjectName(changeName));
+		} else if (flagStudent(name) & flagStudent(changeName)) {
+			list.stream().filter(s -> name.equals(s.getStudentName())).forEach(s -> s.setStudentName(changeName));
+		}
+		return list;
+	}
+
 	/* (non-Javadoc)
 	 * @see com.school.business.crud.GradeCrud#delete(java.util.List)
 	 */
 	@Override
 	public List<Grade> delete(List<Grade> list) {
 		list.remove(temp);
+		return list;
+	}
+
+	public List<Grade> delete(List<Grade> list, String name) {
+		if (flagSubject(name)) {
+			list = list.stream().filter(s -> !name.equals(s.getSubjectName())).collect(Collectors.toList());
+		} else if (flagStudent(name)) {
+			list = list.stream().filter(s -> !name.equals(s.getStudentName())).collect(Collectors.toList());
+		}
 		return list;
 	}
 

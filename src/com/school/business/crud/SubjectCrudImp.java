@@ -5,6 +5,8 @@ import java.util.List;
 import com.school.custom.SubjectCrud;
 import com.school.models.Type;
 import com.school.models.vo.Subject;
+import com.school.service.GradeService;
+import com.school.service.TeacherService;
 
 /**
  *
@@ -38,6 +40,7 @@ public class SubjectCrudImp implements SubjectCrud {
 	public List<Subject> update(List<Subject> list, String changeName) {
 		Subject change = new Subject(changeName);
 		if (list.contains(temp) & (list.contains(change) == false)) {
+			GradeService.getInstance().update(tempName, changeName);
 			list.remove(temp);
 			list.add(change);
 		}
@@ -50,6 +53,8 @@ public class SubjectCrudImp implements SubjectCrud {
 	 */
 	@Override
 	public List<Subject> delete(List<Subject> list) {
+		GradeService.getInstance().delete(tempName);
+		TeacherService.getInstance().delete(tempName);
 		list.remove(temp);
 		return list;
 	}

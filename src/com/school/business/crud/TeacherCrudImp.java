@@ -33,6 +33,10 @@ public class TeacherCrudImp implements TeacherCrud {
 		this.temp = new Teacher(tempSubjectName, tempName, tempBirth);
 	}
 
+	public TeacherCrudImp() {
+		this.subList = SubjectService.getInstance().select();
+	}
+
 	/* (non-Javadoc)
 	 * @see com.school.business.crud.TeacherCrud#insert(java.util.List)
 	 */
@@ -74,5 +78,12 @@ public class TeacherCrudImp implements TeacherCrud {
 
 	private boolean flagSubject(String subjectName) {
 		return subList.stream().anyMatch(s -> s.getSubjectName().equals(subjectName));
+	}
+
+	public List<Teacher> delete(List<Teacher> list, String name) {
+		if (flagSubject(name)) {
+			list.stream().filter(s -> name.equals(s.getSubjectName())).forEach(s -> s.setSubjectName(""));
+		}
+		return list;
 	}
 }

@@ -56,4 +56,8 @@ public class TeacherService {
 		return new TeacherCrudImp(teacherRequest.getName(), teacherRequest.getBirth(),
 			teacherRequest.getSubject());
 	}
+
+	public void delete(String name) {
+		this.teacherList = new TeacherCrudImp().delete(teacherList, name);
+	}
 }

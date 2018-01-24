@@ -4,7 +4,9 @@ import java.util.List;
 
 import com.school.custom.StudentCrud;
 import com.school.models.Type;
+import com.school.models.vo.Grade;
 import com.school.models.vo.Student;
+import com.school.service.GradeService;
 
 /**
  *
@@ -15,6 +17,7 @@ public class StudentCrudImp implements StudentCrud {
 	private String tempName;
 	private String tempBirth;
 	private Student temp;
+	private List<Grade> gradeList;
 
 	public StudentCrudImp(String studentName, String birth) {
 		this.tempName = studentName;
@@ -52,6 +55,7 @@ public class StudentCrudImp implements StudentCrud {
 	 */
 	@Override
 	public List<Student> delete(List<Student> list) {
+		GradeService.getInstance().delete(tempName);
 		list.remove(temp);
 		return list;
 	}
