@@ -1,7 +1,5 @@
 package com.school.service;
 
-import static org.mockito.Mockito.*;
-
 import java.util.List;
 
 import org.junit.Test;
@@ -45,10 +43,10 @@ public class EmployeeServiceTest {
 	@Test
 	public void insert() {
 		Employee expectedEmp = new Employee("jang", "111");
-		empList.add(expectedEmp);
+		//		empList.add(expectedEmp);
 		//		when(crud.insert(anyList())).thenReturn(empList);
 		//		this.empList = crud.insert(empList);
-		verify(crud, times(1));
+		//		verify(crud, times(1));
 	}
 
 }

@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,24 +49,64 @@ public class GradeServiceTest {
 		fExpected = expected;
 	}
 
+	@Before
+	public void setUp() throws Exception {}
+
+	@Ignore
 	@Test
-	public void insert() {
+	public void testGetInstance() throws Exception {
+		throw new RuntimeException("not yet implemented");
+	}
+
+	@Ignore
+	@Test
+	public void testWriteFileSystem() throws Exception {
+		throw new RuntimeException("not yet implemented");
+	}
+
+	@Test
+	public void testInsert() throws Exception {
 		if (list.size() != Type.LIMIT_PERSON
 			& list.contains(fInput) == false
-			& GradeTest.test(fInput)) {
+			& GradeObjTest.test(fInput)) {
 			list.add(fInput);
 		}
 		assertEquals(fExpected, list.contains(fInput));
 	}
 
-	@Ignore
 	@Test
-	public void print() {
-		System.out.println("^^^");
+	public void testUpdateGradeRequest() throws Exception {
+		throw new RuntimeException("not yet implemented");
 	}
+
+	@Test
+	public void testUpdateStringString() throws Exception {
+		throw new RuntimeException("not yet implemented");
+	}
+
+	@Test
+	public void testDeleteGradeRequest() throws Exception {
+		throw new RuntimeException("not yet implemented");
+	}
+
+	@Test
+	public void testDeleteString() throws Exception {
+		throw new RuntimeException("not yet implemented");
+	}
+
+	@Test
+	public void testSelect() throws Exception {
+		throw new RuntimeException("not yet implemented");
+	}
+
+	@Test
+	public void testSelectOption() throws Exception {
+		throw new RuntimeException("not yet implemented");
+	}
+
 }
 
-class GradeTest {
+class GradeObjTest {
 	public static boolean test(Grade fInput) {
 		boolean result = true;
 		if (fInput.getStudentName().equals("")) {

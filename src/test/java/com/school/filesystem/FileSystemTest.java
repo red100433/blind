@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -23,15 +24,35 @@ import lombok.extern.java.Log;
 
 @Log
 public class FileSystemTest {
-
 	@Rule
 	public final TemporaryFolder testFolder = new TemporaryFolder();
 
 	File tempFile;
 
 	@Before
-	public void setUp() throws IOException {
+	public void setUp() throws Exception {
 		tempFile = testFolder.newFile("data.txt");
+		List list = new ArrayList<>();
+		try (FileOutputStream f = new FileOutputStream(tempFile);
+			ObjectOutputStream o = new ObjectOutputStream(new BufferedOutputStream(f))) {
+			o.writeObject(list);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+
+	}
+
+	@Ignore
+	@Test
+	public void testGetInstance() throws Exception {
+		throw new RuntimeException("not yet implemented");
+	}
+
+	@Test
+	public void testWriteListObject() throws Exception {
+
 		List<Subject> list = new ArrayList<>();
 		list.add(new Subject("hihi"));
 		list.add(new Subject("byebye"));
@@ -45,18 +66,16 @@ public class FileSystemTest {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-
 	}
 
 	@Test
-	public void readListObject() {
+	public void testReadListObject() throws Exception {
 		List<Subject> rev = new ArrayList<>();
 		try (FileInputStream f = new FileInputStream(tempFile);
 			ObjectInputStream oi = new ObjectInputStream(new BufferedInputStream(f))) {
 
 			try {
 				rev = (ArrayList)oi.readObject();
-				rev.stream().map(s -> s.toString()).forEach(log::info);
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
@@ -64,8 +83,9 @@ public class FileSystemTest {
 		} catch (FileNotFoundException e) {
 
 		} catch (IOException e1) {
+			testWriteListObject();
 			e1.printStackTrace();
 		}
-
 	}
+
 }
