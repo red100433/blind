@@ -1,4 +1,4 @@
-package com.school.models;
+package com.school.models.vo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,7 @@ import com.school.models.vo.Grade;
 import com.school.service.GradeService;
 
 @RunWith(MockitoJUnitRunner.class)
-public class EmployeeTeset {
+public class GradeTest {
 
 	@Mock
 	DaoInterface dao;

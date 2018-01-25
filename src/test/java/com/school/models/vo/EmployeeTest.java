@@ -1,4 +1,4 @@
-package com.school.models;
+package com.school.models.vo;
 
 import static org.junit.Assert.*;
 
@@ -10,10 +10,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-import com.school.models.vo.Employee;
-
 @RunWith(Parameterized.class)
-public class EmployeeModelTest {
+public class EmployeeTest {
 
 	@Parameters
 	public static Collection<Object[]> data() {
@@ -30,19 +28,19 @@ public class EmployeeModelTest {
 
 	private boolean fExpected;
 
-	public EmployeeModelTest(Employee input, boolean expected) {
+	public EmployeeTest(Employee input, boolean expected) {
 		fInput = input;
 		fExpected = expected;
 	}
 
 	@Test
 	public void test() {
-		assertEquals("faile should equals", fExpected, EmployeeTest.test(fInput));
+		assertEquals("faile should equals", fExpected, EmployeeInputTest.test(fInput));
 	}
 
 }
 
-class EmployeeTest {
+class EmployeeInputTest {
 	public static boolean test(Employee fInput) {
 		boolean result = true;
 		if (fInput.getBirth() == null) {
