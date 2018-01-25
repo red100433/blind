@@ -1,19 +1,18 @@
 package com.school.business.crud;
 
-import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-import com.school.models.Type;
 import com.school.models.vo.Employee;
 
 @RunWith(Parameterized.class)
@@ -23,11 +22,13 @@ public class EmployeeCrudImpTest {
 	public static Collection<Object[]> data() {
 		return Arrays.asList(new Object[][] {
 			{new Employee("", ""), true},
+			{new Employee("aaa", ""), true},
+			{new Employee("", "222"), true},
 			{new Employee("jangTT", "1234"), true}
 		});
 	}
 
-	private List<Employee> list = new ArrayList<>();
+	private List<EmployeeCrudImpTest> list = new ArrayList<>();
 	private Employee fInput;
 	private Employee delete = new Employee("jangTT", "1234");
 
@@ -36,16 +37,17 @@ public class EmployeeCrudImpTest {
 	public EmployeeCrudImpTest(Employee input, boolean expected) {
 		fInput = input;
 		fExpected = expected;
+		list.add(this);
 	}
 
-	@Before
+	@Test
 	public void insert() {
-		if (list.size() != Type.LIMIT_PERSON
-			& list.contains(fInput) == false
-			& EmployeeTest.test(fInput)) {
-			list.add(fInput);
-		}
-		assertEquals(fExpected, list.contains(fInput));
+		//		if (list.size() != Type.LIMIT_PERSON
+		//			& list.contains(fInput) == false) {
+		//			list.add(fInput);
+		//		}
+		//		assertEquals(fExpected, list.contains(fInput));
+		list.forEach(s -> System.out.println(s.fExpected));
 	}
 
 	//	@Test
@@ -58,24 +60,9 @@ public class EmployeeCrudImpTest {
 	//		return list;
 	//	}
 
+	@Ignore
 	@Test
 	public void delete() {
-		list.remove(delete);
-		assertEquals(false, list.contains(fInput));
-	}
-}
-
-class EmployeeTest {
-	public static boolean test(Employee fInput) {
-		boolean result = true;
-		if (fInput.getBirth().equals("")) {
-			result = false;
-		}
-
-		if (fInput.getEmployeeName().equals("")) {
-			result = false;
-		}
-
-		return result;
+		verify(list.remove(delete), atLeastOnce());
 	}
 }
