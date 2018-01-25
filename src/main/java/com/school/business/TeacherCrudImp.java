@@ -1,11 +1,11 @@
-package com.school.business.crud;
+package com.school.business;
 
 import java.util.List;
 
 import com.school.custom.TeacherCrud;
 import com.school.exception.InvalidException;
 import com.school.models.Type;
-import com.school.models.vo.Subject;
+import com.school.models.request.TeacherRequest;
 import com.school.models.vo.Teacher;
 import com.school.service.SubjectService;
 
@@ -19,30 +19,16 @@ import lombok.extern.java.Log;
 
 @Log
 public class TeacherCrudImp implements TeacherCrud {
-	private String tempName;
-	private String tempBirth;
-	private String tempSubjectName;
-	private Teacher temp;
-	private List<Subject> subList;
 
-	public TeacherCrudImp(String teacherName, String birth, String subName) {
-		this.tempName = teacherName;
-		this.tempBirth = birth;
-		this.tempSubjectName = subName;
-		this.subList = SubjectService.getInstance().select();
-		this.temp = new Teacher(tempName, tempSubjectName, tempBirth);
-	}
-
-	public TeacherCrudImp() {
-		this.subList = SubjectService.getInstance().select();
-	}
+	public TeacherCrudImp() {}
 
 	/* (non-Javadoc)
 	 * @see com.school.business.crud.TeacherCrud#insert(java.util.List)
 	 */
 	@Override
-	public List<Teacher> insert(List<Teacher> list) {
-		if (flagSubject(tempSubjectName)
+	public List<Teacher> insert(List<Teacher> list, TeacherRequest teacherRequest) {
+		Teacher temp = new Teacher(teacherRequest.getName(), teacherRequest.getSubject(), teacherRequest.getBirth());
+		if (flagSubject(teacherRequest.getSubject())
 			& list.size() != Type.LIMIT_PERSON
 			& list.contains(temp) == false) {
 			list.add(temp);
@@ -55,9 +41,11 @@ public class TeacherCrudImp implements TeacherCrud {
 	 * @see com.school.business.crud.TeacherCrud#update(java.util.List, java.lang.String, java.lang.String, java.lang.String)
 	 */
 	@Override
-	public List<Teacher> update(List<Teacher> list, String changeName, String changeBirth, String changeSubject) {
-		Teacher change = new Teacher(changeSubject, changeName, changeBirth);
-		if (list.contains(temp) & flagSubject(changeSubject)
+	public List<Teacher> update(List<Teacher> list, TeacherRequest teacherRequest) {
+		Teacher temp = new Teacher(teacherRequest.getName(), teacherRequest.getSubject(), teacherRequest.getBirth());
+		Teacher change = new Teacher(teacherRequest.getChangeName(), teacherRequest.getChangeSuject(),
+			teacherRequest.getChangeBirth());
+		if (list.contains(temp) & flagSubject(teacherRequest.getChangeSuject())
 			& (list.contains(change) == false)) {
 			list.remove(temp);
 			list.add(change);
@@ -79,7 +67,8 @@ public class TeacherCrudImp implements TeacherCrud {
 	 * @see com.school.business.crud.TeacherCrud#delete(java.util.List)
 	 */
 	@Override
-	public List<Teacher> delete(List<Teacher> list) {
+	public List<Teacher> delete(List<Teacher> list, TeacherRequest teacherRequest) {
+		Teacher temp = new Teacher(teacherRequest.getName(), teacherRequest.getSubject(), teacherRequest.getBirth());
 		list.remove(temp);
 		return list;
 	}
@@ -90,7 +79,7 @@ public class TeacherCrudImp implements TeacherCrud {
 	}
 
 	private boolean flagSubject(String subjectName) {
-		return subList.stream().anyMatch(s -> s.getSubjectName().equals(subjectName));
+		return SubjectService.getInstance().select().stream().anyMatch(s -> s.getSubjectName().equals(subjectName));
 	}
 
 }

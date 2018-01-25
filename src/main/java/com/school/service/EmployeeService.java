@@ -2,7 +2,7 @@ package com.school.service;
 
 import java.util.List;
 
-import com.school.business.crud.EmployeeCrudImp;
+import com.school.business.EmployeeCrudImp;
 import com.school.custom.EmployeeCrud;
 import com.school.dao.EmployeeDao;
 import com.school.models.request.EmployeeRequest;
@@ -10,7 +10,6 @@ import com.school.models.vo.Employee;
 
 public class EmployeeService {
 	private static EmployeeService t;
-	private List<Employee> empList;
 
 	public static EmployeeService getInstance() {
 		synchronized (EmployeeService.class) {
@@ -21,35 +20,35 @@ public class EmployeeService {
 		return t;
 	}
 
-	private EmployeeService() {
-		this.empList = new EmployeeDao().readDataList();
-	}
+	private EmployeeService() {}
 
-	public void writeFileSystem() {
+	public void writeFileSystem(List<Employee> empList) {
 		new EmployeeDao().writeDataList(empList);
 	}
 
 	public void insert(EmployeeRequest empRequest) {
-		this.empList = init(empRequest).insert(empList);
-		writeFileSystem();
+		List<Employee> empList = select();
+		empList = init().insert(empList, empRequest);
+		writeFileSystem(empList);
 	}
 
 	public void update(EmployeeRequest empRequest) {
-		this.empList = init(empRequest)
-			.update(empList, empRequest.getChangeName(), empRequest.getChangeBirth());
-		writeFileSystem();
+		List<Employee> empList = select();
+		empList = init().update(empList, empRequest);
+		writeFileSystem(empList);
 	}
 
 	public void delete(EmployeeRequest empRequest) {
-		this.empList = init(empRequest).delete(empList);
-		writeFileSystem();
+		List<Employee> empList = select();
+		empList = init().delete(empList, empRequest);
+		writeFileSystem(empList);
 	}
 
 	public List<Employee> select() {
-		return this.empList;
+		return new EmployeeDao().readDataList();
 	}
 
-	private EmployeeCrud init(EmployeeRequest empRequest) {
-		return new EmployeeCrudImp(empRequest.getName(), empRequest.getBirth());
+	private EmployeeCrud init() {
+		return new EmployeeCrudImp();
 	}
 }

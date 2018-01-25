@@ -1,4 +1,4 @@
-package com.school.business.crud;
+package com.school.business;
 
 import static org.mockito.Mockito.*;
 

@@ -1,9 +1,10 @@
-package com.school.business.crud;
+package com.school.business;
 
 import java.util.List;
 
 import com.school.custom.EmployeeCrud;
 import com.school.models.Type;
+import com.school.models.request.EmployeeRequest;
 import com.school.models.vo.Employee;
 
 /**
@@ -12,21 +13,13 @@ import com.school.models.vo.Employee;
  *
  */
 public class EmployeeCrudImp implements EmployeeCrud {
-	private String tempName;
-	private String tempBirth;
-	private Employee temp;
-
-	public EmployeeCrudImp(String employeeName, String birth) {
-		this.tempName = employeeName;
-		this.tempBirth = birth;
-		this.temp = new Employee(tempName, tempBirth);
-	}
 
 	/* (non-Javadoc)
 	 * @see com.school.business.crud.EmployeeCrud#insert(java.util.List)
 	 */
 	@Override
-	public List<Employee> insert(List<Employee> list) {
+	public List<Employee> insert(List<Employee> list, EmployeeRequest empRequest) {
+		Employee temp = new Employee(empRequest.getName(), empRequest.getBirth());
 		if (list.size() != Type.LIMIT_PERSON & list.contains(temp) == false) {
 			list.add(temp);
 		}
@@ -38,8 +31,9 @@ public class EmployeeCrudImp implements EmployeeCrud {
 	 * @see com.school.business.crud.EmployeeCrud#update(java.util.List, java.lang.String, java.lang.String)
 	 */
 	@Override
-	public List<Employee> update(List<Employee> list, String changeName, String changeBirth) {
-		Employee change = new Employee(changeName, changeBirth);
+	public List<Employee> update(List<Employee> list, EmployeeRequest empRequest) {
+		Employee temp = new Employee(empRequest.getName(), empRequest.getBirth());
+		Employee change = new Employee(empRequest.getChangeName(), empRequest.getChangeBirth());
 		if (list.contains(temp) & (list.contains(change) == false)) {
 			list.remove(temp);
 			list.add(change);
@@ -51,8 +45,10 @@ public class EmployeeCrudImp implements EmployeeCrud {
 	 * @see com.school.business.crud.EmployeeCrud#delete(java.util.List)
 	 */
 	@Override
-	public List<Employee> delete(List<Employee> list) {
+	public List<Employee> delete(List<Employee> list, EmployeeRequest empRequest) {
+		Employee temp = new Employee(empRequest.getName(), empRequest.getBirth());
 		list.remove(temp);
 		return list;
 	}
+
 }

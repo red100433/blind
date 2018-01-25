@@ -2,7 +2,7 @@ package com.school.service;
 
 import java.util.List;
 
-import com.school.business.crud.GradeCrudImp;
+import com.school.business.GradeCrudImp;
 import com.school.custom.GradeCrud;
 import com.school.dao.GradeDao;
 import com.school.models.request.GradeRequest;
@@ -10,7 +10,6 @@ import com.school.models.vo.Grade;
 
 public class GradeService {
 	private static GradeService t;
-	private List<Grade> gradeList;
 
 	public static GradeService getInstance() {
 		synchronized (GradeService.class) {
@@ -21,53 +20,55 @@ public class GradeService {
 		return t;
 	}
 
-	private GradeService() {
-		this.gradeList = new GradeDao().readDataList();
-	}
+	private GradeService() {}
 
-	public void writeFileSystem() {
+	public void writeFileSystem(List<Grade> gradeList) {
 		new GradeDao().writeDataList(gradeList);
 	}
 
 	public void insert(GradeRequest gradeRequest) {
-		this.gradeList = init(gradeRequest).insert(gradeList,
-			gradeRequest.getGrade());
-		writeFileSystem();
+		List<Grade> gradeList = select();
+		gradeList = init().insert(gradeList,
+			gradeRequest);
+		writeFileSystem(gradeList);
 	}
 
 	public void update(GradeRequest gradeRequest) {
-		this.gradeList = init(gradeRequest)
-			.update(gradeList, gradeRequest.getChangeName(), gradeRequest.getChangeSubject(),
-				gradeRequest.getChangeGrade());
-		writeFileSystem();
+		List<Grade> gradeList = select();
+		gradeList = init()
+			.update(gradeList, gradeRequest);
+		writeFileSystem(gradeList);
 	}
 
 	public void update(String tempName, String changeName) {
-		this.gradeList = new GradeCrudImp().update(gradeList, tempName, changeName);
-		writeFileSystem();
+		List<Grade> gradeList = select();
+		gradeList = new GradeCrudImp().update(gradeList, tempName, changeName);
+		writeFileSystem(gradeList);
 	}
 
 	public void delete(GradeRequest gradeRequest) {
-		this.gradeList = init(gradeRequest).delete(gradeList);
-		writeFileSystem();
+		List<Grade> gradeList = select();
+		gradeList = init().delete(gradeList, gradeRequest);
+		writeFileSystem(gradeList);
 	}
 
 	public void delete(String name) {
-		this.gradeList = new GradeCrudImp().delete(gradeList, name);
-		writeFileSystem();
+		List<Grade> gradeList = select();
+		gradeList = new GradeCrudImp().delete(gradeList, name);
+		writeFileSystem(gradeList);
 	}
 
 	public List<Grade> select() {
-		return this.gradeList;
+		return new GradeDao().readDataList();
 	}
 
-	private GradeCrud init(GradeRequest gradeRequest) {
-		return new GradeCrudImp(gradeRequest.getName(), gradeRequest.getSubject());
+	private GradeCrud init() {
+		return new GradeCrudImp();
 	}
 
-	public List<String> selectOption(String selectOption, GradeRequest gradeRequest) {
+	public List<String> selectOption(String selectOption) {
 
-		return init(gradeRequest).selectOption(gradeList, selectOption);
+		return init().selectOption(select(), selectOption);
 	}
 
 }

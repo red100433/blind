@@ -1,4 +1,4 @@
-package com.school.business.crud;
+package com.school.models;
 
 import java.util.ArrayList;
 import java.util.List;

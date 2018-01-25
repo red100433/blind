@@ -1,9 +1,10 @@
-package com.school.business.crud;
+package com.school.business;
 
 import java.util.List;
 
 import com.school.custom.SubjectCrud;
 import com.school.models.Type;
+import com.school.models.request.SubjectRequest;
 import com.school.models.vo.Subject;
 import com.school.service.GradeService;
 import com.school.service.TeacherService;
@@ -14,19 +15,13 @@ import com.school.service.TeacherService;
  *
  */
 public class SubjectCrudImp implements SubjectCrud {
-	private String tempName;
-	private Subject temp;
-
-	public SubjectCrudImp(String subName) {
-		this.tempName = subName;
-		this.temp = new Subject(tempName);
-	}
 
 	/* (non-Javadoc)
 	 * @see com.school.business.crud.SubjectCrud#insert(java.util.List)
 	 */
 	@Override
-	public List<Subject> insert(List<Subject> list) {
+	public List<Subject> insert(List<Subject> list, SubjectRequest subjectRequest) {
+		Subject temp = new Subject(subjectRequest.getName());
 		if (list.size() != Type.LIMIT_SUBJECT & list.contains(temp) == false) {
 			list.add(temp);
 		}
@@ -37,11 +32,12 @@ public class SubjectCrudImp implements SubjectCrud {
 	 * @see com.school.business.crud.SubjectCrud#update(java.util.List, java.lang.String)
 	 */
 	@Override
-	public List<Subject> update(List<Subject> list, String changeName) {
-		Subject change = new Subject(changeName);
+	public List<Subject> update(List<Subject> list, SubjectRequest subjectRequest) {
+		Subject temp = new Subject(subjectRequest.getName());
+		Subject change = new Subject(subjectRequest.getChangeName());
 		if (list.contains(temp) & (list.contains(change) == false)) {
-			GradeService.getInstance().update(tempName, changeName);
-			TeacherService.getInstance().update(tempName, changeName);
+			GradeService.getInstance().update(subjectRequest.getName(), subjectRequest.getChangeName());
+			TeacherService.getInstance().update(subjectRequest.getName(), subjectRequest.getChangeName());
 			list.remove(temp);
 			list.add(change);
 		}
@@ -53,9 +49,10 @@ public class SubjectCrudImp implements SubjectCrud {
 	 * @see com.school.business.crud.SubjectCrud#delete(java.util.List)
 	 */
 	@Override
-	public List<Subject> delete(List<Subject> list) {
-		GradeService.getInstance().delete(tempName);
-		TeacherService.getInstance().delete(tempName);
+	public List<Subject> delete(List<Subject> list, SubjectRequest subjectRequest) {
+		Subject temp = new Subject(subjectRequest.getName());
+		GradeService.getInstance().delete(subjectRequest.getName());
+		TeacherService.getInstance().delete(subjectRequest.getName());
 		list.remove(temp);
 		return list;
 	}

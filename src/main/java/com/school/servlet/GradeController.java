@@ -49,11 +49,10 @@ public class GradeController extends HttpServlet {
 				gradeService.delete(gradeRequest);
 				break;
 			case Type.SLELCT:
-				log.info(selectOption);
-				list = gradeService.selectOption(selectOption, gradeRequest);
+				list = gradeService.selectOption(selectOption);
 				break;
 		}
-		list = gradeService.selectOption(Type.ALL_SELECT, gradeRequest);
+		list = gradeService.selectOption(Type.ALL_SELECT);
 
 		req.setAttribute("menulist", list);
 

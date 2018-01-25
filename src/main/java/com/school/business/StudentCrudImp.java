@@ -1,10 +1,10 @@
-package com.school.business.crud;
+package com.school.business;
 
 import java.util.List;
 
 import com.school.custom.StudentCrud;
 import com.school.models.Type;
-import com.school.models.vo.Grade;
+import com.school.models.request.StudentRequest;
 import com.school.models.vo.Student;
 import com.school.service.GradeService;
 
@@ -14,22 +14,15 @@ import com.school.service.GradeService;
  *
  */
 public class StudentCrudImp implements StudentCrud {
-	private String tempName;
-	private String tempBirth;
-	private Student temp;
-	private List<Grade> gradeList;
 
-	public StudentCrudImp(String studentName, String birth) {
-		this.tempName = studentName;
-		this.tempBirth = birth;
-		this.temp = new Student(tempName, tempBirth);
-	}
+	public StudentCrudImp() {}
 
 	/* (non-Javadoc)
 	 * @see com.school.business.crud.StudentCrud#insert(java.util.List)
 	 */
 	@Override
-	public List<Student> insert(List<Student> list) {
+	public List<Student> insert(List<Student> list, StudentRequest stuRequest) {
+		Student temp = new Student(stuRequest.getName(), stuRequest.getBirth());
 		if (list.size() != Type.LIMIT_PERSON & list.contains(temp) == false) {
 			list.add(temp);
 		}
@@ -40,11 +33,12 @@ public class StudentCrudImp implements StudentCrud {
 	 * @see com.school.business.crud.StudentCrud#update(java.util.List, java.lang.String, java.lang.String)
 	 */
 	@Override
-	public List<Student> update(List<Student> list, String changeName, String changeBirth) {
-		Student change = new Student(changeName, changeBirth);
+	public List<Student> update(List<Student> list, StudentRequest stuRequest) {
+		Student temp = new Student(stuRequest.getName(), stuRequest.getBirth());
+		Student change = new Student(stuRequest.getChangeName(), stuRequest.getChangeBirth());
 
 		if (list.contains(temp) & (list.contains(change) == false)) {
-			GradeService.getInstance().update(tempName, changeName);
+			GradeService.getInstance().update(stuRequest.getName(), stuRequest.getChangeName());
 			list.remove(temp);
 			list.add(change);
 		}
@@ -55,8 +49,9 @@ public class StudentCrudImp implements StudentCrud {
 	 * @see com.school.business.crud.StudentCrud#delete(java.util.List)
 	 */
 	@Override
-	public List<Student> delete(List<Student> list) {
-		GradeService.getInstance().delete(tempName);
+	public List<Student> delete(List<Student> list, StudentRequest stuRequest) {
+		Student temp = new Student(stuRequest.getName(), stuRequest.getBirth());
+		GradeService.getInstance().delete(stuRequest.getName());
 		list.remove(temp);
 		return list;
 	}

@@ -2,7 +2,7 @@ package com.school.service;
 
 import java.util.List;
 
-import com.school.business.crud.SubjectCrudImp;
+import com.school.business.SubjectCrudImp;
 import com.school.custom.SubjectCrud;
 import com.school.dao.SubjectDao;
 import com.school.models.request.SubjectRequest;
@@ -10,7 +10,6 @@ import com.school.models.vo.Subject;
 
 public class SubjectService {
 	private static SubjectService t;
-	private List<Subject> subList;
 
 	public static SubjectService getInstance() {
 		synchronized (SubjectService.class) {
@@ -21,34 +20,35 @@ public class SubjectService {
 		return t;
 	}
 
-	private SubjectService() {
-		this.subList = new SubjectDao().readDataList();
-	}
+	private SubjectService() {}
 
-	public void writeFileSystem() {
+	public void writeFileSystem(List<Subject> subList) {
 		new SubjectDao().writeDataList(subList);
 	}
 
 	public void insert(SubjectRequest subjectRequest) {
-		this.subList = init(subjectRequest).insert(subList);
-		writeFileSystem();
+		List<Subject> subList = select();
+		subList = init().insert(subList, subjectRequest);
+		writeFileSystem(subList);
 	}
 
 	public void update(SubjectRequest subjectRequest) {
-		this.subList = init(subjectRequest).update(subList, subjectRequest.getChangeName());
-		writeFileSystem();
+		List<Subject> subList = select();
+		subList = init().update(subList, subjectRequest);
+		writeFileSystem(subList);
 	}
 
 	public void delete(SubjectRequest subjectRequest) {
-		this.subList = init(subjectRequest).delete(subList);
-		writeFileSystem();
+		List<Subject> subList = select();
+		subList = init().delete(subList, subjectRequest);
+		writeFileSystem(subList);
 	}
 
 	public List<Subject> select() {
-		return this.subList;
+		return new SubjectDao().readDataList();
 	}
 
-	private SubjectCrud init(SubjectRequest subjectRequest) {
-		return new SubjectCrudImp(subjectRequest.getName());
+	private SubjectCrud init() {
+		return new SubjectCrudImp();
 	}
 }

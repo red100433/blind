@@ -2,7 +2,7 @@ package com.school.service;
 
 import java.util.List;
 
-import com.school.business.crud.TeacherCrudImp;
+import com.school.business.TeacherCrudImp;
 import com.school.custom.TeacherCrud;
 import com.school.dao.TeacherDao;
 import com.school.models.request.TeacherRequest;
@@ -10,7 +10,6 @@ import com.school.models.vo.Teacher;
 
 public class TeacherService {
 	private static TeacherService t;
-	private List<Teacher> teacherList;
 
 	public static TeacherService getInstance() {
 		synchronized (TeacherService.class) {
@@ -21,49 +20,51 @@ public class TeacherService {
 		return t;
 	}
 
-	private TeacherService() {
-		this.teacherList = new TeacherDao().readDataList();
-	}
+	private TeacherService() {}
 
-	public void writeFileSystem() {
+	public void writeFileSystem(List<Teacher> teacherList) {
 		new TeacherDao().writeDataList(teacherList);
 	}
 
 	public void insert(TeacherRequest teacherRequest) {
-		this.teacherList = init(teacherRequest)
-			.insert(teacherList);
-		writeFileSystem();
+		List<Teacher> teacherList = select();
+		teacherList = init()
+			.insert(teacherList, teacherRequest);
+		writeFileSystem(teacherList);
 	}
 
 	public void update(TeacherRequest teacherRequest) {
-		this.teacherList = init(teacherRequest)
-			.update(teacherList, teacherRequest.getChangeName(), teacherRequest.getChangeBirth(),
-				teacherRequest.getChangeSuject());
-		writeFileSystem();
+		List<Teacher> teacherList = select();
+		teacherList = init()
+			.update(teacherList, teacherRequest);
+		writeFileSystem(teacherList);
 	}
 
 	public void update(String name, String changeName) {
-		this.teacherList = new TeacherCrudImp().update(teacherList, name, changeName);
-		writeFileSystem();
+		List<Teacher> teacherList = select();
+		teacherList = init().update(teacherList, name, changeName);
+		writeFileSystem(teacherList);
 	}
 
 	public void delete(TeacherRequest teacherRequest) {
-		this.teacherList = init(teacherRequest)
-			.delete(teacherList);
-		writeFileSystem();
+		List<Teacher> teacherList = select();
+		teacherList = init()
+			.delete(teacherList, teacherRequest);
+		writeFileSystem(teacherList);
 	}
 
 	public void delete(String name) {
-		this.teacherList = new TeacherCrudImp().delete(teacherList, name);
+		List<Teacher> teacherList = select();
+		teacherList = new TeacherCrudImp().delete(teacherList, name);
+		writeFileSystem(teacherList);
 	}
 
 	public List<Teacher> select() {
-		return this.teacherList;
+		return new TeacherDao().readDataList();
 	}
 
-	private TeacherCrud init(TeacherRequest teacherRequest) {
-		return new TeacherCrudImp(teacherRequest.getName(), teacherRequest.getBirth(),
-			teacherRequest.getSubject());
+	private TeacherCrud init() {
+		return new TeacherCrudImp();
 	}
 
 }

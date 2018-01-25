@@ -1,4 +1,4 @@
-package com.school.business.crud;
+package com.school.service;
 
 import static org.junit.Assert.*;
 
