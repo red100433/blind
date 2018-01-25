@@ -124,9 +124,7 @@ public class GradeCrudImp implements GradeCrud {
 	public List<String> selectOption(List<Grade> list, String selectOption) {
 		switch (selectOption) {
 			case Type.ALL_SELECT:
-				return list.stream()
-					.map(o -> o.toString())
-					.collect(Collectors.toList());
+				return allSelect(list);
 
 			case Type.ALL_STUDENT_AVERAGE_SELECT:
 				List<String> result2 = new ArrayList<>();
@@ -142,6 +140,12 @@ public class GradeCrudImp implements GradeCrud {
 		}
 		return new ArrayList<>();
 
+	}
+
+	private List<String> allSelect(List<Grade> list) {
+		return list.stream()
+			.map(o -> o.toString())
+			.collect(Collectors.toList());
 	}
 
 	private OptionalDouble getStudentAverage(List<Grade> list, String name) {
