@@ -18,7 +18,7 @@ public class EmployeeCrudImp implements EmployeeCrud {
 	 * @see com.school.business.crud.EmployeeCrud#insert(java.util.List)
 	 */
 	@Override
-	public List<Employee> insert(List<Employee> list, EmployeeRequest empRequest) {
+	public List<Employee> insert(List<Employee> list, final EmployeeRequest empRequest) {
 		Employee temp = new Employee(empRequest.getName(), empRequest.getBirth());
 		if (list.size() != Type.LIMIT_PERSON & list.contains(temp) == false) {
 			list.add(temp);

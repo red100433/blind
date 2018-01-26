@@ -1,47 +1,41 @@
 package com.school.filesystem;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
+import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.*;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Ignore;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Matchers;
+import org.mockito.runners.MockitoJUnitRunner;
 
+import com.school.models.Type;
 import com.school.models.vo.Subject;
 
-import lombok.extern.java.Log;
-
-@Log
+@RunWith(MockitoJUnitRunner.class)
 public class FileSystemTest {
-	@Rule
-	public final TemporaryFolder testFolder = new TemporaryFolder();
+	//	@Rule
+	//	public final TemporaryFolder testFolder = new TemporaryFolder();
 
-	File tempFile;
+	String path;
+
+	@InjectMocks
+	FileSystem mock;
+	List<Subject> list = new ArrayList<>();
 
 	@Before
 	public void setUp() throws Exception {
-		tempFile = testFolder.newFile("data.txt");
-		List list = new ArrayList<>();
-		try (FileOutputStream f = new FileOutputStream(tempFile);
-			ObjectOutputStream o = new ObjectOutputStream(new BufferedOutputStream(f))) {
-			o.writeObject(list);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-
+		path = Type.BASIC_PATH + "empObject.txt";
+		list.add(new Subject("kkk"));
+		list.add(new Subject("hihi"));
 	}
 
 	@Ignore
@@ -50,42 +44,19 @@ public class FileSystemTest {
 		throw new RuntimeException("not yet implemented");
 	}
 
-	@Test
+	@Test(expected = RuntimeException.class)
 	public void testWriteListObject() throws Exception {
-
-		List<Subject> list = new ArrayList<>();
-		list.add(new Subject("hihi"));
-		list.add(new Subject("byebye"));
-		list.add(new Subject("huhihasdf"));
-
-		try (FileOutputStream f = new FileOutputStream(tempFile);
-			ObjectOutputStream o = new ObjectOutputStream(new BufferedOutputStream(f))) {
-			o.writeObject(list);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
+		doThrow(new RuntimeException()).when(mock).writeListObject(Matchers.anyListOf(Subject.class), anyString());
+		mock.writeListObject(list, path);
+		verify(mock, atLeastOnce()).writeListObject(list, path);
 	}
 
 	@Test
 	public void testReadListObject() throws Exception {
-		List<Subject> rev = new ArrayList<>();
-		try (FileInputStream f = new FileInputStream(tempFile);
-			ObjectInputStream oi = new ObjectInputStream(new BufferedInputStream(f))) {
+		List<Subject> expectList = Arrays.asList(new Subject("kkk"), new Subject("hihi"));
 
-			try {
-				rev = (ArrayList)oi.readObject();
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
+		//		when(mock.readListObject(path)).thenReturn(new ArrayList<Subject>() {new Subject("kkk"), new Subject("hihi")});
 
-		} catch (FileNotFoundException e) {
-
-		} catch (IOException e1) {
-			testWriteListObject();
-			e1.printStackTrace();
-		}
+		assertThat(list, is(mock.readListObject(path)));
 	}
-
 }
