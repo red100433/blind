@@ -2,61 +2,56 @@ package com.school.filesystem;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
-import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Before;
-import org.junit.Ignore;
+import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Matchers;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.junit.rules.TemporaryFolder;
 
-import com.school.models.Type;
 import com.school.models.vo.Subject;
 
-@RunWith(MockitoJUnitRunner.class)
 public class FileSystemTest {
-	//	@Rule
-	//	public final TemporaryFolder testFolder = new TemporaryFolder();
+	@Rule
+	public final TemporaryFolder testFolder = new TemporaryFolder();
 
 	String path;
 
-	@InjectMocks
-	FileSystem mock;
+	FileSystem temp;
 	List<Subject> list = new ArrayList<>();
 
 	@Before
 	public void setUp() throws Exception {
-		path = Type.BASIC_PATH + "empObject.txt";
+		path = testFolder.getRoot().toString() + "\\subObject.txt";
 		list.add(new Subject("kkk"));
 		list.add(new Subject("hihi"));
+		temp = FileSystem.getInstance();
+
+		temp.writeListObject(list, path);
 	}
 
-	@Ignore
 	@Test
 	public void testGetInstance() throws Exception {
-		throw new RuntimeException("not yet implemented");
+		FileSystem f1 = FileSystem.getInstance();
+		FileSystem f2 = FileSystem.getInstance();
+		assertEquals(f1, f2);
 	}
 
-	@Test(expected = RuntimeException.class)
-	public void testWriteListObject() throws Exception {
-		doThrow(new RuntimeException()).when(mock).writeListObject(Matchers.anyListOf(Subject.class), anyString());
-		mock.writeListObject(list, path);
-		verify(mock, atLeastOnce()).writeListObject(list, path);
-	}
-
+	//expected = RuntimeException.class
 	@Test
 	public void testReadListObject() throws Exception {
+
+		//given
 		List<Subject> expectList = Arrays.asList(new Subject("kkk"), new Subject("hihi"));
 
-		//		when(mock.readListObject(path)).thenReturn(new ArrayList<Subject>() {new Subject("kkk"), new Subject("hihi")});
+		//when
+		list = (List<Subject>)temp.readListObject(path);
 
-		assertThat(list, is(mock.readListObject(path)));
+		//then
+		assertThat(expectList, is(list));
 	}
+
 }

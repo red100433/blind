@@ -12,26 +12,18 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Matchers;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import com.school.business.EmployeeCrudImp;
 import com.school.dao.EmployeeDao;
 import com.school.models.request.EmployeeRequest;
 import com.school.models.vo.Employee;
 
-@RunWith(MockitoJUnitRunner.class)
 public class EmployeeServiceTest {
-	@Mock
 	EmployeeDao dao;
 
-	@Mock
 	EmployeeCrudImp crud;
 
-	@InjectMocks
 	EmployeeService employeeService;
 
 	List<Employee> list = new ArrayList<>();
@@ -41,6 +33,9 @@ public class EmployeeServiceTest {
 		list.add(new Employee("", ""));
 		list.add(new Employee("jjj", "111"));
 		list.add(new Employee("eee", "222"));
+		dao = new EmployeeDao();
+		crud = new EmployeeCrudImp();
+		employeeService = EmployeeService.getInstance();
 	}
 
 	@Ignore
