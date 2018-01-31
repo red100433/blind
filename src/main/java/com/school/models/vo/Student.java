@@ -15,6 +15,7 @@ import lombok.NonNull;
 public class Student implements Serializable {
 	private static final long serialVersionUID = -918783022995365596L;
 
+	private int stu_Id;
 	@NonNull
 	private String studentName;
 	@NonNull
