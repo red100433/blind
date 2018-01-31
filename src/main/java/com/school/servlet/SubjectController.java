@@ -29,16 +29,16 @@ public class SubjectController extends HttpServlet {
 
 		switch (req.getParameter("Crud")) {
 			case Type.INSERT:
-				subjectService.insert(subjectRequest);
+				subjectService.addSubject(subjectRequest);
 				break;
 			case Type.UPDATE:
-				subjectService.update(subjectRequest);
+				subjectService.updateSubject(subjectRequest);
 				break;
 			case Type.DELETE:
-				subjectService.delete(subjectRequest);
+				subjectService.deleteSubject(subjectRequest);
 				break;
 		}
-		List<Subject> list = subjectService.select();
+		List<Subject> list = subjectService.getAllSubjects();
 
 		req.setAttribute("menulist", list);
 

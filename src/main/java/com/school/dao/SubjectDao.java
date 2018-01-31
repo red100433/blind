@@ -1,10 +1,14 @@
 package com.school.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
-import com.school.custom.DaoInterface;
-import com.school.filesystem.FileSystem;
-import com.school.models.Type;
+import com.school.db.DbConnection;
 import com.school.models.vo.Subject;
 
 /**
@@ -12,17 +16,88 @@ import com.school.models.vo.Subject;
  * @author daeyun-jang
  *
  */
-public class SubjectDao implements DaoInterface {
-	static final String SUB_PATH = Type.BASIC_PATH + "subObject.txt";
-	FileSystem fs = FileSystem.getInstance();
+public class SubjectDao {
+	private Connection connection;
 
-	@Override
-	public List<Subject> readDataList() {
-		return (List<Subject>)fs.readListObject(SUB_PATH);
+	public SubjectDao() {
+		connection = DbConnection.getConnection();
 	}
 
-	@Override
-	public void writeDataList(List<?> subList) {
-		fs.writeListObject(subList, SUB_PATH);
+	public void addSubject(Subject subject) {
+		try {
+			PreparedStatement preparedStatement = connection
+				.prepareStatement("insert into subject(subjectName) values (?)");
+			// Parameters start with 1
+			preparedStatement.setString(1, subject.getSubjectName());
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
+
+	public void deleteSubject(int sub_Id) {
+		try {
+			PreparedStatement preparedStatement = connection
+				.prepareStatement("delete from subject where sub_Id=?");
+			// Parameters start with 1
+			preparedStatement.setInt(1, sub_Id);
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void updateSubject(Subject subject) {
+		try {
+			PreparedStatement preparedStatement = connection
+				.prepareStatement("update subject set subjectName=?" +
+					"where sub_Id=?");
+			// Parameters start with 1
+			preparedStatement.setString(1, subject.getSubjectName());
+			preparedStatement.setInt(2, subject.getSub_Id());
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public List<Subject> getAllSubjects() {
+		List<Subject> subList = new ArrayList<Subject>();
+		try {
+			Statement statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery("select * from subject");
+			while (rs.next()) {
+				Subject sub = new Subject();
+				sub.setSub_Id(rs.getInt("sub_Id"));
+				sub.setSubjectName(rs.getString("subjectName"));
+				subList.add(sub);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println(subList);
+		return subList;
+	}
+
+	public Subject getSubjectById(int sub_Id) {
+		Subject sub = new Subject();
+		try {
+			PreparedStatement preparedStatement = connection.prepareStatement("select * from users where userid=?");
+			preparedStatement.setInt(1, sub_Id);
+			ResultSet rs = preparedStatement.executeQuery();
+
+			if (rs.next()) {
+				sub.setSub_Id(rs.getInt("sub_Id"));
+				sub.setSubjectName(rs.getString("subjectName"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return sub;
+	}
+
 }

@@ -23,19 +23,19 @@ public class GradeServiceTest {
 	@Parameters
 	public static Collection<Object[]> data() {
 		return Arrays.asList(new Object[][] {
-			{new Grade("", ""), false},
-			{new Grade("TT", "Java"), true},
-			{new Grade("TT", "Java", 50), true},
-			{new Grade("TT", "C"), true},
-			{new Grade("TT", "C", 30), true},
-			{new Grade("TT", "C++"), true},
-			{new Grade("TT", "C++", 40), true},
-			{new Grade("jang", "Java"), true},
-			{new Grade("jang", "Java", 80), true},
-			{new Grade("jang", "C++"), true},
-			{new Grade("jang", "C++", 10), true},
-			{new Grade("jang", "C"), true},
-			{new Grade("jang", "C", 5), true}
+			//			{new Grade("", ""), false},
+			//			{new Grade("TT", "Java"), true},
+			//			{new Grade("TT", "Java", 50), true},
+			//			{new Grade("TT", "C"), true},
+			//			{new Grade("TT", "C", 30), true},
+			//			{new Grade("TT", "C++"), true},
+			//			{new Grade("TT", "C++", 40), true},
+			//			{new Grade("jang", "Java"), true},
+			//			{new Grade("jang", "Java", 80), true},
+			//			{new Grade("jang", "C++"), true},
+			//			{new Grade("jang", "C++", 10), true},
+			//			{new Grade("jang", "C"), true},
+			//			{new Grade("jang", "C", 5), true}
 		});
 	}
 
@@ -109,13 +109,13 @@ public class GradeServiceTest {
 class GradeObjTest {
 	public static boolean test(Grade fInput) {
 		boolean result = true;
-		if (fInput.getStudentName().equals("")) {
-			result = false;
-		}
-
-		if (fInput.getSubjectName().equals("")) {
-			result = false;
-		}
+		//		if (fInput.getStudentName().equals("")) {
+		//			result = false;
+		//		}
+		//
+		//		if (fInput.getSubjectName().equals("")) {
+		//			result = false;
+		//		}
 
 		return result;
 	}

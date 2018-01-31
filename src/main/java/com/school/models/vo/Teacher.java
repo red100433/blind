@@ -18,8 +18,8 @@ public class Teacher implements Serializable {
 	private int teacher_Id;
 	@NonNull
 	private String teacherName;
-	@NonNull
-	private String subjectName;
+
+	private int sub_Id;
 	@NonNull
 	private String birth;
 }

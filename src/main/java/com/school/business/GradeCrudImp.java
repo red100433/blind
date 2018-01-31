@@ -6,7 +6,6 @@ import java.util.OptionalDouble;
 import java.util.stream.Collectors;
 
 import com.school.custom.GradeCrud;
-import com.school.exception.InvalidException;
 import com.school.models.Type;
 import com.school.models.request.GradeRequest;
 import com.school.models.vo.Grade;
@@ -30,12 +29,12 @@ public class GradeCrudImp implements GradeCrud {
 	 */
 	@Override
 	public List<Grade> insert(List<Grade> list, GradeRequest gradeRequest) {
-		Grade temp = new Grade(gradeRequest.getName(), gradeRequest.getSubject());
-		if (flagSubject(gradeRequest.getSubject()) & flagStudent(gradeRequest.getName())
-			& list.contains(temp) == false) {
-			temp.setGrade(gradeLimit(gradeRequest.getGrade()));
-			list.add(temp);
-		}
+		//		Grade temp = new Grade(gradeRequest.getName(), gradeRequest.getSubject());
+		//		if (flagSubject(gradeRequest.getSubject()) & flagStudent(gradeRequest.getName())
+		//			& list.contains(temp) == false) {
+		//			temp.setGrade(gradeLimit(gradeRequest.getGrade()));
+		//			list.add(temp);
+		//		}
 		return list;
 	}
 
@@ -44,26 +43,26 @@ public class GradeCrudImp implements GradeCrud {
 	 */
 	@Override
 	public List<Grade> update(List<Grade> list, GradeRequest gradeRequest) {
-		Grade temp = new Grade(gradeRequest.getName(), gradeRequest.getSubject());
-		Grade change = new Grade(gradeRequest.getChangeName(), gradeRequest.getChangeSubject());
-		if (list.contains(temp) & (list.contains(change) == false) & flagSubject(gradeRequest.getChangeSubject())
-			& flagStudent(gradeRequest.getChangeName())) {
-			list.remove(temp);
-			change.setGrade(gradeLimit(gradeRequest.getChangeGrade()));
-			list.add(change);
-		} else {
-			throw new InvalidException("변경될 학생이나 과목이 등록되지 않았습니다. 먼저 등록해주세요");
-		}
+		//		Grade temp = new Grade(gradeRequest.getName(), gradeRequest.getSubject());
+		//		Grade change = new Grade(gradeRequest.getChangeName(), gradeRequest.getChangeSubject());
+		//		if (list.contains(temp) & (list.contains(change) == false) & flagSubject(gradeRequest.getChangeSubject())
+		//			& flagStudent(gradeRequest.getChangeName())) {
+		//			list.remove(temp);
+		//			change.setGrade(gradeLimit(gradeRequest.getChangeGrade()));
+		//			list.add(change);
+		//		} else {
+		//			throw new InvalidException("변경될 학생이나 과목이 등록되지 않았습니다. 먼저 등록해주세요");
+		//		}
 
 		return list;
 	}
 
 	public List<Grade> update(final List<Grade> list, String name, String changeName) {
-		if (flagSubject(name) & flagSubject(changeName) == false) {
-			list.stream().filter(s -> name.equals(s.getSubjectName())).forEach(s -> s.setSubjectName(changeName));
-		} else if (flagStudent(name) & flagStudent(changeName) == false) {
-			list.stream().filter(s -> name.equals(s.getStudentName())).forEach(s -> s.setStudentName(changeName));
-		}
+		//		if (flagSubject(name) & flagSubject(changeName) == false) {
+		//			list.stream().filter(s -> name.equals(s.getSubjectName())).forEach(s -> s.setSubjectName(changeName));
+		//		} else if (flagStudent(name) & flagStudent(changeName) == false) {
+		//			list.stream().filter(s -> name.equals(s.getStudentName())).forEach(s -> s.setStudentName(changeName));
+		//		}
 		return list;
 	}
 
@@ -72,22 +71,23 @@ public class GradeCrudImp implements GradeCrud {
 	 */
 	@Override
 	public List<Grade> delete(List<Grade> list, GradeRequest gradeRequest) {
-		Grade temp = new Grade(gradeRequest.getName(), gradeRequest.getSubject());
-		list.remove(temp);
+		//		Grade temp = new Grade(gradeRequest.getName(), gradeRequest.getSubject());
+		//		list.remove(temp);
 		return list;
 	}
 
 	public List<Grade> delete(List<Grade> list, String name) {
-		if (flagSubject(name)) {
-			list = list.stream().filter(s -> !name.equals(s.getSubjectName())).collect(Collectors.toList());
-		} else if (flagStudent(name)) {
-			list = list.stream().filter(s -> !name.equals(s.getStudentName())).collect(Collectors.toList());
-		}
+		//		if (flagSubject(name)) {
+		//			list = list.stream().filter(s -> !name.equals(s.getSubjectName())).collect(Collectors.toList());
+		//		} else if (flagStudent(name)) {
+		//			list = list.stream().filter(s -> !name.equals(s.getStudentName())).collect(Collectors.toList());
+		//		}
 		return list;
 	}
 
 	private boolean flagSubject(String subjectName) {
-		return SubjectService.getInstance().select().stream().anyMatch(s -> s.getSubjectName().equals(subjectName));
+		return SubjectService.getInstance().getAllSubjects().stream()
+			.anyMatch(s -> s.getSubjectName().equals(subjectName));
 	}
 
 	private boolean flagStudent(String studentName) {
@@ -117,7 +117,7 @@ public class GradeCrudImp implements GradeCrud {
 
 			case Type.ALL_SUBJECT_AVERAGE_SELECT:
 				List<String> result3 = new ArrayList<>();
-				SubjectService.getInstance().select()
+				SubjectService.getInstance().getAllSubjects()
 					.forEach(s -> getSubjectAverage(list, s.getSubjectName()).ifPresent(
 						o -> result3.add(s.getSubjectName() + "의 평균:" + o)));
 				return result3;
@@ -133,17 +133,19 @@ public class GradeCrudImp implements GradeCrud {
 	}
 
 	private OptionalDouble getStudentAverage(List<Grade> list, String name) {
-		return list.stream()
-			.filter(s -> s.getStudentName().equals(name))
-			.mapToInt(Grade::getGrade)
-			.average();
+		//		return list.stream()
+		//			.filter(s -> s.getStudentName().equals(name))
+		//			.mapToInt(Grade::getGrade)
+		//			.average();
+		return OptionalDouble.of(10);
 	}
 
 	private OptionalDouble getSubjectAverage(List<Grade> list, String subject) {
-		return list.stream()
-			.filter(s -> s.getSubjectName().equals(subject))
-			.mapToInt(Grade::getGrade)
-			.average();
+		//		return list.stream()
+		//			.filter(s -> s.getSubjectName().equals(subject))
+		//			.mapToInt(Grade::getGrade)
+		//			.average();
+		return OptionalDouble.of(10);
 	}
 
 }

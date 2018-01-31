@@ -1,69 +1,54 @@
 package com.school.db;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.Properties;
 
+import lombok.extern.java.Log;
+
+@Log
 public class DbConnection {
-	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/nhn_db";
-	static final String USERNAME = "nhn";
-	static final String PASSWORD = "nhn123";
-	private Connection conn = null;
-	private Statement st = null;
-	private ResultSet rs = null;
 
-	public void init() {
-		try {
-			Class.forName(JDBC_DRIVER);
-			conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-			System.out.println("\n- MySQL Connection");
-			st = conn.createStatement();
-		} catch (SQLException se) {
-			System.out.println("SQLException: " + se.getMessage());
-		} catch (ClassNotFoundException e) {
-			System.out.println("DB ClassNotFoundException: " + e.getMessage());
+	private static Connection connection = null;
+
+	public static Connection getConnection() {
+		if (connection != null) {
+			return connection;
+		} else {
+			try {
+				Properties prop = new Properties();
+				InputStream inputStream = DbConnection.class.getClassLoader().getResourceAsStream("/db.properties");
+				prop.load(inputStream);
+				String driver = prop.getProperty("driver");
+				String url = prop.getProperty("url");
+				String user = prop.getProperty("user");
+				String password = prop.getProperty("password");
+				log.info("driver:" + driver);
+				log.info("url:" + url);
+				log.info("user:" + user);
+				log.info("password:" + password);
+				Class.forName(driver).newInstance();
+				connection = DriverManager.getConnection(url, user, password);
+				System.out.println("\n- MySQL Connection");
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (InstantiationException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			}
+			return connection;
 		}
-	}
 
-	public void destroy() {
-		try {
-			if (rs != null) {
-				rs.close();
-			}
-			if (conn != null) {
-				conn.close();
-			}
-			if (st != null) {
-				st.close();
-			}
-
-		} catch (SQLException se) {
-			System.out.println("SQLException: " + se.getMessage());
-		}
-	}
-
-	public void excute(String sql) {
-		try {
-			rs = st.executeQuery(sql);
-
-			while (rs.next()) {
-				String subjectName = rs.getString("subjectName");
-
-				System.out.print("\n** subjectName : " + subjectName);
-			}
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	public static void main(String[] args) {
-		DbConnection db = new DbConnection();
-		db.init();
-		db.excute("select * from subject");
 	}
 }

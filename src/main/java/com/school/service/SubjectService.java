@@ -2,8 +2,6 @@ package com.school.service;
 
 import java.util.List;
 
-import com.school.business.SubjectCrudImp;
-import com.school.custom.SubjectCrud;
 import com.school.dao.SubjectDao;
 import com.school.models.request.SubjectRequest;
 import com.school.models.vo.Subject;
@@ -20,35 +18,25 @@ public class SubjectService {
 		return t;
 	}
 
-	private SubjectService() {}
-
-	public void writeFileSystem(List<Subject> subList) {
-		new SubjectDao().writeDataList(subList);
+	public void addSubject(SubjectRequest subjectRequest) {
+		init().addSubject(new Subject(subjectRequest.getName()));
 	}
 
-	public void insert(SubjectRequest subjectRequest) {
-		List<Subject> subList = select();
-		subList = init().insert(subList, subjectRequest);
-		writeFileSystem(subList);
+	public void updateSubject(SubjectRequest subjectRequest) {
+		// id 값 없음
+		init().updateSubject(new Subject(subjectRequest.getName()));
 	}
 
-	public void update(SubjectRequest subjectRequest) {
-		List<Subject> subList = select();
-		subList = init().update(subList, subjectRequest);
-		writeFileSystem(subList);
+	public void deleteSubject(SubjectRequest subjectRequest) {
+		// id 값 없음
+		init().deleteSubject(1);
 	}
 
-	public void delete(SubjectRequest subjectRequest) {
-		List<Subject> subList = select();
-		subList = init().delete(subList, subjectRequest);
-		writeFileSystem(subList);
+	public List<Subject> getAllSubjects() {
+		return init().getAllSubjects();
 	}
 
-	public List<Subject> select() {
-		return new SubjectDao().readDataList();
-	}
-
-	private SubjectCrud init() {
-		return new SubjectCrudImp();
+	private SubjectDao init() {
+		return new SubjectDao();
 	}
 }
