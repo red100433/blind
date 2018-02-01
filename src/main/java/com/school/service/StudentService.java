@@ -24,12 +24,10 @@ public class StudentService {
 	}
 
 	public void updateStudent(Student student) {
-		//id값 없음
 		init().updateStudent(student);
 	}
 
 	public void deleteStudent(Student student) {
-		//id값 없음
 		init().deleteStudent(student.getStu_Id());
 	}
 

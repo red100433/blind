@@ -24,12 +24,10 @@ public class EmployeeService {
 	}
 
 	public void updateEmployee(Employee employee) {
-		// id 값 없음
 		init().updateEmployee(employee);
 	}
 
 	public void deleteEmployee(Employee employee) {
-		// id 값 없음
 		init().deleteEmployee(employee.getEmp_Id());
 	}
 

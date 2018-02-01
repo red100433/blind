@@ -40,13 +40,10 @@ public class GradeController extends HttpServlet {
 			case Type.DELETE:
 				gradeService.deleteGrade(grade);
 				break;
-			case Type.SLELCT:
-				list = gradeService.selectOption(selectOption);
-				break;
 		}
-		list = gradeService.selectOption(Type.ALL_SELECT);
+		list = gradeService.selectOption(selectOption);
 
-		req.setAttribute("menulist", gradeService.getAllGrades());
+		req.setAttribute("menulist", list);
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/result.jsp");
 		dispatcher.forward(req, res);

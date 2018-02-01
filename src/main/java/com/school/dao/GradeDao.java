@@ -116,22 +116,37 @@ public class GradeDao {
 					.prepareStatement(
 						"select s.sub_Id, s.subjectName, avg(grade) as avg from grade g inner join subject s on g.sub_Id = s.sub_Id group by sub_Id");
 				ResultSet rs = preparedStatement.executeQuery();
-				String result1 = rs.getString("sub_Id");
-				String result2 = rs.getString("subjectName");
-				String result3 = rs.getString("avg");
-				String result = "sub_Id:" + result1 + " subject:" + result2 + " avg:" + result3;
-				resultList.add(result);
+				while (rs.next()) {
+					String result1 = rs.getString("sub_Id");
+					String result2 = rs.getString("subjectName");
+					String result3 = rs.getString("avg");
+					String result = "sub_Id:" + result1 + " subject:" + result2 + " avg:" + result3;
+					resultList.add(result);
+				}
 
 			} else if (selectOption.equals(Type.ALL_STUDENT_AVERAGE_SELECT)) {
 				PreparedStatement preparedStatement = connection
 					.prepareStatement(
 						"select s.stu_Id, s.studentName, avg(grade) as avg from grade g inner join student s on g.stu_Id = s.stu_Id group by stu_Id");
 				ResultSet rs = preparedStatement.executeQuery();
-				String result1 = rs.getString("stu_Id");
-				String result2 = rs.getString("studentName");
-				String result3 = rs.getString("avg");
-				String result = "stu_Id:" + result1 + " student:" + result2 + " avg:" + result3;
-				resultList.add(result);
+				while (rs.next()) {
+					String result1 = rs.getString("stu_Id");
+					String result2 = rs.getString("studentName");
+					String result3 = rs.getString("avg");
+					String result = "stu_Id:" + result1 + " student:" + result2 + " avg:" + result3;
+					resultList.add(result);
+				}
+			} else {
+				PreparedStatement preparedStatement = connection
+					.prepareStatement("select * from grade");
+				ResultSet rs = preparedStatement.executeQuery();
+				while (rs.next()) {
+					Grade grade = new Grade();
+					grade.setStu_Id(rs.getInt("stu_Id"));
+					grade.setSub_Id(rs.getInt("sub_Id"));
+					grade.setGrade(rs.getInt("grade"));
+					resultList.add(grade.toString());
+				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

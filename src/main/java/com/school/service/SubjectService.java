@@ -22,12 +22,10 @@ public class SubjectService {
 	}
 
 	public void updateSubject(Subject subject) {
-		// id 값 없음
 		init().updateSubject(subject);
 	}
 
 	public void deleteSubject(Subject subject) {
-		// id 값 없음
 		init().deleteSubject(subject.getSub_Id());
 	}
 

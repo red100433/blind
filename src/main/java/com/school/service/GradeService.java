@@ -20,17 +20,14 @@ public class GradeService {
 	private GradeService() {}
 
 	public void addGrade(Grade grade) {
-		//stu_Id, sub_Id 값 없음
 		init().addGrade(grade);
 	}
 
 	public void updateGrade(Grade grade) {
-		//stu_Id, sub_Id 값 없음
 		init().updateGrade(grade);
 	}
 
 	public void deleteGrade(Grade grade) {
-		//stu_Id, sub_Id 값 없음
 		init().deleteGrade(grade.getStu_Id(), grade.getSub_Id());
 	}
 

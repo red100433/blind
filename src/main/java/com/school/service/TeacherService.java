@@ -20,19 +20,14 @@ public class TeacherService {
 	private TeacherService() {}
 
 	public void addTeacher(Teacher teacher) {
-		//sub_id 없음
-		init()
-			.addTeacher(teacher);
+		init().addTeacher(teacher);
 	}
 
 	public void updateTeacher(Teacher teacher) {
-		//id 없음, sub_id 없음
-		init()
-			.updateTeacher(teacher);
+		init().updateTeacher(teacher);
 	}
 
 	public void deleteTeacher(Teacher teacher) {
-		//id 없음
 		init().deleteTeacher(teacher.getTeacher_Id());
 	}
 
