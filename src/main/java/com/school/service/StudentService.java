@@ -3,7 +3,6 @@ package com.school.service;
 import java.util.List;
 
 import com.school.dao.StudentDao;
-import com.school.models.request.StudentRequest;
 import com.school.models.vo.Student;
 
 public class StudentService {
@@ -20,18 +19,18 @@ public class StudentService {
 
 	private StudentService() {}
 
-	public void addStudent(StudentRequest stuRequest) {
-		init().addStudent(new Student(stuRequest.getName(), stuRequest.getBirth()));
+	public void addStudent(Student student) {
+		init().addStudent(student);
 	}
 
-	public void updateStudent(StudentRequest stuRequest) {
+	public void updateStudent(Student student) {
 		//id값 없음
-		init().updateStudent(new Student(stuRequest.getName(), stuRequest.getBirth()));
+		init().updateStudent(student);
 	}
 
-	public void deleteStudent(StudentRequest stuRequest) {
+	public void deleteStudent(Student student) {
 		//id값 없음
-		init().deleteStudent(1);
+		init().deleteStudent(student.getStu_Id());
 	}
 
 	public List<Student> getAllSubjects() {

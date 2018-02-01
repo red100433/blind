@@ -3,7 +3,6 @@ package com.school.service;
 import java.util.List;
 
 import com.school.dao.SubjectDao;
-import com.school.models.request.SubjectRequest;
 import com.school.models.vo.Subject;
 
 public class SubjectService {
@@ -18,18 +17,18 @@ public class SubjectService {
 		return t;
 	}
 
-	public void addSubject(SubjectRequest subjectRequest) {
-		init().addSubject(new Subject(subjectRequest.getName()));
+	public void addSubject(Subject subject) {
+		init().addSubject(subject);
 	}
 
-	public void updateSubject(SubjectRequest subjectRequest) {
+	public void updateSubject(Subject subject) {
 		// id 값 없음
-		init().updateSubject(new Subject(subjectRequest.getName()));
+		init().updateSubject(subject);
 	}
 
-	public void deleteSubject(SubjectRequest subjectRequest) {
+	public void deleteSubject(Subject subject) {
 		// id 값 없음
-		init().deleteSubject(1);
+		init().deleteSubject(subject.getSub_Id());
 	}
 
 	public List<Subject> getAllSubjects() {

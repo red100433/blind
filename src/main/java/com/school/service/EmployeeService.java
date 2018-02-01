@@ -3,7 +3,6 @@ package com.school.service;
 import java.util.List;
 
 import com.school.dao.EmployeeDao;
-import com.school.models.request.EmployeeRequest;
 import com.school.models.vo.Employee;
 
 public class EmployeeService {
@@ -20,18 +19,18 @@ public class EmployeeService {
 
 	private EmployeeService() {}
 
-	public void addEmployee(EmployeeRequest empRequest) {
-		init().addEmployee(new Employee(empRequest.getName(), empRequest.getBirth()));
+	public void addEmployee(Employee employee) {
+		init().addEmployee(employee);
 	}
 
-	public void updateEmployee(EmployeeRequest empRequest) {
+	public void updateEmployee(Employee employee) {
 		// id 값 없음
-		init().updateEmployee(new Employee(empRequest.getName(), empRequest.getBirth()));
+		init().updateEmployee(employee);
 	}
 
-	public void deleteEmployee(EmployeeRequest empRequest) {
+	public void deleteEmployee(Employee employee) {
 		// id 값 없음
-		init().deleteEmployee(1);
+		init().deleteEmployee(employee.getEmp_Id());
 	}
 
 	public List<Employee> getAllEmployees() {

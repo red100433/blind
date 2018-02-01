@@ -3,7 +3,6 @@ package com.school.service;
 import java.util.List;
 
 import com.school.dao.GradeDao;
-import com.school.models.request.GradeRequest;
 import com.school.models.vo.Grade;
 
 public class GradeService {
@@ -20,19 +19,19 @@ public class GradeService {
 
 	private GradeService() {}
 
-	public void addGrade(GradeRequest gradeRequest) {
+	public void addGrade(Grade grade) {
 		//stu_Id, sub_Id 값 없음
-		init().addGrade(new Grade(1, 1, 0));
+		init().addGrade(grade);
 	}
 
-	public void updateGrade(GradeRequest gradeRequest) {
+	public void updateGrade(Grade grade) {
 		//stu_Id, sub_Id 값 없음
-		init().updateGrade(new Grade(1, 1, 0));
+		init().updateGrade(grade);
 	}
 
-	public void deleteGrade(GradeRequest gradeRequest) {
+	public void deleteGrade(Grade grade) {
 		//stu_Id, sub_Id 값 없음
-		init().deleteGrade(1, 1);
+		init().deleteGrade(grade.getStu_Id(), grade.getSub_Id());
 	}
 
 	public List<Grade> getAllGrades() {

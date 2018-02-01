@@ -3,7 +3,6 @@ package com.school.service;
 import java.util.List;
 
 import com.school.dao.TeacherDao;
-import com.school.models.request.TeacherRequest;
 import com.school.models.vo.Teacher;
 
 public class TeacherService {
@@ -20,21 +19,21 @@ public class TeacherService {
 
 	private TeacherService() {}
 
-	public void addTeacher(TeacherRequest teacherRequest) {
+	public void addTeacher(Teacher teacher) {
 		//sub_id 없음
 		init()
-			.addTeacher(new Teacher(teacherRequest.getName(), teacherRequest.getBirth()));
+			.addTeacher(teacher);
 	}
 
-	public void updateTeacher(TeacherRequest teacherRequest) {
+	public void updateTeacher(Teacher teacher) {
 		//id 없음, sub_id 없음
 		init()
-			.updateTeacher(new Teacher(teacherRequest.getName(), teacherRequest.getBirth()));
+			.updateTeacher(teacher);
 	}
 
-	public void deleteTeacher(TeacherRequest teacherRequest) {
+	public void deleteTeacher(Teacher teacher) {
 		//id 없음
-		init().deleteTeacher(1);
+		init().deleteTeacher(teacher.getTeacher_Id());
 	}
 
 	public List<Teacher> getAllTeachers() {
