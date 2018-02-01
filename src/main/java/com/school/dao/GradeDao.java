@@ -37,7 +37,7 @@ public class GradeDao {
 	public void addGrade(Grade grade) {
 		try {
 			PreparedStatement preparedStatement = connection
-				.prepareStatement("insert into grade(stu_Id, sub_Id, grade) values (?, ?, ?)");
+				.prepareStatement("INSERT INTO grade(stu_Id, sub_Id, grade) VALUES (?, ?, ?)");
 			// Parameters start with 1
 			preparedStatement.setInt(1, grade.getStu_Id());
 			preparedStatement.setInt(2, grade.getSub_Id());
@@ -52,7 +52,7 @@ public class GradeDao {
 	public void deleteGrade(int stu_Id, int sub_Id) {
 		try {
 			PreparedStatement preparedStatement = connection
-				.prepareStatement("delete from grade where stu_Id=? and sub_Id=?");
+				.prepareStatement("DELETE FROM grade WHERE stu_Id=? AND sub_Id=?");
 			// Parameters start with 1
 			preparedStatement.setInt(1, stu_Id);
 			preparedStatement.setInt(2, sub_Id);
@@ -66,8 +66,8 @@ public class GradeDao {
 	public void updateGrade(Grade grade) {
 		try {
 			PreparedStatement preparedStatement = connection
-				.prepareStatement("update grade set grade=?" +
-					"where stu_Id=? and sub_Id=?");
+				.prepareStatement("UPDATE grade SET grade=?" +
+					"WHERE stu_Id=? AND sub_Id=?");
 			// Parameters start with 1
 			preparedStatement.setInt(1, grade.getGrade());
 			preparedStatement.setInt(2, grade.getStu_Id());
@@ -83,7 +83,7 @@ public class GradeDao {
 		List<Grade> gradeList = new ArrayList<Grade>();
 		try {
 			PreparedStatement preparedStatement = connection
-				.prepareStatement("select * from grade");
+				.prepareStatement("SELECT * FROM grade");
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				Grade grade = Grade.of(rs.getString("stu_Id"), rs.getString("sub_Id"), rs.getString("grade"));
@@ -99,7 +99,7 @@ public class GradeDao {
 		Grade grade = new Grade();
 		try {
 			PreparedStatement preparedStatement = connection
-				.prepareStatement("select * from grade where stu_Id=? and sub_Id=?");
+				.prepareStatement("SELECT * FROM grade WHERE stu_Id=? AND sub_Id=?");
 			preparedStatement.setInt(1, stu_Id);
 			preparedStatement.setInt(2, sub_Id);
 			ResultSet rs = preparedStatement.executeQuery();
@@ -120,7 +120,7 @@ public class GradeDao {
 			if (selectOption.equals(Type.ALL_SUBJECT_AVERAGE_SELECT)) {
 				PreparedStatement preparedStatement = connection
 					.prepareStatement(
-						"select s.sub_Id, s.subjectName, avg(grade) as avg from grade g inner join subject s on g.sub_Id = s.sub_Id group by sub_Id");
+						"SELECT s.sub_Id, s.subjectName, avg(grade) AS avg FROM grade g INNER JOIN subject s ON g.sub_Id = s.sub_Id GROUP BY sub_Id");
 				ResultSet rs = preparedStatement.executeQuery();
 				while (rs.next()) {
 					String result1 = rs.getString("sub_Id");
@@ -133,7 +133,7 @@ public class GradeDao {
 			} else if (selectOption.equals(Type.ALL_STUDENT_AVERAGE_SELECT)) {
 				PreparedStatement preparedStatement = connection
 					.prepareStatement(
-						"select s.stu_Id, s.studentName, avg(grade) as avg from grade g inner join student s on g.stu_Id = s.stu_Id group by stu_Id");
+						"SELECT s.stu_Id, s.studentName, avg(grade) AS avg FROM grade g INNER JOIN student s ON g.stu_Id = s.stu_Id GROUP BY stu_Id");
 				ResultSet rs = preparedStatement.executeQuery();
 				while (rs.next()) {
 					String result1 = rs.getString("stu_Id");
@@ -144,7 +144,7 @@ public class GradeDao {
 				}
 			} else {
 				PreparedStatement preparedStatement = connection
-					.prepareStatement("select * from grade");
+					.prepareStatement("SELECT * FROM grade");
 				ResultSet rs = preparedStatement.executeQuery();
 				while (rs.next()) {
 					Grade grade = Grade.of(rs.getString("stu_Id"), rs.getString("sub_Id"), rs.getString("grade"));

@@ -36,7 +36,7 @@ public class StudentDao {
 	public void addStudent(Student student) {
 		try {
 			PreparedStatement preparedStatement = connection
-				.prepareStatement("insert into student(subjectName, birth) values (?, ?)");
+				.prepareStatement("INSERT INTO student(subjectName, birth) VALUES (?, ?)");
 			// Parameters start with 1
 			preparedStatement.setString(1, student.getStudentName());
 			preparedStatement.setString(2, student.getBirth());
@@ -50,7 +50,7 @@ public class StudentDao {
 	public void deleteStudent(int stu_Id) {
 		try {
 			PreparedStatement preparedStatement = connection
-				.prepareStatement("delete from student where stu_Id=?");
+				.prepareStatement("DELETE FROM student WHERE stu_Id=?");
 			// Parameters start with 1
 			preparedStatement.setInt(1, stu_Id);
 			preparedStatement.executeUpdate();
@@ -64,8 +64,8 @@ public class StudentDao {
 	public void updateStudent(Student student) {
 		try {
 			PreparedStatement preparedStatement = connection
-				.prepareStatement("update student set studentName=?, birth=?" +
-					"where stu_Id=?");
+				.prepareStatement("UPDATE student SET studentName=?, birth=?" +
+					"WHERE stu_Id=?");
 			// Parameters start with 1
 			preparedStatement.setString(1, student.getStudentName());
 			preparedStatement.setString(2, student.getBirth());
@@ -81,7 +81,7 @@ public class StudentDao {
 		List<Student> stuList = new ArrayList<Student>();
 		try {
 			PreparedStatement preparedStatement = connection
-				.prepareStatement("select * from student");
+				.prepareStatement("SELECT * FROM student");
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				Student stu = Student.of(rs.getString("stu_Id"), rs.getString("studentName"), rs.getString("birth"));
@@ -97,7 +97,7 @@ public class StudentDao {
 	public Student getStudentById(int stu_Id) {
 		Student stu = new Student();
 		try {
-			PreparedStatement preparedStatement = connection.prepareStatement("select * from student where stu_Id=?");
+			PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM student WHERE stu_Id=?");
 			preparedStatement.setInt(1, stu_Id);
 			ResultSet rs = preparedStatement.executeQuery();
 

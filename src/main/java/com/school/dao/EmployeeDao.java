@@ -35,7 +35,7 @@ public class EmployeeDao {
 	public void addEmployee(Employee employee) {
 		try {
 			PreparedStatement preparedStatement = connection
-				.prepareStatement("insert into employee(employeeName, birth) values (?, ?)");
+				.prepareStatement("INSERT INTO employee(employeeName, birth) VALUES (?, ?)");
 			// Parameters start with 1
 			preparedStatement.setString(1, employee.getEmployeeName());
 			preparedStatement.setString(2, employee.getBirth());
@@ -49,7 +49,7 @@ public class EmployeeDao {
 	public void deleteEmployee(int emp_Id) {
 		try {
 			PreparedStatement preparedStatement = connection
-				.prepareStatement("delete from employee where emp_Id=?");
+				.prepareStatement("DELETE FROM employee WHERE emp_Id=?");
 			// Parameters start with 1
 			preparedStatement.setInt(1, emp_Id);
 			preparedStatement.executeUpdate();
@@ -62,8 +62,8 @@ public class EmployeeDao {
 	public void updateEmployee(Employee employee) {
 		try {
 			PreparedStatement preparedStatement = connection
-				.prepareStatement("update employee set employeeName=?, birth=?" +
-					"where emp_Id=?");
+				.prepareStatement("UPDATE employee SET employeeName=?, birth=?" +
+					"WHERE emp_Id=?");
 			// Parameters start with 1
 			preparedStatement.setString(1, employee.getEmployeeName());
 			preparedStatement.setString(2, employee.getBirth());
@@ -79,7 +79,7 @@ public class EmployeeDao {
 		List<Employee> empList = new ArrayList<Employee>();
 		try {
 			PreparedStatement preparedStatement = connection
-				.prepareStatement("select * from employee");
+				.prepareStatement("SELECT * FROM employee");
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				Employee emp = Employee.of(rs.getString("emp_Id"), rs.getString("employeeName"), rs.getString("birth"));
@@ -94,7 +94,7 @@ public class EmployeeDao {
 	public Employee getEmployeeById(int emp_Id) {
 		Employee emp = new Employee();
 		try {
-			PreparedStatement preparedStatement = connection.prepareStatement("select * from employee where emp_Id=?");
+			PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM employee WHERE emp_Id=?");
 			preparedStatement.setInt(1, emp_Id);
 			ResultSet rs = preparedStatement.executeQuery();
 

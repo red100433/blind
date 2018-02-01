@@ -36,7 +36,7 @@ public class SubjectDao {
 	public void addSubject(Subject subject) {
 		try {
 			PreparedStatement preparedStatement = connection
-				.prepareStatement("insert into subject(subjectName) values (?)");
+				.prepareStatement("INSERT INTO subject(subjectName) VALUES (?)");
 			// Parameters start with 1
 			preparedStatement.setString(1, subject.getSubjectName());
 			preparedStatement.executeUpdate();
@@ -49,7 +49,7 @@ public class SubjectDao {
 	public void deleteSubject(int sub_Id) {
 		try {
 			PreparedStatement preparedStatement = connection
-				.prepareStatement("delete from subject where sub_Id=?");
+				.prepareStatement("DELETE FROM subject WHERE sub_Id=?");
 			// Parameters start with 1
 			preparedStatement.setInt(1, sub_Id);
 			preparedStatement.executeUpdate();
@@ -62,8 +62,8 @@ public class SubjectDao {
 	public void updateSubject(Subject subject) {
 		try {
 			PreparedStatement preparedStatement = connection
-				.prepareStatement("update subject set subjectName=?" +
-					"where sub_Id=?");
+				.prepareStatement("UPDATE subject SET subjectName=?" +
+					"WHERE sub_Id=?");
 			// Parameters start with 1
 			preparedStatement.setString(1, subject.getSubjectName());
 			preparedStatement.setInt(2, subject.getSub_Id());
@@ -77,7 +77,7 @@ public class SubjectDao {
 	public List<Subject> getAllSubjects() {
 		List<Subject> subList = new ArrayList<Subject>();
 		try {
-			PreparedStatement preparedStatement = connection.prepareStatement("select * from subject");
+			PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM subject");
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				Subject sub = Subject.of(rs.getString("sub_Id"), rs.getString("subjectName"));
@@ -92,7 +92,7 @@ public class SubjectDao {
 	public Subject getSubjectById(int sub_Id) {
 		Subject sub = new Subject();
 		try {
-			PreparedStatement preparedStatement = connection.prepareStatement("select * from subject where sub_Id=?");
+			PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM subject WHERE sub_Id=?");
 			preparedStatement.setInt(1, sub_Id);
 			ResultSet rs = preparedStatement.executeQuery();
 

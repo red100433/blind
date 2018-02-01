@@ -33,14 +33,14 @@ public class TeacherDao {
 
 			if (teacher.getSub_Id() == 0) {
 				PreparedStatement preparedStatement = connection
-					.prepareStatement("insert into teacher(teacherName, birth) values (?, ?)");
+					.prepareStatement("INSERT INTO teacher(teacherName, birth) VALUES (?, ?)");
 				// Parameters start with 1
 				preparedStatement.setString(1, teacher.getTeacherName());
 				preparedStatement.setString(2, teacher.getBirth());
 				preparedStatement.executeUpdate();
 			} else {
 				PreparedStatement preparedStatement = connection
-					.prepareStatement("insert into teacher(teacherName, birth, sub_Id) values (?, ?, ?)");
+					.prepareStatement("INSERT INTO teacher(teacherName, birth, sub_Id) VALUES (?, ?, ?)");
 				// Parameters start with 1
 				preparedStatement.setString(1, teacher.getTeacherName());
 				preparedStatement.setString(2, teacher.getBirth());
@@ -56,7 +56,7 @@ public class TeacherDao {
 	public void deleteTeacher(int teacher_Id) {
 		try {
 			PreparedStatement preparedStatement = connection
-				.prepareStatement("delete from teacher where teacher_Id=?");
+				.prepareStatement("DELETE FROM teacher WHERE teacher_Id=?");
 			// Parameters start with 1
 			preparedStatement.setInt(1, teacher_Id);
 			preparedStatement.executeUpdate();
@@ -70,7 +70,7 @@ public class TeacherDao {
 		try {
 			if (teacher.getSub_Id() == 0) {
 				PreparedStatement preparedStatement = connection
-					.prepareStatement("update teacher set teacherName=?, birth=?" +
+					.prepareStatement("UPDATE teacher SET teacherName=?, birth=?" +
 						"where teacher_Id=?");
 				// Parameters start with 1
 				preparedStatement.setString(1, teacher.getTeacherName());
@@ -79,8 +79,8 @@ public class TeacherDao {
 				preparedStatement.executeUpdate();
 			} else {
 				PreparedStatement preparedStatement = connection
-					.prepareStatement("update teacher set teacherName=?, birth=? , sub_Id=?" +
-						"where teacher_Id=?");
+					.prepareStatement("UPDATE teacher SET teacherName=?, birth=? , sub_Id=?" +
+						"WHERE teacher_Id=?");
 				// Parameters start with 1
 				preparedStatement.setString(1, teacher.getTeacherName());
 				preparedStatement.setString(2, teacher.getBirth());
@@ -96,7 +96,7 @@ public class TeacherDao {
 	public List<Teacher> getAllTeachers() {
 		List<Teacher> teacherList = new ArrayList<Teacher>();
 		try {
-			PreparedStatement preparedStatement = connection.prepareStatement("select * from teacher");
+			PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM teacher");
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				Teacher teacher = Teacher.of(rs.getString("teacher_Id"), rs.getString("teacherName"),
@@ -113,7 +113,7 @@ public class TeacherDao {
 		Teacher teacher = new Teacher();
 		try {
 			PreparedStatement preparedStatement = connection
-				.prepareStatement("select * from teacher where teacher_Id=?");
+				.prepareStatement("SELECT * FROM teacher WHERE teacher_Id=?");
 			preparedStatement.setInt(1, teacher_Id);
 			ResultSet rs = preparedStatement.executeQuery();
 
