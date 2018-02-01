@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,8 +68,9 @@ public class EmployeeDao {
 	public List<Employee> getAllEmployees() {
 		List<Employee> empList = new ArrayList<Employee>();
 		try {
-			Statement statement = connection.createStatement();
-			ResultSet rs = statement.executeQuery("select * from employee");
+			PreparedStatement preparedStatement = connection
+				.prepareStatement("select * from employee");
+			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				Employee emp = new Employee();
 				emp.setEmp_Id(rs.getInt("emp_Id"));

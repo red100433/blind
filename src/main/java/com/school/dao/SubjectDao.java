@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,8 +66,8 @@ public class SubjectDao {
 	public List<Subject> getAllSubjects() {
 		List<Subject> subList = new ArrayList<Subject>();
 		try {
-			Statement statement = connection.createStatement();
-			ResultSet rs = statement.executeQuery("select * from subject");
+			PreparedStatement preparedStatement = connection.prepareStatement("select * from subject");
+			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				Subject sub = new Subject();
 				sub.setSub_Id(rs.getInt("sub_Id"));

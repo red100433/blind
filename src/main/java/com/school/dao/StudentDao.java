@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,8 +68,9 @@ public class StudentDao {
 	public List<Student> getAllSubjects() {
 		List<Student> stuList = new ArrayList<Student>();
 		try {
-			Statement statement = connection.createStatement();
-			ResultSet rs = statement.executeQuery("select * from student");
+			PreparedStatement preparedStatement = connection
+				.prepareStatement("select * from student");
+			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				Student stu = new Student();
 				stu.setStu_Id(rs.getInt("stu_Id"));

@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,8 +71,9 @@ public class GradeDao {
 	public List<Grade> getAllGrades() {
 		List<Grade> gradeList = new ArrayList<Grade>();
 		try {
-			Statement statement = connection.createStatement();
-			ResultSet rs = statement.executeQuery("select * from grade");
+			PreparedStatement preparedStatement = connection
+				.prepareStatement("select * from grade");
+			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				Grade grade = new Grade();
 				grade.setStu_Id(rs.getInt("stu_Id"));

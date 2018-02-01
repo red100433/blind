@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,8 +85,8 @@ public class TeacherDao {
 	public List<Teacher> getAllTeachers() {
 		List<Teacher> teacherList = new ArrayList<Teacher>();
 		try {
-			Statement statement = connection.createStatement();
-			ResultSet rs = statement.executeQuery("select * from teacher");
+			PreparedStatement preparedStatement = connection.prepareStatement("select * from teacher");
+			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				Teacher teacher = new Teacher();
 				teacher.setTeacher_Id(rs.getInt("teacher_Id"));
