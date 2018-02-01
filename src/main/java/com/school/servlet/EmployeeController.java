@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.school.models.Type;
-import com.school.models.request.EmployeeRequest;
 import com.school.models.vo.Employee;
 import com.school.service.EmployeeService;
 
@@ -19,20 +18,17 @@ public class EmployeeController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		EmployeeRequest empRequest = EmployeeRequest.builder().name(req.getParameter("name"))
-			.birth(req.getParameter("birth"))
-			.changeName(req.getParameter("changeName"))
-			.changeBirth(req.getParameter("changeBirth"))
-			.build();
+		Employee emp = Employee.of(req.getParameter("id"),
+			req.getParameter("name"), req.getParameter("brith"));
 		switch (req.getParameter("Crud")) {
 			case Type.INSERT:
-				employeeService.addEmployee(empRequest);
+				employeeService.addEmployee(emp);
 				break;
 			case Type.UPDATE:
-				employeeService.updateEmployee(empRequest);
+				employeeService.updateEmployee(emp);
 				break;
 			case Type.DELETE:
-				employeeService.deleteEmployee(empRequest);
+				employeeService.deleteEmployee(emp);
 				break;
 		}
 

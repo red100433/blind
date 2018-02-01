@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.school.models.Type;
-import com.school.models.request.SubjectRequest;
 import com.school.models.vo.Subject;
 import com.school.service.SubjectService;
 
@@ -22,20 +21,16 @@ public class SubjectController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		SubjectRequest subjectRequest = SubjectRequest.builder()
-			.name(req.getParameter("name"))
-			.changeName(req.getParameter("changeName"))
-			.build();
-
+		Subject subject = Subject.of(req.getParameter("id"), req.getParameter("name"));
 		switch (req.getParameter("Crud")) {
 			case Type.INSERT:
-				subjectService.addSubject(subjectRequest);
+				subjectService.addSubject(subject);
 				break;
 			case Type.UPDATE:
-				subjectService.updateSubject(subjectRequest);
+				subjectService.updateSubject(subject);
 				break;
 			case Type.DELETE:
-				subjectService.deleteSubject(subjectRequest);
+				subjectService.deleteSubject(subject);
 				break;
 		}
 		List<Subject> list = subjectService.getAllSubjects();

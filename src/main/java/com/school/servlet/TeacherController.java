@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.school.models.Type;
-import com.school.models.request.TeacherRequest;
 import com.school.models.vo.Teacher;
 import com.school.service.TeacherService;
 
@@ -22,23 +21,18 @@ public class TeacherController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		TeacherRequest teacherRequest = TeacherRequest.builder().name(req.getParameter("name"))
-			.birth(req.getParameter("birth"))
-			.subject(req.getParameter("subject"))
-			.changeName(req.getParameter("changeName"))
-			.changeBirth(req.getParameter("changeBirth"))
-			.changeSuject(req.getParameter("changeSubject"))
-			.build();
+		Teacher teacher = Teacher.of(req.getParameter("id"),
+			req.getParameter("name"), req.getParameter("brith"), req.getParameter("sub_Id"));
 
 		switch (req.getParameter("Crud")) {
 			case Type.INSERT:
-				teacherService.addTeacher(teacherRequest);
+				teacherService.addTeacher(teacher);
 				break;
 			case Type.UPDATE:
-				teacherService.updateTeacher(teacherRequest);
+				teacherService.updateTeacher(teacher);
 				break;
 			case Type.DELETE:
-				teacherService.deleteTeacher(teacherRequest);
+				teacherService.deleteTeacher(teacher);
 				break;
 		}
 

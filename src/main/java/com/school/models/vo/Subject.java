@@ -25,4 +25,15 @@ public class Subject implements Serializable {
 	private String subjectName;
 
 	public Subject() {}
+
+	public static Subject of(String sub_Id, String subjectName) {
+		if (sub_Id == null) {
+			sub_Id = "0";
+		}
+		if (subjectName == null) {
+			subjectName = "";
+		}
+
+		return new Subject(Integer.parseInt(sub_Id), subjectName);
+	}
 }

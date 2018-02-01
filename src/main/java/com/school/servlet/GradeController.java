@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.school.models.Type;
-import com.school.models.request.GradeRequest;
+import com.school.models.vo.Grade;
 import com.school.service.GradeService;
 import com.school.service.StudentService;
 import com.school.service.SubjectService;
@@ -26,27 +26,23 @@ public class GradeController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		GradeRequest gradeRequest = GradeRequest.builder()
-			.name(req.getParameter("name") == null ? "" : req.getParameter("name"))
-			.subject(req.getParameter("subject") == null ? "" : req.getParameter("subject"))
-			.grade(Integer.parseInt(req.getParameter("grade") == null ? "0" : req.getParameter("grade")))
-			.changeName(req.getParameter("changeName") == null ? "" : req.getParameter("changeName"))
-			.changeSubject(req.getParameter("changeSubject") == null ? "" : req.getParameter("changeSubject"))
-			.changeGrade(
-				Integer.parseInt(req.getParameter("changeGrade") == null ? "0" : req.getParameter("changeGrade")))
-			.build();
+
+		Grade grade = Grade.of(req.getParameter("stu_Id"),
+			req.getParameter("sub_Id"),
+			req.getParameter("grade"));
+
 		String selectOption = req.getParameter("selectOption");
 
 		List<String> list = Collections.emptyList();
 		switch (req.getParameter("Crud")) {
 			case Type.INSERT:
-				gradeService.addGrade(gradeRequest);
+				gradeService.addGrade(grade);
 				break;
 			case Type.UPDATE:
-				gradeService.updateGrade(gradeRequest);
+				gradeService.updateGrade(grade);
 				break;
 			case Type.DELETE:
-				gradeService.deleteGrade(gradeRequest);
+				gradeService.deleteGrade(grade);
 				break;
 			case Type.SLELCT:
 				list = gradeService.selectOption(selectOption);

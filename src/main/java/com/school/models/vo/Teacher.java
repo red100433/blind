@@ -27,4 +27,21 @@ public class Teacher implements Serializable {
 	private int sub_Id;
 
 	public Teacher() {}
+
+	public static Teacher of(String teacher_Id, String teacherName, String birth, String sub_Id) {
+		if (teacher_Id == null) {
+			teacher_Id = "0";
+		}
+		if (teacherName == null) {
+			teacherName = "";
+		}
+		if (birth == null) {
+			birth = "";
+		}
+		if (sub_Id == null) {
+			sub_Id = "0";
+		}
+		new Teacher();
+		return new Teacher(Integer.parseInt(teacher_Id), teacherName, birth, Integer.parseInt(sub_Id));
+	}
 }

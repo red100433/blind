@@ -26,4 +26,18 @@ public class Employee implements Serializable {
 	private String birth;
 
 	public Employee() {}
+
+	public static Employee of(String emp_Id, String employeeName, String birth) {
+		if (emp_Id == null) {
+			emp_Id = "0";
+		}
+		if (employeeName == null) {
+			employeeName = "";
+		}
+		if (birth == null) {
+			birth = "";
+		}
+
+		return new Employee(Integer.parseInt(emp_Id), employeeName, birth);
+	}
 }

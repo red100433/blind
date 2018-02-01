@@ -27,4 +27,18 @@ public class Student implements Serializable {
 
 	public Student() {}
 
+	public static Student of(String stu_Id, String studentName, String birth) {
+		if (stu_Id == null) {
+			stu_Id = "0";
+		}
+		if (studentName == null) {
+			studentName = "";
+		}
+		if (birth == null) {
+			birth = "";
+		}
+
+		return new Student(Integer.parseInt(stu_Id), studentName, birth);
+	}
+
 }
