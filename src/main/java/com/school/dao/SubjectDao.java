@@ -85,7 +85,7 @@ public class SubjectDao {
 	public Subject getSubjectById(int sub_Id) {
 		Subject sub = new Subject();
 		try {
-			PreparedStatement preparedStatement = connection.prepareStatement("select * from users where userid=?");
+			PreparedStatement preparedStatement = connection.prepareStatement("select * from subject where sub_Id=?");
 			preparedStatement.setInt(1, sub_Id);
 			ResultSet rs = preparedStatement.executeQuery();
 

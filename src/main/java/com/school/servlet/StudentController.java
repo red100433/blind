@@ -26,17 +26,17 @@ public class StudentController extends HttpServlet {
 			.build();
 		switch (req.getParameter("Crud")) {
 			case Type.INSERT:
-				studentService.insert(studentRequest);
+				studentService.addStudent(studentRequest);
 				break;
 			case Type.UPDATE:
-				studentService.update(studentRequest);
+				studentService.updateStudent(studentRequest);
 				break;
 			case Type.DELETE:
-				studentService.delete(studentRequest);
+				studentService.deleteStudent(studentRequest);
 				break;
 		}
 
-		List<Student> list = studentService.select();
+		List<Student> list = studentService.getAllSubjects();
 
 		req.setAttribute("menulist", list);
 

@@ -2,8 +2,10 @@ package com.school.models.vo;
 
 import java.io.Serializable;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 /**
  *
@@ -12,6 +14,8 @@ import lombok.NonNull;
  */
 
 @Data
+@AllArgsConstructor
+@RequiredArgsConstructor
 public class Student implements Serializable {
 	private static final long serialVersionUID = -918783022995365596L;
 
@@ -20,5 +24,7 @@ public class Student implements Serializable {
 	private String studentName;
 	@NonNull
 	private String birth;
+
+	public Student() {}
 
 }

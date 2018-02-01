@@ -91,7 +91,8 @@ public class GradeCrudImp implements GradeCrud {
 	}
 
 	private boolean flagStudent(String studentName) {
-		return StudentService.getInstance().select().stream().anyMatch(s -> s.getStudentName().equals(studentName));
+		return StudentService.getInstance().getAllSubjects().stream()
+			.anyMatch(s -> s.getStudentName().equals(studentName));
 	}
 
 	private int gradeLimit(int grade) {
@@ -111,7 +112,7 @@ public class GradeCrudImp implements GradeCrud {
 
 			case Type.ALL_STUDENT_AVERAGE_SELECT:
 				List<String> result2 = new ArrayList<>();
-				StudentService.getInstance().select().forEach(s -> getStudentAverage(list, s.getStudentName())
+				StudentService.getInstance().getAllSubjects().forEach(s -> getStudentAverage(list, s.getStudentName())
 					.ifPresent(o -> result2.add(s.getStudentName() + "의 평균:" + o)));
 				return result2;
 

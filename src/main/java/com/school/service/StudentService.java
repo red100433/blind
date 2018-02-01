@@ -2,8 +2,6 @@ package com.school.service;
 
 import java.util.List;
 
-import com.school.business.StudentCrudImp;
-import com.school.custom.StudentCrud;
 import com.school.dao.StudentDao;
 import com.school.models.request.StudentRequest;
 import com.school.models.vo.Student;
@@ -22,34 +20,25 @@ public class StudentService {
 
 	private StudentService() {}
 
-	public void writeFileSystem(List<Student> stuList) {
-		new StudentDao().writeDataList(stuList);
+	public void addStudent(StudentRequest stuRequest) {
+		init().addStudent(new Student(stuRequest.getName(), stuRequest.getBirth()));
 	}
 
-	public void insert(StudentRequest stuRequest) {
-		List<Student> stuList = select();
-		stuList = init().insert(stuList, stuRequest);
-		writeFileSystem(stuList);
+	public void updateStudent(StudentRequest stuRequest) {
+		//id값 없음
+		init().updateStudent(new Student(stuRequest.getName(), stuRequest.getBirth()));
 	}
 
-	public void update(StudentRequest stuRequest) {
-		List<Student> stuList = select();
-		stuList = init()
-			.update(stuList, stuRequest);
-		writeFileSystem(stuList);
+	public void deleteStudent(StudentRequest stuRequest) {
+		//id값 없음
+		init().deleteStudent(1);
 	}
 
-	public void delete(StudentRequest stuRequest) {
-		List<Student> stuList = select();
-		stuList = init().delete(stuList, stuRequest);
-		writeFileSystem(stuList);
+	public List<Student> getAllSubjects() {
+		return init().getAllSubjects();
 	}
 
-	public List<Student> select() {
-		return new StudentDao().readDataList();
-	}
-
-	private StudentCrud init() {
-		return new StudentCrudImp();
+	private StudentDao init() {
+		return new StudentDao();
 	}
 }
