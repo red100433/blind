@@ -83,10 +83,7 @@ public class StudentDao {
 				.prepareStatement("select * from student");
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
-				Student stu = new Student();
-				stu.setStu_Id(rs.getInt("stu_Id"));
-				stu.setStudentName(rs.getString("studentName"));
-				stu.setBirth(rs.getString("birth"));
+				Student stu = Student.of(rs.getString("stu_Id"), rs.getString("studentName"), rs.getString("birth"));
 				stuList.add(stu);
 			}
 		} catch (SQLException e) {
@@ -103,9 +100,7 @@ public class StudentDao {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			if (rs.next()) {
-				stu.setStu_Id(rs.getInt("stu_Id"));
-				stu.setStudentName(rs.getString("studentName"));
-				stu.setBirth(rs.getString("birth"));
+				stu = Student.of(rs.getString("stu_Id"), rs.getString("studentName"), rs.getString("birth"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

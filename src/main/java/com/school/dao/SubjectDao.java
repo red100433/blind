@@ -80,9 +80,7 @@ public class SubjectDao {
 			PreparedStatement preparedStatement = connection.prepareStatement("select * from subject");
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
-				Subject sub = new Subject();
-				sub.setSub_Id(rs.getInt("sub_Id"));
-				sub.setSubjectName(rs.getString("subjectName"));
+				Subject sub = Subject.of(rs.getString("sub_Id"), rs.getString("subjectName"));
 				subList.add(sub);
 			}
 		} catch (SQLException e) {
@@ -99,8 +97,7 @@ public class SubjectDao {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			if (rs.next()) {
-				sub.setSub_Id(rs.getInt("sub_Id"));
-				sub.setSubjectName(rs.getString("subjectName"));
+				sub = Subject.of(rs.getString("sub_Id"), rs.getString("subjectName"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

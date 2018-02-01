@@ -82,10 +82,7 @@ public class EmployeeDao {
 				.prepareStatement("select * from employee");
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
-				Employee emp = new Employee();
-				emp.setEmp_Id(rs.getInt("emp_Id"));
-				emp.setEmployeeName(rs.getString("employeeName"));
-				emp.setBirth(rs.getString("birth"));
+				Employee emp = Employee.of(rs.getString("emp_Id"), rs.getString("employeeName"), rs.getString("birth"));
 				empList.add(emp);
 			}
 		} catch (SQLException e) {
@@ -102,9 +99,7 @@ public class EmployeeDao {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			if (rs.next()) {
-				emp.setEmp_Id(rs.getInt("emp_Id"));
-				emp.setEmployeeName(rs.getString("employeeName"));
-				emp.setBirth(rs.getString("birth"));
+				emp = Employee.of(rs.getString("emp_Id"), rs.getString("employeeName"), rs.getString("birth"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

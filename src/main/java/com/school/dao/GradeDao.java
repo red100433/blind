@@ -29,7 +29,7 @@ public class GradeDao {
 		}
 		return t;
 	}
-	
+
 	public GradeDao() {
 		connection = DbConnection.getConnection();
 	}
@@ -86,10 +86,7 @@ public class GradeDao {
 				.prepareStatement("select * from grade");
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
-				Grade grade = new Grade();
-				grade.setStu_Id(rs.getInt("stu_Id"));
-				grade.setSub_Id(rs.getInt("sub_Id"));
-				grade.setGrade(rs.getInt("grade"));
+				Grade grade = Grade.of(rs.getString("stu_Id"), rs.getString("sub_Id"), rs.getString("grade"));
 				gradeList.add(grade);
 			}
 		} catch (SQLException e) {
@@ -108,9 +105,7 @@ public class GradeDao {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			if (rs.next()) {
-				grade.setStu_Id(rs.getInt("stu_Id"));
-				grade.setSub_Id(rs.getInt("sub_Id"));
-				grade.setGrade(rs.getInt("grade"));
+				grade = Grade.of(rs.getString("stu_Id"), rs.getString("sub_Id"), rs.getString("grade"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -152,10 +147,7 @@ public class GradeDao {
 					.prepareStatement("select * from grade");
 				ResultSet rs = preparedStatement.executeQuery();
 				while (rs.next()) {
-					Grade grade = new Grade();
-					grade.setStu_Id(rs.getInt("stu_Id"));
-					grade.setSub_Id(rs.getInt("sub_Id"));
-					grade.setGrade(rs.getInt("grade"));
+					Grade grade = Grade.of(rs.getString("stu_Id"), rs.getString("sub_Id"), rs.getString("grade"));
 					resultList.add(grade.toString());
 				}
 			}

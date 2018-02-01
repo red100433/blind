@@ -99,11 +99,8 @@ public class TeacherDao {
 			PreparedStatement preparedStatement = connection.prepareStatement("select * from teacher");
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
-				Teacher teacher = new Teacher();
-				teacher.setTeacher_Id(rs.getInt("teacher_Id"));
-				teacher.setTeacherName(rs.getString("teacherName"));
-				teacher.setBirth(rs.getString("birth"));
-				teacher.setSub_Id(rs.getInt("sub_Id"));
+				Teacher teacher = Teacher.of(rs.getString("teacher_Id"), rs.getString("teacherName"),
+					rs.getString("birth"), rs.getString("sub_Id"));
 				teacherList.add(teacher);
 			}
 		} catch (SQLException e) {
@@ -121,10 +118,8 @@ public class TeacherDao {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			if (rs.next()) {
-				teacher.setTeacher_Id(rs.getInt("teacher_Id"));
-				teacher.setTeacherName(rs.getString("teacherName"));
-				teacher.setBirth(rs.getString("birth"));
-				teacher.setSub_Id(rs.getInt("sub_Id"));
+				teacher = Teacher.of(rs.getString("teacher_Id"), rs.getString("teacherName"),
+					rs.getString("birth"), rs.getString("sub_Id"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
