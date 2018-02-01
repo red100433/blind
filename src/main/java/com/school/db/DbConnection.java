@@ -15,6 +15,7 @@ public class DbConnection {
 
 	private static Connection connection = null;
 
+	//TODO dbcp array connect pool
 	public static Connection getConnection() {
 		if (connection != null) {
 			return connection;

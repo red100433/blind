@@ -60,6 +60,7 @@ public class StudentDao {
 		}
 	}
 
+	//TODO query 대문자 template method
 	public void updateStudent(Student student) {
 		try {
 			PreparedStatement preparedStatement = connection
@@ -92,6 +93,7 @@ public class StudentDao {
 		return stuList;
 	}
 
+	//TODO _ 제거
 	public Student getStudentById(int stu_Id) {
 		Student stu = new Student();
 		try {

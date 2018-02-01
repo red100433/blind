@@ -41,7 +41,6 @@ public class Teacher implements Serializable {
 		if (sub_Id == null) {
 			sub_Id = "0";
 		}
-		new Teacher();
 		return new Teacher(Integer.parseInt(teacher_Id), teacherName, birth, Integer.parseInt(sub_Id));
 	}
 }
