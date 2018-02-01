@@ -98,7 +98,6 @@ public class TeacherDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println(teacherList);
 		return teacherList;
 	}
 

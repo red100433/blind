@@ -84,7 +84,6 @@ public class GradeDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println(gradeList);
 		return gradeList;
 	}
 

@@ -81,7 +81,6 @@ public class EmployeeDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println(empList);
 		return empList;
 	}
 

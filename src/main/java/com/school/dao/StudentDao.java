@@ -81,7 +81,6 @@ public class StudentDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println(stuList);
 		return stuList;
 	}
 

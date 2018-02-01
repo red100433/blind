@@ -77,7 +77,6 @@ public class SubjectDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println(subList);
 		return subList;
 	}
 
