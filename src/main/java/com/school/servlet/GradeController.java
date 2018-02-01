@@ -40,13 +40,13 @@ public class GradeController extends HttpServlet {
 		List<String> list = Collections.emptyList();
 		switch (req.getParameter("Crud")) {
 			case Type.INSERT:
-				gradeService.insert(gradeRequest);
+				gradeService.addGrade(gradeRequest);
 				break;
 			case Type.UPDATE:
-				gradeService.update(gradeRequest);
+				gradeService.updateGrade(gradeRequest);
 				break;
 			case Type.DELETE:
-				gradeService.delete(gradeRequest);
+				gradeService.deleteGrade(gradeRequest);
 				break;
 			case Type.SLELCT:
 				list = gradeService.selectOption(selectOption);
@@ -54,7 +54,7 @@ public class GradeController extends HttpServlet {
 		}
 		list = gradeService.selectOption(Type.ALL_SELECT);
 
-		req.setAttribute("menulist", list);
+		req.setAttribute("menulist", gradeService.getAllGrades());
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/result.jsp");
 		dispatcher.forward(req, res);

@@ -54,7 +54,7 @@ public class StudentDao {
 		try {
 			PreparedStatement preparedStatement = connection
 				.prepareStatement("update student set studentName=?, birth=?" +
-					"where sub_Id=?");
+					"where stu_Id=?");
 			// Parameters start with 1
 			preparedStatement.setString(1, student.getStudentName());
 			preparedStatement.setString(2, student.getBirth());

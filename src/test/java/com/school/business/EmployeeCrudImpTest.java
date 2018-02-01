@@ -26,8 +26,9 @@ public class EmployeeCrudImpTest {
 
 	@Mock
 	EmployeeCrud mock;
-	@InjectMocks
-	EmployeeCrudImp mockEmp;
+
+//	@InjectMocks
+	//	EmployeeCrudImp mockEmp;
 
 	@Test
 	public void insertTest() {
@@ -43,7 +44,7 @@ public class EmployeeCrudImpTest {
 		when(mock.insert(Matchers.anyListOf(Employee.class), anyObject())).thenReturn(exfInsertList);
 
 		//호출
-		insertList = mockEmp.insert(insertList, emp);
+		//		insertList = mockEmp.insert(insertList, emp);
 
 		// 기대값이랑, (assert
 		assertThat(exfInsertList, is(insertList));
@@ -60,7 +61,7 @@ public class EmployeeCrudImpTest {
 		EmployeeRequest emp = EmployeeRequest.builder()
 			.name("").birth("").changeName("jjj").changeBirth("111").build();
 
-		updateList = mockEmp.update(updateList, emp);
+		//		updateList = mockEmp.update(updateList, emp);
 
 		assertThat(exfInsertList, is(updateList));
 	}
@@ -76,7 +77,7 @@ public class EmployeeCrudImpTest {
 		EmployeeRequest emp = EmployeeRequest.builder()
 			.name("jjj").birth("111").changeName("").changeBirth("").build();
 
-		deleteList = mockEmp.delete(deleteList, emp);
+		//		deleteList = mockEmp.delete(deleteList, emp);
 
 		assertThat(exfInsertList, is(deleteList));
 	}

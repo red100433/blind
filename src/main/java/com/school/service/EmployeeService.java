@@ -2,8 +2,6 @@ package com.school.service;
 
 import java.util.List;
 
-import com.school.business.EmployeeCrudImp;
-import com.school.custom.EmployeeCrud;
 import com.school.dao.EmployeeDao;
 import com.school.models.request.EmployeeRequest;
 import com.school.models.vo.Employee;
@@ -22,33 +20,25 @@ public class EmployeeService {
 
 	private EmployeeService() {}
 
-	public void writeFileSystem(List<Employee> empList) {
-		new EmployeeDao().writeDataList(empList);
+	public void addEmployee(EmployeeRequest empRequest) {
+		init().addEmployee(new Employee(empRequest.getName(), empRequest.getBirth()));
 	}
 
-	public void insert(EmployeeRequest empRequest) {
-		List<Employee> empList = select();
-		empList = init().insert(empList, empRequest);
-		writeFileSystem(empList);
+	public void updateEmployee(EmployeeRequest empRequest) {
+		// id 값 없음
+		init().updateEmployee(new Employee(empRequest.getName(), empRequest.getBirth()));
 	}
 
-	public void update(EmployeeRequest empRequest) {
-		List<Employee> empList = select();
-		empList = init().update(empList, empRequest);
-		writeFileSystem(empList);
+	public void deleteEmployee(EmployeeRequest empRequest) {
+		// id 값 없음
+		init().deleteEmployee(1);
 	}
 
-	public void delete(EmployeeRequest empRequest) {
-		List<Employee> empList = select();
-		empList = init().delete(empList, empRequest);
-		writeFileSystem(empList);
+	public List<Employee> getAllEmployees() {
+		return init().getAllEmployees();
 	}
 
-	public List<Employee> select() {
-		return new EmployeeDao().readDataList();
-	}
-
-	private EmployeeCrud init() {
-		return new EmployeeCrudImp();
+	private EmployeeDao init() {
+		return new EmployeeDao();
 	}
 }

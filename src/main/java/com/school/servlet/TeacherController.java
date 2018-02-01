@@ -32,17 +32,17 @@ public class TeacherController extends HttpServlet {
 
 		switch (req.getParameter("Crud")) {
 			case Type.INSERT:
-				teacherService.insert(teacherRequest);
+				teacherService.addTeacher(teacherRequest);
 				break;
 			case Type.UPDATE:
-				teacherService.update(teacherRequest);
+				teacherService.updateTeacher(teacherRequest);
 				break;
 			case Type.DELETE:
-				teacherService.delete(teacherRequest);
+				teacherService.deleteTeacher(teacherRequest);
 				break;
 		}
 
-		List<Teacher> list = teacherService.select();
+		List<Teacher> list = teacherService.getAllTeachers();
 
 		req.setAttribute("menulist", list);
 

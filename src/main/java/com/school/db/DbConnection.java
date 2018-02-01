@@ -27,10 +27,6 @@ public class DbConnection {
 				String url = prop.getProperty("url");
 				String user = prop.getProperty("user");
 				String password = prop.getProperty("password");
-				log.info("driver:" + driver);
-				log.info("url:" + url);
-				log.info("user:" + user);
-				log.info("password:" + password);
 				Class.forName(driver).newInstance();
 				connection = DriverManager.getConnection(url, user, password);
 				System.out.println("\n- MySQL Connection");

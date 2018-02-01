@@ -26,17 +26,17 @@ public class EmployeeController extends HttpServlet {
 			.build();
 		switch (req.getParameter("Crud")) {
 			case Type.INSERT:
-				employeeService.insert(empRequest);
+				employeeService.addEmployee(empRequest);
 				break;
 			case Type.UPDATE:
-				employeeService.update(empRequest);
+				employeeService.updateEmployee(empRequest);
 				break;
 			case Type.DELETE:
-				employeeService.delete(empRequest);
+				employeeService.deleteEmployee(empRequest);
 				break;
 		}
 
-		List<Employee> list = employeeService.select();
+		List<Employee> list = employeeService.getAllEmployees();
 
 		req.setAttribute("menulist", list);
 

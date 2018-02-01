@@ -2,8 +2,6 @@ package com.school.service;
 
 import java.util.List;
 
-import com.school.business.TeacherCrudImp;
-import com.school.custom.TeacherCrud;
 import com.school.dao.TeacherDao;
 import com.school.models.request.TeacherRequest;
 import com.school.models.vo.Teacher;
@@ -22,49 +20,29 @@ public class TeacherService {
 
 	private TeacherService() {}
 
-	public void writeFileSystem(List<Teacher> teacherList) {
-		new TeacherDao().writeDataList(teacherList);
+	public void addTeacher(TeacherRequest teacherRequest) {
+		//sub_id 없음
+		init()
+			.addTeacher(new Teacher(teacherRequest.getName(), teacherRequest.getBirth()));
 	}
 
-	public void insert(TeacherRequest teacherRequest) {
-		List<Teacher> teacherList = select();
-		teacherList = init()
-			.insert(teacherList, teacherRequest);
-		writeFileSystem(teacherList);
+	public void updateTeacher(TeacherRequest teacherRequest) {
+		//id 없음, sub_id 없음
+		init()
+			.updateTeacher(new Teacher(teacherRequest.getName(), teacherRequest.getBirth()));
 	}
 
-	public void update(TeacherRequest teacherRequest) {
-		List<Teacher> teacherList = select();
-		teacherList = init()
-			.update(teacherList, teacherRequest);
-		writeFileSystem(teacherList);
+	public void deleteTeacher(TeacherRequest teacherRequest) {
+		//id 없음
+		init().deleteTeacher(1);
 	}
 
-	public void update(String name, String changeName) {
-		List<Teacher> teacherList = select();
-		teacherList = init().update(teacherList, name, changeName);
-		writeFileSystem(teacherList);
+	public List<Teacher> getAllTeachers() {
+		return new TeacherDao().getAllTeachers();
 	}
 
-	public void delete(TeacherRequest teacherRequest) {
-		List<Teacher> teacherList = select();
-		teacherList = init()
-			.delete(teacherList, teacherRequest);
-		writeFileSystem(teacherList);
-	}
-
-	public void delete(String name) {
-		List<Teacher> teacherList = select();
-		teacherList = new TeacherCrudImp().delete(teacherList, name);
-		writeFileSystem(teacherList);
-	}
-
-	public List<Teacher> select() {
-		return new TeacherDao().readDataList();
-	}
-
-	private TeacherCrud init() {
-		return new TeacherCrudImp();
+	private TeacherDao init() {
+		return new TeacherDao();
 	}
 
 }

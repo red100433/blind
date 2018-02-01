@@ -8,8 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.school.models.vo.Subject;
-
 public class Dbtest {
 	private static Connection connection = null;
 
@@ -42,16 +40,19 @@ public class Dbtest {
 	public static void main(String[] args) throws SQLException {
 		Connection conn = Dbtest.getConnection();
 		Statement statement = conn.createStatement();
-		ResultSet rs = statement.executeQuery("select * from subject");
-		List<Subject> subList = new ArrayList<Subject>();
+		ResultSet rs = statement.executeQuery(
+			"select s.sub_Id, s.subjectName, avg(grade) as avg from grade g inner join subject s on g.sub_Id = s.sub_Id group by sub_Id");
+		List<String> resultList = new ArrayList<String>();
 
 		while (rs.next()) {
-			Subject sub = new Subject();
-			sub.setSub_Id(rs.getInt("sub_Id"));
-			sub.setSubjectName(rs.getString("subjectName"));
-			subList.add(sub);
+			String result1 = rs.getString("sub_Id");
+			String result2 = rs.getString("subjectName");
+			String result3 = rs.getString("avg");
+			//			double result2 = rs.getDouble("avg(grade)");
+			String result = "sub_Id:" + result1 + " subject:" + result2 + " avg:" + result3;
+			resultList.add(result);
 		}
 
-		System.out.println(subList);
+		System.out.println(resultList);
 	}
 }

@@ -2,8 +2,6 @@ package com.school.service;
 
 import java.util.List;
 
-import com.school.business.GradeCrudImp;
-import com.school.custom.GradeCrud;
 import com.school.dao.GradeDao;
 import com.school.models.request.GradeRequest;
 import com.school.models.vo.Grade;
@@ -22,53 +20,32 @@ public class GradeService {
 
 	private GradeService() {}
 
-	public void writeFileSystem(List<Grade> gradeList) {
-		new GradeDao().writeDataList(gradeList);
+	public void addGrade(GradeRequest gradeRequest) {
+		//stu_Id, sub_Id 값 없음
+		init().addGrade(new Grade(1, 1, 0));
 	}
 
-	public void insert(GradeRequest gradeRequest) {
-		List<Grade> gradeList = select();
-		gradeList = init().insert(gradeList,
-			gradeRequest);
-		writeFileSystem(gradeList);
+	public void updateGrade(GradeRequest gradeRequest) {
+		//stu_Id, sub_Id 값 없음
+		init().updateGrade(new Grade(1, 1, 0));
 	}
 
-	public void update(GradeRequest gradeRequest) {
-		List<Grade> gradeList = select();
-		gradeList = init()
-			.update(gradeList, gradeRequest);
-		writeFileSystem(gradeList);
+	public void deleteGrade(GradeRequest gradeRequest) {
+		//stu_Id, sub_Id 값 없음
+		init().deleteGrade(1, 1);
 	}
 
-	public void update(String tempName, String changeName) {
-		List<Grade> gradeList = select();
-		gradeList = new GradeCrudImp().update(gradeList, tempName, changeName);
-		writeFileSystem(gradeList);
+	public List<Grade> getAllGrades() {
+		return init().getAllGrades();
 	}
 
-	public void delete(GradeRequest gradeRequest) {
-		List<Grade> gradeList = select();
-		gradeList = init().delete(gradeList, gradeRequest);
-		writeFileSystem(gradeList);
-	}
-
-	public void delete(String name) {
-		List<Grade> gradeList = select();
-		gradeList = new GradeCrudImp().delete(gradeList, name);
-		writeFileSystem(gradeList);
-	}
-
-	public List<Grade> select() {
-		return new GradeDao().readDataList();
-	}
-
-	private GradeCrud init() {
-		return new GradeCrudImp();
+	private GradeDao init() {
+		return new GradeDao();
 	}
 
 	public List<String> selectOption(String selectOption) {
 
-		return init().selectOption(select(), selectOption);
+		return init().selectOption(selectOption);
 	}
 
 }
