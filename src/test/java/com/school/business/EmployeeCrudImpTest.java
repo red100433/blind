@@ -12,7 +12,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.school.models.request.EmployeeRequest;
 import com.school.models.vo.Employee;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -29,8 +28,8 @@ public class EmployeeCrudImpTest {
 
 		List<Employee> insertList = new ArrayList<>();
 		insertList.add(new Employee("", ""));
-		EmployeeRequest emp = EmployeeRequest.builder()
-			.name("jjj").birth("111").changeName("").changeBirth("").build();
+		//		EmployeeRequest emp = EmployeeRequest.builder()
+		//			.name("jjj").birth("111").changeName("").changeBirth("").build();
 
 		// 기대값(리턴값)
 		List<Employee> exfInsertList = Arrays.asList(new Employee("", ""), new Employee("jjj", "111"));
@@ -52,8 +51,8 @@ public class EmployeeCrudImpTest {
 
 		//		when(mock.update(Matchers.anyListOf(Employee.class), anyObject())).thenReturn(exfInsertList);
 
-		EmployeeRequest emp = EmployeeRequest.builder()
-			.name("").birth("").changeName("jjj").changeBirth("111").build();
+		//		EmployeeRequest emp = EmployeeRequest.builder()
+		//			.name("").birth("").changeName("jjj").changeBirth("111").build();
 
 		//		updateList = mockEmp.update(updateList, emp);
 
@@ -68,8 +67,8 @@ public class EmployeeCrudImpTest {
 
 		//		when(mock.delete(Matchers.anyListOf(Employee.class), anyObject())).thenReturn(exfInsertList);
 
-		EmployeeRequest emp = EmployeeRequest.builder()
-			.name("jjj").birth("111").changeName("").changeBirth("").build();
+		//		EmployeeRequest emp = EmployeeRequest.builder()
+		//			.name("jjj").birth("111").changeName("").changeBirth("").build();
 
 		//		deleteList = mockEmp.delete(deleteList, emp);
 

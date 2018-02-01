@@ -13,16 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import com.school.models.Type;
 import com.school.models.vo.Grade;
 import com.school.service.GradeService;
-import com.school.service.StudentService;
-import com.school.service.SubjectService;
 
 import lombok.extern.java.Log;
 
 @Log
 public class GradeController extends HttpServlet {
 	GradeService gradeService = GradeService.getInstance();
-	StudentService studentService = StudentService.getInstance();
-	SubjectService subjectService = SubjectService.getInstance();
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

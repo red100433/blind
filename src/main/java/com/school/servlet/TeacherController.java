@@ -22,7 +22,7 @@ public class TeacherController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		Teacher teacher = Teacher.of(req.getParameter("id"),
-			req.getParameter("name"), req.getParameter("brith"), req.getParameter("sub_Id"));
+			req.getParameter("name"), req.getParameter("birth"), req.getParameter("sub_Id"));
 
 		switch (req.getParameter("Crud")) {
 			case Type.INSERT:

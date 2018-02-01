@@ -19,7 +19,8 @@ public class EmployeeController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		Employee emp = Employee.of(req.getParameter("id"),
-			req.getParameter("name"), req.getParameter("brith"));
+			req.getParameter("name"), req.getParameter("birth"));
+		System.out.println("emp Birth==" + emp.getBirth());
 		switch (req.getParameter("Crud")) {
 			case Type.INSERT:
 				employeeService.addEmployee(emp);
