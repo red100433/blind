@@ -5,17 +5,15 @@ import java.util.List;
 
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.school.custom.DaoInterface;
 import com.school.service.GradeService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class GradeTest {
 
-	@Mock
-	DaoInterface dao;
+	//	@Mock
+	//	DaoInterface dao;
 
 	@InjectMocks
 	GradeService gradeService;
