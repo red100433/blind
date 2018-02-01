@@ -23,7 +23,10 @@ public class Grade implements Serializable {
 		if (sub_Id == null) {
 			sub_Id = "0";
 		}
-		if (grade == null | Integer.parseInt(grade) < 0) {
+		if (grade == null) {
+			grade = "0";
+		}
+		if (Integer.parseInt(grade) < 0) {
 			grade = "0";
 		} else if (Integer.parseInt(grade) > 100) {
 			grade = "100";
