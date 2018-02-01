@@ -7,6 +7,7 @@ import com.school.models.vo.Grade;
 
 public class GradeService {
 	private static GradeService t;
+	private GradeDao dao = GradeDao.getInstance();
 
 	public static GradeService getInstance() {
 		synchronized (GradeService.class) {
@@ -20,28 +21,23 @@ public class GradeService {
 	private GradeService() {}
 
 	public void addGrade(Grade grade) {
-		init().addGrade(grade);
+		dao.addGrade(grade);
 	}
 
 	public void updateGrade(Grade grade) {
-		init().updateGrade(grade);
+		dao.updateGrade(grade);
 	}
 
 	public void deleteGrade(Grade grade) {
-		init().deleteGrade(grade.getStu_Id(), grade.getSub_Id());
+		dao.deleteGrade(grade.getStu_Id(), grade.getSub_Id());
 	}
 
 	public List<Grade> getAllGrades() {
-		return init().getAllGrades();
-	}
-
-	private GradeDao init() {
-		return new GradeDao();
+		return dao.getAllGrades();
 	}
 
 	public List<String> selectOption(String selectOption) {
-
-		return init().selectOption(selectOption);
+		return dao.selectOption(selectOption);
 	}
 
 }

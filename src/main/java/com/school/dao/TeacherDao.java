@@ -13,6 +13,17 @@ import com.school.models.vo.Teacher;
 public class TeacherDao {
 	private Connection connection;
 
+	private static TeacherDao t;
+
+	public static TeacherDao getInstance() {
+		synchronized (TeacherDao.class) {
+			if (t == null) {
+				t = new TeacherDao();
+			}
+		}
+		return t;
+	}
+
 	public TeacherDao() {
 		connection = DbConnection.getConnection();
 	}

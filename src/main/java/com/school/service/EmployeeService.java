@@ -7,6 +7,7 @@ import com.school.models.vo.Employee;
 
 public class EmployeeService {
 	private static EmployeeService t;
+	private EmployeeDao dao = EmployeeDao.getInstance();
 
 	public static EmployeeService getInstance() {
 		synchronized (EmployeeService.class) {
@@ -20,22 +21,19 @@ public class EmployeeService {
 	private EmployeeService() {}
 
 	public void addEmployee(Employee employee) {
-		init().addEmployee(employee);
+		dao.addEmployee(employee);
 	}
 
 	public void updateEmployee(Employee employee) {
-		init().updateEmployee(employee);
+		dao.updateEmployee(employee);
 	}
 
 	public void deleteEmployee(Employee employee) {
-		init().deleteEmployee(employee.getEmp_Id());
+		dao.deleteEmployee(employee.getEmp_Id());
 	}
 
 	public List<Employee> getAllEmployees() {
-		return init().getAllEmployees();
+		return dao.getAllEmployees();
 	}
 
-	private EmployeeDao init() {
-		return new EmployeeDao();
-	}
 }

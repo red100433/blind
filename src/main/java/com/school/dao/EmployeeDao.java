@@ -17,6 +17,16 @@ import com.school.models.vo.Employee;
  */
 public class EmployeeDao {
 	private Connection connection;
+	private static EmployeeDao t;
+
+	public static EmployeeDao getInstance() {
+		synchronized (EmployeeDao.class) {
+			if (t == null) {
+				t = new EmployeeDao();
+			}
+		}
+		return t;
+	}
 
 	public EmployeeDao() {
 		connection = DbConnection.getConnection();

@@ -7,6 +7,7 @@ import com.school.models.vo.Subject;
 
 public class SubjectService {
 	private static SubjectService t;
+	private SubjectDao dao = SubjectDao.getInstance();
 
 	public static SubjectService getInstance() {
 		synchronized (SubjectService.class) {
@@ -18,22 +19,18 @@ public class SubjectService {
 	}
 
 	public void addSubject(Subject subject) {
-		init().addSubject(subject);
+		dao.addSubject(subject);
 	}
 
 	public void updateSubject(Subject subject) {
-		init().updateSubject(subject);
+		dao.updateSubject(subject);
 	}
 
 	public void deleteSubject(Subject subject) {
-		init().deleteSubject(subject.getSub_Id());
+		dao.deleteSubject(subject.getSub_Id());
 	}
 
 	public List<Subject> getAllSubjects() {
-		return init().getAllSubjects();
-	}
-
-	private SubjectDao init() {
-		return new SubjectDao();
+		return dao.getAllSubjects();
 	}
 }

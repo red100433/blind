@@ -7,6 +7,7 @@ import com.school.models.vo.Student;
 
 public class StudentService {
 	private static StudentService t;
+	private StudentDao dao = StudentDao.getInstance();
 
 	public static StudentService getInstance() {
 		synchronized (StudentService.class) {
@@ -20,22 +21,19 @@ public class StudentService {
 	private StudentService() {}
 
 	public void addStudent(Student student) {
-		init().addStudent(student);
+		dao.addStudent(student);
 	}
 
 	public void updateStudent(Student student) {
-		init().updateStudent(student);
+		dao.updateStudent(student);
 	}
 
 	public void deleteStudent(Student student) {
-		init().deleteStudent(student.getStu_Id());
+		dao.deleteStudent(student.getStu_Id());
 	}
 
 	public List<Student> getAllSubjects() {
-		return init().getAllSubjects();
+		return dao.getAllSubjects();
 	}
 
-	private StudentDao init() {
-		return new StudentDao();
-	}
 }

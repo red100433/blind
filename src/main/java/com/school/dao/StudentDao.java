@@ -18,6 +18,17 @@ import com.school.models.vo.Student;
 public class StudentDao {
 	private Connection connection;
 
+	private static StudentDao t;
+
+	public static StudentDao getInstance() {
+		synchronized (StudentDao.class) {
+			if (t == null) {
+				t = new StudentDao();
+			}
+		}
+		return t;
+	}
+
 	public StudentDao() {
 		connection = DbConnection.getConnection();
 	}

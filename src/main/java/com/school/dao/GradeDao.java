@@ -19,6 +19,17 @@ import com.school.models.vo.Grade;
 public class GradeDao {
 	private Connection connection;
 
+	private static GradeDao t;
+
+	public static GradeDao getInstance() {
+		synchronized (GradeDao.class) {
+			if (t == null) {
+				t = new GradeDao();
+			}
+		}
+		return t;
+	}
+	
 	public GradeDao() {
 		connection = DbConnection.getConnection();
 	}
