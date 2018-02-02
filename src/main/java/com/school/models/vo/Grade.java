@@ -3,10 +3,12 @@ package com.school.models.vo;
 import java.io.Serializable;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
-@Data
+@Getter
 @AllArgsConstructor
+@ToString
 public class Grade implements Serializable {
 	private static final long serialVersionUID = -6298676113379834491L;
 

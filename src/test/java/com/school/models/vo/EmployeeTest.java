@@ -16,8 +16,8 @@ public class EmployeeTest {
 	@Parameters
 	public static Collection<Object[]> data() {
 		return Arrays.asList(new Object[][] {
-			{new Employee("", ""), true},
-			{new Employee("jangTT", "1234"), true}
+			//			{new Employee("", ""), true},
+			//			{new Employee("jangTT", "1234"), true}
 		});
 	}
 

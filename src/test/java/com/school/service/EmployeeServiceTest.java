@@ -19,11 +19,11 @@ public class EmployeeServiceTest {
 
 	@Before
 	public void setUp() {
-		list.add(new Employee("", ""));
-		list.add(new Employee("jjj", "111"));
-		list.add(new Employee("eee", "222"));
-		dao = new EmployeeDao();
-		employeeService = EmployeeService.getInstance();
+		//		list.add(new Employee("", ""));
+		//		list.add(new Employee("jjj", "111"));
+		//		list.add(new Employee("eee", "222"));
+		//		dao = new EmployeeDao();
+		//		employeeService = EmployeeService.getInstance();
 	}
 
 	@Ignore

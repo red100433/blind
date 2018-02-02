@@ -3,9 +3,9 @@ package com.school.models.vo;
 import java.io.Serializable;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 /**
  *
@@ -13,9 +13,9 @@ import lombok.RequiredArgsConstructor;
  *
  */
 
-@Data
+@Getter
 @AllArgsConstructor
-@RequiredArgsConstructor
+@ToString
 public class Employee implements Serializable {
 	private static final long serialVersionUID = -7708695675154867454L;
 
