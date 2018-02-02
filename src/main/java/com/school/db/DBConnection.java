@@ -11,7 +11,7 @@ import java.util.Properties;
 import lombok.extern.java.Log;
 
 @Log
-public class DbConnection {
+public class DBConnection {
 
 	private static Connection connection = null;
 
@@ -22,7 +22,7 @@ public class DbConnection {
 		} else {
 			try {
 				Properties prop = new Properties();
-				InputStream inputStream = DbConnection.class.getClassLoader().getResourceAsStream("/db.properties");
+				InputStream inputStream = DBConnection.class.getClassLoader().getResourceAsStream("/db.properties");
 				prop.load(inputStream);
 				String driver = prop.getProperty("driver");
 				String url = prop.getProperty("url");
