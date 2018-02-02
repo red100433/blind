@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.school.db.DbConnection;
+import com.school.db.DBConnection;
 import com.school.models.vo.Employee;
 
 /**
@@ -29,7 +29,7 @@ public class EmployeeDao {
 	}
 
 	public EmployeeDao() {
-		connection = DbConnection.getConnection();
+		connection = DBConnection.getConnection();
 	}
 
 	public void addEmployee(Employee employee) {
@@ -46,12 +46,12 @@ public class EmployeeDao {
 		}
 	}
 
-	public void deleteEmployee(int emp_Id) {
+	public void deleteEmployee(int empId) {
 		try {
 			PreparedStatement preparedStatement = connection
-				.prepareStatement("DELETE FROM employee WHERE emp_Id=?");
+				.prepareStatement("DELETE FROM employee WHERE empId=?");
 			// Parameters start with 1
-			preparedStatement.setInt(1, emp_Id);
+			preparedStatement.setInt(1, empId);
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -63,11 +63,11 @@ public class EmployeeDao {
 		try {
 			PreparedStatement preparedStatement = connection
 				.prepareStatement("UPDATE employee SET employeeName=?, birth=?" +
-					"WHERE emp_Id=?");
+					"WHERE empId=?");
 			// Parameters start with 1
 			preparedStatement.setString(1, employee.getEmployeeName());
 			preparedStatement.setString(2, employee.getBirth());
-			preparedStatement.setInt(3, employee.getEmp_Id());
+			preparedStatement.setInt(3, employee.getEmpId());
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -79,10 +79,10 @@ public class EmployeeDao {
 		List<Employee> empList = new ArrayList<Employee>();
 		try {
 			PreparedStatement preparedStatement = connection
-				.prepareStatement("SELECT * FROM employee");
+				.prepareStatement("SELECT empId, employeeName, birth FROM employee");
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
-				Employee emp = Employee.of(rs.getString("emp_Id"), rs.getString("employeeName"), rs.getString("birth"));
+				Employee emp = Employee.of(rs.getString("empId"), rs.getString("employeeName"), rs.getString("birth"));
 				empList.add(emp);
 			}
 		} catch (SQLException e) {
@@ -91,15 +91,15 @@ public class EmployeeDao {
 		return empList;
 	}
 
-	public Employee getEmployeeById(int emp_Id) {
+	public Employee getEmployeeById(int empId) {
 		Employee emp = new Employee();
 		try {
-			PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM employee WHERE emp_Id=?");
-			preparedStatement.setInt(1, emp_Id);
+			PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM employee WHERE empId=?");
+			preparedStatement.setInt(1, empId);
 			ResultSet rs = preparedStatement.executeQuery();
 
 			if (rs.next()) {
-				emp = Employee.of(rs.getString("emp_Id"), rs.getString("employeeName"), rs.getString("birth"));
+				emp = Employee.of(rs.getString("empId"), rs.getString("employeeName"), rs.getString("birth"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

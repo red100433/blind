@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.school.db.DbConnection;
+import com.school.db.DBConnection;
 import com.school.models.Type;
 import com.school.models.vo.Grade;
 
@@ -31,17 +31,17 @@ public class GradeDao {
 	}
 
 	public GradeDao() {
-		connection = DbConnection.getConnection();
+		connection = DBConnection.getConnection();
 	}
 
 	public void addGrade(Grade grade) {
 		try {
 			PreparedStatement preparedStatement = connection
-				.prepareStatement("INSERT INTO grade(stu_Id, sub_Id, grade) VALUES (?, ?, ?)");
+				.prepareStatement("INSERT INTO grade(stuId, subId, grade) VALUES (?, ?, ?)");
 			// Parameters start with 1
-			preparedStatement.setInt(1, grade.getStu_Id());
-			preparedStatement.setInt(2, grade.getSub_Id());
-			preparedStatement.setInt(3, grade.getGrade());
+			preparedStatement.setInt(1, grade.getStuId());
+			preparedStatement.setInt(2, grade.getSubId());
+			preparedStatement.setInt(3, grade.getScore());
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -49,13 +49,13 @@ public class GradeDao {
 		}
 	}
 
-	public void deleteGrade(int stu_Id, int sub_Id) {
+	public void deleteGrade(int stuId, int subId) {
 		try {
 			PreparedStatement preparedStatement = connection
-				.prepareStatement("DELETE FROM grade WHERE stu_Id=? AND sub_Id=?");
+				.prepareStatement("DELETE FROM grade WHERE stuId=? AND subId=?");
 			// Parameters start with 1
-			preparedStatement.setInt(1, stu_Id);
-			preparedStatement.setInt(2, sub_Id);
+			preparedStatement.setInt(1, stuId);
+			preparedStatement.setInt(2, subId);
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -67,11 +67,11 @@ public class GradeDao {
 		try {
 			PreparedStatement preparedStatement = connection
 				.prepareStatement("UPDATE grade SET grade=?" +
-					"WHERE stu_Id=? AND sub_Id=?");
+					"WHERE stuId=? AND subId=?");
 			// Parameters start with 1
-			preparedStatement.setInt(1, grade.getGrade());
-			preparedStatement.setInt(2, grade.getStu_Id());
-			preparedStatement.setInt(3, grade.getSub_Id());
+			preparedStatement.setInt(1, grade.getScore());
+			preparedStatement.setInt(2, grade.getStuId());
+			preparedStatement.setInt(3, grade.getSubId());
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -83,10 +83,10 @@ public class GradeDao {
 		List<Grade> gradeList = new ArrayList<Grade>();
 		try {
 			PreparedStatement preparedStatement = connection
-				.prepareStatement("SELECT * FROM grade");
+				.prepareStatement("SELECT stuId, subId, score FROM grade");
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
-				Grade grade = Grade.of(rs.getString("stu_Id"), rs.getString("sub_Id"), rs.getString("grade"));
+				Grade grade = Grade.of(rs.getString("stuId"), rs.getString("subId"), rs.getString("score"));
 				gradeList.add(grade);
 			}
 		} catch (SQLException e) {
@@ -95,17 +95,17 @@ public class GradeDao {
 		return gradeList;
 	}
 
-	public Grade getGradeById(int stu_Id, int sub_Id) {
+	public Grade getGradeById(int stuId, int subId) {
 		Grade grade = new Grade();
 		try {
 			PreparedStatement preparedStatement = connection
-				.prepareStatement("SELECT * FROM grade WHERE stu_Id=? AND sub_Id=?");
-			preparedStatement.setInt(1, stu_Id);
-			preparedStatement.setInt(2, sub_Id);
+				.prepareStatement("SELECT stuId, subId, score FROM grade WHERE stuId=? AND subId=?");
+			preparedStatement.setInt(1, stuId);
+			preparedStatement.setInt(2, subId);
 			ResultSet rs = preparedStatement.executeQuery();
 
 			if (rs.next()) {
-				grade = Grade.of(rs.getString("stu_Id"), rs.getString("sub_Id"), rs.getString("grade"));
+				grade = Grade.of(rs.getString("stuId"), rs.getString("subId"), rs.getString("score"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -120,34 +120,34 @@ public class GradeDao {
 			if (selectOption.equals(Type.ALL_SUBJECT_AVERAGE_SELECT)) {
 				PreparedStatement preparedStatement = connection
 					.prepareStatement(
-						"SELECT s.sub_Id, s.subjectName, avg(grade) AS avg FROM grade g INNER JOIN subject s ON g.sub_Id = s.sub_Id GROUP BY sub_Id");
+						"SELECT s.subId, s.subjectName, AVG(score) AS avg FROM grade g INNER JOIN subject s ON g.subId = s.subId GROUP BY subId");
 				ResultSet rs = preparedStatement.executeQuery();
 				while (rs.next()) {
-					String result1 = rs.getString("sub_Id");
+					String result1 = rs.getString("subId");
 					String result2 = rs.getString("subjectName");
 					String result3 = rs.getString("avg");
-					String result = "sub_Id:" + result1 + " subject:" + result2 + " avg:" + result3;
+					String result = "subId:" + result1 + " subject:" + result2 + " avg:" + result3;
 					resultList.add(result);
 				}
 
 			} else if (selectOption.equals(Type.ALL_STUDENT_AVERAGE_SELECT)) {
 				PreparedStatement preparedStatement = connection
 					.prepareStatement(
-						"SELECT s.stu_Id, s.studentName, avg(grade) AS avg FROM grade g INNER JOIN student s ON g.stu_Id = s.stu_Id GROUP BY stu_Id");
+						"SELECT s.stuId, s.studentName, AVG(score) AS avg FROM grade g INNER JOIN student s ON g.stuId = s.stuId GROUP BY stuId");
 				ResultSet rs = preparedStatement.executeQuery();
 				while (rs.next()) {
-					String result1 = rs.getString("stu_Id");
+					String result1 = rs.getString("stuId");
 					String result2 = rs.getString("studentName");
 					String result3 = rs.getString("avg");
-					String result = "stu_Id:" + result1 + " student:" + result2 + " avg:" + result3;
+					String result = "stuId:" + result1 + " student:" + result2 + " avg:" + result3;
 					resultList.add(result);
 				}
 			} else {
 				PreparedStatement preparedStatement = connection
-					.prepareStatement("SELECT * FROM grade");
+					.prepareStatement("SELECT stuId, subId, score FROM grade");
 				ResultSet rs = preparedStatement.executeQuery();
 				while (rs.next()) {
-					Grade grade = Grade.of(rs.getString("stu_Id"), rs.getString("sub_Id"), rs.getString("grade"));
+					Grade grade = Grade.of(rs.getString("stuId"), rs.getString("subId"), rs.getString("score"));
 					resultList.add(grade.toString());
 				}
 			}

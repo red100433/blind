@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class Student implements Serializable {
 	private static final long serialVersionUID = -918783022995365596L;
 
-	private int stu_Id;
+	private int stuId;
 	@NonNull
 	private String studentName;
 	@NonNull
@@ -27,9 +27,9 @@ public class Student implements Serializable {
 
 	public Student() {}
 
-	public static Student of(String stu_Id, String studentName, String birth) {
-		if (stu_Id == null) {
-			stu_Id = "0";
+	public static Student of(String stuId, String studentName, String birth) {
+		if (stuId == null) {
+			stuId = "0";
 		}
 		if (studentName == null) {
 			studentName = "";
@@ -38,7 +38,7 @@ public class Student implements Serializable {
 			birth = "";
 		}
 
-		return new Student(Integer.parseInt(stu_Id), studentName, birth);
+		return new Student(Integer.parseInt(stuId), studentName, birth);
 	}
 
 }

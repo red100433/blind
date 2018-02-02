@@ -29,7 +29,7 @@ public class TeacherService {
 	}
 
 	public void deleteTeacher(Teacher teacher) {
-		dao.deleteTeacher(teacher.getTeacher_Id());
+		dao.deleteTeacher(teacher.getTeacherId());
 	}
 
 	public List<Teacher> getAllTeachers() {

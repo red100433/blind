@@ -10,28 +10,28 @@ import lombok.Data;
 public class Grade implements Serializable {
 	private static final long serialVersionUID = -6298676113379834491L;
 
-	private int stu_Id;
-	private int sub_Id;
-	private int grade;
+	private int stuId;
+	private int subId;
+	private int score;
 
 	public Grade() {}
 
-	public static Grade of(String stu_Id, String sub_Id, String grade) {
-		if (stu_Id == null) {
-			stu_Id = "0";
+	public static Grade of(String stuId, String subId, String score) {
+		if (stuId == null) {
+			stuId = "0";
 		}
-		if (sub_Id == null) {
-			sub_Id = "0";
+		if (subId == null) {
+			subId = "0";
 		}
-		if (grade == null) {
-			grade = "0";
+		if (score == null) {
+			score = "0";
 		}
-		if (Integer.parseInt(grade) < 0) {
-			grade = "0";
-		} else if (Integer.parseInt(grade) > 100) {
-			grade = "100";
+		if (Integer.parseInt(score) < 0) {
+			score = "0";
+		} else if (Integer.parseInt(score) > 100) {
+			score = "100";
 		}
 
-		return new Grade(Integer.parseInt(stu_Id), Integer.parseInt(sub_Id), Integer.parseInt(grade));
+		return new Grade(Integer.parseInt(stuId), Integer.parseInt(subId), Integer.parseInt(score));
 	}
 }

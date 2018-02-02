@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.school.db.DbConnection;
+import com.school.db.DBConnection;
 import com.school.models.vo.Student;
 
 /**
@@ -30,7 +30,7 @@ public class StudentDao {
 	}
 
 	public StudentDao() {
-		connection = DbConnection.getConnection();
+		connection = DBConnection.getConnection();
 	}
 
 	public void addStudent(Student student) {
@@ -47,12 +47,12 @@ public class StudentDao {
 		}
 	}
 
-	public void deleteStudent(int stu_Id) {
+	public void deleteStudent(int stuId) {
 		try {
 			PreparedStatement preparedStatement = connection
-				.prepareStatement("DELETE FROM student WHERE stu_Id=?");
+				.prepareStatement("DELETE FROM student WHERE stuId=?");
 			// Parameters start with 1
-			preparedStatement.setInt(1, stu_Id);
+			preparedStatement.setInt(1, stuId);
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -60,16 +60,16 @@ public class StudentDao {
 		}
 	}
 
-	//TODO query 대문자 template method
+	//TODO template method
 	public void updateStudent(Student student) {
 		try {
 			PreparedStatement preparedStatement = connection
 				.prepareStatement("UPDATE student SET studentName=?, birth=?" +
-					"WHERE stu_Id=?");
+					"WHERE stuId=?");
 			// Parameters start with 1
 			preparedStatement.setString(1, student.getStudentName());
 			preparedStatement.setString(2, student.getBirth());
-			preparedStatement.setInt(3, student.getStu_Id());
+			preparedStatement.setInt(3, student.getStuId());
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -81,10 +81,10 @@ public class StudentDao {
 		List<Student> stuList = new ArrayList<Student>();
 		try {
 			PreparedStatement preparedStatement = connection
-				.prepareStatement("SELECT * FROM student");
+				.prepareStatement("SELECT stuId, studentName, birth FROM student");
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
-				Student stu = Student.of(rs.getString("stu_Id"), rs.getString("studentName"), rs.getString("birth"));
+				Student stu = Student.of(rs.getString("stuId"), rs.getString("studentName"), rs.getString("birth"));
 				stuList.add(stu);
 			}
 		} catch (SQLException e) {
@@ -93,16 +93,16 @@ public class StudentDao {
 		return stuList;
 	}
 
-	//TODO _ 제거
-	public Student getStudentById(int stu_Id) {
+	public Student getStudentById(int stuId) {
 		Student stu = new Student();
 		try {
-			PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM student WHERE stu_Id=?");
-			preparedStatement.setInt(1, stu_Id);
+			PreparedStatement preparedStatement = connection
+				.prepareStatement("SELECT stuId, studentName, birth FROM student WHERE stuId=?");
+			preparedStatement.setInt(1, stuId);
 			ResultSet rs = preparedStatement.executeQuery();
 
 			if (rs.next()) {
-				stu = Student.of(rs.getString("stu_Id"), rs.getString("studentName"), rs.getString("birth"));
+				stu = Student.of(rs.getString("stuId"), rs.getString("studentName"), rs.getString("birth"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

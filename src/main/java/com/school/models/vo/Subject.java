@@ -20,20 +20,20 @@ public class Subject implements Serializable {
 
 	private static final long serialVersionUID = -2910796104540445977L;
 
-	private int sub_Id;
+	private int subId;
 	@NonNull
 	private String subjectName;
 
 	public Subject() {}
 
-	public static Subject of(String sub_Id, String subjectName) {
-		if (sub_Id == null) {
-			sub_Id = "0";
+	public static Subject of(String subId, String subjectName) {
+		if (subId == null) {
+			subId = "0";
 		}
 		if (subjectName == null) {
 			subjectName = "";
 		}
 
-		return new Subject(Integer.parseInt(sub_Id), subjectName);
+		return new Subject(Integer.parseInt(subId), subjectName);
 	}
 }

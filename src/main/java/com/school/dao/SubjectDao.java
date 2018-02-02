@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.school.db.DbConnection;
+import com.school.db.DBConnection;
 import com.school.models.vo.Subject;
 
 /**
@@ -30,7 +30,7 @@ public class SubjectDao {
 	}
 
 	public SubjectDao() {
-		connection = DbConnection.getConnection();
+		connection = DBConnection.getConnection();
 	}
 
 	public void addSubject(Subject subject) {
@@ -46,12 +46,12 @@ public class SubjectDao {
 		}
 	}
 
-	public void deleteSubject(int sub_Id) {
+	public void deleteSubject(int subId) {
 		try {
 			PreparedStatement preparedStatement = connection
-				.prepareStatement("DELETE FROM subject WHERE sub_Id=?");
+				.prepareStatement("DELETE FROM subject WHERE subId=?");
 			// Parameters start with 1
-			preparedStatement.setInt(1, sub_Id);
+			preparedStatement.setInt(1, subId);
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -63,10 +63,10 @@ public class SubjectDao {
 		try {
 			PreparedStatement preparedStatement = connection
 				.prepareStatement("UPDATE subject SET subjectName=?" +
-					"WHERE sub_Id=?");
+					"WHERE subId=?");
 			// Parameters start with 1
 			preparedStatement.setString(1, subject.getSubjectName());
-			preparedStatement.setInt(2, subject.getSub_Id());
+			preparedStatement.setInt(2, subject.getSubId());
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -77,10 +77,10 @@ public class SubjectDao {
 	public List<Subject> getAllSubjects() {
 		List<Subject> subList = new ArrayList<Subject>();
 		try {
-			PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM subject");
+			PreparedStatement preparedStatement = connection.prepareStatement("SELECT subId, subjectName FROM subject");
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
-				Subject sub = Subject.of(rs.getString("sub_Id"), rs.getString("subjectName"));
+				Subject sub = Subject.of(rs.getString("subId"), rs.getString("subjectName"));
 				subList.add(sub);
 			}
 		} catch (SQLException e) {
@@ -89,15 +89,16 @@ public class SubjectDao {
 		return subList;
 	}
 
-	public Subject getSubjectById(int sub_Id) {
+	public Subject getSubjectById(int subId) {
 		Subject sub = new Subject();
 		try {
-			PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM subject WHERE sub_Id=?");
-			preparedStatement.setInt(1, sub_Id);
+			PreparedStatement preparedStatement = connection
+				.prepareStatement("SELECT subId, subjectName FROM subject WHERE subId=?");
+			preparedStatement.setInt(1, subId);
 			ResultSet rs = preparedStatement.executeQuery();
 
 			if (rs.next()) {
-				sub = Subject.of(rs.getString("sub_Id"), rs.getString("subjectName"));
+				sub = Subject.of(rs.getString("subId"), rs.getString("subjectName"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

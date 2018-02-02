@@ -29,7 +29,7 @@ public class GradeService {
 	}
 
 	public void deleteGrade(Grade grade) {
-		dao.deleteGrade(grade.getStu_Id(), grade.getSub_Id());
+		dao.deleteGrade(grade.getStuId(), grade.getSubId());
 	}
 
 	public List<Grade> getAllGrades() {

@@ -27,7 +27,7 @@ public class SubjectService {
 	}
 
 	public void deleteSubject(Subject subject) {
-		dao.deleteSubject(subject.getSub_Id());
+		dao.deleteSubject(subject.getSubId());
 	}
 
 	public List<Subject> getAllSubjects() {

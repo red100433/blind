@@ -29,7 +29,7 @@ public class EmployeeService {
 	}
 
 	public void deleteEmployee(Employee employee) {
-		dao.deleteEmployee(employee.getEmp_Id());
+		dao.deleteEmployee(employee.getEmpId());
 	}
 
 	public List<Employee> getAllEmployees() {
