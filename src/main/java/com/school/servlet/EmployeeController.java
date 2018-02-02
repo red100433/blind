@@ -22,9 +22,11 @@ public class EmployeeController extends HttpServlet {
 			req.getParameter("name"), req.getParameter("birth"));
 		switch (req.getParameter("Crud")) {
 			case Type.INSERT:
+
 				employeeService.addEmployee(emp);
 				break;
 			case Type.UPDATE:
+
 				employeeService.updateEmployee(emp);
 				break;
 			case Type.DELETE:

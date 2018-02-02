@@ -2,6 +2,9 @@ package com.school.models.vo;
 
 import java.io.Serializable;
 
+import com.school.exception.DateValidException;
+import com.school.exception.Validator;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
@@ -36,6 +39,8 @@ public class Student implements Serializable {
 		}
 		if (birth == null) {
 			birth = "";
+		} else if (Validator.isDateValid(birth)) {
+			throw new DateValidException();
 		}
 
 		return new Student(Integer.parseInt(stuId), studentName, birth);
