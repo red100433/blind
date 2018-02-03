@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.school.dao.custom.GradeDaoWrapper;
 import com.school.db.DBConnection;
 import com.school.models.Type;
 import com.school.models.vo.Grade;
@@ -16,7 +17,7 @@ import com.school.models.vo.Grade;
  * @author daeyun-jang
  *
  */
-public class GradeDao extends DaoWrapper {
+public class GradeDao extends GradeDaoWrapper {
 	private Connection connection;
 
 	private static GradeDao t;

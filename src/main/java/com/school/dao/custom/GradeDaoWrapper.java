@@ -1,4 +1,4 @@
-package com.school.dao;
+package com.school.dao.custom;
 
 import java.util.List;
 

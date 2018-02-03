@@ -40,9 +40,10 @@ public class Employee implements Serializable {
 
 		if (birth == null) {
 			birth = "";
-		} else if (Validator.isDateValid(birth)) {
-			throw new DateValidException();
+		} else {
+			Validator.isDateValid(birth);
 		}
+			
 
 		return new Employee(Integer.parseInt(empId), employeeName, birth);
 	}

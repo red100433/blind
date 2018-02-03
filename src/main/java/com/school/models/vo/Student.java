@@ -39,8 +39,8 @@ public class Student implements Serializable {
 		}
 		if (birth == null) {
 			birth = "";
-		} else if (Validator.isDateValid(birth)) {
-			throw new DateValidException();
+		}else {
+			Validator.isDateValid(birth);
 		}
 
 		return new Student(Integer.parseInt(stuId), studentName, birth);

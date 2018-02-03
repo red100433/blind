@@ -40,8 +40,8 @@ public class Teacher implements Serializable {
 		}
 		if (birth == null) {
 			birth = "";
-		} else if (Validator.isDateValid(birth)) {
-			throw new DateValidException();
+		} else {
+			Validator.isDateValid(birth);
 		}
 		if (subId == null) {
 			subId = "0";
