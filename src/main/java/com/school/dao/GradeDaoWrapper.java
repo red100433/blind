@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.school.models.vo.Grade;
 
-public class DaoWrapper implements Dao<Grade>{
+public class GradeDaoWrapper implements Dao<Grade>{
 
 	@Override
 	public List<Grade> getAllList() {
