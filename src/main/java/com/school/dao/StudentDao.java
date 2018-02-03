@@ -15,7 +15,7 @@ import com.school.models.vo.Student;
  * @author daeyun-jang
  *
  */
-public class StudentDao {
+public class StudentDao implements Dao<Student>{
 	private Connection connection;
 
 	private static StudentDao t;
@@ -33,51 +33,9 @@ public class StudentDao {
 		connection = DBConnection.getConnection();
 	}
 
-	public void addStudent(Student student) {
-		try {
-			PreparedStatement preparedStatement = connection
-				.prepareStatement("INSERT INTO student(subjectName, birth) VALUES (?, ?)");
-			// Parameters start with 1
-			preparedStatement.setString(1, student.getStudentName());
-			preparedStatement.setString(2, student.getBirth());
-			preparedStatement.executeUpdate();
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void deleteStudent(int stuId) {
-		try {
-			PreparedStatement preparedStatement = connection
-				.prepareStatement("DELETE FROM student WHERE stuId=?");
-			// Parameters start with 1
-			preparedStatement.setInt(1, stuId);
-			preparedStatement.executeUpdate();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
-	//TODO template method
-	public void updateStudent(Student student) {
-		try {
-			PreparedStatement preparedStatement = connection
-				.prepareStatement("UPDATE student SET studentName=?, birth=?" +
-					"WHERE stuId=?");
-			// Parameters start with 1
-			preparedStatement.setString(1, student.getStudentName());
-			preparedStatement.setString(2, student.getBirth());
-			preparedStatement.setInt(3, student.getStuId());
-			preparedStatement.executeUpdate();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public List<Student> getAllSubjects() {
+	@Override
+	public List<Student> getAllList() {
 		List<Student> stuList = new ArrayList<Student>();
 		try {
 			PreparedStatement preparedStatement = connection
@@ -93,12 +51,13 @@ public class StudentDao {
 		return stuList;
 	}
 
-	public Student getStudentById(int stuId) {
+	@Override
+	public Student getById(int id) {
 		Student stu = new Student();
 		try {
 			PreparedStatement preparedStatement = connection
 				.prepareStatement("SELECT stuId, studentName, birth FROM student WHERE stuId=?");
-			preparedStatement.setInt(1, stuId);
+			preparedStatement.setInt(1, id);
 			ResultSet rs = preparedStatement.executeQuery();
 
 			if (rs.next()) {
@@ -109,5 +68,54 @@ public class StudentDao {
 		}
 
 		return stu;
+	}
+
+	@Override
+	public boolean add(Student student) {
+		try {
+			PreparedStatement preparedStatement = connection
+				.prepareStatement("INSERT INTO student(subjectName, birth) VALUES (?, ?)");
+			// Parameters start with 1
+			preparedStatement.setString(1, student.getStudentName());
+			preparedStatement.setString(2, student.getBirth());
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	@Override
+	public boolean delete(int id) {
+		try {
+			PreparedStatement preparedStatement = connection
+				.prepareStatement("DELETE FROM student WHERE stuId=?");
+			// Parameters start with 1
+			preparedStatement.setInt(1, id);
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	@Override
+	public boolean update(Student student) {
+		try {
+			PreparedStatement preparedStatement = connection
+				.prepareStatement("UPDATE student SET studentName=?, birth=?" +
+					"WHERE stuId=?");
+			// Parameters start with 1
+			preparedStatement.setString(1, student.getStudentName());
+			preparedStatement.setString(2, student.getBirth());
+			preparedStatement.setInt(3, student.getStuId());
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 }

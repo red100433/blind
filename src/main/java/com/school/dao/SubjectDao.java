@@ -15,7 +15,7 @@ import com.school.models.vo.Subject;
  * @author daeyun-jang
  *
  */
-public class SubjectDao {
+public class SubjectDao implements Dao<Subject>{
 	private Connection connection;
 
 	private static SubjectDao t;
@@ -33,48 +33,10 @@ public class SubjectDao {
 		connection = DBConnection.getConnection();
 	}
 
-	public void addSubject(Subject subject) {
-		try {
-			PreparedStatement preparedStatement = connection
-				.prepareStatement("INSERT INTO subject(subjectName) VALUES (?)");
-			// Parameters start with 1
-			preparedStatement.setString(1, subject.getSubjectName());
-			preparedStatement.executeUpdate();
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
 
-	public void deleteSubject(int subId) {
-		try {
-			PreparedStatement preparedStatement = connection
-				.prepareStatement("DELETE FROM subject WHERE subId=?");
-			// Parameters start with 1
-			preparedStatement.setInt(1, subId);
-			preparedStatement.executeUpdate();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void updateSubject(Subject subject) {
-		try {
-			PreparedStatement preparedStatement = connection
-				.prepareStatement("UPDATE subject SET subjectName=?" +
-					"WHERE subId=?");
-			// Parameters start with 1
-			preparedStatement.setString(1, subject.getSubjectName());
-			preparedStatement.setInt(2, subject.getSubId());
-			preparedStatement.executeUpdate();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public List<Subject> getAllSubjects() {
+	@Override
+	public List<Subject> getAllList() {
 		List<Subject> subList = new ArrayList<Subject>();
 		try {
 			PreparedStatement preparedStatement = connection.prepareStatement("SELECT subId, subjectName FROM subject");
@@ -89,12 +51,13 @@ public class SubjectDao {
 		return subList;
 	}
 
-	public Subject getSubjectById(int subId) {
+	@Override
+	public Subject getById(int id) {
 		Subject sub = new Subject();
 		try {
 			PreparedStatement preparedStatement = connection
 				.prepareStatement("SELECT subId, subjectName FROM subject WHERE subId=?");
-			preparedStatement.setInt(1, subId);
+			preparedStatement.setInt(1, id);
 			ResultSet rs = preparedStatement.executeQuery();
 
 			if (rs.next()) {
@@ -105,6 +68,53 @@ public class SubjectDao {
 		}
 
 		return sub;
+	}
+
+	@Override
+	public boolean add(Subject subject) {
+		try {
+			PreparedStatement preparedStatement = connection
+				.prepareStatement("INSERT INTO subject(subjectName) VALUES (?)");
+			// Parameters start with 1
+			preparedStatement.setString(1, subject.getSubjectName());
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	@Override
+	public boolean delete(int id) {
+		try {
+			PreparedStatement preparedStatement = connection
+				.prepareStatement("DELETE FROM subject WHERE subId=?");
+			// Parameters start with 1
+			preparedStatement.setInt(1, id);
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	@Override
+	public boolean update(Subject subject) {
+		try {
+			PreparedStatement preparedStatement = connection
+				.prepareStatement("UPDATE subject SET subjectName=?" +
+					"WHERE subId=?");
+			// Parameters start with 1
+			preparedStatement.setString(1, subject.getSubjectName());
+			preparedStatement.setInt(2, subject.getSubId());
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 }

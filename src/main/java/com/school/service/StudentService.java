@@ -21,19 +21,19 @@ public class StudentService {
 	private StudentService() {}
 
 	public void addStudent(Student student) {
-		dao.addStudent(student);
+		dao.add(student);
 	}
 
 	public void updateStudent(Student student) {
-		dao.updateStudent(student);
+		dao.update(student);
 	}
 
 	public void deleteStudent(Student student) {
-		dao.deleteStudent(student.getStuId());
+		dao.delete(student.getStuId());
 	}
 
 	public List<Student> getAllSubjects() {
-		return dao.getAllSubjects();
+		return dao.getAllList();
 	}
 
 }

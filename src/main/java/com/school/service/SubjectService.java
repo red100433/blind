@@ -19,18 +19,18 @@ public class SubjectService {
 	}
 
 	public void addSubject(Subject subject) {
-		dao.addSubject(subject);
+		dao.add(subject);
 	}
 
 	public void updateSubject(Subject subject) {
-		dao.updateSubject(subject);
+		dao.update(subject);
 	}
 
 	public void deleteSubject(Subject subject) {
-		dao.deleteSubject(subject.getSubId());
+		dao.delete(subject.getSubId());
 	}
 
 	public List<Subject> getAllSubjects() {
-		return dao.getAllSubjects();
+		return dao.getAllList();
 	}
 }

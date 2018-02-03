@@ -21,23 +21,19 @@ public class GradeService {
 	private GradeService() {}
 
 	public void addGrade(Grade grade) {
-		dao.addGrade(grade);
+		dao.add(grade);
 	}
 
 	public void updateGrade(Grade grade) {
-		dao.updateGrade(grade);
+		dao.update(grade);
 	}
 
 	public void deleteGrade(Grade grade) {
-		dao.deleteGrade(grade.getStuId(), grade.getSubId());
-	}
-
-	public List<Grade> getAllGrades() {
-		return dao.getAllGrades();
+		dao.delete(grade.getStuId(), grade.getSubId());
 	}
 
 	public List<String> selectOption(String selectOption) {
-		return dao.selectOption(selectOption);
+		return dao.getAllList(selectOption);
 	}
 
 }

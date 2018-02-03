@@ -21,19 +21,19 @@ public class TeacherService {
 	private TeacherService() {}
 
 	public void addTeacher(Teacher teacher) {
-		dao.addTeacher(teacher);
+		dao.add(teacher);
 	}
 
 	public void updateTeacher(Teacher teacher) {
-		dao.updateTeacher(teacher);
+		dao.update(teacher);
 	}
 
 	public void deleteTeacher(Teacher teacher) {
-		dao.deleteTeacher(teacher.getTeacherId());
+		dao.delete(teacher.getTeacherId());
 	}
 
 	public List<Teacher> getAllTeachers() {
-		return dao.getAllTeachers();
+		return dao.getAllList();
 	}
 
 }

@@ -10,7 +10,7 @@ import java.util.List;
 import com.school.db.DBConnection;
 import com.school.models.vo.Teacher;
 
-public class TeacherDao {
+public class TeacherDao implements Dao<Teacher>{
 	private Connection connection;
 
 	private static TeacherDao t;
@@ -28,7 +28,46 @@ public class TeacherDao {
 		connection = DBConnection.getConnection();
 	}
 
-	public void addTeacher(Teacher teacher) {
+	@Override
+	public List<Teacher> getAllList() {
+		List<Teacher> teacherList = new ArrayList<Teacher>();
+		try {
+			PreparedStatement preparedStatement = connection
+				.prepareStatement("SELECT teacherId, teacherName, birth, subId FROM teacher");
+			ResultSet rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				Teacher teacher = Teacher.of(rs.getString("teacherId"), rs.getString("teacherName"),
+					rs.getString("birth"), rs.getString("subId"));
+				teacherList.add(teacher);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return teacherList;
+	}
+
+	@Override
+	public Teacher getById(int id) {
+		Teacher teacher = new Teacher();
+		try {
+			PreparedStatement preparedStatement = connection
+				.prepareStatement("SELECT teacherId, teacherName, birth, subId FROM teacher WHERE teacherId=?");
+			preparedStatement.setInt(1, id);
+			ResultSet rs = preparedStatement.executeQuery();
+
+			if (rs.next()) {
+				teacher = Teacher.of(rs.getString("teacherId"), rs.getString("teacherName"),
+					rs.getString("birth"), rs.getString("subId"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return teacher;
+	}
+
+	@Override
+	public boolean add(Teacher teacher) {
 		try {
 
 			if (teacher.getSubId() == 0) {
@@ -51,22 +90,26 @@ public class TeacherDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return false;
 	}
 
-	public void deleteTeacher(int teacherId) {
+	@Override
+	public boolean delete(int id) {
 		try {
 			PreparedStatement preparedStatement = connection
 				.prepareStatement("DELETE FROM teacher WHERE teacherId=?");
 			// Parameters start with 1
-			preparedStatement.setInt(1, teacherId);
+			preparedStatement.setInt(1, id);
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return false;
 	}
 
-	public void updateTeacher(Teacher teacher) {
+	@Override
+	public boolean update(Teacher teacher) {
 		try {
 			if (teacher.getSubId() == 0) {
 				PreparedStatement preparedStatement = connection
@@ -91,41 +134,6 @@ public class TeacherDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
-
-	public List<Teacher> getAllTeachers() {
-		List<Teacher> teacherList = new ArrayList<Teacher>();
-		try {
-			PreparedStatement preparedStatement = connection
-				.prepareStatement("SELECT teacherId, teacherName, birth, subId FROM teacher");
-			ResultSet rs = preparedStatement.executeQuery();
-			while (rs.next()) {
-				Teacher teacher = Teacher.of(rs.getString("teacherId"), rs.getString("teacherName"),
-					rs.getString("birth"), rs.getString("subId"));
-				teacherList.add(teacher);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return teacherList;
-	}
-
-	public Teacher getTeacherById(int teacherId) {
-		Teacher teacher = new Teacher();
-		try {
-			PreparedStatement preparedStatement = connection
-				.prepareStatement("SELECT teacherId, teacherName, birth, subId FROM teacher WHERE teacherId=?");
-			preparedStatement.setInt(1, teacherId);
-			ResultSet rs = preparedStatement.executeQuery();
-
-			if (rs.next()) {
-				teacher = Teacher.of(rs.getString("teacherId"), rs.getString("teacherName"),
-					rs.getString("birth"), rs.getString("subId"));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return teacher;
+		return false;
 	}
 }

@@ -21,19 +21,19 @@ public class EmployeeService {
 	private EmployeeService() {}
 
 	public void addEmployee(Employee employee) {
-		dao.addEmployee(employee);
+		dao.add(employee);
 	}
 
 	public void updateEmployee(Employee employee) {
-		dao.updateEmployee(employee);
+		dao.update(employee);
 	}
 
 	public void deleteEmployee(Employee employee) {
-		dao.deleteEmployee(employee.getEmpId());
+		dao.delete(employee.getEmpId());
 	}
 
 	public List<Employee> getAllEmployees() {
-		return dao.getAllEmployees();
+		return dao.getAllList();
 	}
 
 }
