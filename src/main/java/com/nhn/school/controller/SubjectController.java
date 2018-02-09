@@ -1,4 +1,4 @@
-package com.nhn.school.servlet;
+package com.nhn.school.controller;
 
 import java.io.IOException;
 import java.util.List;

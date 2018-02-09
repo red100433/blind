@@ -1,6 +1,7 @@
-package com.nhn.school.servlet;
+package com.nhn.school.controller;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -12,39 +13,45 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import com.nhn.school.model.Teacher;
+import com.nhn.school.model.Grade;
 import com.nhn.school.model.Type;
-import com.nhn.school.service.TeacherService;
+import com.nhn.school.service.GradeService;
 
 import lombok.extern.java.Log;
 
 @Controller
-public class TeacherController extends HttpServlet {
+public class GradeController extends HttpServlet {
+	
 	@Autowired
-	private TeacherService teacherService;
+	private GradeService gradeService;
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		Teacher teacher = Teacher.of(req.getParameter("id"),
-			req.getParameter("name"), req.getParameter("birth"), req.getParameter("sub_Id"));
 
+		Grade grade = Grade.of(req.getParameter("stu_Id"),
+			req.getParameter("sub_Id"),
+			req.getParameter("grade"));
+
+		String selectOption = req.getParameter("selectOption");
+
+		List<String> list = Collections.emptyList();
 		switch (req.getParameter("Crud")) {
 			case Type.INSERT:
-				teacherService.addTeacher(teacher);
+				gradeService.addGrade(grade);
 				break;
 			case Type.UPDATE:
-				teacherService.updateTeacher(teacher);
+				gradeService.updateGrade(grade);
 				break;
 			case Type.DELETE:
-				teacherService.deleteTeacher(teacher);
+				gradeService.deleteGrade(grade);
 				break;
 		}
-
-		List<Teacher> list = teacherService.getAllTeachers();
+		list = gradeService.selectOption(selectOption);
 
 		req.setAttribute("menulist", list);
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/result.jsp");
 		dispatcher.forward(req, res);
 	}
+
 }

@@ -1,4 +1,4 @@
-package com.nhn.school.servlet;
+package com.nhn.school.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -11,32 +11,49 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.nhn.school.model.Student;
+import com.nhn.school.model.Employee;
 import com.nhn.school.model.Type;
-import com.nhn.school.service.StudentService;
-@Controller
-public class StudentController extends HttpServlet {
-	@Autowired
-	private StudentService studentService;
+import com.nhn.school.service.EmployeeService;
 
-	@Override
+
+@Controller
+@RequestMapping("/employee")
+public class EmployeeController{
+	
+	@Autowired
+	private EmployeeService employeeService;
+	
+	
+	@GetMapping("")
+	public String getAllList(Model model) {
+		
+		model.addAttribute("menulist",employeeService.getAllEmployees());
+		
+		return "result";
+	}
+
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		Student student = Student.of(req.getParameter("id"),
+		Employee emp = Employee.of(req.getParameter("id"),
 			req.getParameter("name"), req.getParameter("birth"));
 		switch (req.getParameter("Crud")) {
 			case Type.INSERT:
-				studentService.addStudent(student);
+
+				employeeService.addEmployee(emp);
 				break;
 			case Type.UPDATE:
-				studentService.updateStudent(student);
+
+				employeeService.updateEmployee(emp);
 				break;
 			case Type.DELETE:
-				studentService.deleteStudent(student);
+				employeeService.deleteEmployee(emp);
 				break;
 		}
 
-		List<Student> list = studentService.getAllSubjects();
+		List<Employee> list = employeeService.getAllEmployees();
 
 		req.setAttribute("menulist", list);
 
