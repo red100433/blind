@@ -16,5 +16,4 @@ public interface TeacherDao {
 
 	boolean delete(int id);
 
-	boolean save(Teacher teacher, int id);
 }

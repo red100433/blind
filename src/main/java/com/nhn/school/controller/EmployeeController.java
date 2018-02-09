@@ -40,9 +40,9 @@ public class EmployeeController{
 		model.addAttribute("menulist", employeeService.findAll());
 		return "result";
 	}
-	@PutMapping("/{id}")
-	public String modify(Model model, @RequestBody Employee updateEmployee, @PathVariable int id) {
-		employeeService.save(updateEmployee, id);
+	@PutMapping("")
+	public String update(Model model, @RequestBody Employee updateEmployee) {
+		employeeService.save(updateEmployee);
 		model.addAttribute("menulist", employeeService.findAll());
 		return "result";
 	}

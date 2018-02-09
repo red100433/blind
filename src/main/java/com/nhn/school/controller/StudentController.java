@@ -43,9 +43,9 @@ public class StudentController {
 		return "result";
 	}
 
-	@PutMapping("/{id}")
-	public String modify(Model model, @RequestBody Student updateStudent, @PathVariable int id) {
-		studentService.save(updateStudent, id);
+	@PutMapping("")
+	public String update(Model model, @RequestBody Student updateStudent) {
+		studentService.save(updateStudent);
 		model.addAttribute("menulist", studentService.findAll());
 		return "result";
 	}

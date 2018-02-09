@@ -22,6 +22,4 @@ public interface GradeDao {
 
 	boolean delete(int id);
 
-	boolean save(Grade grade, int id);
-
 }

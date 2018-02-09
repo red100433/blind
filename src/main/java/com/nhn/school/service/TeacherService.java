@@ -18,10 +18,6 @@ public class TeacherService {
 		dao.save(teacher);
 	}
 
-	public void save(Teacher teacher, int id) {
-		dao.save(teacher);
-	}
-
 	public void delete(int id) {
 		dao.delete(id);
 	}

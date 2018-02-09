@@ -22,5 +22,4 @@ public interface StudentDao {
 
 	 boolean delete(int id);
 
-	 boolean save(Student student, int id);
 }

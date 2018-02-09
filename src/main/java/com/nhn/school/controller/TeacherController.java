@@ -37,9 +37,9 @@ public class TeacherController {
 		model.addAttribute("menulist", teacherService.findAll());
 		return "result";
 	}
-	@PutMapping("/{id}")
-	public String modify(Model model, @RequestBody Teacher updateTeacher, @PathVariable int id) {
-		teacherService.save(updateTeacher, id);
+	@PutMapping("")
+	public String update(Model model, @RequestBody Teacher updateTeacher) {
+		teacherService.save(updateTeacher);
 		model.addAttribute("menulist", teacherService.findAll());
 		return "result";
 	}

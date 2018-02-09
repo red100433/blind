@@ -1,3 +1,8 @@
+drop table teacher;
+drop table grade;
+drop table subject;
+drop table employee;
+drop table student;
 create table subject (
 	id int primary key auto_increment,
     name varchar(50) not null
@@ -72,9 +77,7 @@ select * from employee;
 select * from teacher;
 select * from grade;
 
-drop table teacher;
-drop table grade;
-drop table subject;
-drop table employee;
-drop table student;
+
 SELECT subId, subjectName FROM subject WHERE subId=3;
+
+insert into 

@@ -18,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/subjects")
+@Slf4j
 public class SubjectController{
 	
 	@Autowired
@@ -30,6 +31,7 @@ public class SubjectController{
 	}
 	@PostMapping("")
 	public String save(Model model, @RequestBody Subject subject) {
+		log.info("{}", subject.toString());
 		subjectService.save(subject);
 		model.addAttribute("menulist", subjectService.findAll());
 		return "result";
@@ -40,9 +42,10 @@ public class SubjectController{
 		model.addAttribute("menulist", subjectService.findAll());
 		return "result";
 	}
-	@PutMapping("/{id}")
-	public String modify(Model model, @RequestBody Subject updateSubject, @PathVariable int id) {
-		subjectService.save(updateSubject, id);
+	@PutMapping("")
+	public String update(Model model, @RequestBody Subject updateSubject) {
+		log.info("{}", updateSubject.toString());
+		subjectService.save(updateSubject);
 		model.addAttribute("menulist", subjectService.findAll());
 		return "result";
 	}

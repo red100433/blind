@@ -7,6 +7,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="findAll" resultType="com.nhn.school.model.Subject">
 		/* subjectDao.getList */
-		SELECT * FROM subject
+		SELECT *
+		FROM subject
 	</select>
+
+	<insert id="save">
+		<choose>
+			<when test="id != null and id != 0">
+				INSERT INTO subject
+				(id, name)
+				VALUES
+				(#{id}, #{name})
+				ON DUPLICATE KEY UPDATE name=#{name}
+			</when>
+			<otherwise>
+				INSERT INTO subject
+				(name)
+				VALUES
+				(#{name})
+			</otherwise>
+		</choose>
+	</insert>
+
 </mapper>

@@ -22,5 +22,4 @@ public interface EmployeeDao {
 
 	 boolean delete(int id);
 
-	 boolean save(Employee employee, int id);
 }

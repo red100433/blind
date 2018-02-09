@@ -39,9 +39,9 @@ public class GradeController {
 		model.addAttribute("menulist", gradeService.findAll());
 		return "result";
 	}
-	@PutMapping("/{id}")
-	public String modify(Model model, @RequestBody Grade updateGrade, @PathVariable int id) {
-		gradeService.save(updateGrade, id);
+	@PutMapping("")
+	public String update(Model model, @RequestBody Grade updateGrade) {
+		gradeService.save(updateGrade);
 		model.addAttribute("menulist", gradeService.findAll());
 		return "result";
 	}

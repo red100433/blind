@@ -17,10 +17,6 @@ public class SubjectService {
 		dao.save(subject);
 	}
 
-	public void save(Subject subject, int id) {
-		dao.save(subject);
-	}
-
 	public void delete(int id) {
 		dao.delete(id);
 	}

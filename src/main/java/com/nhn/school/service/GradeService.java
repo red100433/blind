@@ -18,10 +18,6 @@ public class GradeService {
 		dao.save(grade);
 	}
 
-	public void save(Grade grade, int id) {
-		dao.save(grade, id);
-	}
-
 	public void delete(int id) {
 		dao.delete(id);
 	}
