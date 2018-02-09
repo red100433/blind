@@ -9,4 +9,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		/* teacherDao.findAll */
 		SELECT * FROM teacher
 	</select>
+	
+	<insert id="save">
+		<choose>
+			<when test="id != null and id != 0">
+				INSERT INTO teacher
+				(id, name, birth, subId)
+				VALUES
+				(#{id}, #{name}, #{birth}, #{subId})
+				ON DUPLICATE KEY UPDATE name=#{name}
+				, birth=#{birth}
+				, subId=#{subId}
+			</when>
+			<otherwise>
+				INSERT INTO teacher
+				(name, birth, subId)
+				VALUES
+				(#{name}, #{birth}, #{subId})
+			</otherwise>
+		</choose>
+	</insert>
+	
+	<delete id="delete">
+		DELETE FROM teacher
+		WHERE id=#{id}
+	</delete>
 </mapper>

@@ -9,4 +9,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		/* gradeDao.findAll */
 		SELECT * FROM grade
 	</select>
+	
+		<insert id="save">
+		<choose>
+			<when test="id != null and id != 0">
+				INSERT INTO grade
+				(id, stuId, subId, score)
+				VALUES
+				(#{id}, #{stuId}, #{subId}, #{score})
+				ON DUPLICATE KEY UPDATE stuId=#{stuId}
+				, subId=#{subId}
+				, score=#{score}
+			</when>
+			<otherwise>
+				INSERT INTO grade
+				(stuId, subId, score)
+				VALUES
+				(#{stuId}, #{subId}, #{score})
+			</otherwise>
+		</choose>
+	</insert>
+	
+	<delete id="delete">
+		DELETE FROM grade
+		WHERE id=#{id}
+	</delete>
 </mapper>

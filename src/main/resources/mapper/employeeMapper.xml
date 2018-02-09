@@ -10,5 +10,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * FROM employee
 	</select>
 	
-
+	<insert id="save">
+		<choose>
+			<when test="id != null and id != 0">
+				INSERT INTO employee
+				(id, name, birth)
+				VALUES
+				(#{id}, #{name}, #{birth})
+				ON DUPLICATE KEY UPDATE name=#{name}, birth=#{birth}
+			</when>
+			<otherwise>
+				INSERT INTO employee
+				(name, birth)
+				VALUES
+				(#{name}, #{birth})
+			</otherwise>
+		</choose>
+	</insert>
+	
+	<delete id="delete">
+		DELETE FROM employee
+		WHERE id=#{id}
+	</delete>
 </mapper>

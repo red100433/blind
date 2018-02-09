@@ -28,5 +28,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</otherwise>
 		</choose>
 	</insert>
+	
+	<delete id="delete">
+		DELETE FROM subject
+		WHERE id=#{id}
+	</delete>
 
 </mapper>
