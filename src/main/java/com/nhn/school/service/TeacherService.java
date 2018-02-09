@@ -14,20 +14,20 @@ public class TeacherService {
 	@Autowired
 	private TeacherDao dao;
 
-	public void addTeacher(Teacher teacher) {
-		dao.add(teacher);
+	public void save(Teacher teacher) {
+		dao.save(teacher);
 	}
 
-	public void updateTeacher(Teacher teacher) {
-		dao.update(teacher);
+	public void save(Teacher teacher, int id) {
+		dao.save(teacher);
 	}
 
-	public void deleteTeacher(Teacher teacher) {
-		dao.delete(teacher.getTeacherId());
+	public void delete(int id) {
+		dao.delete(id);
 	}
 
-	public List<Teacher> getAllTeachers() {
-		return dao.getAllList();
+	public List<Teacher> findAll() {
+		return dao.findAll();
 	}
 
 }

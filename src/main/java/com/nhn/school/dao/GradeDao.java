@@ -14,14 +14,14 @@ import com.nhn.school.model.Grade;
 @Mapper
 public interface GradeDao {
 
-	List<String> getAllList(String selectOption);
+	List<String> findAll();
 
 	Grade getById(int stuId, int subId);
 
-	boolean add(Grade grade);
+	boolean save(Grade grade);
 
-	boolean delete(int stuId, int subId);
+	boolean delete(int id);
 
-	boolean update(Grade grade);
+	boolean save(Grade grade, int id);
 
 }

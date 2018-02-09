@@ -14,20 +14,20 @@ public class EmployeeService {
 	@Autowired
 	private EmployeeDao dao;
 
-	public void addEmployee(Employee employee) {
-		dao.add(employee);
+	public void save(Employee employee) {
+		dao.save(employee);
 	}
 
-	public void updateEmployee(Employee employee) {
-		dao.update(employee);
+	public void save(Employee employee, int id) {
+		dao.save(employee, id);
 	}
 
-	public void deleteEmployee(Employee employee) {
-		dao.delete(employee.getEmpId());
+	public void delete(int id) {
+		dao.delete(id);
 	}
 
-	public List<Employee> getAllEmployees() {
-		return dao.getAllList();
+	public List<Employee> findAll() {
+		return dao.findAll();
 	}
 
 }

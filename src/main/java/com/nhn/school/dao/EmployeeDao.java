@@ -14,13 +14,13 @@ import com.nhn.school.model.Employee;
 @Mapper
 public interface EmployeeDao {
 
-	List<Employee> getAllList();
+	List<Employee> findAll();
 
 	 Employee getById(int id);
 
-	 boolean add(Employee employee);
+	 boolean save(Employee employee);
 
 	 boolean delete(int id);
 
-	 boolean update(Employee employee);
+	 boolean save(Employee employee, int id);
 }

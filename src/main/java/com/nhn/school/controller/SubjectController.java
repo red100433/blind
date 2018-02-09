@@ -18,7 +18,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/subjects")
-@Slf4j
 public class SubjectController{
 	
 	@Autowired

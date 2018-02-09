@@ -2,41 +2,47 @@ package com.nhn.school.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.nhn.school.model.Employee;
+import com.nhn.school.model.Grade;
 import com.nhn.school.service.GradeService;
 
 @Controller
+@RequestMapping("/grades")
 public class GradeController {
 	
 	@Autowired
 	private GradeService gradeService;
-
-//	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-//
-//		Grade grade = Grade.of(req.getParameter("stu_Id"),
-//			req.getParameter("sub_Id"),
-//			req.getParameter("grade"));
-//
-//		String selectOption = req.getParameter("selectOption");
-//
-//		List<String> list = Collections.emptyList();
-//		switch (req.getParameter("Crud")) {
-//			case Type.INSERT:
-//				gradeService.addGrade(grade);
-//				break;
-//			case Type.UPDATE:
-//				gradeService.updateGrade(grade);
-//				break;
-//			case Type.DELETE:
-//				gradeService.deleteGrade(grade);
-//				break;
-//		}
-//		list = gradeService.selectOption(selectOption);
-//
-//		req.setAttribute("menulist", list);
-//
-//		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/result.jsp");
-//		dispatcher.forward(req, res);
-//	}
-
+	
+	@GetMapping("")
+	public String findAll(Model model) {
+		model.addAttribute("menulist", gradeService.findAll());
+		return "result";
+	}
+	@PostMapping("")
+	public String save(Model model, @RequestBody Grade grade) {
+		gradeService.save(grade);
+		model.addAttribute("menulist", gradeService.findAll());
+		return "result";
+	}
+	@DeleteMapping("/{id}")
+	public String delete(Model model, @PathVariable int id) {
+		gradeService.delete(id);
+		model.addAttribute("menulist", gradeService.findAll());
+		return "result";
+	}
+	@PutMapping("/{id}")
+	public String modify(Model model, @RequestBody Grade updateGrade, @PathVariable int id) {
+		gradeService.save(updateGrade, id);
+		model.addAttribute("menulist", gradeService.findAll());
+		return "result";
+	}
 }

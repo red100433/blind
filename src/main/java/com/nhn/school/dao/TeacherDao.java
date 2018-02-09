@@ -8,13 +8,13 @@ import com.nhn.school.model.Teacher;
 
 @Mapper
 public interface TeacherDao {
-	List<Teacher> getAllList();
+	List<Teacher> findAll();
 
 	Teacher getById(int id);
 
-	boolean add(Teacher teacher);
+	boolean save(Teacher teacher);
 
 	boolean delete(int id);
 
-	boolean update(Teacher teacher);
+	boolean save(Teacher teacher, int id);
 }

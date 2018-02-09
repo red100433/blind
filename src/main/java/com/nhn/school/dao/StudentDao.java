@@ -14,13 +14,13 @@ import com.nhn.school.model.Student;
 @Mapper
 public interface StudentDao {
 
-	 List<Student> getAllList();
+	 List<Student> findAll();
 
 	 Student getById(int id);
 
-	 boolean add(Student student);
+	 boolean save(Student student);
 
 	 boolean delete(int id);
 
-	 boolean update(Student student);
+	 boolean save(Student student, int id);
 }

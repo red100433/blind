@@ -13,20 +13,20 @@ public class StudentService {
 	@Autowired
 	private StudentDao dao;
 
-	public void addStudent(Student student) {
-		dao.add(student);
+	public void save(Student student) {
+		dao.save(student);
 	}
 
-	public void updateStudent(Student student) {
-		dao.update(student);
+	public void save(Student student, int id) {
+		dao.save(student);
 	}
 
-	public void deleteStudent(Student student) {
-		dao.delete(student.getStuId());
+	public void delete(int id) {
+		dao.delete(id);
 	}
 
-	public List<Student> getAllSubjects() {
-		return dao.getAllList();
+	public List<Student> findAll() {
+		return dao.findAll();
 	}
 
 }

@@ -14,20 +14,20 @@ public class GradeService {
 	@Autowired
 	private GradeDao dao;
 
-	public void addGrade(Grade grade) {
-		dao.add(grade);
+	public void save(Grade grade) {
+		dao.save(grade);
 	}
 
-	public void updateGrade(Grade grade) {
-		dao.update(grade);
+	public void save(Grade grade, int id) {
+		dao.save(grade, id);
 	}
 
-	public void deleteGrade(Grade grade) {
-		dao.delete(grade.getStuId(), grade.getSubId());
+	public void delete(int id) {
+		dao.delete(id);
 	}
 
-	public List<String> selectOption(String selectOption) {
-		return dao.getAllList(selectOption);
+	public List<String> findAll() {
+		return dao.findAll();
 	}
 
 }
