@@ -12,9 +12,9 @@ import lombok.NonNull;
 @Data
 public class Subject {
 
-	private int subId;
+	private int id;
 	@NonNull
-	private String subjectName;
+	private String name;
 
 	public Subject() {
 	}

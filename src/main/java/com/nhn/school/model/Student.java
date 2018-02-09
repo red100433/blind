@@ -12,9 +12,9 @@ import lombok.NonNull;
 @Data
 public class Student {
 
-	private int stuId;
+	private int id;
 	@NonNull
-	private String studentName;
+	private String name;
 	@NonNull
 	private String birth;
 
