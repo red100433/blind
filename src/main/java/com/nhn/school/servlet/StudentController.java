@@ -9,12 +9,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.nhn.school.models.Type;
-import com.nhn.school.models.vo.Student;
-import com.nhn.school.service.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
+import com.nhn.school.model.Student;
+import com.nhn.school.model.Type;
+import com.nhn.school.service.StudentService;
+@Controller
 public class StudentController extends HttpServlet {
-	StudentService studentService = StudentService.getInstance();
+	@Autowired
+	private StudentService studentService;
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

@@ -10,15 +10,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.nhn.school.models.Type;
-import com.nhn.school.models.vo.Grade;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+import com.nhn.school.model.Grade;
+import com.nhn.school.model.Type;
 import com.nhn.school.service.GradeService;
 
 import lombok.extern.java.Log;
 
-@Log
+@Controller
 public class GradeController extends HttpServlet {
-	GradeService gradeService = GradeService.getInstance();
+	
+	@Autowired
+	private GradeService gradeService;
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

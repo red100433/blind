@@ -4,7 +4,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import com.nhn.school.models.Type;
+import com.nhn.school.model.Type;
 
 public class Validator {
 	public static void isDateValid(String date) {

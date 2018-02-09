@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.nhn.school.models.vo.Teacher;
+import com.nhn.school.model.Teacher;
 
 @Mapper
 public interface TeacherDao {

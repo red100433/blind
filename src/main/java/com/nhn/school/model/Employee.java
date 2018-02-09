@@ -1,4 +1,4 @@
-package com.nhn.school.models.vo;
+package com.nhn.school.model;
 
 import java.io.Serializable;
 

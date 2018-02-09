@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nhn.school.dao.GradeDao;
-import com.nhn.school.models.vo.Grade;
+import com.nhn.school.model.Grade;
 
 @Service
 public class GradeService {

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.nhn.school.models.vo.Employee;
+import com.nhn.school.model.Employee;
 
 /**
  *

@@ -9,15 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.nhn.school.models.Type;
-import com.nhn.school.models.vo.Teacher;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+import com.nhn.school.model.Teacher;
+import com.nhn.school.model.Type;
 import com.nhn.school.service.TeacherService;
 
 import lombok.extern.java.Log;
 
-@Log
+@Controller
 public class TeacherController extends HttpServlet {
-	TeacherService teacherService = TeacherService.getInstance();
+	@Autowired
+	private TeacherService teacherService;
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nhn.school.dao.SubjectDao;
-import com.nhn.school.models.vo.Subject;
+import com.nhn.school.model.Subject;
 
 @Service
 public class SubjectService {

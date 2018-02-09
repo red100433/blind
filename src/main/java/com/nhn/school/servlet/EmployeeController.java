@@ -9,14 +9,33 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.nhn.school.models.Type;
-import com.nhn.school.models.vo.Employee;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.nhn.school.model.Employee;
+import com.nhn.school.model.Type;
 import com.nhn.school.service.EmployeeService;
 
-public class EmployeeController extends HttpServlet {
-	EmployeeService employeeService = EmployeeService.getInstance();
 
-	@Override
+@Controller
+@RequestMapping("/employee")
+public class EmployeeController{
+	
+	@Autowired
+	private EmployeeService employeeService;
+	
+	
+	@GetMapping("")
+	public String getAllList(Model model) {
+		
+		model.addAttribute("menulist",employeeService.getAllEmployees());
+		
+		return "result";
+	}
+
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		Employee emp = Employee.of(req.getParameter("id"),
 			req.getParameter("name"), req.getParameter("birth"));
