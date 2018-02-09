@@ -15,13 +15,13 @@ import com.nhn.school.model.Subject;
 @Mapper
 public interface SubjectDao {
 
-	 List<Subject> getAllList();
+	 List<Subject> findAll();
 
 	 Subject getById(int id);
 
-	 boolean add(Subject subject);
+	 boolean save(Subject subject);
+	 boolean save(Subject subject, int id);
 
 	 boolean delete(int id);
 
-	 boolean update(Subject subject);
 }

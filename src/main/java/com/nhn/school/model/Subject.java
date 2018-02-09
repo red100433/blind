@@ -1,11 +1,7 @@
 package com.nhn.school.model;
 
-import java.io.Serializable;
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NonNull;
-import lombok.ToString;
 
 /**
  *
@@ -13,27 +9,14 @@ import lombok.ToString;
  *
  */
 
-@Getter
-@AllArgsConstructor
-@ToString
-public class Subject implements Serializable {
-
-	private static final long serialVersionUID = -2910796104540445977L;
+@Data
+public class Subject {
 
 	private int subId;
 	@NonNull
 	private String subjectName;
 
-	public Subject() {}
-
-	public static Subject of(String subId, String subjectName) {
-		if (subId == null) {
-			subId = "0";
-		}
-		if (subjectName == null) {
-			subjectName = "";
-		}
-
-		return new Subject(Integer.parseInt(subId), subjectName);
+	public Subject() {
 	}
+
 }

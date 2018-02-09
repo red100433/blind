@@ -13,19 +13,19 @@ public class SubjectService {
 	@Autowired
 	private SubjectDao dao;
 
-	public void addSubject(Subject subject) {
-		dao.add(subject);
+	public void save(Subject subject) {
+		dao.save(subject);
 	}
 
-	public void updateSubject(Subject subject) {
-		dao.update(subject);
+	public void save(Subject subject, int id) {
+		dao.save(subject);
 	}
 
-	public void deleteSubject(Subject subject) {
-		dao.delete(subject.getSubId());
+	public void delete(int id) {
+		dao.delete(id);
 	}
 
-	public List<Subject> getAllSubjects() {
-		return dao.getAllList();
+	public List<Subject> findAll() {
+		return dao.findAll();
 	}
 }

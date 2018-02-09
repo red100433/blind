@@ -5,9 +5,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.nhn.school.dao.SubjectDao">
 
-	<select id="getList" resultType="com.nhn.school.model.Subject">
-		/* userDao.getList */
-		SELECT id, name, email FROM user
+	<select id="findAll" resultType="com.nhn.school.model.Subject">
+		/* subjectDao.getList */
+		SELECT * FROM subject
 	</select>
-
 </mapper>

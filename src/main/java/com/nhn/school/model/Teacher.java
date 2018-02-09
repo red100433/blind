@@ -1,13 +1,7 @@
 package com.nhn.school.model;
 
-import java.io.Serializable;
-
-import com.nhn.school.exception.Validator;
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NonNull;
-import lombok.ToString;
 
 /**
  *
@@ -15,11 +9,8 @@ import lombok.ToString;
  *
  */
 
-@Getter
-@AllArgsConstructor
-@ToString
-public class Teacher implements Serializable {
-	private static final long serialVersionUID = -8068141543663245843L;
+@Data
+public class Teacher {
 
 	private int teacherId;
 	@NonNull
@@ -29,22 +20,4 @@ public class Teacher implements Serializable {
 	private int subId;
 
 	public Teacher() {}
-
-	public static Teacher of(String teacherId, String teacherName, String birth, String subId) {
-		if (teacherId == null) {
-			teacherId = "0";
-		}
-		if (teacherName == null) {
-			teacherName = "";
-		}
-		if (birth == null) {
-			birth = "";
-		} else {
-			Validator.isDateValid(birth);
-		}
-		if (subId == null) {
-			subId = "0";
-		}
-		return new Teacher(Integer.parseInt(teacherId), teacherName, birth, Integer.parseInt(subId));
-	}
 }

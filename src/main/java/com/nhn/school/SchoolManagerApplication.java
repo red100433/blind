@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringSchoolManagerApplication {
+public class SchoolManagerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringSchoolManagerApplication.class, args);
+		SpringApplication.run(SchoolManagerApplication.class, args);
 	}
 }
