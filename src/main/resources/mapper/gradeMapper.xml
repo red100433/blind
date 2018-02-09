@@ -6,18 +6,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.nhn.school.dao.GradeDao">
 
 	<select id="findAll" resultType="com.nhn.school.model.Grade">
-		/* gradeDao.findAll */
-		SELECT * FROM grade
+		SELECT id, stuId, subId, score
+		FROM
+		grade
 	</select>
-	
-		<insert id="save">
+	<select id="findAvgStudent"  resultType="com.nhn.school.model.Grade" >
+		SELECT s.id,
+		s.name, AVG(score) AS score
+		FROM grade g
+		INNER JOIN student s ON
+		g.stuId = s.id
+		GROUP BY g.stuId
+	</select>
+	<select id="findAvgSubject"  resultType="com.nhn.school.model.Grade">
+		SELECT s.id,
+		s.name, AVG(score) AS score
+		FROM grade g
+		INNER JOIN subject s ON
+		g.subId = s.id
+		GROUP BY g.subId
+	</select>
+
+
+	<insert id="save">
 		<choose>
 			<when test="id != null and id != 0">
 				INSERT INTO grade
 				(id, stuId, subId, score)
 				VALUES
 				(#{id}, #{stuId}, #{subId}, #{score})
-				ON DUPLICATE KEY UPDATE stuId=#{stuId}
+				ON DUPLICATE KEY UPDATE
+				stuId=#{stuId}
 				, subId=#{subId}
 				, score=#{score}
 			</when>
@@ -25,11 +44,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				INSERT INTO grade
 				(stuId, subId, score)
 				VALUES
-				(#{stuId}, #{subId}, #{score})
+				(#{stuId},
+				#{subId}, #{score})
 			</otherwise>
 		</choose>
 	</insert>
-	
+
 	<delete id="delete">
 		DELETE FROM grade
 		WHERE id=#{id}

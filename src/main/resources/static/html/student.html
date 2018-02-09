@@ -5,15 +5,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="/basicJava/studentSendValue" method="post">
+	<form class="form">
 		<br> <select id="Crud" name="Crud" onchange="crudchange()">
-			<option value="SELECT">Select</option>
-			<option value="INSERT">Insert</option>
-			<option value="UPDATE">Update</option>
-			<option value="DELETE">Delete</option>
+			<option value="SELECT">AllList</option>
+			<option value="INSERT">AddStudent</option>
+			<option value="UPDATE">ModifyStudent</option>
+			<option value="DELETE">DeleteStudent</option>
 		</select> <br>
 		<div id="textBox"></div>
-		<input type="submit" value="Submit">
+		<input type="submit" value="Submit" id="submit">
 	</form>
 </body>
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>

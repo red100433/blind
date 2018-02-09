@@ -15,6 +15,8 @@ import com.nhn.school.model.Grade;
 public interface GradeDao {
 
 	List<String> findAll();
+	List<String> findAvgStudent();
+	List<String> findAvgSubject();
 
 	Grade getById(int stuId, int subId);
 

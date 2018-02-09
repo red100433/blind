@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nhn.school.model.Subject;
 import com.nhn.school.service.SubjectService;
@@ -30,23 +31,22 @@ public class SubjectController{
 		return "result";
 	}
 	@PostMapping("")
+	@ResponseBody
 	public String save(Model model, @RequestBody Subject subject) {
-		log.info("{}", subject.toString());
 		subjectService.save(subject);
-		model.addAttribute("menulist", subjectService.findAll());
 		return "result";
 	}
 	@DeleteMapping("/{id}")
+	@ResponseBody
 	public String delete(Model model, @PathVariable int id) {
 		subjectService.delete(id);
-		model.addAttribute("menulist", subjectService.findAll());
 		return "result";
 	}
 	@PutMapping("")
+	@ResponseBody
 	public String update(Model model, @RequestBody Subject updateSubject) {
 		log.info("{}", updateSubject.toString());
 		subjectService.save(updateSubject);
-		model.addAttribute("menulist", subjectService.findAll());
 		return "result";
 	}
 

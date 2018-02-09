@@ -80,4 +80,10 @@ select * from grade;
 
 SELECT subId, subjectName FROM subject WHERE subId=3;
 
-insert into 
+INSERT INTO subject (id,name) VALUES (1,'kkk') ON DUPLICATE KEY UPDATE name='kkk';
+
+SELECT s.id AS stuId, AVG(score) AS average
+		FROM grade g
+		INNER JOIN student s ON
+		g.stuId = s.id
+		GROUP BY g.stuId;

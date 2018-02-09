@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nhn.school.model.Teacher;
 import com.nhn.school.service.TeacherService;
@@ -26,21 +27,21 @@ public class TeacherController {
 		return "result";
 	}
 	@PostMapping("")
+	@ResponseBody
 	public String save(Model model, @RequestBody Teacher teacher) {
 		teacherService.save(teacher);
-		model.addAttribute("menulist", teacherService.findAll());
 		return "result";
 	}
 	@DeleteMapping("/{id}")
+	@ResponseBody
 	public String delete(Model model, @PathVariable int id) {
 		teacherService.delete(id);
-		model.addAttribute("menulist", teacherService.findAll());
 		return "result";
 	}
 	@PutMapping("")
+	@ResponseBody
 	public String update(Model model, @RequestBody Teacher updateTeacher) {
 		teacherService.save(updateTeacher);
-		model.addAttribute("menulist", teacherService.findAll());
 		return "result";
 	}
 }

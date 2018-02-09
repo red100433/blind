@@ -10,39 +10,44 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nhn.school.model.Employee;
 import com.nhn.school.model.Grade;
 import com.nhn.school.service.GradeService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
 @RequestMapping("/grades")
+@Slf4j
 public class GradeController {
 	
 	@Autowired
 	private GradeService gradeService;
 	
-	@GetMapping("")
-	public String findAll(Model model) {
-		model.addAttribute("menulist", gradeService.findAll());
+	@GetMapping("/{selectOption}")
+	public String findAll(Model model, @PathVariable String selectOption) {
+		log.info("{}", selectOption);
+		model.addAttribute("menulist", gradeService.findAll(selectOption));
 		return "result";
 	}
 	@PostMapping("")
+	@ResponseBody
 	public String save(Model model, @RequestBody Grade grade) {
 		gradeService.save(grade);
-		model.addAttribute("menulist", gradeService.findAll());
 		return "result";
 	}
 	@DeleteMapping("/{id}")
+	@ResponseBody
 	public String delete(Model model, @PathVariable int id) {
 		gradeService.delete(id);
-		model.addAttribute("menulist", gradeService.findAll());
 		return "result";
 	}
 	@PutMapping("")
+	@ResponseBody
 	public String update(Model model, @RequestBody Grade updateGrade) {
 		gradeService.save(updateGrade);
-		model.addAttribute("menulist", gradeService.findAll());
 		return "result";
 	}
 }

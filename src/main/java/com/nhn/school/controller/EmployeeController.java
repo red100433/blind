@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nhn.school.model.Employee;
 import com.nhn.school.service.EmployeeService;
@@ -29,21 +30,21 @@ public class EmployeeController{
 		return "result";
 	}
 	@PostMapping("")
+	@ResponseBody
 	public String save(Model model, @RequestBody Employee employee) {
 		employeeService.save(employee);
-		model.addAttribute("menulist", employeeService.findAll());
 		return "result";
 	}
 	@DeleteMapping("/{id}")
+	@ResponseBody
 	public String delete(Model model, @PathVariable int id) {
 		employeeService.delete(id);
-		model.addAttribute("menulist", employeeService.findAll());
 		return "result";
 	}
 	@PutMapping("")
+	@ResponseBody
 	public String update(Model model, @RequestBody Employee updateEmployee) {
 		employeeService.save(updateEmployee);
-		model.addAttribute("menulist", employeeService.findAll());
 		return "result";
 	}
 }

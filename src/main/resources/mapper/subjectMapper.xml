@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="findAll" resultType="com.nhn.school.model.Subject">
 		/* subjectDao.getList */
-		SELECT *
+		SELECT id, name
 		FROM subject
 	</select>
 

@@ -10,14 +10,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nhn.school.model.Grade;
 import com.nhn.school.model.Student;
 import com.nhn.school.service.StudentService;
 
+import lombok.extern.slf4j.Slf4j;
+
 
 @Controller
 @RequestMapping("/students")
+@Slf4j
 public class StudentController {
 	
 	@Autowired
@@ -30,23 +34,23 @@ public class StudentController {
 	}
 
 	@PostMapping("")
+	@ResponseBody
 	public String save(Model model, @RequestBody Student student) {
 		studentService.save(student);
-		model.addAttribute("menulist", studentService.findAll());
 		return "result";
 	}
 
 	@DeleteMapping("/{id}")
+	@ResponseBody
 	public String delete(Model model, @PathVariable int id) {
 		studentService.delete(id);
-		model.addAttribute("menulist", studentService.findAll());
 		return "result";
 	}
 
 	@PutMapping("")
+	@ResponseBody
 	public String update(Model model, @RequestBody Student updateStudent) {
 		studentService.save(updateStudent);
-		model.addAttribute("menulist", studentService.findAll());
 		return "result";
 	}
 }

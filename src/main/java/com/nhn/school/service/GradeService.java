@@ -22,8 +22,17 @@ public class GradeService {
 		dao.delete(id);
 	}
 
-	public List<String> findAll() {
-		return dao.findAll();
+	public List<String> findAll(String selectOption) {
+		if ("ALL_STUDENT_AVERAGE_SELECT".equals(selectOption)) {
+			return dao.findAvgStudent();
+
+		} else if ("ALL_SUBJECT_AVERAGE_SELECT".equals(selectOption)) {
+			return dao.findAvgSubject();
+
+		} else {
+
+			return dao.findAll();
+		}
 	}
 
 }

@@ -5,15 +5,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="/basicJava/gradeSendValue" method="post">
+<form class="form">
 			<br>
 		<select id="Crud" name="Crud" onchange="crudchange()">
-			<option value="SELECT">Select</option>
-			<option value="INSERT">Insert</option>
-			<option value="UPDATE">Update</option>
-			<option value="DELETE">Delete</option>
+			<option value="SELECT">AllView</option>
+			<option value="INSERT">AddGrade</option>
+			<option value="UPDATE">ModifyGrade</option>
+			<option value="DELETE">DeleteGrade</option>
 		</select>
-		<select name="selectOption">
+		<select id="selectOption">
 			<option value="ALL_SELECT">ALL_SELECT</option>
 			<option value="ALL_STUDENT_AVERAGE_SELECT">ALL_STUDENT_AVERAGE_SELECT</option>
 			<option value="ALL_SUBJECT_AVERAGE_SELECT">ALL_SUBJECT_AVERAGE_SELECT</option>
@@ -21,7 +21,7 @@
 		<br>
       <div id="textBox">
       </div>
-    <input type="submit" value="Submit">
+    <input type="submit" value="Submit" id="submit">
 	</form>
 </body>
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
