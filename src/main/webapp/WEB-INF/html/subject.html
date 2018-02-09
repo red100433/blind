@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="/basicJava/subjectSendValue" method="post">
+			<br>
+		<select id="Crud" name="Crud" onchange="crudchange()">
+			<option value="SELECT">Select</option>
+			<option value="INSERT">Insert</option>
+			<option value="UPDATE">Update</option>
+			<option value="DELETE">Delete</option>
+		</select>
+		<br>
+		<div id="textBox">
+		</div>
+		<input type="submit" value="Submit">
+	</form>
+</body>
+<script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+<script>
+function crudchange(){
+ 
+  var insert = ["name"];
+  var update = ["id", "name"];
+  var dele = ["id"];
+  var select = [];
+ 
+  var selectItem = $('#Crud').val();
+  console.log(selectItem);
+  var changeItem;
+  
+  if(selectItem == "INSERT"){
+    changeItem = insert;
+  }
+  else if(selectItem == "UPDATE"){
+    changeItem = update;
+  }
+  else if(selectItem == "DELETE"){
+    changeItem =  dele;
+  }
+  else if(selectItem == "SELECT"){
+    changeItem = select;
+  }
+ console.log(changeItem);
+  $('#textBox').empty();
+
+  for(var count = 0; count < changeItem.length; count++){                
+    var input = $("<input type=text name=" + changeItem[count] +" placeholder="+changeItem[count] +"><br>");
+    $('#textBox').append(input);
+  }
+ 
+}
+</script>
+</html>
