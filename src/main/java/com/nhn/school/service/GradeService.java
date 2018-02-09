@@ -2,23 +2,17 @@ package com.nhn.school.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.nhn.school.dao.GradeDao;
 import com.nhn.school.models.vo.Grade;
 
+@Service
 public class GradeService {
-	private static GradeService t;
-	private GradeDao dao = GradeDao.getInstance();
 
-	public static GradeService getInstance() {
-		synchronized (GradeService.class) {
-			if (t == null) {
-				t = new GradeService();
-			}
-		}
-		return t;
-	}
-
-	private GradeService() {}
+	@Autowired
+	private GradeDao dao;
 
 	public void addGrade(Grade grade) {
 		dao.add(grade);

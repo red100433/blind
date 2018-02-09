@@ -2,23 +2,16 @@ package com.nhn.school.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.nhn.school.dao.StudentDao;
 import com.nhn.school.models.vo.Student;
 
+@Service
 public class StudentService {
-	private static StudentService t;
-	private StudentDao dao = StudentDao.getInstance();
-
-	public static StudentService getInstance() {
-		synchronized (StudentService.class) {
-			if (t == null) {
-				t = new StudentService();
-			}
-		}
-		return t;
-	}
-
-	private StudentService() {}
+	@Autowired
+	private StudentDao dao;
 
 	public void addStudent(Student student) {
 		dao.add(student);
