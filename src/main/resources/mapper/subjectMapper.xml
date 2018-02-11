@@ -7,7 +7,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="findAll" resultType="com.nhn.school.model.Subject">
 		/* subjectDao.getList */
-		SELECT id, name
+		SELECT sub_id AS id
+		, sub_name AS name
 		FROM subject
 	</select>
 
@@ -15,14 +16,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<choose>
 			<when test="id != null and id != 0">
 				INSERT INTO subject
-				(id, name)
+				(sub_id, sub_name)
 				VALUES
 				(#{id}, #{name})
 				ON DUPLICATE KEY UPDATE name=#{name}
 			</when>
 			<otherwise>
 				INSERT INTO subject
-				(name)
+				(sub_name)
 				VALUES
 				(#{name})
 			</otherwise>

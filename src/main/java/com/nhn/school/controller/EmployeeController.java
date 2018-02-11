@@ -15,9 +15,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.nhn.school.model.Employee;
 import com.nhn.school.service.EmployeeService;
 
+import lombok.extern.slf4j.Slf4j;
+
 
 @Controller
 @RequestMapping("/employees")
+@Slf4j
 public class EmployeeController{
 	
 	@Autowired
@@ -26,6 +29,7 @@ public class EmployeeController{
 	
 	@GetMapping("")
 	public String findAll(Model model) {
+		log.info("{}", employeeService.findAll());
 		model.addAttribute("menulist", employeeService.findAll());
 		return "result";
 	}

@@ -7,7 +7,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="findAll" resultType="com.nhn.school.model.Student">
 		/* studentDao.findAll */
-		SELECT id, name, birth
+		SELECT stu_id AS id
+		, stu_name AS name
+		, stu_birth AS birth
 		FROM student
 	</select>
 	
@@ -15,14 +17,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<choose>
 			<when test="id != null and id != 0">
 				INSERT INTO student
-				(id, name, birth)
+				(stu_id, stu_name, stu_birth)
 				VALUES
 				(#{id}, #{name}, #{birth})
-				ON DUPLICATE KEY UPDATE name=#{name}, birth=#{birth}
+				ON DUPLICATE KEY UPDATE stu_name=#{name}, stu_birth=#{birth}
 			</when>
 			<otherwise>
 				INSERT INTO student
-				(name, birth)
+				(stu_name, stu_birth)
 				VALUES
 				(#{name}, #{birth})
 			</otherwise>
