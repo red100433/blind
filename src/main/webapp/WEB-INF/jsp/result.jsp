@@ -8,6 +8,7 @@
 <title>JSTL</title>
 </head>
 <body>
+<div id="header"> </div>
 <h1>Result</h1>
 
   <c:forEach items="${menulist}" var="menu">
@@ -16,4 +17,8 @@
    </c:forEach>
 
 </body>
+<script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+<script>
+$("#header").load("/html/fragments/header.html");
+</script>
 </html>

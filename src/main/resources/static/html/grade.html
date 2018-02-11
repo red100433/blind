@@ -5,6 +5,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<div id="header"> </div>
 <form class="form">
 			<br>
 		<select id="Crud" name="Crud" onchange="crudchange()">
@@ -26,4 +27,7 @@
 </body>
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 <script type="text/javascript" src="/js/grade.js"></script>
+<script>
+$("#header").load("/html/fragments/header.html");
+</script>
 </html>
