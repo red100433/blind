@@ -20,7 +20,7 @@ public class SubjectService {
 		if (dao.count() < Type.SUBJECT_SIZE) {
 			dao.save(subject);
 		} else {
-			new SubjectCapacity();
+			throw new SubjectCapacity();
 		}
 	}
 

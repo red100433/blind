@@ -34,11 +34,16 @@ function saveEmployee(name, birth) {
 		timeout : 600000,
 		success : function(data) {
 //			console.log(data);
-			location.href = "http://localhost:8080/employees";
+			if(data === "dateError") {
+				location.href = "http://localhost:8080/html/dataInvaild";
+			} else if (data === "personSizeError") {
+				location.href = "http://localhost:8080/html/size";
+			} else {
+				location.href = "http://localhost:8080/employees";
+			}
 		},
 		error : function(e) {
 			console.log("ERROR : ", e);
-			window.location = "error";
 		}
 	});
 }
@@ -56,11 +61,16 @@ function updateEmployee(id, name, birth) {
 		timeout : 600000,
 		success : function(data) {
 //			console.log(data);
-			location.href = "http://localhost:8080/employees";
+			if(data === "dateError") {
+				location.href = "http://localhost:8080/html/dataInvaild";
+			} else if (data === "personSizeError") {
+				location.href = "http://localhost:8080/html/size";
+			} else {
+				location.href = "http://localhost:8080/employees";
+			}
 		},
 		error : function(e) {
 			console.log("ERROR : ", e);
-			window.location = "error";
 		}
 	});
 }

@@ -1,23 +1,31 @@
-package com.nhn.school.exception;
+package com.nhn.school.advice;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.nhn.school.exception.DateValidException;
+import com.nhn.school.exception.PeopleCapacity;
+import com.nhn.school.exception.SubjectCapacity;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
 	
 	@ExceptionHandler(DateValidException.class)
+	@ResponseBody
 	public String dateError() {
-		return "날짜 형식을 맞춰주세요 yyyyMMdd";
+		return "dateError";
 	}
 	
 	@ExceptionHandler(SubjectCapacity.class)
+	@ResponseBody
 	public String subcapacityError() {
-		return "용량을 초과했습니다. 데이터 100개가 용량입니다.";
+		return "subjectSizeError";
 	}
 	
 	@ExceptionHandler(PeopleCapacity.class)
+	@ResponseBody
 	public String peoplecapacityError() {
-		return "용량을 초과했습니다. 데이터 1000개가 용량입니다.";
+		return "personSizeError";
 	}
 }

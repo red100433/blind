@@ -34,11 +34,16 @@ function saveStudent(name, birth) {
 		timeout : 600000,
 		success : function(data) {
 //			console.log(data);
-			location.href = "http://localhost:8080/students";
+			if(data === "dateError") {
+				location.href = "http://localhost:8080/html/dataInvaild";
+			} else if (data === "personSizeError") {
+				location.href = "http://localhost:8080/html/size";
+			} else {
+				location.href = "http://localhost:8080/students";
+			}
 		},
 		error : function(e) {
 			console.log("ERROR : ", e);
-			window.location = "error";
 		}
 	});
 }
@@ -59,11 +64,16 @@ function updateStudent(id, name, birth) {
 		timeout : 600000,
 		success : function(data) {
 //			console.log(data);
-			location.href = "http://localhost:8080/students";
+			if(data === "dateError") {
+				location.href = "http://localhost:8080/html/dataInvaild";
+			} else if (data === "personSizeError") {
+				location.href = "http://localhost:8080/html/size";
+			} else {
+				location.href = "http://localhost:8080/students";
+			}
 		},
 		error : function(e) {
 			console.log("ERROR : ", e);
-			window.location = "error";
 		}
 	});
 }

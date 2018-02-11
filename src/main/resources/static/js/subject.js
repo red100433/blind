@@ -3,7 +3,6 @@ $(document).ready(function() {
 	$("#submit").click(function(event) {
 		event.preventDefault();
 		var crud = $("#Crud").val();
-		console.log(crud);
 		var id = $("#id").val();
 		var name = $("#name").val();
 		
@@ -32,7 +31,11 @@ function saveSubject(name) {
 		timeout : 600000,
 		success : function(data) {
 //			console.log(data);
-			location.href = "http://localhost:8080/subjects";
+			if(data === "subjectSizeError") {
+				location.href = "http://localhost:8080/html/size";
+			} else {
+				location.href = "http://localhost:8080/subjects";
+			}
 		},
 		error : function(e) {
 			console.log("ERROR : ", e);
@@ -52,7 +55,11 @@ function updateSubject(id, name) {
 		timeout : 600000,
 		success : function(data) {
 //			console.log(data);
-			location.href = "http://localhost:8080/subjects";
+			if(data === "subjectSizeError") {
+				location.href = "http://localhost:8080/html/size";
+			} else {
+				location.href = "http://localhost:8080/subjects";
+			}
 		},
 		error : function(e) {
 			console.log("ERROR : ", e);

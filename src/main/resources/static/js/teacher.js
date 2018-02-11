@@ -36,11 +36,16 @@ function saveTeacher(name, birth, subId) {
 		timeout : 600000,
 		success : function(data) {
 //			console.log(data);
-			location.href = "http://localhost:8080/teachers";
+			if(data === "dateError") {
+				location.href = "http://localhost:8080/html/dataInvaild";
+			} else if (data === "personSizeError") {
+				location.href = "http://localhost:8080/html/size";
+			} else {
+				location.href = "http://localhost:8080/teachers";
+			}
 		},
 		error : function(e) {
 			console.log("ERROR : ", e);
-			window.location = "error";
 		}
 	});
 }
@@ -59,11 +64,16 @@ function updateTeacher(id, name, birth, subId) {
 		timeout : 600000,
 		success : function(data) {
 //			console.log(data);
-			location.href = "http://localhost:8080/teachers";
+			if(data === "dateError") {
+				location.href = "http://localhost:8080/html/dataInvaild";
+			} else if (data === "personSizeError") {
+				location.href = "http://localhost:8080/html/size";
+			} else {
+				location.href = "http://localhost:8080/teachers";
+			}
 		},
 		error : function(e) {
 			console.log("ERROR : ", e);
-			window.location = "error";
 		}
 	});
 }
