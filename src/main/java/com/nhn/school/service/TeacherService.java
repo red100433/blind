@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nhn.school.dao.TeacherDao;
+import com.nhn.school.exception.PeopleCapacity;
 import com.nhn.school.model.Teacher;
+import com.nhn.school.model.Type;
 
 @Service
 public class TeacherService {
@@ -15,7 +17,11 @@ public class TeacherService {
 	private TeacherDao dao;
 
 	public void save(Teacher teacher) {
-		dao.save(teacher);
+		if (dao.count() < Type.PERSON_SIZE) {
+			dao.save(teacher);
+		} else {
+			new PeopleCapacity();
+		}
 	}
 
 	public void delete(int id) {

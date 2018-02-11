@@ -16,4 +16,5 @@ public interface TeacherDao {
 
 	boolean delete(int id);
 
+	int count();
 }

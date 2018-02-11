@@ -35,4 +35,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE FROM employee
 		WHERE id=#{id}
 	</delete>
+	
+	<select id="count" resultType="int">
+		SELECT COUNT(emp_id)
+		FROM employee
+	</select>
 </mapper>

@@ -35,4 +35,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE id=#{id}
 	</delete>
 
+	<select id="count" resultType="int">
+		SELECT COUNT(sub_id)
+		FROM subject
+	</select>
 </mapper>

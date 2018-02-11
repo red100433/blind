@@ -23,4 +23,5 @@ public interface SubjectDao {
 
 	boolean delete(int id);
 
+	int count();
 }

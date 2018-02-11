@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nhn.school.dao.SubjectDao;
+import com.nhn.school.exception.PeopleCapacity;
+import com.nhn.school.exception.SubjectCapacity;
 import com.nhn.school.model.Subject;
+import com.nhn.school.model.Type;
 
 @Service
 public class SubjectService {
@@ -14,7 +17,11 @@ public class SubjectService {
 	private SubjectDao dao;
 
 	public void save(Subject subject) {
-		dao.save(subject);
+		if (dao.count() < Type.SUBJECT_SIZE) {
+			dao.save(subject);
+		} else {
+			new SubjectCapacity();
+		}
 	}
 
 	public void delete(int id) {

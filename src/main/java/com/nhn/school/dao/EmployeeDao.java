@@ -16,10 +16,11 @@ public interface EmployeeDao {
 
 	List<Employee> findAll();
 
-	 Employee getById(int id);
+	Employee getById(int id);
 
-	 boolean save(Employee employee);
+	boolean save(Employee employee);
 
-	 boolean delete(int id);
+	boolean delete(int id);
 
+	int count();
 }
