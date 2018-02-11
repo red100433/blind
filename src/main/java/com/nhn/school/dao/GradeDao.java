@@ -14,9 +14,9 @@ import com.nhn.school.model.Grade;
 @Mapper
 public interface GradeDao {
 
-	List<String> findAll();
-	List<String> findAvgStudent();
-	List<String> findAvgSubject();
+	List<Grade> findAll();
+	List<Grade> findAvgStudent();
+	List<Grade> findAvgSubject();
 
 	Grade getById(int stuId, int subId);
 

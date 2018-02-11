@@ -22,7 +22,7 @@ public class GradeService {
 		dao.delete(id);
 	}
 
-	public List<String> findAll(String selectOption) {
+	public List<Grade> findAll(String selectOption) {
 		if ("ALL_STUDENT_AVERAGE_SELECT".equals(selectOption)) {
 			return dao.findAvgStudent();
 

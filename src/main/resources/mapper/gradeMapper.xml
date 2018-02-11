@@ -5,26 +5,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.nhn.school.dao.GradeDao">
 
-	<select id="findAll" resultType="com.nhn.school.model.Grade">
-		SELECT id, stuId, subId, score
-		FROM
-		grade
-	</select>
-	<select id="findAvgStudent"  resultType="com.nhn.school.model.Grade" >
-		SELECT s.id,
-		s.name, AVG(score) AS score
+	<select id="findAll" resultMap="gradeResultMap">
+		SELECT g.gra_id
+		, stu.stu_id
+		, stu.stu_name
+		, sub.sub_id
+		, sub.sub_name
+		, g.gra_score
 		FROM grade g
-		INNER JOIN student s ON
-		g.stuId = s.id
-		GROUP BY g.stuId
+		INNER JOIN student stu ON stu.stu_id = g.gra_stuId
+		INNER JOIN subject sub ON sub.sub_id = g.gra_subId
 	</select>
-	<select id="findAvgSubject"  resultType="com.nhn.school.model.Grade">
-		SELECT s.id,
-		s.name, AVG(score) AS score
+	<select id="findAvgStudent" resultMap="gradeResultMap">
+		SELECT s.stu_id
+		, s.stu_name
+		, AVG(g.gra_score) AS gra_score
+		FROM grade g
+		INNER JOIN student
+		s ON
+		g.gra_stuId = s.stu_id
+		GROUP BY g.gra_stuId
+	</select>
+	<select id="findAvgSubject" resultMap="gradeResultMap">
+		SELECT s.sub_id,
+		s.sub_name,
+		AVG(g.gra_score) AS gra_score
 		FROM grade g
 		INNER JOIN subject s ON
-		g.subId = s.id
-		GROUP BY g.subId
+		g.gra_subId = s.sub_id
+		GROUP BY g.gra_subId
 	</select>
 
 
@@ -32,26 +41,39 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<choose>
 			<when test="id != null and id != 0">
 				INSERT INTO grade
-				(id, stuId, subId, score)
+				(gra_id, gra_stuId, gra_subId, gra_score)
 				VALUES
-				(#{id}, #{stuId}, #{subId}, #{score})
+				(#{id}, #{student.id}, #{subject.id}, #{score})
 				ON DUPLICATE KEY UPDATE
-				stuId=#{stuId}
-				, subId=#{subId}
-				, score=#{score}
+				gra_stuId=#{student.id}
+				, gra_subId=#{subject.id}
+				, gra_score=#{score}
 			</when>
 			<otherwise>
 				INSERT INTO grade
-				(stuId, subId, score)
+				(gra_stuId, gra_subId, gra_score)
 				VALUES
-				(#{stuId},
-				#{subId}, #{score})
+				(#{student.id}, #{subject.id}, #{score})
 			</otherwise>
 		</choose>
 	</insert>
 
 	<delete id="delete">
 		DELETE FROM grade
-		WHERE id=#{id}
+		WHERE gra_id=#{id}
 	</delete>
+
+	<resultMap id="gradeResultMap" type="Grade">
+		<id column="gra_id" property="id" />
+		<result column="gra_score" property="score"/>
+		<association property="student" javaType="Student">
+			<id column="stu_id" property="id"/>
+			<result column="stu_name" property="name"/>
+		</association>
+		<association property="subject" javaType="Subject">
+			<id column="sub_id" property="id"/>
+			<result column="sub_name" property="name"/>
+		</association>
+	</resultMap>
+
 </mapper>

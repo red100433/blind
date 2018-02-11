@@ -25,10 +25,16 @@ $(document).ready(function() {
 
 function saveGrade(stuId, subId, score, selectOption) {
 	var object = new Object();
-	object.stuId= stuId;
-	object.subId= subId;
-	object.score= score;
-	
+	object = {
+			"student":{
+				"id": stuId
+			},
+			"subject": {
+				"id": subId
+			},
+			"score": score
+	}
+
 	$.ajax({
 		type : "POST",
 		contentType: "application/json",
@@ -46,10 +52,16 @@ function saveGrade(stuId, subId, score, selectOption) {
 }
 function updateGrade(id, stuId, subId, score, selectOption) {
 	var object = new Object();
-	object.id= id;
-	object.stuId= stuId;
-	object.subId= subId;
-	object.score= score;
+	object = {
+			"id": id,
+			"student":{
+				"id": stuId
+			},
+			"subject": {
+				"id": subId
+			},
+			"score": score
+	}
 	
 	$.ajax({
 		type : "PUT",

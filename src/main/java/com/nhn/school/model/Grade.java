@@ -6,8 +6,8 @@ import lombok.Data;
 public class Grade {
 
 	private int id;
-	private int stuId;
-	private int subId;
+	Student student;
+	Subject subject;
 	private int score;
 
 	public Grade() {}

@@ -28,7 +28,6 @@ public class GradeController {
 	
 	@GetMapping("/{selectOption}")
 	public String findAll(Model model, @PathVariable String selectOption) {
-		log.info("{}", selectOption);
 		model.addAttribute("menulist", gradeService.findAll(selectOption));
 		return "result";
 	}
