@@ -11,5 +11,5 @@ public class Grade {
 	private int score;
 
 	public Grade() {}
-
+	
 }

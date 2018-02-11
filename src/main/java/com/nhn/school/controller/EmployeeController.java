@@ -29,7 +29,6 @@ public class EmployeeController{
 	
 	@GetMapping("")
 	public String findAll(Model model) {
-		log.info("{}", employeeService.findAll());
 		model.addAttribute("menulist", employeeService.findAll());
 		return "result";
 	}
