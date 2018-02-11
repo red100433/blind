@@ -38,6 +38,7 @@ function saveStudent(name, birth) {
 		},
 		error : function(e) {
 			console.log("ERROR : ", e);
+			window.location = "error";
 		}
 	});
 }
@@ -62,6 +63,7 @@ function updateStudent(id, name, birth) {
 		},
 		error : function(e) {
 			console.log("ERROR : ", e);
+			window.location = "error";
 		}
 	});
 }

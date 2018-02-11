@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.nhn.school.exception.Validator;
 import com.nhn.school.model.Employee;
 import com.nhn.school.service.EmployeeService;
 
@@ -35,6 +36,7 @@ public class EmployeeController{
 	@PostMapping("")
 	@ResponseBody
 	public String save(Model model, @RequestBody Employee employee) {
+		Validator.isDateValid(employee.getBirth());
 		employeeService.save(employee);
 		return "result";
 	}
@@ -47,6 +49,8 @@ public class EmployeeController{
 	@PutMapping("")
 	@ResponseBody
 	public String update(Model model, @RequestBody Employee updateEmployee) {
+		Validator.isDateValid(updateEmployee.getBirth());
+			
 		employeeService.save(updateEmployee);
 		return "result";
 	}

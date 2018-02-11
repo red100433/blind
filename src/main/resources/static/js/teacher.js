@@ -40,6 +40,7 @@ function saveTeacher(name, birth, subId) {
 		},
 		error : function(e) {
 			console.log("ERROR : ", e);
+			window.location = "error";
 		}
 	});
 }
@@ -62,6 +63,7 @@ function updateTeacher(id, name, birth, subId) {
 		},
 		error : function(e) {
 			console.log("ERROR : ", e);
+			window.location = "error";
 		}
 	});
 }

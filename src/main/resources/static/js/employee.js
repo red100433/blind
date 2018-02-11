@@ -38,6 +38,7 @@ function saveEmployee(name, birth) {
 		},
 		error : function(e) {
 			console.log("ERROR : ", e);
+			window.location = "error";
 		}
 	});
 }
@@ -59,6 +60,7 @@ function updateEmployee(id, name, birth) {
 		},
 		error : function(e) {
 			console.log("ERROR : ", e);
+			window.location = "error";
 		}
 	});
 }
