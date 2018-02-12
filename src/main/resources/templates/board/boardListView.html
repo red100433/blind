@@ -70,11 +70,17 @@
 					</div>
 					<div th:id="'collapse' + ${board.id}" class="panel-collapse collapse"
 						role="tabpanel" aria-labelledby="headingTwo">
-						<div class="panel-body" th:text="${board.content}"></div>
-						
-						
-					<input type="text" class="form-control" id="addComment" placeholder="댓글" />
+						<div class="panel-body" th:text="${board.content}">
+						</div>
 					</div>
+						<form class="form-horizontal">
+						<div class="form-group">
+							<div class="col-sm-10">
+								<input type="text" class="form-control" placeholder="댓글" />
+							</div>
+							<button type="button" class="btn btn-default">send</button>
+						</div>
+						</form>
 				</div>
 
 		

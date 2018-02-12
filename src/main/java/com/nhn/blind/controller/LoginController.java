@@ -36,10 +36,11 @@ public class LoginController {
     	log.info("{}", user);
     	Mono<User> getByEmail = userService.getByEmail(user.getEmail())
     			.filter(s -> s.getPassword().equals(user.getPassword()));
+    	log.info("{}", getByEmail.block().getId());
     	if(getByEmail.blockOptional().isPresent()) {
-    		ResponseCookieBuilder userEmail = ResponseCookie.from("userEmail", user.getEmail());
-    		userEmail.path("/");
-    		res.addCookie(userEmail.build());
+    		ResponseCookieBuilder userId = ResponseCookie.from("userId", String.valueOf(getByEmail.block().getId()));
+    		userId.path("/");
+    		res.addCookie(userId.build());
     		return Mono.just("/home");
     	} else {
     		return Mono.just("/login");

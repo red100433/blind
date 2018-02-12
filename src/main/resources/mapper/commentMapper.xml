@@ -11,5 +11,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getBoardCommentById" resultType="com.nhn.blind.model.Comment">
 		SELECT userId, comment, date FROM comment WHERE boardId=#{boardId}
 	</select>
+	<select id="getBoardCommentByIdOne" resultType="com.nhn.blind.model.Comment">
+		SELECT userId, comment, date FROM comment WHERE boardId=#{boardId}
+		ORDER BY date DESC LIMIT 1
+	</select>
+	
 
+	<insert id="add">
+		insert into Comment(comment, boardId, userId)
+		values (#{comment},#{boardId},#{userId})
+	</insert>
 </mapper>

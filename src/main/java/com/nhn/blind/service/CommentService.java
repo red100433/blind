@@ -1,8 +1,5 @@
 package com.nhn.blind.service;
 
-import java.math.BigInteger;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +7,7 @@ import com.nhn.blind.model.Comment;
 import com.nhn.blind.repository.CommentDao;
 
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Service
 public class CommentService {
@@ -31,6 +29,10 @@ public class CommentService {
 	}
 	public Flux<Comment> getBoardCommentById(Long boardId) {
 		return Flux.fromIterable(commentDao.getBoardCommentById(boardId));
+	}
+	
+	public Mono<Comment> getBoardCommentByIdOne(Long boardId) {
+		return Mono.just(commentDao.getBoardCommentByIdOne(boardId));
 	}
 	
 }
