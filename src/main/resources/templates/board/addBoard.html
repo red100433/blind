@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<div th:replace="fragments/header :: header-css" />
+</head>
+<body>
+
+	<div th:replace="fragments/header :: header" />
+
+	<form th:action="@{/view/add}">
+
+		<div class="container">
+
+			<div class="starter-template">
+				<h3>Title</h3>
+				<input type="text" class="form-control" id="title" placeholder="제목" />
+				<br />
+				<h4>content</h4>
+				<textarea class="form-control" id="content" rows="15"></textarea>
+
+			</div>
+			<br/>
+			<button type="button" class="btn btn-default" name="addBoard">확인</button>
+			<button type="button" class="btn btn-default" name="cancel">취소</button>
+		</div>
+	</form>
+	<!-- /.container -->
+	<div th:replace="fragments/footer :: footer" />
+	<script type="text/javascript" th:src="@{/js/boardView.js}"></script>
+
+</body>
+</html>

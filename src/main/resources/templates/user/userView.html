@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<div th:replace="fragments/header :: header-css" />
+</head>
+<body>
+
+	<div th:replace="fragments/header :: header" />
+
+	<div class="container">
+
+		<div class="starter-template">
+			<table class="table">
+				<tr>
+					<th>ID</th>
+					<th>NAME</th>
+					<th>EMAIL</th>
+					<th>Update</th>
+					<th>Delete</th>
+				</tr>
+				<tr th:each="user : ${users}">
+					<td th:text="${user.id}"></td>
+					<td th:text="${user.name}"></td>
+					<td th:text="${user.email}"></td>
+					<td><button type="button" class="btn btn-default" name="userUpdate">Update</button></td>
+					<td><button type="button" class="btn btn-default" name="userDelete">Delete</button></td>
+				</tr>
+
+			</table>
+		</div>
+
+	</div>
+	<!-- /.container -->
+	<div th:replace="fragments/footer :: footer" />
+<script type="text/javascript" th:src="@{/js/userView.js}"></script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+ <meta charset="utf-8"/>
+<div th:replace="fragments/header :: header-css" />
+</head>
+<body>
+
+	<div th:replace="fragments/header :: header" />
+
+	<div class="container">
+		<form th:action="@{/view/board}">
+			<input type="submit" class="btn btn-default" value="글쓰기" />
+		</form>
+		<p></p>
+		<div class="starter-template">
+			<table class="table">
+				<tr>
+					<th>BoardId</th>
+					<th>Title</th>
+					<th>User</th>
+					<th>Date</th>
+				</tr>
+				<tr th:each="board : ${boards}">
+					<td th:text="${board.id}"></td>
+					<td><a th:href="@{/view/{id}(id=${board.id})}"
+						th:text="${board.title}"></a></td>
+					<td th:text="${board.userId}"></td>
+					<td th:text="${board.date}"></td>
+				</tr>
+
+			</table>
+			
+			<div class="panel-group" id="accordion" role="tablist"
+				aria-multiselectable="true" th:each="board : ${boards}">
+
+
+				<!-- 				
+				<div class="panel panel-default">
+					<div class="panel-heading" role="tab" id="headingOne">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#accordion"
+								th:href="'#collapse' + ${board.id}" aria-expanded="true"
+								aria-controls="collapseOne" th:text="${board.title}"></a>
+							<span class="boardDate" text-align="right;" th:text="${board.date}"> </span>
+						</h4>
+					</div>
+					<div th:id="'collapse' + ${board.id}" class="panel-collapse collapse in"
+						role="tabpanel" aria-labelledby="headingOne">
+						<div class="panel-body" th:text="${board.content}"></div>
+						<div class="panel-footer" th:each="comment : ${comments}">
+							<span th:text="${comment.comment}"></span>
+							<span class="commentDate" th:text="${comment.date}" text-align="right;"></span>
+						</div>
+					<input type="text" class="form-control" id="addComment" placeholder="댓글" />
+					</div>
+				</div>
+				  -->
+				 
+				
+				<div class="panel panel-default">
+					<div class="panel-heading" role="tab" id="headingTwo">
+						<h4 class="panel-title">
+							<a class="collapsed" data-toggle="collapse" th:id="${board.id}" th:data-index="${board.id}"
+								data-parent="#accordion" th:href="'#collapse' + ${board.id}"
+								aria-expanded="false" aria-controls="collapseTwo" th:text="${board.title}">
+								</a>
+							<span class="boardDate" text-align="right;" th:text="${board.date}"> </span>
+						</h4>
+					</div>
+					<div th:id="'collapse' + ${board.id}" class="panel-collapse collapse"
+						role="tabpanel" aria-labelledby="headingTwo">
+						<div class="panel-body" th:text="${board.content}"></div>
+						
+						
+					<input type="text" class="form-control" id="addComment" placeholder="댓글" />
+					</div>
+				</div>
+
+		
+			</div>
+		</div>
+
+	</div>
+	<!-- /.container -->
+	<div th:replace="fragments/footer :: footer" />
+<script type="text/javascript" th:src="@{/js/boardListView.js}"></script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.nhn.blind.repository.UserDao">
+
+	<select id="getList" resultType="com.nhn.blind.model.User">
+		/* userDao.getList */
+		SELECT id, name, email FROM user
+	</select>
+
+	<insert id="add">
+		INSERT INTO User(name, email, password)
+		VALUES (#{name},#{email},#{password})
+	</insert>
+
+	<delete id="delete">
+		DELETE FROM User WHERE id=#{id}
+	</delete>
+	
+	<update id="update">
+		UPDATE User SET name=#{name}, email=#{email}, password=#{password}
+					WHERE id=#{id}
+	</update>
+	
+	<select id="getById" resultType="com.nhn.blind.model.User">
+		SELECT id, name, email, password FROM user WHERE id=#{id}
+	</select>
+	<select id="getByEmail" resultType="com.nhn.blind.model.User">
+		SELECT id, name, email, password FROM user WHERE email=#{email}
+	</select>
+</mapper>
