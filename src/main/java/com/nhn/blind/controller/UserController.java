@@ -23,8 +23,6 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
-//	@Autowired
-//	private RoleDao roleDao;
 
 	 	
 	@GetMapping("")
@@ -47,7 +45,6 @@ public class UserController {
 		Mono<User> usert = userService.getById(user.getId());
 //		User user2 = User.of("insertData", "insertData@naver.com", "insert");
 //		userService.add(user);
-//		roleDao.add(user.getEmail());
 		return Mono.just("success");
 	}
 	
