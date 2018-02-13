@@ -1,6 +1,5 @@
 $(document).ready(function() {
 	$(".collapsed").click(function(event) {
-//		var parent = $(this).closest(".panel-default");
 		var id = $(this).closest("a")[0].id;
 		
 		$("#collapse" + id).click();
@@ -10,21 +9,22 @@ $(document).ready(function() {
 		var parent = $(this).closest(".panel-default");
 		var id = $(this).closest(".collapsed").prevObject[0].id.replace("collapse", "");
 		
-		console.log(parent);
-		console.log($(this));
 		if($(this).hasClass('in')){
 			$(".panel-footer").remove();
 		} else if($(this).hasClass("collapsing")) {
 			console.log("loading");
 		} else{
 			BoardComment(id, function(data) {
-				var follow = renderDom(data);
-				parent.append(follow);
+				renderComment(parent, data);
+				
+				deleteEvent();
 			});
 		}
+		
+		
 	});
 	
-	$(".btn").click(function(event) {
+	$("[name=send]").click(function(event) {
 		var parent = $(this).closest(".panel-default");
 		var comment = $(this).closest(".form-group").children(".col-sm-10").children(".form-control").val();
 		var boardId = $(this).closest(".panel-default")
@@ -33,10 +33,15 @@ $(document).ready(function() {
 		
 		//Enter하면 값을 저장 못받음
 		addComment(boardId, comment, function(data) {
-			var follow = makeDom(data);
-			parent.append(follow);
+			renderComment(parent, data);
+			
+			updateEvent();
+			deleteEvent();
 		});
+		
+		
 	});
+	
 });
 
 function addComment(boardId, comment, callback) {
@@ -74,26 +79,4 @@ function BoardComment(id, callback) {
 		}
 	});
 }
-
-function renderDom(list) {
-	var follow="";
-	list.forEach(function(data){
-		follow += makeDom(data);
-    });
-	return follow;
-	
-//    $('table tr:last').after(follow);
-}
-
-
-function makeDom(getContent) {
-	var date  = new Date(getContent.date);
-	date = date.toISOString();
-	date = date.replace('T', ' ');
-	date = date.substring(0, 21);
-	var dom = "<div class=panel-footer><span>"+getContent.comment+"</span><span class=commentDate text-align=right; >"+date+"</span></div>"
-    return dom;
-}
-
-
 

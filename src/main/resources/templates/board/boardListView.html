@@ -78,7 +78,7 @@
 							<div class="col-sm-10">
 								<input type="text" class="form-control" placeholder="댓글" />
 							</div>
-							<button type="button" class="btn btn-default">send</button>
+							<button type="button" class="btn btn-default" name="send">send</button>
 						</div>
 						</form>
 				</div>
@@ -91,5 +91,7 @@
 	<!-- /.container -->
 	<div th:replace="fragments/footer :: footer" />
 <script type="text/javascript" th:src="@{/js/boardListView.js}"></script>
+<script type="text/javascript" th:src="@{/js/boardListViewComment.js}"></script>
+<script type="text/javascript" th:src="@{/js/rederComment.js}"></script>
 </body>
 </html>

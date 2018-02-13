@@ -27,7 +27,7 @@ public class LoginController {
 	
     @GetMapping("")
     public Mono<String> login() {
-        return Mono.just("/login");
+        return Mono.just("login");
     }
     
     @PostMapping("")
@@ -36,7 +36,7 @@ public class LoginController {
     	log.info("{}", user);
     	Mono<User> getByEmail = userService.getByEmail(user.getEmail())
     			.filter(s -> s.getPassword().equals(user.getPassword()));
-    	log.info("{}", getByEmail.block().getId());
+//    	log.info("{}", getByEmail.block().getId());
     	if(getByEmail.blockOptional().isPresent()) {
     		ResponseCookieBuilder userId = ResponseCookie.from("userId", String.valueOf(getByEmail.block().getId()));
     		userId.path("/");

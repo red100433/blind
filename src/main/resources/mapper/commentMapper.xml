@@ -6,19 +6,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.nhn.blind.repository.CommentDao">
 
 	<select id="getList" resultType="com.nhn.blind.model.Comment">
-		SELECT boardId, userId, comment, date FROM comment
+		SELECT id, boardId, userId, comment, date FROM comment
 	</select>
 	<select id="getBoardCommentById" resultType="com.nhn.blind.model.Comment">
-		SELECT userId, comment, date FROM comment WHERE boardId=#{boardId}
+		SELECT id, userId, comment, date FROM comment WHERE boardId=#{boardId}
 	</select>
 	<select id="getBoardCommentByIdOne" resultType="com.nhn.blind.model.Comment">
-		SELECT userId, comment, date FROM comment WHERE boardId=#{boardId}
+		SELECT id, userId, comment, date FROM comment WHERE boardId=#{boardId}
 		ORDER BY date DESC LIMIT 1
 	</select>
 	
 
 	<insert id="add">
-		insert into Comment(comment, boardId, userId)
-		values (#{comment},#{boardId},#{userId})
+		INSERT INTO Comment(comment, boardId, userId)
+		VALUES (#{comment},#{boardId},#{userId})
 	</insert>
+	
+	<delete id="delete">
+		delete from Comment where id=#{id} AND userId=#{userId}
+	</delete>
 </mapper>

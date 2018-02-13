@@ -24,8 +24,8 @@ public class CommentService {
 	public boolean update(Comment comment) {
 		return commentDao.update(comment);
 	}
-	public boolean delete(Long id) {
-		return commentDao.delete(id);
+	public boolean delete(Comment comment) {
+		return commentDao.delete(comment);
 	}
 	public Flux<Comment> getBoardCommentById(Long boardId) {
 		return Flux.fromIterable(commentDao.getBoardCommentById(boardId));

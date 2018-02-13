@@ -14,7 +14,7 @@ public interface CommentDao {
 	List<Comment> getList();
 	boolean add(Comment comment);
 	boolean update(Comment comment);
-	boolean delete(Long id);
+	boolean delete(Comment comment);
 	List<Comment> getBoardCommentById(Long boardId);
 	Comment getBoardCommentByIdOne(Long boardId);
 }
