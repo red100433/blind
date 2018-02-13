@@ -17,6 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="getById" resultType="com.nhn.blind.model.Board">
 		SELECT id, title, content, userId, date FROM board WHERE id=#{id}
+		AND userId=#{userId}
 	</select>
 	
 	
@@ -26,7 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<delete id="delete">
-		DELETE FROM Board WHERE id=#{id}
+		DELETE FROM Board WHERE id=#{id} AND userId=#{userId}
 	</delete>
 	
 	<update id="update">

@@ -36,8 +36,8 @@ public class LoginCheckInterceptor implements WebFilter{
 //            return chain.filter(exchange);
 //        }
     	
-    	if (exchange.getRequest().getURI().getPath().equals("/")) {
-    	        return chain.filter(exchange.mutate().request(exchange.getRequest().mutate().path("/home").build()).build());
+    	if (exchange.getRequest().getURI().getPath().equals("/signup")) {
+    	        return chain.filter(exchange.mutate().request(exchange.getRequest().mutate().path("/signup").build()).build());
     	}
     	if(exchange.getRequest().getCookies().isEmpty()) {
     		 return chain.filter(exchange.mutate().request(exchange.getRequest().mutate().path("/login").build()).build());

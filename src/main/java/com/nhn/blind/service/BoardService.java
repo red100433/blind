@@ -34,11 +34,11 @@ public class BoardService {
 		return boardDao.update(board);
 	}
 
-	public boolean delete(Long id) {
-		return boardDao.delete(id);
+	public boolean delete(Board board) {
+		return boardDao.delete(board);
 	}
 
-	public Mono<Board> getById(Long id) {
-		return Mono.just(boardDao.getById(id));
+	public Mono<Board> getById(Board board) {
+		return Mono.just(boardDao.getById(board));
 	}
 }

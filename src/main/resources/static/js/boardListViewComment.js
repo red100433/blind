@@ -10,9 +10,7 @@ function deleteEvent() {
 	$("[name=deleteComment]").click(function(event) {
 		var parent = $(this).closest(".panel-default");
 		var id = $(this).closest(".panel-footer")[0].id;
-		var boardId = $(this).closest(".panel-default")
-		.children(".panel-heading").children(".panel-title")
-		.children()[0].id;
+		var boardId = $(this).closest(".panel-default")[0].id;
 		
 		deleteComment(id, boardId, function(data) {
 			renderComment(parent, data);
@@ -42,6 +40,26 @@ function deleteComment(id, boardId, callback) {
 	});
 }
 
+function addComment(boardId, comment, callback) {
+	var object = new Object();
+	object.boardId = boardId;
+	object.comment = comment;
+	
+	$.ajax({
+		type : "POST",
+		contentType: "application/json",
+		url : "/comment",
+		timeout : 600000,
+		data : JSON.stringify(object),
+		success : function(data) {
+			callback(data);
+//			location.href = "http://localhost:8080/login";
+		},
+		error : function(e) {
+			console.log("ERROR : ", e);
+		}
+	});
+}
 
 
 //function BoardComment(id, callback) {

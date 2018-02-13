@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,12 +45,12 @@ public class BoardController {
 		return Mono.just("/board/boardListView");
 	}
 	
-	@GetMapping("/{id}")
-	public Mono<String> board(Model model,@PathVariable Long id) {
-		model.addAttribute("boards", boardService.getById(id));
-		model.addAttribute("comments", commentService.getBoardCommentById(id));
-		return Mono.just("/board/boardView");
-	}
+//	@GetMapping("/{id}")
+//	public Mono<String> board(Model model,@PathVariable Long id) {
+//		model.addAttribute("boards", boardService.getById(id));
+//		model.addAttribute("comments", commentService.getBoardCommentById(id));
+//		return Mono.just("/board/boardView");
+//	}
 	
 	@GetMapping("/board/{id}")
 	@ResponseBody
@@ -64,32 +65,32 @@ public class BoardController {
 	}
 	
 	@PostMapping("/board")
-	@ResponseBody
-	public Mono<String> addBoard(@RequestBody Board board) {
+	public Mono<String> addBoard(@RequestBody Board board, @CookieValue("userId") String userId) {
 		log.info("title : {}", board.toString());
+		board.setUserId(Integer.parseInt(userId));
 		
-//		User user = userService.getByEmail(req.getRemoteUser());
-//		log.info("user Id : {}", user.getId());
-//		log.info("user Name : {}", user.getName());
-//		log.info("user Email : {}", user.getEmail());
-//		board.setUserId(user.getId());
-		
-//		boardService.add(board);
-		return Mono.just("addBoardSuceess");
+		boardService.add(board);
+		return Mono.just("redirect:/view");
 	}
 	
 	@DeleteMapping("/board")
 	@ResponseBody
-	public Mono<String> deleteUser(@RequestBody Board board) {
-		log.info("board Id : {}", board.getId());
-//		boardService.delete(board.getId());
+	public Mono<String> deleteBoard(@RequestBody Board board, @CookieValue("userId") String userId) {
+		log.info("board Id : {}", board.toString());
+		log.info("user Id : {}", userId);
+		board.setUserId(Integer.parseInt(userId));
+		log.info("board Id : {}", board.toString());
+		boardService.delete(board);
 		return Mono.just("deleteBoardSuceess");
 	}
 	
 	// change title contents
-	@PutMapping("/{id}") 
-	public Mono<String> updateUser(Board board) {
-		return Mono.just("");
+	@PutMapping("/board")
+	public Mono<String> updateBoard(Model model, @RequestBody Board board, @CookieValue("userId") String userId) {
+		board.setUserId(Integer.parseInt(userId));
+		log.info("{}", board.toString());
+		model.addAttribute("board", boardService.getById(board));
+		return Mono.just("/board/addBoard");
 	}
 	
 }

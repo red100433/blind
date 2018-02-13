@@ -1,14 +1,17 @@
 package com.nhn.blind.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.nhn.blind.model.User;
 import com.nhn.blind.service.UserService;
@@ -39,13 +42,11 @@ public class UserController {
 //		return mv;
 //	}
 	
-	@PostMapping("/user")
-	public Mono<String> addUser(@RequestBody User user) {
+	@PostMapping("")
+	public Mono<String> addUser(@ModelAttribute User user) {
 		log.info("{}", user.toString());
-		Mono<User> usert = userService.getById(user.getId());
-//		User user2 = User.of("insertData", "insertData@naver.com", "insert");
-//		userService.add(user);
-		return Mono.just("success");
+		userService.add(user);
+		return Mono.just("redirect:/login");
 	}
 	
 	@DeleteMapping("/user")

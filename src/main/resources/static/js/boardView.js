@@ -61,7 +61,7 @@ function addBoard(title, content) {
 		timeout : 600000,
 		success : function(data) {
 			console.log(data);
-//			location.href = "http://localhost:8080/login";
+			location.href = "http://localhost:8080/view";
 		},
 		error : function(e) {
 			console.log("ERROR : ", e);
