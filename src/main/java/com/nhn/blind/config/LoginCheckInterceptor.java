@@ -1,9 +1,12 @@
 package com.nhn.blind.config;
 
-import java.util.List;
+import java.net.URI;
 
-import org.springframework.http.ResponseCookie;
-import org.springframework.util.MultiValueMap;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.http.server.reactive.ServerHttpRequest.Builder;
+import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebFilterChain;
@@ -12,26 +15,33 @@ import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
 @Slf4j
+@Component
 public class LoginCheckInterceptor implements WebFilter{
-
-	@Override
-	public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
-		 MultiValueMap<String, ResponseCookie> cookies = exchange.getResponse().getCookies();
-		 List<ResponseCookie> list = cookies.get("userEmail");
-		 list.forEach(s -> log.info(s.toString()));
-		return null;
-	}
-//
-//	 WebClient client = WebClient.builder()
-//	            .filter((request, next) -> {
-//	                ClientRequest filtered = ClientRequest.from(request)
-//	                		.cookie(name, values)
-//	                        .header("foo", "bar")
-//	                        .build();
-//	                return next.exchange(filtered);
-//	            })
-//	            .build();
-//	 
-	
-	
+    @Override
+    public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
+    	
+    	 // Adapted from https://sandstorm.de/de/blog/post/cors-headers-for-spring-boot-kotlin-webflux-reactor-project.html
+    	/**
+    	 * CORS 설정
+    	 */
+//    	exchange.getResponse().getHeaders().add("Access-Control-Allow-Origin", "*");
+//    	exchange.getResponse().getHeaders().add("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
+//    	exchange.getResponse().getHeaders().add("Access-Control-Allow-Headers", "DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range");
+//        if (exchange.getRequest().getMethod() == HttpMethod.OPTIONS) {
+//        	exchange.getResponse().getHeaders().add("Access-Control-Max-Age", "1728000");
+//        	exchange.getResponse().setStatusCode(HttpStatus.NO_CONTENT);
+//            return Mono.empty();
+//        } else {
+//        	exchange.getResponse().getHeaders().add("Access-Control-Expose-Headers", "DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range");
+//            return chain.filter(exchange);
+//        }
+    	
+    	if (exchange.getRequest().getURI().getPath().equals("/")) {
+    	        return chain.filter(exchange.mutate().request(exchange.getRequest().mutate().path("/home").build()).build());
+    	}
+    	if(exchange.getRequest().getCookies().isEmpty()) {
+    		 return chain.filter(exchange.mutate().request(exchange.getRequest().mutate().path("/login").build()).build());
+    	}
+        return chain.filter(exchange);
+    }
 }
