@@ -9,15 +9,16 @@
 	<div th:replace="fragments/header :: header" />
 
 	<form>
-
 		<div class="container">
 
-			<div class="starter-template">
+			<div class="starter-template" th:value="${board}">
+			<input type="text" th:value="${board.title}" />
+			<input type="text" th:value="${board.content}" />
 				<h3>Title</h3>
-				<input type="text" class="form-control" id="title" placeholder="제목" />
+				<input type="text" class="form-control" th:value="${board.title}" id="title" placeholder="제목" />
 				<br />
 				<h4>content</h4>
-				<textarea class="form-control" id="content" rows="15"></textarea>
+				<textarea class="form-control" th:value="${board.title}" id="content" rows="15"></textarea>
 
 			</div>
 			<br/>

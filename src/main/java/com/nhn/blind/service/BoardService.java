@@ -38,7 +38,7 @@ public class BoardService {
 		return boardDao.delete(board);
 	}
 
-	public Mono<Board> getById(Board board) {
-		return Mono.just(boardDao.getById(board));
+	public Mono<Board> getById(Long id, int userId) {
+		return Mono.just(boardDao.getById(id, userId));
 	}
 }

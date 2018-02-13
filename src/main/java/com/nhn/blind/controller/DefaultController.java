@@ -19,7 +19,7 @@ import reactor.ipc.netty.http.server.HttpServerRequest;
 @Slf4j
 public class DefaultController {
 
-	@GetMapping("/home")
+	@GetMapping("/")
     public Mono<String> home() {
         return Mono.just("home");
     }

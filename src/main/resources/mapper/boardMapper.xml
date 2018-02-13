@@ -16,7 +16,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="getById" resultType="com.nhn.blind.model.Board">
-		SELECT id, title, content, userId, date FROM board WHERE id=#{id}
+		SELECT id, title, content, userId, date FROM board 
+		WHERE id=#{id}
 		AND userId=#{userId}
 	</select>
 	

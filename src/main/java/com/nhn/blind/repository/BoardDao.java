@@ -16,6 +16,6 @@ public interface BoardDao {
 	boolean add(Board board);
 	boolean update(Board board);
 	boolean delete(Board board);
-	Board getById(Board board);
+	Board getById(@Param("id") Long id, @Param("userId") int userId);
 	List<Board> getTitleList();
 }

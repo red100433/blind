@@ -42,9 +42,7 @@ $(document).ready(function() {
 	$("[name=updateBoard]").click(function(event) {
 		var boardId = $(this).closest(".panel-default")[0].id;
 		console.log("update");
-		updateBoard(boardId, function(data){
-			console.log(data);
-		});
+		location.href = "http://localhost:8080/view/" + boardId;
 	});
 	
 	$("[name=deleteBoard]").click(function(event) {
@@ -54,25 +52,6 @@ $(document).ready(function() {
 	
 });
 
-
-function updateBoard(boardId, callback) {
-	var object = new Object();
-	object.id = boardId;
-	$.ajax({
-		type : "PUT",
-		url : "/view/board",
-		contentType: "application/json",
-		data : JSON.stringify(object),
-		timeout : 600000,
-		success : function(data) {
-			callback(data);
-//			location.href = "http://localhost:8080/view";
-		},
-		error : function(e) {
-			console.log("ERROR : ", e);
-		}
-	});
-}
 
 function deleteBoard(boardId) {
 	var object = new Object();
@@ -95,7 +74,7 @@ function deleteBoard(boardId) {
 function BoardComment(id, callback) {
 	$.ajax({
 		type : "GET",
-		url : "/view/board/" + id,
+		url : "/comment/" + id,
 		timeout : 600000,
 		success : function(data) {
 			callback(data);

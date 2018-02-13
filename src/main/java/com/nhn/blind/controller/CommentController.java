@@ -3,9 +3,12 @@ package com.nhn.blind.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nhn.blind.model.Comment;
@@ -22,6 +25,13 @@ public class CommentController {
 	@Autowired
 	private CommentService commentService;
 
+	@GetMapping("/{id}")
+	@ResponseBody
+	public Flux<Comment> boardComment(@PathVariable Long id) {
+		log.info("BoardComment GetMapping and Id: {}", id);
+		return commentService.getBoardCommentById(id);
+	}
+	
 	@PostMapping("")
 	public Flux<Comment> addComment(@RequestBody Comment comment, @CookieValue("userId") String userId) {
 		comment.setUserId(Integer.parseInt(userId));

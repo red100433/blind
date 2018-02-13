@@ -32,9 +32,6 @@ public class BoardController {
 	
 	@Autowired
 	private BoardService boardService;
-
-	@Autowired
-	private CommentService commentService;
 	
 	WebClient webclient = WebClient.create();
 	
@@ -45,23 +42,16 @@ public class BoardController {
 		return Mono.just("/board/boardListView");
 	}
 	
-//	@GetMapping("/{id}")
-//	public Mono<String> board(Model model,@PathVariable Long id) {
-//		model.addAttribute("boards", boardService.getById(id));
-//		model.addAttribute("comments", commentService.getBoardCommentById(id));
-//		return Mono.just("/board/boardView");
-//	}
-	
-	@GetMapping("/board/{id}")
-	@ResponseBody
-	public Flux<Comment> boardComment(@PathVariable Long id) {
-		log.info("BoardComment GetMapping and Id: {}", id);
-		return commentService.getBoardCommentById(id);
+	@GetMapping("/{id}")
+	public Mono<String> board(Model model,@PathVariable Long id, @CookieValue("userId") String userId) {
+		model.addAttribute("board", boardService.getById(id, Integer.parseInt(userId)));
+		return Mono.just("/board/addBoard");
 	}
 	
 	@GetMapping("/board")
-	public String addView() {
-		return "/board/addBoard";
+	public Mono<String> addView(Model model) {
+		model.addAttribute("board", new Board());
+		return Mono.just("/board/addBoard");
 	}
 	
 	@PostMapping("/board")
@@ -85,12 +75,12 @@ public class BoardController {
 	}
 	
 	// change title contents
-	@PutMapping("/board")
-	public Mono<String> updateBoard(Model model, @RequestBody Board board, @CookieValue("userId") String userId) {
-		board.setUserId(Integer.parseInt(userId));
-		log.info("{}", board.toString());
-		model.addAttribute("board", boardService.getById(board));
-		return Mono.just("/board/addBoard");
-	}
+//	@PutMapping("/board")
+//	public Mono<String> updateBoard(Model model, @RequestBody Board board, @CookieValue("userId") String userId) {
+//		board.setUserId(Integer.parseInt(userId));
+//		log.info("{}", board.toString());
+//		model.addAttribute("board", boardService.getById(board));
+//		return Mono.just("/board/addBoard");
+//	}
 	
 }
