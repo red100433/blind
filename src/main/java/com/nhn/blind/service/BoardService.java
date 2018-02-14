@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.server.ServerResponse;
 
 import com.nhn.blind.model.Board;
 import com.nhn.blind.repository.BoardDao;
@@ -39,6 +40,8 @@ public class BoardService {
 	}
 
 	public Mono<Board> getById(Long id, int userId) {
-		return Mono.just(boardDao.getById(id, userId));
+//		Mono<ServerResponse> error = ServerResponse.notFound().build();
+//		Mono<Board> justOrEmpty = Mono.justOrEmpty(boardDao.getById(id, userId));
+		return Mono.justOrEmpty(boardDao.getById(id, userId)).switchIfEmpty(Mono.defer(() -> Mono.error(new RuntimeException())));
 	}
 }

@@ -23,9 +23,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	<insert id="add">
-		INSERT INTO Board(title, content, userId) 
-		VALUES (#{title},#{content},#{userId})
+		<choose>
+				<when test="id != null and id != 0">
+					INSERT INTO Board(id, title, content, userId) 
+					VALUES (#{id}, #{title},#{content},#{userId})
+					ON DUPLICATE KEY UPDATE title=#{title}
+					, content=#{content}
+					, userId=#{userId}
+				</when>
+		
+				<otherwise>
+					INSERT INTO Board(title, content, userId) 
+					VALUES (#{title},#{content},#{userId})
+				</otherwise>
+			</choose>
 	</insert>
+
+	
 	
 	<delete id="delete">
 		DELETE FROM Board WHERE id=#{id} AND userId=#{userId}

@@ -14,9 +14,10 @@ $(document).ready(function() {
 	});
 
 	$("[name=addBoard]").click(function(event) {
+		var id = $("#id").val();
 		var title = $("#title").val();
 		var content = $("#content").val();
-		addBoard(title, content);
+		addBoard(id, title, content);
 	});
 	$("[name=cancel]").click(function(event) {
 		history.back();
@@ -44,9 +45,10 @@ function deleteBoard(id) {
 
 }
 
-function addBoard(title, content) {
+function addBoard(id, title, content) {
 	var object = new Object();
 	
+	object.id = id;
 	object.title= title;
 	object.content= content;
 	

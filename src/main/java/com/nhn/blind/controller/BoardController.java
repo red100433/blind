@@ -44,8 +44,11 @@ public class BoardController {
 	
 	@GetMapping("/{id}")
 	public Mono<String> board(Model model,@PathVariable Long id, @CookieValue("userId") String userId) {
+		
+		//만약 사용자 userId 와 게시글 작성자의 id 가 맞지 않으면 RuntimeException을 던짐, 아직 예외 처리 안함
 		model.addAttribute("board", boardService.getById(id, Integer.parseInt(userId)));
-		return Mono.just("/board/addBoard");
+		
+		return Mono.just("/home");
 	}
 	
 	@GetMapping("/board")
@@ -56,8 +59,8 @@ public class BoardController {
 	
 	@PostMapping("/board")
 	public Mono<String> addBoard(@RequestBody Board board, @CookieValue("userId") String userId) {
-		log.info("title : {}", board.toString());
 		board.setUserId(Integer.parseInt(userId));
+		log.info("title : {}", board.toString());
 		
 		boardService.add(board);
 		return Mono.just("redirect:/view");
@@ -73,14 +76,5 @@ public class BoardController {
 		boardService.delete(board);
 		return Mono.just("deleteBoardSuceess");
 	}
-	
-	// change title contents
-//	@PutMapping("/board")
-//	public Mono<String> updateBoard(Model model, @RequestBody Board board, @CookieValue("userId") String userId) {
-//		board.setUserId(Integer.parseInt(userId));
-//		log.info("{}", board.toString());
-//		model.addAttribute("board", boardService.getById(board));
-//		return Mono.just("/board/addBoard");
-//	}
 	
 }

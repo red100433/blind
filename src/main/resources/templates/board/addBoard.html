@@ -11,14 +11,13 @@
 	<form>
 		<div class="container">
 
-			<div class="starter-template" th:value="${board}">
-			<input type="text" th:value="${board.title}" />
-			<input type="text" th:value="${board.content}" />
+			<div class="starter-template" th:object="${board}">
+			<input type="hidden" id="id" th:value="${board.id}" />
 				<h3>Title</h3>
 				<input type="text" class="form-control" th:value="${board.title}" id="title" placeholder="제목" />
 				<br />
 				<h4>content</h4>
-				<textarea class="form-control" th:value="${board.title}" id="content" rows="15"></textarea>
+				<textarea class="form-control" th:text="${board.content}" id="content" rows="15"></textarea>
 
 			</div>
 			<br/>
