@@ -1,10 +1,12 @@
 package com.nhn.blind.service;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.server.ServerResponse;
 
 import com.nhn.blind.model.Board;
 import com.nhn.blind.repository.BoardDao;
@@ -15,16 +17,14 @@ import reactor.core.publisher.Mono;
 
 @Slf4j
 @Service
+@EnableAsync
 public class BoardService {
 	@Autowired
 	private BoardDao boardDao;
 
-	public Flux<Board> getList() {
-		return Flux.fromIterable(boardDao.getList());
-	}
-
-	public List<Board> getTitleList() {
-		return boardDao.getTitleList();
+	@Async
+	public CompletableFuture<Flux<Board>> getList() {
+		return CompletableFuture.completedFuture(Flux.fromIterable(boardDao.getList()));
 	}
 
 	public boolean add(Board board) {
@@ -42,6 +42,7 @@ public class BoardService {
 	public Mono<Board> getById(Long id, int userId) {
 //		Mono<ServerResponse> error = ServerResponse.notFound().build();
 //		Mono<Board> justOrEmpty = Mono.justOrEmpty(boardDao.getById(id, userId));
+//		return Mono.justOrEmpty(boardDao.getById(id, userId));
 		return Mono.justOrEmpty(boardDao.getById(id, userId)).switchIfEmpty(Mono.defer(() -> Mono.error(new RuntimeException())));
 	}
 }

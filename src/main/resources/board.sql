@@ -56,11 +56,11 @@ select * from comment;
 select * from user_role;
 
 insert into Board(title, content, userId) 
-values ('카페 사람 수 실화임?', '아니 저기요 너무 많아요. 좀 나가주실래요? 천국가기 싫으시면?', 1);
+values ('test1', '1번째 테스트입니당.', 1);
 insert into Board(title, content, userId) 
-values ('네이버 포인트 왜이리 짜냐 와 너무 한거 아니냐?', '아니 리얼루다가 처음에는 퍼다 줘서 인지도 높이더니 이제 좀 유명해지고 다른 은행이랑 연결 되니까 바로 그냥 바닷물처럼 개 짜네 ㅡ,.ㅡ', 2);
+values ('test2', '2번째 테스트입니당.', 2);
 insert into Board(title, content, userId) 
-values ('3Test입니당', '3번째 테스트입니당.', 1);
+values ('test3', '3번째 테스트입니당.', 1);
 
 insert into Comment(comment, boardId, userId)
 values ('그럼 가시던가요. 님때문에 다른사람들도 그렇게 생각할 거임 ㅇㅇ', 1, 2);
