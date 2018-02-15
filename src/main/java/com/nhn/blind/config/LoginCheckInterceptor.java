@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
 @Slf4j
-@Component
+//@Component
 public class LoginCheckInterceptor implements WebFilter{
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
