@@ -19,11 +19,9 @@ import com.nhn.blind.model.Board;
 import com.nhn.blind.service.BoardService;
 
 import lombok.extern.slf4j.Slf4j;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Controller
-//@RestController
 @RequestMapping("/view")
 @Slf4j
 public class BoardController {
@@ -35,19 +33,8 @@ public class BoardController {
 
 	@GetMapping("")
 	public Mono<String> view(Model model) throws InterruptedException {
-		// CompletableFuture<Flux<Board>> board = boardService.getList();
-		// Flux<Board> fromCompletionStage =
-		// Mono.fromCompletionStage(boardService.getList()).block();
-
-		// Mono.block -> blocking i.o임 .block을 하는 순간 부하테스트 통과하지 못함.
-		// model.addAttribute("boards",
-		// Mono.fromCompletionStage(boardService.getList()));
-		// return Mono.just("/board/boardListView");
-
-//		Mono<List<Board>> fromCompletionStage = Mono.fromCompletionStage(boardService.getList());
-//		Flux<Board> test = fromCompletionStage.flatMapMany(s -> Flux.fromIterable(s));
-		Flux<Board> test = Mono.fromCompletionStage(boardService.getList()).flatMapMany(Function.identity());
-		model.addAttribute("boards", test);
+//		Flux<Board> test = Mono.fromCompletionStage(boardService.getList()).flatMapMany(Function.identity());
+		model.addAttribute("boards", Mono.fromCompletionStage(boardService.getList()).flatMapMany(Function.identity()));
 		return Mono.just("/board/boardListView");
 	}
 
