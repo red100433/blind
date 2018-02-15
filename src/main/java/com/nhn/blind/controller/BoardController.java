@@ -33,7 +33,7 @@ public class BoardController {
 
 	@GetMapping("")
 	public Mono<String> view(Model model) throws InterruptedException {
-//		Flux<Board> test = Mono.fromCompletionStage(boardService.getList()).flatMapMany(Function.identity());
+//		Flux<Board> test = Mono.fromCompletionStage(sboardService.getList()).flatMapMany(Function.identity());
 		model.addAttribute("boards", Mono.fromCompletionStage(boardService.getList()).flatMapMany(Function.identity()));
 		return Mono.just("/board/boardListView");
 	}
@@ -55,7 +55,6 @@ public class BoardController {
 	@PostMapping("/board")
 	public Mono<String> addBoard(@RequestBody Board board, @CookieValue("userId") String userId) {
 		board.setUserId(Integer.parseInt(userId));
-		log.info("title : {}", board.toString());
 
 		boardService.add(board);
 		return Mono.just("redirect:/view");

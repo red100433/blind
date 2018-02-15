@@ -25,9 +25,14 @@ public class BoardService {
 	@Async
 	public CompletableFuture<Flux<Board>> getList() throws InterruptedException {
 //		Thread.sleep(2000);
-		return CompletableFuture.completedFuture(Flux.fromIterable(boardDao.getList()));
+		return CompletableFuture.completedFuture(Flux.fromIterable(boardDao.getList())).exceptionally(e -> {
+			throw new RuntimeException(e.getMessage());
+		});
 	}
 
+	public int getCount() {
+		return boardDao.getCount();
+	}
 	public boolean add(Board board) {
 		return boardDao.add(board);
 	}

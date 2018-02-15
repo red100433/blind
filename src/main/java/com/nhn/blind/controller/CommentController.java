@@ -1,5 +1,7 @@
 package com.nhn.blind.controller;
 
+import java.util.function.Function;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,22 +30,20 @@ public class CommentController {
 	@GetMapping("/{id}")
 	@ResponseBody
 	public Flux<Comment> boardComment(@PathVariable Long id) {
-		log.info("BoardComment GetMapping and Id: {}", id);
-		return commentService.getBoardCommentById(id);
+		return Mono.fromCompletionStage(commentService.getBoardCommentById(id)).flatMapMany(Function.identity());
 	}
 	
 	@PostMapping("")
 	public Flux<Comment> addComment(@RequestBody Comment comment, @CookieValue("userId") String userId) {
 		comment.setUserId(Integer.parseInt(userId));
 		commentService.add(comment);
-		return commentService.getBoardCommentById(comment.getBoardId());
+		return Mono.fromCompletionStage(commentService.getBoardCommentById(comment.getBoardId())).flatMapMany(Function.identity());
 	}
 	
 	@DeleteMapping("")
 	public Flux<Comment> deleteComment(@RequestBody Comment comment, @CookieValue("userId") String userId) {
 		comment.setUserId(Integer.parseInt(userId));
-		log.info("{}", comment.toString());
 		commentService.delete(comment);
-		return commentService.getBoardCommentById(comment.getBoardId());
+		return Mono.fromCompletionStage(commentService.getBoardCommentById(comment.getBoardId())).flatMapMany(Function.identity());
 	}
 }

@@ -1,15 +1,19 @@
 package com.nhn.blind.service;
 
+import java.util.concurrent.CompletableFuture;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 
 import com.nhn.blind.model.Comment;
 import com.nhn.blind.repository.CommentDao;
 
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 @Service
+@EnableAsync
 public class CommentService {
 	@Autowired
 	private CommentDao commentDao;
@@ -27,12 +31,14 @@ public class CommentService {
 	public boolean delete(Comment comment) {
 		return commentDao.delete(comment);
 	}
-	public Flux<Comment> getBoardCommentById(Long boardId) {
-		return Flux.fromIterable(commentDao.getBoardCommentById(boardId));
+	
+	@Async
+	public CompletableFuture<Flux<Comment>> getBoardCommentById(Long boardId) {
+		return CompletableFuture.completedFuture(Flux.fromIterable(commentDao.getBoardCommentById(boardId)));
 	}
 	
-	public Mono<Comment> getBoardCommentByIdOne(Long boardId) {
-		return Mono.just(commentDao.getBoardCommentByIdOne(boardId));
-	}
+//	public Mono<Comment> getBoardCommentByIdOne(Long boardId) {
+//		return Mono.just(commentDao.getBoardCommentByIdOne(boardId));
+//	}
 	
 }
