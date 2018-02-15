@@ -36,7 +36,7 @@ public class BoardController {
 	public Mono<String> view(Model model) {
 //		Flux<Board> test = Mono.fromCompletionStage(boardService.getList(id)).flatMapMany(Function.identity()).log();
 //		test.subscribe();
-		model.addAttribute("boards", Mono.fromCompletionStage(boardService.getList(null)).flatMapMany(Function.identity()));
+		model.addAttribute("boards", Mono.fromCompletionStage(boardService.getList(-1L)).flatMapMany(Function.identity()));
 		return Mono.just("/board/boardListView");
 	}
 	

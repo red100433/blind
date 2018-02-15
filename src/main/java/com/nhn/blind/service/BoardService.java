@@ -30,7 +30,7 @@ public class BoardService {
 	@Async
 	public CompletableFuture<Flux<Board>> getList(Long next) {
 		// Thread.sleep(2000);
-		if (null == next) {
+		if (-1L == next) {
 			next = boardDao.getLastBoardId()+1;
 		}
 		return CompletableFuture.completedFuture(Flux.fromIterable(boardDao.getList(next)).retry(3))
