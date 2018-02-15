@@ -19,6 +19,7 @@ import com.nhn.blind.model.Board;
 import com.nhn.blind.service.BoardService;
 
 import lombok.extern.slf4j.Slf4j;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Controller
@@ -32,13 +33,23 @@ public class BoardController {
 	WebClient webclient = WebClient.create();
 
 	@GetMapping("")
-	public Mono<String> view(Model model) throws InterruptedException {
-//		Flux<Board> test = Mono.fromCompletionStage(sboardService.getList()).flatMapMany(Function.identity());
-		model.addAttribute("boards", Mono.fromCompletionStage(boardService.getList()).flatMapMany(Function.identity()));
+	public Mono<String> view(Model model) {
+//		Flux<Board> test = Mono.fromCompletionStage(boardService.getList(id)).flatMapMany(Function.identity()).log();
+//		test.subscribe();
+		model.addAttribute("boards", Mono.fromCompletionStage(boardService.getList(null)).flatMapMany(Function.identity()));
 		return Mono.just("/board/boardListView");
 	}
+	
+	@GetMapping("/{next}")
+	@ResponseBody
+	public Flux<Board> view(Model model, @PathVariable Long next) {
+//		Flux<Board> test = Mono.fromCompletionStage(boardService.getList(id)).flatMapMany(Function.identity()).log();
+//		test.subscribe();
+		log.info("{}", next);
+		return Mono.fromCompletionStage(boardService.getList(next)).flatMapMany(Function.identity());
+	}
 
-	@GetMapping("/{id}")
+	@GetMapping("/board/{id}")
 	// TODO 만약 사용자 userId 와 게시글 작성자의 id 가 맞지 않으면 RuntimeException을 던짐, 아직 예외 처리 안함
 	public Mono<String> board(Model model, @PathVariable Long id, @CookieValue("userId") String userId) {
 		model.addAttribute("board", boardService.getById(id, Integer.parseInt(userId)));

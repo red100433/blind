@@ -1,12 +1,5 @@
 $(document).ready(function() {
 
-	$("[name=updateBoard]").click(function(event) {
-//		var title = $("#title").val();
-//		var content = $("#content").val();
-//		addBoard(title, content);
-		
-		//미구현
-	});
 	$("[name=deleteBoard]").click(function(event) {
 		var id = $("#boardId").val();
 		console.log(id);

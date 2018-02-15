@@ -6,7 +6,7 @@ function updateEvent() {
 	});
 }
 
-function deleteEvent() {
+function deleteCommentEvent() {
 	$("[name=deleteComment]").click(function(event) {
 		var parent = $(this).closest(".panel-default");
 		var id = $(this).closest(".panel-footer")[0].id;
@@ -15,7 +15,7 @@ function deleteEvent() {
 		deleteComment(id, boardId, function(data) {
 			renderComment(parent, data);
 			
-			deleteEvent();
+			deleteCommentEvent();
 		});
 	});
 }

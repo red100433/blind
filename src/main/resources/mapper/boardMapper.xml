@@ -6,13 +6,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.nhn.blind.repository.BoardDao">
 
 	<select id="getList" resultType="com.nhn.blind.model.Board">
-		SELECT * FROM board ORDER BY id
-		DESC
+		SELECT * FROM board
+		WHERE id <![CDATA[ < ]]> #{next} 
+		ORDER BY id	DESC
+		limit 20
 	</select>
-
-	<select id="getTitleList" resultType="com.nhn.blind.model.Board">
-		SELECT id, title, userId, date FROM board ORDER BY id
-		DESC
+	<select id="getCount" resultType="int">
+		SELECT count(id) FROM board
+	</select>
+	
+	<select id="getLastBoardId" resultType="Long">
+		SELECT id FROM board
+		ORDER BY id desc
+		LIMIT 1
 	</select>
 	
 	<select id="getById" resultType="com.nhn.blind.model.Board">
@@ -38,8 +44,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				</otherwise>
 			</choose>
 	</insert>
-
-	
 	
 	<delete id="delete">
 		DELETE FROM Board WHERE id=#{id} AND userId=#{userId}
