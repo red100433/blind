@@ -45,8 +45,8 @@ function addBoard(id, title, content) {
 	object.title= title;
 	object.content= content;
 	
-	console.log(title);
-	console.log(content);
+//	console.log(title);
+//	console.log(content);
 	
 	$.ajax({
 		type : "POST",
@@ -55,7 +55,7 @@ function addBoard(id, title, content) {
 		data : JSON.stringify(object),
 		timeout : 600000,
 		success : function(data) {
-			console.log(data);
+//			console.log(data);
 			location.href = "http://localhost:8080/view";
 		},
 		error : function(e) {

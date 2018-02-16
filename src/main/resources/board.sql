@@ -76,3 +76,5 @@ insert into user_role(email, role) values ('jang@naver.com', 'ROLE_USER');
 insert into user_role(email) values ('kang@naver.com');
 
 SELECT email, role FROM user_role WHERE email='jang@naver.com';
+
+delete from board where id=1;

@@ -26,10 +26,11 @@ public class BoardService {
 	 * boardDao.getList가 3번 fail 되면 runtimeException을날림
 	 * 
 	 * @return
+	 * @throws InterruptedException 
 	 */
 	@Async
-	public CompletableFuture<Flux<Board>> getList(Long next) {
-		// Thread.sleep(2000);
+	public CompletableFuture<Flux<Board>> getList(Long next) throws InterruptedException {
+//		Thread.sleep(2000);
 		if (-1L == next) {
 			next = boardDao.getLastBoardId()+1;
 		}

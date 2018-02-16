@@ -32,8 +32,14 @@ public class BoardController {
 
 	WebClient webclient = WebClient.create();
 
+	/**
+	 * Mono.fromFutre vs Mono.fromCompletionStage 차이는 일반화 단계인 fromCompletionStage를 써라( api 문서 )
+	 * @param model
+	 * @return
+	 * @throws InterruptedException 
+	 */
 	@GetMapping("")
-	public Mono<String> view(Model model) {
+	public Mono<String> view(Model model) throws InterruptedException {
 //		Flux<Board> test = Mono.fromCompletionStage(boardService.getList(id)).flatMapMany(Function.identity()).log();
 //		test.subscribe();
 		model.addAttribute("boards", Mono.fromCompletionStage(boardService.getList(-1L)).flatMapMany(Function.identity()));
@@ -42,10 +48,7 @@ public class BoardController {
 	
 	@GetMapping("/{next}")
 	@ResponseBody
-	public Flux<Board> view(Model model, @PathVariable Long next) {
-//		Flux<Board> test = Mono.fromCompletionStage(boardService.getList(id)).flatMapMany(Function.identity()).log();
-//		test.subscribe();
-		log.info("{}", next);
+	public Flux<Board> view(Model model, @PathVariable Long next) throws InterruptedException {
 		return Mono.fromCompletionStage(boardService.getList(next)).flatMapMany(Function.identity());
 	}
 
@@ -65,8 +68,18 @@ public class BoardController {
 
 	@PostMapping("/board")
 	public Mono<String> addBoard(@RequestBody Board board, @CookieValue("userId") String userId) {
+		
+//		board.doOnNext(s -> s.setUserId(Integer.parseInt(userId)));
+//		log.info("{}", board.block().toString());
 		board.setUserId(Integer.parseInt(userId));
+		log.info("{}", board.toString());
 
+//		 .map(content -> new BlogPost(UUID.randomUUID(),
+//                 content.getTitle(), content.getAuthor(), content.getBody()))
+//         .publishOn(Schedulers.parallel())
+//         .doOnNext(repository::save)
+//         .map(BlogPost::getId);
+		 
 		boardService.add(board);
 		return Mono.just("redirect:/view");
 	}
