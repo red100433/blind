@@ -9,6 +9,12 @@ $(document).ready(function() {
 		submitUser(id, name, email, password);
 	});
 
+	$("[name=userDelete]").click(function(event) {
+		var id = $("#id").val();
+		console.log(id);
+		deleteUser(id);
+	});
+	
 });
 
 function submitUser(id, name, email, password) {
@@ -26,11 +32,30 @@ function submitUser(id, name, email, password) {
 		timeout : 600000,
 		success : function(data) {
 			console.log(data);
-//			location.href = "http://localhost:8080/login";
+			if("putSuccess" === data) {
+				location.href = "http://localhost:8080/login";
+			}
 		},
 		error : function(e) {
 			console.log("ERROR : ", e);
 		}
 	});
+}
 
+function deleteUser(id) {
+	var object = new Object();
+	$.ajax({
+		type : "DELETE",
+		contentType: "application/json",
+		url : "/signup/" + id,
+		data : JSON.stringify(object),
+		timeout : 600000,
+		success : function(data) {
+//			console.log(data);
+			location.href = "http://localhost:8080/login";
+		},
+		error : function(e) {
+			console.log("ERROR : ", e);
+		}
+	});
 }

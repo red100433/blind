@@ -11,8 +11,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<insert id="add">
-		INSERT INTO User(name, email, password)
-		VALUES (#{name},#{email},#{password})
+		<choose>
+			<when test="id != null and id !=0">
+				INSERT INTO User(id, name, email, password)
+				VALUES (#{id},#{name},#{email},#{password})
+				ON DUPLICATE KEY UPDATE name=#{name}
+					, email=#{email}
+					, password=#{password}
+			</when>
+			<otherwise>
+				INSERT INTO User(name, email, password)
+				VALUES (#{name},#{email},#{password})
+			</otherwise>
+		</choose>
 	</insert>
 
 	<delete id="delete">

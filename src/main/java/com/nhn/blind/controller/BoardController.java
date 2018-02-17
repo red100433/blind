@@ -40,9 +40,10 @@ public class BoardController {
 	 * @throws InterruptedException 
 	 */
 	@GetMapping("")
-	public Mono<String> view(Model model) throws InterruptedException {
+	public Mono<String> view(Model model, @CookieValue("userId") String userId) throws InterruptedException {
 //		Flux<Board> test = Mono.fromCompletionStage(boardService.getList(id)).flatMapMany(Function.identity()).log();
 //		test.subscribe();
+		model.addAttribute("userId", userId);
 		model.addAttribute("boards", Mono.fromCompletionStage(boardService.getList(-1L)).flatMapMany(Function.identity()));
 		return Mono.just("/board/boardListView");
 	}
@@ -54,7 +55,7 @@ public class BoardController {
 	}
 
 	@GetMapping("/board/{id}")
-	// TODO 만약 사용자 userId 와 게시글 작성자의 id 가 맞지 않으면 RuntimeException을 던짐, 아직 예외 처리 안함
+	// TODO 만약 사용자 userId 와 게시글 작성자의 id 가 맞지 않으면 RuntimeException을 던짐
 	public Mono<String> board(Model model, @PathVariable Long id, @CookieValue("userId") String userId) {
 		model.addAttribute("board", boardService.getById(id, Integer.parseInt(userId)));
 		return Mono.just("/board/addBoard");

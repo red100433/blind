@@ -6,6 +6,7 @@ import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseCookie.ResponseCookieBuilder;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,7 +33,7 @@ public class LoginController {
     
     @PostMapping("")
     @ResponseStatus(HttpStatus.OK)
-    public Mono<String> loginUser(@ModelAttribute User user, ServerHttpResponse res){
+    public Mono<String> loginUser(Model model, @ModelAttribute User user, ServerHttpResponse res){
     	log.info("{}", user);
     	Mono<User> getByEmail = userService.getByEmail(user.getEmail())
     			.filter(s -> s.getPassword().equals(user.getPassword()));
@@ -40,7 +41,7 @@ public class LoginController {
     		ResponseCookieBuilder userId = ResponseCookie.from("userId", String.valueOf(getByEmail.block().getId()));
     		userId.path("/");
     		res.addCookie(userId.build());
-    		return Mono.just("/home");
+    		return Mono.just("redirect:/");
     	} else {
     		return Mono.just("/login");
     	}

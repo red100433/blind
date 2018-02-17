@@ -21,6 +21,6 @@ public class DefaultController {
 
 	@GetMapping("/")
     public Mono<String> home() {
-        return Mono.just("home");
+        return Mono.just("redirect:/view");
     }
 }
