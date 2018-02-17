@@ -1,5 +1,6 @@
 package com.nhn.blind.service;
 
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.nhn.blind.exception.UserException;
 import com.nhn.blind.model.Board;
 import com.nhn.blind.repository.BoardDao;
 
@@ -75,7 +77,11 @@ public class BoardService {
 
 	@Transactional
 	public boolean delete(Board board) {
-		return boardDao.delete(board);
+		if(boardDao.delete(board)) {
+			return true;
+		} else {
+			throw new UserException("No Access User!!!!!");
+		}
 	}
 
 	/**
@@ -89,7 +95,9 @@ public class BoardService {
 		// Mono<ServerResponse> error = ServerResponse.notFound().build();
 		// Mono<Board> justOrEmpty = Mono.justOrEmpty(boardDao.getById(id, userId));
 		// return Mono.justOrEmpty(boardDao.getById(id, userId));
-		return Mono.justOrEmpty(boardDao.getById(id, userId)).retry(3)
-				.switchIfEmpty(Mono.defer(() -> Mono.error(new RuntimeException())));
+		return Mono.justOrEmpty(boardDao.getById(id, userId))
+				.retry(3)
+				.switchIfEmpty(Mono.defer(() -> Mono.error(new UserException("No Access User!!!!!"))))
+				;
 	}
 }

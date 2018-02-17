@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.nhn.blind.exception.UserException;
 import com.nhn.blind.model.Board;
 import com.nhn.blind.service.BoardService;
 
@@ -56,7 +57,6 @@ public class BoardController {
 	// TODO 만약 사용자 userId 와 게시글 작성자의 id 가 맞지 않으면 RuntimeException을 던짐, 아직 예외 처리 안함
 	public Mono<String> board(Model model, @PathVariable Long id, @CookieValue("userId") String userId) {
 		model.addAttribute("board", boardService.getById(id, Integer.parseInt(userId)));
-
 		return Mono.just("/board/addBoard");
 	}
 

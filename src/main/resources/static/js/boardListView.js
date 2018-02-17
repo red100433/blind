@@ -62,6 +62,7 @@ function deleteBoard(boardId) {
 		timeout : 600000,
 		data : JSON.stringify(object),
 		success : function(data) {
+//			console.log(data);
 			location.href = "http://localhost:8080/view";
 		},
 		error : function(e) {
