@@ -17,4 +17,6 @@ public interface CommentDao {
 	boolean delete(Comment comment);
 	List<Comment> getBoardCommentById(Long boardId);
 	Comment getBoardCommentByIdOne(Long boardId);
+	
+	int getCount();
 }

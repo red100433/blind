@@ -15,6 +15,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT id, userId, comment, date FROM comment WHERE boardId=#{boardId}
 		ORDER BY date DESC LIMIT 1
 	</select>
+	<select id="getCount" resultType="int">
+		SELECT count(boardId) FROM comment
+		where boardId = #{boardId}
+	</select>
 	
 
 	<insert id="add">
