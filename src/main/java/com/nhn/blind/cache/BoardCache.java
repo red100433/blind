@@ -1,4 +1,4 @@
-package com.nhn.blind.service;
+package com.nhn.blind.cache;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,9 +16,14 @@ public class BoardCache {
 	private BoardDao boardDao;
 
 	private final Map<Long, List<Board>> boardCache = new HashMap<>();
-	private final long cacheDuration = 600*1000L;
-	private long boardCacheLoadTime; 
+	private final long cacheDuration = 600 * 1000L;
+	private long boardCacheLoadTime;
 
+	/**
+	 * 만약 캐시를 거치지 않고 DB값을 변경시킬 경우 cache에 적용되지 않기 때문에 10분 정도의 간격을 통해서 Cache를 갱신한다.
+	 * @param boardGroupKey
+	 * @return
+	 */
 	public List<Board> findBoardGroup(String boardGroupKey) {
 		long now = System.currentTimeMillis();
 		
