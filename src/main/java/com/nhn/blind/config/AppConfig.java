@@ -8,6 +8,9 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 //@EnableWebFlux
 public class AppConfig {
 	
+	/**
+	 * Service에서 Async처리 할 Thread 생성
+	 */
 //	@Bean
 //	public ThreadPoolTaskExecutor myThreadPool() {
 //		ThreadPoolTaskExecutor tp = new ThreadPoolTaskExecutor();

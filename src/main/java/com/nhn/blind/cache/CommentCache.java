@@ -51,4 +51,14 @@ public class CommentCache {
 
 		return commentCache.get(commentGroupKey);
 	}
+	
+	public void init() {
+		commentCache.clear();
+	}
+	
+	// TODO DB + Cache 두 곳에 데이터를 한번에 갱신할 지
+	// TODO DB를 갱신시키고 Cache에서 boardId에 행당되는 cache를 갱신시킬지 고민
+	public void addComment(String boardId, Comment comment) {
+		commentCache.get(boardId).add(comment);
+	}
 }

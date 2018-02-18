@@ -12,6 +12,7 @@ import com.nhn.blind.model.Comment;
 import com.nhn.blind.repository.CommentDao;
 
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Service
 @EnableAsync
@@ -24,16 +25,25 @@ public class CommentService {
 	}
 	
 	@Transactional
-	public boolean add(Comment comment) {
-		return commentDao.add(comment);
+	public Mono<Boolean> add(Comment comment) {
+		if(commentDao.add(comment)) {
+			return Mono.just(true);
+		} else {
+			return Mono.defer(() -> Mono.error(new RuntimeException()));
+		}
 	}
 	@Transactional
 	public boolean update(Comment comment) {
 		return commentDao.update(comment);
 	}
 	@Transactional
-	public boolean delete(Comment comment) {
-		return commentDao.delete(comment);
+	public Mono<Boolean> delete(Comment comment) {
+		if(commentDao.delete(comment)) {
+			return Mono.just(true);
+		} else {
+			return Mono.defer(() -> Mono.error(new RuntimeException()));
+		}
+//		return Mono.just(commentDao.delete(comment));
 	}
 	
 	/**
