@@ -48,7 +48,7 @@ public class BoardService {
 
 	@Transactional
 	@Async
-	public void add(Board board) {
+	public Mono<Boolean> add(Board board) {
 
 //		try {
 //
@@ -67,7 +67,11 @@ public class BoardService {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-		 boardDao.add(board);
+		 if(boardDao.add(board)) {
+			 return Mono.just(true);
+		 } else {
+			 return Mono.defer(() -> Mono.error(new RuntimeException()));
+		 }
 	}
 
 	@Transactional
@@ -76,11 +80,13 @@ public class BoardService {
 	}
 
 	@Transactional
-	public boolean delete(Board board) {
+	public Mono<Boolean> delete(Board board) {
+//		Mono<Boolean> justOrEmpty = Mono.justOrEmpty(boardDao.delete(board)).retry(3)
+//				.switchIfEmpty(Mono.defer(() -> Mono.error(new UserException("No Access User!!!!!"))));
 		if(boardDao.delete(board)) {
-			return true;
+			return Mono.just(true);
 		} else {
-			throw new UserException("No Access User!!!!!");
+			return Mono.defer(() -> Mono.error(new UserException("No Access User!!!!!")));
 		}
 	}
 

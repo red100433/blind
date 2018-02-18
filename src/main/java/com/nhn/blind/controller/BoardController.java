@@ -88,12 +88,10 @@ public class BoardController {
 	@DeleteMapping("/board")
 	@ResponseBody
 	// TODO 게시글 삭제시 댓글도 다 지워야할지 고민
-	public Mono<String> deleteBoard(@RequestBody Board board, @CookieValue("userId") String userId) {
+	public Mono<Boolean> deleteBoard(@RequestBody Board board, @CookieValue("userId") String userId) {
 		board.setUserId(Integer.parseInt(userId));
 		log.info("board Id : {}", board.toString());
-		boardService.delete(board);
-
-		return Mono.just("deleteBoardSuceess");
+		return boardService.delete(board);
 	}
 
 }
