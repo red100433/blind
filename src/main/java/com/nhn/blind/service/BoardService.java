@@ -1,6 +1,5 @@
 package com.nhn.blind.service;
 
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +8,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.nhn.blind.cache.BoardCache;
 import com.nhn.blind.exception.UserException;
 import com.nhn.blind.model.Board;
 import com.nhn.blind.repository.BoardDao;
@@ -24,22 +24,38 @@ public class BoardService {
 	@Autowired
 	private BoardDao boardDao;
 
+	@Autowired
+	private BoardCache boardCache;
+
 	/**
 	 * boardDao.getList가 3번 fail 되면 runtimeException을날림
 	 * 
 	 * @return
-	 * @throws InterruptedException 
+	 * @throws InterruptedException
 	 */
 	@Async
 	public CompletableFuture<Flux<Board>> getList(Long next) throws InterruptedException {
-//		Thread.sleep(2000);
-		if (-1L == next) {
-			next = boardDao.getLastBoardId()+1;
+		if (next.equals(-1L) | next.compareTo(boardCache.getLastIndexBoardId()) > 0) {
+			log.info("cache data");
+			return CompletableFuture.completedFuture(Flux.fromIterable(boardCache.findBoardGroup(next)).retry(3))
+					.exceptionally(e -> {
+						throw new RuntimeException(e.getMessage());
+					});
+		} else {
+			log.info("DB data");
+			return CompletableFuture.completedFuture(Flux.fromIterable(boardDao.getList(next)).retry(3))
+					.exceptionally(e -> {
+						throw new RuntimeException(e.getMessage());
+					});
 		}
-		return CompletableFuture.completedFuture(Flux.fromIterable(boardDao.getList(next)).retry(3))
-				.exceptionally(e -> {
-					throw new RuntimeException(e.getMessage());
-				});
+		// if (-1L == next) {
+		// next = boardDao.getLastBoardId()+1;
+		// }
+		// return
+		// CompletableFuture.completedFuture(Flux.fromIterable(boardDao.getList(next)).retry(3))
+		// .exceptionally(e -> {
+		// throw new RuntimeException(e.getMessage());
+		// });
 	}
 
 	public int getCount() {
@@ -49,41 +65,26 @@ public class BoardService {
 	@Transactional
 	@Async
 	public Mono<Boolean> add(Board board) {
-
-//		try {
-//
-//			for (int i = 4; i < 100; i++) {
-//				String title = "test" + i;
-//				String content = i + "번째 테스트입니다";
-//				Board dummy = new Board();
-//				dummy.setTitle(title);
-//				dummy.setContent(content);
-//				dummy.setUserId(1);
-//				boardDao.add(dummy);
-//				Thread.sleep(100);
-//				log.info("돌고 있습니다 : {}", i);
-//			}
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		 if(boardDao.add(board)) {
-			 return Mono.just(true);
-		 } else {
-			 return Mono.defer(() -> Mono.error(new RuntimeException()));
-		 }
-	}
-
-	@Transactional
-	public boolean update(Board board) {
-		return boardDao.update(board);
+		boolean cacheFlag = false;
+		if(board.getId() != null & board.getId() != 0) {
+			cacheFlag = boardCache.changeBoard(board);
+		} else {
+			cacheFlag = boardCache.addBoard(board);
+		}
+		
+		if (boardDao.add(board) & cacheFlag) {
+			return Mono.just(true);
+		} else {
+			return Mono.defer(() -> Mono.error(new RuntimeException()));
+		}
 	}
 
 	@Transactional
 	public Mono<Boolean> delete(Board board) {
-//		Mono<Boolean> justOrEmpty = Mono.justOrEmpty(boardDao.delete(board)).retry(3)
-//				.switchIfEmpty(Mono.defer(() -> Mono.error(new UserException("No Access User!!!!!"))));
-		if(boardDao.delete(board)) {
+		// Mono<Boolean> justOrEmpty = Mono.justOrEmpty(boardDao.delete(board)).retry(3)
+		// .switchIfEmpty(Mono.defer(() -> Mono.error(new UserException("No Access
+		// User!!!!!"))));
+		if (boardDao.delete(board) & boardCache.deleteBoard(board)) {
 			return Mono.just(true);
 		} else {
 			return Mono.defer(() -> Mono.error(new UserException("No Access User!!!!!")));
@@ -101,9 +102,7 @@ public class BoardService {
 		// Mono<ServerResponse> error = ServerResponse.notFound().build();
 		// Mono<Board> justOrEmpty = Mono.justOrEmpty(boardDao.getById(id, userId));
 		// return Mono.justOrEmpty(boardDao.getById(id, userId));
-		return Mono.justOrEmpty(boardDao.getById(id, userId))
-				.retry(3)
-				.switchIfEmpty(Mono.defer(() -> Mono.error(new UserException("No Access User!!!!!"))))
-				;
+		return Mono.justOrEmpty(boardDao.getById(id, userId)).retry(3)
+				.switchIfEmpty(Mono.defer(() -> Mono.error(new UserException("No Access User!!!!!"))));
 	}
 }
