@@ -1,8 +1,9 @@
 package com.nhn.blind.cache;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,46 +16,78 @@ public class BoardCache {
 	@Autowired
 	private BoardDao boardDao;
 
-	private final Map<Long, List<Board>> boardCache = new HashMap<>();
+	private static final int CACHE_POOL_SIZE = 1000;
+	private final List<Board> boardCache = new LinkedList<>();
 	private final long cacheDuration = 600 * 1000L;
 	private long boardCacheLoadTime;
 
 	/**
-	 * 만약 캐시를 거치지 않고 DB값을 변경시킬 경우 cache에 적용되지 않기 때문에 10분 정도의 간격을 통해서 Cache를 갱신한다.
+	 * 10분 정도의 간격을 통해서 Cache를 갱신한다.
+	 * DB와 별도로 관리한다.
 	 * @param boardGroupKey
 	 * @return
 	 */
-	public List<Board> findBoardGroup(String boardGroupKey) {
+	public List<Board> findBoardGroup(Long next) {
 		long now = System.currentTimeMillis();
 		
 		// 데이터가 적재되지 않았으면 데이터 저장소(DB)에서 데이터 가져오기
 		if (boardCache.isEmpty() | now - boardCacheLoadTime > cacheDuration) {
 			synchronized (boardCache) {
 				if (boardCache.isEmpty() | now - boardCacheLoadTime > cacheDuration) {
-					Map<Long, List<Board>> map = new HashMap<Long, List<Board>>();
-					int totalSize = boardDao.getCount();
-					int count = 20;
-					int page = totalSize / count;
-
-					if (totalSize % count > 0) {
-						page++;
-					}
-
-					for (Long i = 0L; i < page; i++) {
-						map.put(i, boardDao.getList(i));
-					}
+					List<Board> list = new ArrayList<>();
+					//TODO get AllList change
+					list.addAll(boardDao.getListAll());
 
 					boardCache.clear();
-					boardCache.putAll(map);
+					boardCache.addAll(list);
 					boardCacheLoadTime = now;
 				}
 			}
 		}
 
-		return boardCache.get(boardGroupKey);
+		
+		return boardCache.stream().skip(20*next).limit(20).collect(Collectors.toList());
 	}
 	
 	public void init() {
 		boardCache.clear();
+	}
+	
+	/**
+	 * 삽입 할 때, List 맨 처음에 값을 넣는다.
+	 * @param board
+	 */
+	public void addBoard(Board board) {
+		if(boardCache.size() == CACHE_POOL_SIZE) {
+			boardCache.remove(CACHE_POOL_SIZE-1);
+		} 
+		boardCache.add(0, board);
+	}
+	
+	/**
+	 * 삭제 할 때, 특정 값 삭제 
+	 * @param boardId
+	 */
+	public void deleteBoard(Board board) {
+		boardCache.removeIf(s -> 
+			(s.getId().equals(board.getId())) &
+			(s.getUserId() == board.getUserId())
+		);
+	}
+	
+	/**
+	 * primary key인 id 값을 찾아서 update 함.
+	 * @param updateBoard
+	 */
+	public void changeBoard(Board updateBoard) {
+		boardCache.stream().filter(s -> s.getId().equals(updateBoard.getId()))
+							.findFirst()
+							.ifPresent(s -> {
+									s.setTitle(updateBoard.getTitle());
+									s.setContent(updateBoard.getContent());
+									s.setUserId(updateBoard.getUserId());
+								})
+							;
+							
 	}
 }
