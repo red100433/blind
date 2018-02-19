@@ -20,6 +20,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where boardId = #{boardId}
 	</select>
 	
+	<select id="getLastBoardId" resultType="Long">
+		SELECT boardId FROM comment
+		ORDER BY boardId DESC
+		LIMIT 1;
+	</select>
+	
 
 	<insert id="add">
 		INSERT INTO Comment(comment, boardId, userId)

@@ -19,4 +19,5 @@ public interface CommentDao {
 	Comment getBoardCommentByIdOne(Long boardId);
 	
 	int getCount();
+	Long getLastBoardId();
 }
