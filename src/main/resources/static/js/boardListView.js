@@ -6,7 +6,7 @@ $(document).ready(function() {
 	    }
 	}
 	setInterval(ajaxCall,1000);
-	
+	boardFunction();
 	
 	$("[name=continueFlag]").click(function(event) {
 		if( $(this).val() == 'NoUpdate' ) {
@@ -26,13 +26,12 @@ $(document).ready(function() {
 		} else {
 			getBoardList(lastIndexId, function(data) {
 				parent.append(renderBoard(data));
-				
 				boardFunction();
 			});
 		}
 	});
 	
-	boardFunction();
+	
 	
 });
 
@@ -102,11 +101,15 @@ function ajax_submit(){
 }
 
 function boardFunction() {
+	$(".collapsed").off("click");
+	
 	$(".collapsed").click(function(event) {
 		var id = $(this).closest("a")[0].id;
 		
 		$("#collapse" + id).click();
 	});
+	
+	$(".panel-collapse.collapse").off("click");
 	
 	$(".panel-collapse.collapse").click(function(event){
 		var parent = $(this).closest(".panel-default");
@@ -128,6 +131,8 @@ function boardFunction() {
 		
 	});
 	
+	$("[name=send]").off("click");
+	
 	$("[name=send]").click(function(event) {
 		var parent = $(this).closest(".panel-default");
 		var comment = $(this).closest(".form-group").children(".col-sm-10").children(".form-control").val();
@@ -141,11 +146,15 @@ function boardFunction() {
 		});
 	});
 	
+	$("[name=updateBoard]").off("click");
+	
 	$("[name=updateBoard]").click(function(event) {
 		var boardId = $(this).closest(".panel-default")[0].id;
 		console.log("update");
 		location.href = "http://localhost:8080/view/board/" + boardId;
 	});
+	
+	$("[name=deleteBoard]").off("click");
 	
 	$("[name=deleteBoard]").click(function(event) {
 		var boardId = $(this).closest(".panel-default")[0].id;
