@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseCookie.ResponseCookieBuilder;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,18 +22,17 @@ import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
 @Controller
-@RequestMapping("login")
 @Slf4j
 public class LoginController {
 	@Autowired
 	private UserService userService;
 	
-    @GetMapping("")
+    @GetMapping("login")
     public Mono<String> login() {
         return Mono.just("login");
     }
     
-    @PostMapping("")
+    @PostMapping("login")
     @ResponseStatus(HttpStatus.OK)
     public Mono<String> loginUser(Model model, @ModelAttribute User user, ServerHttpResponse res){
     	log.info("{}", user);
@@ -45,5 +46,14 @@ public class LoginController {
     	} else {
     		return Mono.just("/login");
     	}
+    }
+    
+    @GetMapping("logout")
+    public Mono<String> logout(@CookieValue("userId") String userId, ServerHttpRequest req, ServerHttpResponse res) {
+    	//쿠키 삭제
+    	ResponseCookieBuilder setUserId = ResponseCookie.from("userId", "");
+		setUserId.path("/");
+		res.addCookie(setUserId.build());
+    	return Mono.just("redirect:/login");
     }
 }

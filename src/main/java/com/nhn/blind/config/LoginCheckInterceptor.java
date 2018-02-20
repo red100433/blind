@@ -31,10 +31,14 @@ public class LoginCheckInterceptor implements WebFilter{
 //        }
     	
     	if (exchange.getRequest().getURI().getPath().equals("/signup")) {
-    	        return chain.filter(exchange.mutate().request(exchange.getRequest().mutate().path("/signup").build()).build());
+    			return chain.filter(exchange.mutate().request(exchange.getRequest().mutate().path("/signup").build()).build());
     	}
     	if(exchange.getRequest().getCookies().isEmpty()) {
     		 return chain.filter(exchange.mutate().request(exchange.getRequest().mutate().path("/login").build()).build());
+    	}
+    	
+    	if(exchange.getRequest().getCookies().get("userId").get(0).getValue().equals("")) {
+   		 	return chain.filter(exchange.mutate().request(exchange.getRequest().mutate().path("/login").build()).build());
     	}
         return chain.filter(exchange);
     }
