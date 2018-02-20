@@ -46,9 +46,8 @@ public class BoardService {
 //					});
 //		} 
 		if (next.equals(-1L)) {
-			next = boardDao.getLastBoardId();
+			next = boardDao.getLastBoardId()+1;
 		}
-			log.info("Board DB data");
 			return CompletableFuture.completedFuture(Flux.fromIterable(boardDao.getList(next)).retry(3))
 					.exceptionally(e -> {
 						throw new RuntimeException(e.getMessage());
