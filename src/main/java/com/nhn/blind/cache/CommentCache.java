@@ -20,7 +20,7 @@ public class CommentCache {
 	@Autowired
 	private CommentDao commentDao;
 
-	private static final int CACHE_POOL_SIZE = 500;
+	private static final int CACHE_POOL_SIZE = 100;
 	private final Map<Long, CommentCacheModel> commentCache = new HashMap<>();
 	private final long cacheDuration = 600 * 1000L;
 	private long commentCacheLoadTime;

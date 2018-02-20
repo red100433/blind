@@ -22,14 +22,13 @@ public class CommentService {
 	@Autowired
 	private CommentDao commentDao;
 	
-	@Autowired
-	private CommentCache commentCache;
+//	@Autowired
+//	private CommentCache commentCache;
 	
 	@Transactional
-	@Async(value = "myCommentThreadPool")
 	public Mono<Boolean> add(Comment comment) {
 		if(commentDao.add(comment)) {
-			commentCache.changeComment(comment.getBoardId());
+//			commentCache.changeComment(comment.getBoardId());
 			return Mono.just(true);
 		} else {
 			return Mono.defer(() -> Mono.error(new RuntimeException()));
@@ -37,10 +36,9 @@ public class CommentService {
 	}
 	
 	@Transactional
-	@Async(value = "myCommentThreadPool")
 	public Mono<Boolean> delete(Comment comment) {
 		if(commentDao.delete(comment)) {
-			commentCache.changeComment(comment.getBoardId());
+//			commentCache.changeComment(comment.getBoardId());
 			return Mono.just(true);
 		} else {
 			return Mono.defer(() -> Mono.error(new RuntimeException()));
@@ -55,7 +53,7 @@ public class CommentService {
 	 */
 	@Async(value = "myCommentThreadPool")
 	public CompletableFuture<Flux<Comment>> getBoardCommentById(Long boardId) {
-		return CompletableFuture.completedFuture(Flux.fromIterable(commentCache.findCommentGroup(boardId)).retry(3)).exceptionally(e -> {
+		return CompletableFuture.completedFuture(Flux.fromIterable(commentDao.getBoardCommentById(boardId)).retry(3)).exceptionally(e -> {
 			throw new RuntimeException(e.getMessage());
 		});
 	}
