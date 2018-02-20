@@ -41,8 +41,6 @@ public class BoardController {
 	 */
 	@GetMapping("")
 	public Mono<String> view(Model model, @CookieValue("userId") String userId) throws InterruptedException {
-//		Flux<Board> test = Mono.fromCompletionStage(boardService.getList(id)).flatMapMany(Function.identity()).log();
-//		test.subscribe();
 		model.addAttribute("userId", userId);
 		model.addAttribute("boards", Mono.fromCompletionStage(boardService.getList(-1L)).flatMapMany(Function.identity()));
 		return Mono.just("/board/boardListView");
@@ -70,16 +68,7 @@ public class BoardController {
 	@PostMapping("/board")
 	public Mono<String> addBoard(@RequestBody Board board, @CookieValue("userId") String userId) {
 		
-//		board.doOnNext(s -> s.setUserId(Integer.parseInt(userId)));
-//		log.info("{}", board.block().toString());
 		board.setUserId(Integer.parseInt(userId));
-		log.info("{}", board.toString());
-
-//		 .map(content -> new BlogPost(UUID.randomUUID(),
-//                 content.getTitle(), content.getAuthor(), content.getBody()))
-//         .publishOn(Schedulers.parallel())
-//         .doOnNext(repository::save)
-//         .map(BlogPost::getId);
 		 
 		boardService.add(board);
 		return Mono.just("redirect:/view");

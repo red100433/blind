@@ -13,6 +13,9 @@ import org.springframework.stereotype.Component;
 import com.nhn.blind.model.Board;
 import com.nhn.blind.repository.BoardDao;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Component
 public class BoardCache {
 	@Autowired
@@ -39,8 +42,11 @@ public class BoardCache {
 				if (boardCache.isEmpty() | now - boardCacheLoadTime > cacheDuration) {
 					List<Board> list = new ArrayList<>();
 					// TODO get AllList change
+					
 					list.addAll(boardDao.getListAll());
 					lastIndexBoardId = list.get(CACHE_POOL_SIZE - 1).getId();
+					
+					log.info("Board Cache Set Time:{} ms", System.currentTimeMillis() - now);
 					boardCache.clear();
 					boardCache.addAll(list);
 					boardCacheLoadTime = now;
