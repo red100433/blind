@@ -28,9 +28,6 @@ public class BoardService {
 	private BoardDao boardDao;
 
 	@Autowired
-	private CommentDao commentDao;
-
-	@Autowired
 	private BoardCache boardCache;
 
 	/**
@@ -39,7 +36,7 @@ public class BoardService {
 	 * @return
 	 * @throws InterruptedException
 	 */
-	@Async
+	@Async(value = "myBoardThreadPool")
 	public CompletableFuture<Flux<Board>> getList(Long next) throws InterruptedException {
 		if (next.equals(-1L) | next.compareTo(boardCache.getLastIndexBoardId()) > 0) {
 			log.info("Board Cache Data");
@@ -57,7 +54,7 @@ public class BoardService {
 	}
 
 	@Transactional
-	@Async
+	@Async(value = "myBoardThreadPool")
 	public Mono<Boolean> add(Board board) {
 		boolean cacheFlag = false;
 		if (board.getId() != null & board.getId() != 0) {
@@ -74,6 +71,7 @@ public class BoardService {
 	}
 
 	@Transactional
+	@Async(value = "myBoardThreadPool")
 	public Mono<Boolean> delete(Board board) {
 		if (boardDao.delete(board) & boardCache.deleteBoard(board)) {
 			return Mono.just(true);
@@ -89,6 +87,7 @@ public class BoardService {
 	 * @param userId
 	 * @return
 	 */
+	@Async(value = "myCommentThreadPool")
 	public Mono<Board> getById(Long id, int userId) {
 		return Mono.justOrEmpty(boardDao.getById(id, userId)).retry(3)
 				.switchIfEmpty(Mono.defer(() -> Mono.error(new UserException("No Access User!!!!!"))));
