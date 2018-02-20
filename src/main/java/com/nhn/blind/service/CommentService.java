@@ -58,8 +58,4 @@ public class CommentService {
 		});
 	}
 	
-//	public Mono<Comment> getBoardCommentByIdOne(Long boardId) {
-//		return Mono.just(commentDao.getBoardCommentByIdOne(boardId));
-//	}
-	
 }

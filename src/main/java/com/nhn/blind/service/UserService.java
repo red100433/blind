@@ -19,14 +19,14 @@ public class UserService {
 		return userDao.getList();
 	}
 	
-	public boolean add(User user) {
-		return userDao.add(user);
+	public Mono<Boolean> add(User user) {
+		return Mono.just(userDao.add(user));
 	}
-	public boolean update(User user) {
-		return userDao.update(user);
+	public Mono<Boolean> update(User user) {
+		return Mono.just(userDao.update(user));
 	}
-	public boolean delete(int id) {
-		return userDao.delete(id);
+	public Mono<Boolean> delete(int id) {
+		return Mono.just(userDao.delete(id));
 	}
 	public Mono<User> getById(int id) {
 		return Mono.justOrEmpty(userDao.getById(id));
