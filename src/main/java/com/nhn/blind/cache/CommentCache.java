@@ -59,7 +59,6 @@ public class CommentCache {
 
 	public void init(long now) {
 		
-
 		// 데이터가 적재되지 않았으면 데이터 저장소(DB)에서 데이터 가져오기
 		if (commentCache.isEmpty() | ((now - commentCacheLoadTime) > cacheDuration)) {
 			synchronized (commentCache) {
@@ -76,7 +75,6 @@ public class CommentCache {
 							map.put(board.getId(), CommentCacheModel.of(System.currentTimeMillis(), boardCommentList));
 						}
 					}
-					
 					
 					log.info("Comment Cache Set Time:{} seconds", (System.currentTimeMillis() - now)/1000);
 					commentCache.clear();

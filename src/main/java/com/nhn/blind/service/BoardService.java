@@ -29,9 +29,8 @@ public class BoardService {
 
 	/**
 	 * boardDao.getList가 3번 fail 되면 runtimeException을날림
-	 * 
+	 * Cache에 데이터가 있으면 값을 리턴해주고 없으면 DB에 접근하여 값을 리턴한다.
 	 * @return
-	 * @throws InterruptedException
 	 */
 	@Async(value = "myBoardThreadPool")
 	public CompletableFuture<Flux<Board>> getList(Long next){
@@ -74,7 +73,6 @@ public class BoardService {
 	 * @param userId
 	 * @return
 	 */
-//	@Async(value = "myCommentThreadPool")
 	public Mono<Board> getById(Long id, int userId) {
 		return Mono.justOrEmpty(boardDao.getById(id, userId))
 				.switchIfEmpty(Mono.defer(() -> Mono.error(new UserException("No Access User!!!!!"))));

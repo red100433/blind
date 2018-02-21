@@ -75,12 +75,6 @@ public class BoardCache {
 	}
 
 	/**
-	 * 삽입 할 때, List 맨 처음에 값을 넣는다.
-	 * 
-	 * @param board
-	 */
-
-	/**
 	 * 삭제 할 때, 특정 값 삭제
 	 * 
 	 * @param boardId
