@@ -51,7 +51,7 @@ public class CommentService {
 	 */
 	@Async(value = "myCommentThreadPool")
 	public CompletableFuture<Flux<Comment>> getBoardCommentById(Long boardId) {
-		return CompletableFuture.completedFuture(Flux.fromIterable(commentCache.findCommentGroup(boardId)).retry(3)).exceptionally(e -> {
+		return CompletableFuture.completedFuture(Flux.fromIterable(commentCache.findGroup(boardId)).retry(3)).exceptionally(e -> {
 			throw new RuntimeException(e.getMessage());
 		});
 	}

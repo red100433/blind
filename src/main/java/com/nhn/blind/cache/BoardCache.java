@@ -3,9 +3,7 @@ package com.nhn.blind.cache;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.OptionalInt;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,11 +15,10 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Component
-public class BoardCache {
+public class BoardCache implements Cache<Board>{
 	@Autowired
 	private BoardDao boardDao;
 
-	private static final int CACHE_POOL_SIZE = 1000;
 	private final List<Board> boardCache = new LinkedList<>();
 	private final long cacheDuration = 600 * 1000L;
 	private long boardCacheLoadTime;
@@ -33,9 +30,30 @@ public class BoardCache {
 	 * @param boardGroupKey
 	 * @return
 	 */
-	public List<Board> findBoardGroup(Long next) {
+	
+	@Override
+	public List<Board> findGroup(Long next) {
 		long now = System.currentTimeMillis();
+		init(now);
+		
+		if (next.equals(-1L)) {
+			return firstList();
+		}
+				
+		int index = 0;
+		for(Board board : boardCache) {
+			if(board.getId().equals(next)) {
+				break;
+			}
+			index ++;
+		}
+		
+		return boardCache.stream().skip(index + 1).limit(20).collect(Collectors.toList());
 
+	}
+
+	@Override
+	public void init(long now) {
 		// 데이터가 적재되지 않았으면 데이터 저장소(DB)에서 데이터 가져오기
 		if (boardCache.isEmpty() | now - boardCacheLoadTime > cacheDuration) {
 			synchronized (boardCache) {
@@ -53,25 +71,6 @@ public class BoardCache {
 				}
 			}
 		}
-
-		if (next.equals(-1L)) {
-			return firstList();
-		}
-				
-		int index = 0;
-		for(Board board : boardCache) {
-			if(board.getId().equals(next)) {
-				break;
-			}
-			index ++;
-		}
-		
-		return boardCache.stream().skip(index + 1).limit(20).collect(Collectors.toList());
-
-	}
-
-	public void init() {
-		boardCache.clear();
 	}
 
 	/**

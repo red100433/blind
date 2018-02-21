@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Component
-public class CommentCache {
+public class CommentCache implements Cache<Comment> {
 	@Autowired
 	private CommentDao commentDao;
 	
@@ -35,7 +35,9 @@ public class CommentCache {
 	 * @param commentGroupKey
 	 * @return
 	 */
-	public List<Comment> findCommentGroup(Long commentGroupKey) {
+	
+	@Override
+	public List<Comment> findGroup(Long commentGroupKey) {
 		long now = System.currentTimeMillis();
 		init(now);
 
@@ -57,6 +59,7 @@ public class CommentCache {
 		return commentCache.get(commentGroupKey).getComment();
 	}
 
+	@Override
 	public void init(long now) {
 		
 		// 데이터가 적재되지 않았으면 데이터 저장소(DB)에서 데이터 가져오기
