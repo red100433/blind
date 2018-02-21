@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.nhn.blind.model.Board;
 import com.nhn.blind.model.Comment;
 import com.nhn.blind.model.CommentCacheModel;
 import com.nhn.blind.repository.CommentDao;
@@ -19,8 +20,10 @@ import lombok.extern.slf4j.Slf4j;
 public class CommentCache {
 	@Autowired
 	private CommentDao commentDao;
+	
+	@Autowired
+	private BoardCache boardCache;
 
-	private static final int CACHE_POOL_SIZE = 100;
 	private final Map<Long, CommentCacheModel> commentCache = new HashMap<>();
 	private final long cacheDuration = 600 * 1000L;
 	private long commentCacheLoadTime;
@@ -64,18 +67,16 @@ public class CommentCache {
 					Map<Long, CommentCacheModel> map = new HashMap<Long, CommentCacheModel>();
 
 					log.info("Comment Cache Setting.....");
-					Long groupByBoardId = commentDao.getLastBoardId();
 					
-					//가장 최근에 쓰여진 글의 id 값을 가져오고 id를 1개씩 줄여나가면서 캐시에 저장한다. 만약 데이터가 없다면 다음 데이터로 넘어간다.
-					for (Long i = groupByBoardId; i > 0 & map.size() <= CACHE_POOL_SIZE; i--) {
-						List<Comment> boardCommentList = commentDao.getBoardCommentById(i);
-						
+					for(Board board : boardCache.getBoardCache()) {
+						List<Comment> boardCommentList = commentDao.getBoardCommentById(board.getId());
 						if (boardCommentList.size() == 0) {
 							continue;
 						} else {
-							map.put(i, CommentCacheModel.of(1, boardCommentList));
+							map.put(board.getId(), CommentCacheModel.of(1, boardCommentList));
 						}
 					}
+					
 					
 					log.info("Comment Cache Set Time:{} seconds", (System.currentTimeMillis() - now)/1000);
 					commentCache.clear();

@@ -107,4 +107,8 @@ public class BoardCache {
 	public Long getLastIndexBoardId() {
 		return lastIndexBoardId;
 	}
+	
+	public List<Board> getBoardCache() {
+		return boardCache;
+	}
 }
