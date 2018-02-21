@@ -15,23 +15,6 @@
 		</form>
 		<p></p>
 		<div class="starter-template">
-		<!--  	<table class="table">
-				<tr>
-					<th>BoardId</th>
-					<th>Title</th>
-					<th>User</th>
-					<th>Date</th>
-				</tr>
-				<tr th:each="board : ${boards}">
-					<td th:text="${board.id}"></td>
-					<td><a th:href="@{/view/{id}(id=${board.id})}"
-						th:text="${board.title}"></a></td>
-					<td th:text="${board.userId}"></td>
-					<td th:text="${board.date}"></td>
-				</tr>
-
-			</table>
-			-->
 			<div class="panel-group" id="accordion" role="tablist"
 				aria-multiselectable="true" th:each="board : ${boards}">
 

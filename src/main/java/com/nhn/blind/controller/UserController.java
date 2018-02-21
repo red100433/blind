@@ -57,17 +57,15 @@ public class UserController {
 	
 	
 	
-	//TODO cookie 값 삭제 필요
 	@DeleteMapping("/{userId}")
 	@ResponseBody
 	public Mono<Void> deleteUser(@PathVariable String userId) {
 		log.info("User id:{}", userId);
-//		userService.delete(user.getId());
+		userService.delete(Integer.parseInt(userId));
 		return Mono.empty();
 	}
 	
-	//TODO cookie 값 삭제 필요
-	@PutMapping("/user") // change Name Email Password
+	@PutMapping("/user")
 	@ResponseBody
 	public Mono<String> updateUser(@RequestBody User updateUser) {
 		log.info("{}", updateUser.toString());
@@ -75,12 +73,4 @@ public class UserController {
 		userService.add(updateUser);
 		return Mono.just("putSuccess");
 	}
-	
-	
-	//TODO admin 권한으로 이동
-//	@GetMapping("/view")
-//	public Mono<String> allUser(Model model) {
-//		model.addAttribute("users", userService.getUserList());
-//		return Mono.just("/user/userView");
-//	}
 }

@@ -58,11 +58,15 @@ public class BoardCache {
 			return firstList();
 		}
 				
-		//TODO 수정
-		OptionalInt findFirst = IntStream.range(0, boardCache.size())
-				.filter(i -> next.equals(boardCache.get(i).getId())).findFirst();
-
-		return boardCache.stream().skip(findFirst.getAsInt() + 1).limit(20).collect(Collectors.toList());
+		int index = 0;
+		for(Board board : boardCache) {
+			if(board.getId().equals(next)) {
+				break;
+			}
+			index ++;
+		}
+		
+		return boardCache.stream().skip(index + 1).limit(20).collect(Collectors.toList());
 
 	}
 
