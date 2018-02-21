@@ -1,11 +1,4 @@
 $(document).ready(function() {
-	var ajaxCall=function(){
-		var check = $("[name=continueFlag]").val();
-	    if(check === "YesUpdate") {
-//	    	ajax_submit();
-	    }
-	}
-	setInterval(ajaxCall,1000);
 	boardFunction();
 	
 	$("[name=continueFlag]").click(function(event) {
@@ -42,7 +35,6 @@ function getBoardList(lastIndexId, callback) {
 		timeout : 600000,
 		success : function(data) {
 			callback(data);
-//			location.href = "http://localhost:8080/view";
 		},
 		error : function(e) {
 			console.log("ERROR : ", e);
@@ -75,21 +67,6 @@ function BoardComment(id, callback) {
 	$.ajax({
 		type : "GET",
 		url : "/comment/" + id,
-		timeout : 600000,
-		success : function(data) {
-			callback(data);
-		},
-		error : function(e) {
-			console.log("ERROR : ", e);
-		}
-	});
-}
-
-//flag On 위에 글 삽입 아직 미구현
-function ajax_submit(){
-	$.ajax({
-		type : "GET",
-		url : "/view/" + lastIndexId,
 		timeout : 600000,
 		success : function(data) {
 			callback(data);

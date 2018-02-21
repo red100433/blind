@@ -1,10 +1,3 @@
-function updateEvent() {
-	$("[name=updateComment]").click(function(event) {
-		var id = $(this).closest(".panel-footer")[0].id;
-		console.log(id);
-		//미구현
-	});
-}
 
 function deleteCommentEvent() {
 	$("[name=deleteComment]").click(function(event) {
@@ -53,28 +46,9 @@ function addComment(boardId, comment, callback) {
 		data : JSON.stringify(object),
 		success : function(data) {
 			callback(data);
-//			location.href = "http://localhost:8080/login";
 		},
 		error : function(e) {
 			console.log("ERROR : ", e);
 		}
 	});
 }
-
-
-//function BoardComment(id, callback) {
-//	$.ajax({
-//		type : "GET",
-//		url : "/view/board/" + id,
-//		timeout : 600000,
-//		success : function(data) {
-//			callback(data);
-//		},
-//		error : function(e) {
-//			console.log("ERROR : ", e);
-//		}
-//	});
-//}
-
-
-

@@ -38,7 +38,6 @@ function submitUser(name, email, password) {
 		data : JSON.stringify(object),
 		timeout : 600000,
 		success : function(data) {
-//			console.log(data);
 			location.href = "http://localhost:8080/login";
 		},
 		error : function(e) {
@@ -57,7 +56,6 @@ function deleteUser(id) {
 		data : JSON.stringify(object),
 		timeout : 600000,
 		success : function(data) {
-//			console.log(data);
 			location.href = "http://localhost:8080/login";
 		},
 		error : function(e) {

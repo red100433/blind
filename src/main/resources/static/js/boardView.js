@@ -29,7 +29,6 @@ function deleteBoard(id) {
 		timeout : 600000,
 		success : function(data) {
 			console.log(data);
-//			location.href = "http://localhost:8080/login";
 		},
 		error : function(e) {
 			console.log("ERROR : ", e);
@@ -45,9 +44,6 @@ function addBoard(id, title, content) {
 	object.title= title;
 	object.content= content;
 	
-//	console.log(title);
-//	console.log(content);
-	
 	$.ajax({
 		type : "POST",
 		contentType: "application/json",
@@ -55,7 +51,6 @@ function addBoard(id, title, content) {
 		data : JSON.stringify(object),
 		timeout : 600000,
 		success : function(data) {
-//			console.log(data);
 			location.href = "http://localhost:8080/view";
 		},
 		error : function(e) {
