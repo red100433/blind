@@ -1,6 +1,5 @@
 package com.nhn.blind.service;
 
-import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.nhn.blind.cache.BoardCache;
 import com.nhn.blind.exception.UserException;
 import com.nhn.blind.model.Board;
-import com.nhn.blind.model.Comment;
 import com.nhn.blind.repository.BoardDao;
-import com.nhn.blind.repository.CommentDao;
 
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
@@ -37,7 +34,7 @@ public class BoardService {
 	 * @throws InterruptedException
 	 */
 	@Async(value = "myBoardThreadPool")
-	public CompletableFuture<Flux<Board>> getList(Long next) throws InterruptedException {
+	public CompletableFuture<Flux<Board>> getList(Long next){
 		if (next.equals(-1L) | next.compareTo(boardCache.getLastIndexBoardId()) > 0) {
 			return CompletableFuture.completedFuture(Flux.fromIterable(boardCache.findBoardGroup(next)).retry(3))
 					.exceptionally(e -> {
@@ -52,7 +49,7 @@ public class BoardService {
 	}
 
 	@Transactional
-	public Mono<Boolean> add(Board board) throws InterruptedException {
+	public Mono<Boolean> add(Board board){
 		if (boardDao.add(board) ) {
 			boardCache.changeBoard();
 			return Mono.just(true);
@@ -73,7 +70,6 @@ public class BoardService {
 
 	/**
 	 * boardDao.getById가 3번 fail 되면 RuntimeException을 날림
-	 * 
 	 * @param id
 	 * @param userId
 	 * @return

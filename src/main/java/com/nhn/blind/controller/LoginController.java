@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.nhn.blind.model.User;
@@ -21,6 +20,11 @@ import com.nhn.blind.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
+/**
+ * 
+ * @author daeyun.jang
+ *
+ */
 @Controller
 @Slf4j
 public class LoginController {
@@ -32,6 +36,13 @@ public class LoginController {
         return Mono.just("login");
     }
     
+    /**
+     * 쿠키값 생성
+     * @param model
+     * @param user
+     * @param res
+     * @return
+     */
     @PostMapping("login")
     @ResponseStatus(HttpStatus.OK)
     public Mono<String> loginUser(Model model, @ModelAttribute User user, ServerHttpResponse res){
@@ -48,9 +59,15 @@ public class LoginController {
     	}
     }
     
+    /**
+     * 쿠기 값 삭제
+     * @param userId
+     * @param req
+     * @param res
+     * @return
+     */
     @GetMapping("logout")
     public Mono<String> logout(@CookieValue("userId") String userId, ServerHttpRequest req, ServerHttpResponse res) {
-    	//쿠키 삭제
     	ResponseCookieBuilder setUserId = ResponseCookie.from("userId", "");
 		setUserId.path("/");
 		res.addCookie(setUserId.build());

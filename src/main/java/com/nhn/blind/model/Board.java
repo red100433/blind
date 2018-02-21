@@ -1,6 +1,5 @@
 package com.nhn.blind.model;
 
-import java.math.BigInteger;
 import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;

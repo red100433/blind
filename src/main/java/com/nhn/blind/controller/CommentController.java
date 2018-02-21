@@ -20,6 +20,11 @@ import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+/**
+ * 
+ * @author daeyun.jang
+ *
+ */
 @RestController
 @RequestMapping("/comment")
 @Slf4j
@@ -27,12 +32,23 @@ public class CommentController {
 	@Autowired
 	private CommentService commentService;
 
+	/**
+	 * 해당 게시판 id로 댓글을 조회한다.
+	 * @param id
+	 * @return
+	 */
 	@GetMapping("/{id}")
 	@ResponseBody
 	public Flux<Comment> boardComment(@PathVariable Long id) {
 		return Mono.fromCompletionStage(commentService.getBoardCommentById(id)).flatMapMany(Function.identity());
 	}
 	
+	/**
+	 * 댓글 생성
+	 * @param comment
+	 * @param userId
+	 * @return
+	 */
 	@PostMapping("")
 	public Flux<Comment> addComment(@RequestBody Comment comment, @CookieValue("userId") String userId) {
 		comment.setUserId(Integer.parseInt(userId));
@@ -40,6 +56,12 @@ public class CommentController {
 		return Mono.fromCompletionStage(commentService.getBoardCommentById(comment.getBoardId())).flatMapMany(Function.identity());
 	}
 	
+	/**
+	 * 댓글 삭제
+	 * @param comment
+	 * @param userId
+	 * @return
+	 */
 	@DeleteMapping("")
 	public Flux<Comment> deleteComment(@RequestBody Comment comment, @CookieValue("userId") String userId) {
 		comment.setUserId(Integer.parseInt(userId));

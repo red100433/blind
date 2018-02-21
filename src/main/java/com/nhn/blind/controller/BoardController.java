@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import com.nhn.blind.exception.UserException;
 import com.nhn.blind.model.Board;
 import com.nhn.blind.service.BoardService;
 
@@ -32,15 +31,15 @@ public class BoardController {
 	private BoardService boardService;
 
 	WebClient webclient = WebClient.create();
-
+	
 	/**
 	 * Mono.fromFutre vs Mono.fromCompletionStage 차이는 일반화 단계인 fromCompletionStage를 써라( api 문서 )
 	 * @param model
+	 * @param userId
 	 * @return
-	 * @throws InterruptedException 
 	 */
 	@GetMapping("")
-	public Mono<String> view(Model model, @CookieValue("userId") String userId) throws InterruptedException {
+	public Mono<String> view(Model model, @CookieValue("userId") String userId){
 		model.addAttribute("userId", userId);
 		model.addAttribute("boards", Mono.fromCompletionStage(boardService.getList(-1L)).flatMapMany(Function.identity()));
 		return Mono.just("/board/boardListView");
@@ -48,7 +47,7 @@ public class BoardController {
 	
 	@GetMapping("/{next}")
 	@ResponseBody
-	public Flux<Board> view(Model model, @PathVariable Long next) throws InterruptedException {
+	public Flux<Board> view(Model model, @PathVariable Long next){
 		return Mono.fromCompletionStage(boardService.getList(next)).flatMapMany(Function.identity());
 	}
 
@@ -76,7 +75,6 @@ public class BoardController {
 
 	@DeleteMapping("/board")
 	@ResponseBody
-	// TODO 게시글 삭제시 댓글도 다 지워야할지 고민
 	public Mono<Boolean> deleteBoard(@RequestBody Board board, @CookieValue("userId") String userId) {
 		board.setUserId(Integer.parseInt(userId));
 		log.info("board Id : {}", board.toString());
