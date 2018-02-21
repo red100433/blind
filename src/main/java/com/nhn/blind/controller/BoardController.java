@@ -66,7 +66,7 @@ public class BoardController {
 	}
 
 	@PostMapping("/board")
-	public Mono<String> addBoard(@RequestBody Board board, @CookieValue("userId") String userId) {
+	public Mono<String> addBoard(@RequestBody Board board, @CookieValue("userId") String userId) throws InterruptedException {
 		
 		board.setUserId(Integer.parseInt(userId));
 		 

@@ -33,6 +33,28 @@ public class CommentCache {
 	 * @return
 	 */
 	public List<Comment> findCommentGroup(Long commentGroupKey) {
+		init();
+
+		//TODO 빈도수 말고 LRU로 
+		// 데이터가 적재되어 있다면, 빈도수를 1개 올려주고 값을 리턴한다.
+		// 만약 데이터가 캐시에 적재 되어 있지 않다면, 빈도수가 가장 낮은 데이터를 지우고 새로운 데이터를 캐시에 저장한다.
+		if (commentCache.get(commentGroupKey) == null) {
+			Entry<Long, CommentCacheModel> min = null;
+			for (Entry<Long, CommentCacheModel> entry : commentCache.entrySet()) {
+				if (min == null || min.getValue().getCount() > entry.getValue().getCount()) {
+					min = entry;
+				}
+			}
+			commentCache.remove(min.getKey());
+			commentCache.put(commentGroupKey, CommentCacheModel.of(1, commentDao.getBoardCommentById(commentGroupKey)));
+		} else {
+			commentCache.get(commentGroupKey).setCount(commentCache.get(commentGroupKey).getCount() + 1);
+		}
+		
+		return commentCache.get(commentGroupKey).getComment();
+	}
+
+	public void init() {
 		long now = System.currentTimeMillis();
 
 		// 데이터가 적재되지 않았으면 데이터 저장소(DB)에서 데이터 가져오기
@@ -62,27 +84,6 @@ public class CommentCache {
 				}
 			}
 		}
-
-		// 데이터가 적재되어 있다면, 빈도수를 1개 올려주고 값을 리턴한다.
-		// 만약 데이터가 캐시에 적재 되어 있지 않다면, 빈도수가 가장 낮은 데이터를 지우고 새로운 데이터를 캐시에 저장한다.
-		if (commentCache.get(commentGroupKey) == null) {
-			Entry<Long, CommentCacheModel> min = null;
-			for (Entry<Long, CommentCacheModel> entry : commentCache.entrySet()) {
-				if (min == null || min.getValue().getCount() > entry.getValue().getCount()) {
-					min = entry;
-				}
-			}
-			commentCache.remove(min.getKey());
-			commentCache.put(commentGroupKey, CommentCacheModel.of(1, commentDao.getBoardCommentById(commentGroupKey)));
-		} else {
-			commentCache.get(commentGroupKey).setCount(commentCache.get(commentGroupKey).getCount() + 1);
-		}
-		
-		return commentCache.get(commentGroupKey).getComment();
-	}
-
-	public void init() {
-		commentCache.clear();
 	}
 
 	/**

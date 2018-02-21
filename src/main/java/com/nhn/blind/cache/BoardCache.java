@@ -44,7 +44,7 @@ public class BoardCache {
 					// TODO get AllList change
 					
 					list.addAll(boardDao.getListAll());
-					lastIndexBoardId = list.get(CACHE_POOL_SIZE - 1).getId();
+					lastIndexBoardId = list.get(list.size()- 1).getId();
 					
 					log.info("Board Cache Set Time:{} ms", System.currentTimeMillis() - now);
 					boardCache.clear();
@@ -58,6 +58,7 @@ public class BoardCache {
 			return firstList();
 		}
 				
+		//TODO 수정
 		OptionalInt findFirst = IntStream.range(0, boardCache.size())
 				.filter(i -> next.equals(boardCache.get(i).getId())).findFirst();
 
@@ -74,24 +75,15 @@ public class BoardCache {
 	 * 
 	 * @param board
 	 */
-	public boolean addBoard(Board board) {
-		if (boardCache.size() == CACHE_POOL_SIZE) {
-			boardCache.remove(CACHE_POOL_SIZE - 1);
-		}
-		boardCache.add(0, board);
-		lastIndexBoardId = boardCache.get(CACHE_POOL_SIZE - 1).getId();
-		return true;
-	}
 
 	/**
 	 * 삭제 할 때, 특정 값 삭제
 	 * 
 	 * @param boardId
 	 */
-	public boolean deleteBoard(Board board) {
+	public void deleteBoard(Board board) {
 		boardCache.removeIf(s -> (s.getId().equals(board.getId())) & (s.getUserId() == board.getUserId()));
-		lastIndexBoardId = boardCache.get(CACHE_POOL_SIZE - 1).getId();
-		return true;
+		lastIndexBoardId = boardCache.get(boardCache.size() - 1).getId();
 	}
 
 	/**
@@ -99,14 +91,12 @@ public class BoardCache {
 	 * 
 	 * @param updateBoard
 	 */
-	public boolean changeBoard(Board updateBoard) {
-		boardCache.stream().filter(s -> s.getId().equals(updateBoard.getId())).findFirst().ifPresent(s -> {
-			s.setTitle(updateBoard.getTitle());
-			s.setContent(updateBoard.getContent());
-			s.setUserId(updateBoard.getUserId());
-		});
-		return true;
+	public void changeBoard() {
+		boardCache.clear();
+		boardCache.addAll(boardDao.getListAll());
+		lastIndexBoardId = boardCache.get(boardCache.size()- 1).getId();
 	}
+	
 	public List<Board> firstList() {
 		return boardCache.stream().skip(0).limit(20).collect(Collectors.toList());
 	}

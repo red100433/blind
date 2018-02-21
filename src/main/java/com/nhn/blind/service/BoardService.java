@@ -27,8 +27,8 @@ public class BoardService {
 	@Autowired
 	private BoardDao boardDao;
 
-//	@Autowired
-//	private BoardCache boardCache;
+	@Autowired
+	private BoardCache boardCache;
 
 	/**
 	 * boardDao.getList가 3번 fail 되면 runtimeException을날림
@@ -38,17 +38,13 @@ public class BoardService {
 	 */
 	@Async(value = "myBoardThreadPool")
 	public CompletableFuture<Flux<Board>> getList(Long next) throws InterruptedException {
-//		if (next.equals(-1L) | next.compareTo(boardDao.getLastIndexBoardId()) > 0) {
-//			log.info("Board Cache Data");
-//			return CompletableFuture.completedFuture(Flux.fromIterable(boardCache.findBoardGroup(next)).retry(3))
-//					.exceptionally(e -> {
-//						throw new RuntimeException(e.getMessage());
-//					});
-//		} 
-		if (next.equals(-1L)) {
-			next = boardDao.getLastBoardId()+1;
-		}
-			return CompletableFuture.completedFuture(Flux.fromIterable(boardDao.getList(next)).retry(3))
+		if (next.equals(-1L) | next.compareTo(boardCache.getLastIndexBoardId()) > 0) {
+			return CompletableFuture.completedFuture(Flux.fromIterable(boardCache.findBoardGroup(next)).retry(3))
+					.exceptionally(e -> {
+						throw new RuntimeException(e.getMessage());
+					});
+		} 
+		return CompletableFuture.completedFuture(Flux.fromIterable(boardDao.getList(next)).retry(3))
 					.exceptionally(e -> {
 						throw new RuntimeException(e.getMessage());
 					});
@@ -56,15 +52,9 @@ public class BoardService {
 	}
 
 	@Transactional
-	public Mono<Boolean> add(Board board) {
-		boolean cacheFlag = true;
-//		if (board.getId() == null) {
-//			cacheFlag = boardCache.addBoard(board);
-//		} else {
-//			cacheFlag = boardCache.changeBoard(board);
-//		}
-
-		if (boardDao.add(board) & cacheFlag) {
+	public Mono<Boolean> add(Board board) throws InterruptedException {
+		if (boardDao.add(board) ) {
+			boardCache.changeBoard();
 			return Mono.just(true);
 		} else {
 			return Mono.defer(() -> Mono.error(new RuntimeException()));
@@ -73,7 +63,8 @@ public class BoardService {
 
 	@Transactional
 	public Mono<Boolean> delete(Board board) {
-		if (boardDao.delete(board)) { //& boardCache.deleteBoard(board)) {
+		if (boardDao.delete(board)) {
+			boardCache.deleteBoard(board);
 			return Mono.just(true);
 		} else {
 			return Mono.defer(() -> Mono.error(new UserException("No Access User!!!!!")));
@@ -87,9 +78,9 @@ public class BoardService {
 	 * @param userId
 	 * @return
 	 */
-	@Async(value = "myCommentThreadPool")
+//	@Async(value = "myCommentThreadPool")
 	public Mono<Board> getById(Long id, int userId) {
-		return Mono.justOrEmpty(boardDao.getById(id, userId)).retry(3)
+		return Mono.justOrEmpty(boardDao.getById(id, userId))
 				.switchIfEmpty(Mono.defer(() -> Mono.error(new UserException("No Access User!!!!!"))));
 	}
 }
