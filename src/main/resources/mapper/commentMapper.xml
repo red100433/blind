@@ -5,27 +5,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.nhn.blind.repository.CommentDao">
 
-	<select id="getList" resultType="com.nhn.blind.model.Comment">
-		SELECT id, boardId, userId, comment, date FROM comment
-	</select>
 	<select id="getBoardCommentById" resultType="com.nhn.blind.model.Comment">
 		SELECT id, userId, comment, date FROM comment WHERE boardId=#{boardId}
 	</select>
-	<select id="getBoardCommentByIdOne" resultType="com.nhn.blind.model.Comment">
-		SELECT id, userId, comment, date FROM comment WHERE boardId=#{boardId}
-		ORDER BY date DESC LIMIT 1
-	</select>
-	<select id="getCount" resultType="int">
-		SELECT count(boardId) FROM comment
-		where boardId = #{boardId}
-	</select>
-	
-	<select id="getLastBoardId" resultType="Long">
-		SELECT boardId FROM comment
-		ORDER BY boardId DESC
-		LIMIT 1;
-	</select>
-	
 
 	<insert id="add">
 		INSERT INTO Comment(comment, boardId, userId)

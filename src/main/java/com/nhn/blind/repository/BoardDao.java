@@ -14,7 +14,4 @@ public interface BoardDao {
 	boolean add(Board board);
 	boolean delete(Board board);
 	Board getById(@Param("id") Long id, @Param("userId") int userId);
-	
-	int getCount();
-	Long getLastBoardId();
 }

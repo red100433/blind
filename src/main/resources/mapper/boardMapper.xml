@@ -17,22 +17,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ORDER BY id	DESC
 		limit 20
 	</select>
-	<select id="getCount" resultType="int">
-		SELECT count(id) FROM board
-	</select>
-	
-	<select id="getLastBoardId" resultType="Long">
-		SELECT id FROM board
-		ORDER BY id DESC
-		LIMIT 1
-	</select>
-	
 	<select id="getById" resultType="com.nhn.blind.model.Board">
 		SELECT id, title, content, userId, date FROM board 
 		WHERE id=#{id}
 		AND userId=#{userId}
 	</select>
-	
 	
 	<insert id="add">
 		<choose>
@@ -55,8 +44,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE FROM Board WHERE id=#{id} AND userId=#{userId}
 	</delete>
 	
-	<update id="update">
-		UPDATE Board SET title=#{title}, content=#{content}
-		WHERE id=#{id}
-	</update>
 </mapper>
