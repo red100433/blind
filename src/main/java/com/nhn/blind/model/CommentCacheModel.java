@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor(staticName = "of")
 public class CommentCacheModel {
-	private int count;
+	private long Time;
 	private List<Comment> comment;
 	
 }
