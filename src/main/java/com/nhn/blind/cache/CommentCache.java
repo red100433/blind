@@ -25,11 +25,11 @@ public class CommentCache implements Cache<Comment> {
 	private BoardCache boardCache;
 
 	private final Map<Long, CommentCacheModel> commentCache = new HashMap<>();
-	private final long cacheDuration = 20 * 60 * 1000L;
+	private final long cacheDuration = 60 * 60 * 1000L;
 	private long commentCacheLoadTime;
 
 	/**
-	 * 20분 정도의 간격을 통해서 Cache를 갱신한다. 값의 변경이 있다면 service 단에서 changeComment Method를 먼저 실행시킨다. 
+	 * 60분 동안 접근이 없으면 다시 Cache를 갱신한다. 값의 변경이 있다면 service 단에서 changeComment Method를 먼저 실행시킨다. 
 	 * 캐시 데이터는 게시판마다 달려있는 댓글을 캐시한다.
 	 * 
 	 * @param commentGroupKey
@@ -60,10 +60,14 @@ public class CommentCache implements Cache<Comment> {
 		return commentCache.get(commentGroupKey).getComment();
 	}
 
+	/**
+	 * 데이터가 적재되지 않았으면 데이터 저장소(DB)에서 데이터 가져옴
+	 * 처음 1000개 게시판 Cache Setting 시간 3초
+	 * 
+	 */
 	@Override
 	public void init(long now) {
 
-		// 데이터가 적재되지 않았으면 데이터 저장소(DB)에서 데이터 가져오기
 		if (commentCache.isEmpty() | ((now - commentCacheLoadTime) > cacheDuration)) {
 			synchronized (commentCache) {
 				if (commentCache.isEmpty() | ((now - commentCacheLoadTime) > cacheDuration)) {

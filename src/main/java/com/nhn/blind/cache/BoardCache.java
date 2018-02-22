@@ -88,9 +88,8 @@ public class BoardCache implements Cache<Board> {
 	}
 
 	/**
-	 * primary key인 id 값을 찾아서 update 함.
-	 * 
-	 * @param updateBoard
+	 * 게시판이 없데이트 되면 게시판을 다시 세팅한다
+	 * 1000개 불러오는데 20~30ms
 	 */
 	public void changeBoard() {
 		boardCache.clear();

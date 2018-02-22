@@ -46,7 +46,6 @@ public class LoginController {
 	@PostMapping("login")
 	@ResponseStatus(HttpStatus.OK)
 	public Mono<String> loginUser(Model model, @ModelAttribute User user, ServerHttpResponse res) {
-		log.info("{}", user);
 		Mono<User> getByEmail = userService.getByEmail(user.getEmail())
 			.filter(s -> s.getPassword().equals(user.getPassword()));
 		if (getByEmail.blockOptional().isPresent()) {
