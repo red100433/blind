@@ -6,13 +6,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.nhn.blind.repository.BoardDao">
 	
 	<select id="getListAll" resultType="com.nhn.blind.model.Board">
-		SELECT * FROM board
+		SELECT id, title, content, userId, date FROM board
 		ORDER BY id	DESC
 		limit 1000;
 	</select>
 	
 	<select id="getList" resultType="com.nhn.blind.model.Board">
-		SELECT * FROM board
+		SELECT id, title, content, userId, date FROM board
 		WHERE id <![CDATA[ < ]]> #{next} 
 		ORDER BY id	DESC
 		limit 20

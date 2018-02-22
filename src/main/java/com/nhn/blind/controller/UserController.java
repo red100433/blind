@@ -17,12 +17,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.nhn.blind.model.User;
 import com.nhn.blind.service.UserService;
 
-import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
 @Controller
 @RequestMapping("/signup")
-@Slf4j
 public class UserController {
 
 	@Autowired
@@ -35,20 +33,18 @@ public class UserController {
 
 	@GetMapping("/{id}")
 	public Mono<String> home(Model model, @PathVariable String id) {
-		log.info("request GetMapping Id: {}", id);
 		model.addAttribute("id", id);
 		return Mono.just("/user/userUpdate");
 	}
 
 	@GetMapping("/userUpdate")
-	public Mono<String> userUpdate(Model model, @CookieValue("userId") String userId) {
+	public Mono<String> updatePage(Model model, @CookieValue("userId") String userId) {
 		model.addAttribute("userId", userId);
 		return Mono.just("/user/userUpdate");
 	}
 
 	@PostMapping("")
 	public Mono<String> addUser(@ModelAttribute User user) {
-		log.info("{}", user.toString());
 		userService.add(user);
 		return Mono.just("redirect:/login");
 	}
@@ -56,16 +52,12 @@ public class UserController {
 	@DeleteMapping("/{userId}")
 	@ResponseBody
 	public Mono<Void> deleteUser(@PathVariable String userId) {
-		log.info("User id:{}", userId);
-		userService.delete(Integer.parseInt(userId));
-		return Mono.empty();
+		return userService.delete(Integer.parseInt(userId));
 	}
 
 	@PutMapping("/user")
 	@ResponseBody
 	public Mono<String> updateUser(@RequestBody User updateUser) {
-		log.info("{}", updateUser.toString());
-
 		userService.add(updateUser);
 		return Mono.just("putSuccess");
 	}

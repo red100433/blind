@@ -1,7 +1,5 @@
 package com.nhn.blind.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,20 +13,12 @@ public class UserService {
 	@Autowired
 	private UserDao userDao;
 
-	public List<User> getUserList() {
-		return userDao.getList();
+	public Mono<Void> add(User user) {
+		return Mono.just(userDao.add(user)).then();
 	}
 
-	public Mono<Boolean> add(User user) {
-		return Mono.just(userDao.add(user));
-	}
-
-	public Mono<Boolean> update(User user) {
-		return Mono.just(userDao.update(user));
-	}
-
-	public Mono<Boolean> delete(int id) {
-		return Mono.just(userDao.delete(id));
+	public Mono<Void> delete(int id) {
+		return Mono.just(userDao.delete(id)).then();
 	}
 
 	public Mono<User> getById(int id) {
