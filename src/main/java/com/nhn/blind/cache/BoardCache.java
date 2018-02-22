@@ -18,9 +18,12 @@ import lombok.extern.slf4j.Slf4j;
 public class BoardCache implements Cache<Board>{
 	@Autowired
 	private BoardDao boardDao;
+	
+	@Autowired
+	private CommentCache commentCache;
 
 	private final List<Board> boardCache = new LinkedList<>();
-	private final long cacheDuration = 600 * 1000L;
+	private final long cacheDuration = 10 * 60 * 1000L;
 	private long boardCacheLoadTime;
 	private long lastIndexBoardId = Long.MIN_VALUE;
 
@@ -68,6 +71,8 @@ public class BoardCache implements Cache<Board>{
 					boardCache.clear();
 					boardCache.addAll(list);
 					boardCacheLoadTime = now;
+					
+					commentCache.init(now);
 				}
 			}
 		}

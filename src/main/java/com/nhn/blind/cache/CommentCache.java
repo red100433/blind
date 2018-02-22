@@ -25,7 +25,7 @@ public class CommentCache implements Cache<Comment> {
 	private BoardCache boardCache;
 
 	private final Map<Long, CommentCacheModel> commentCache = new HashMap<>();
-	private final long cacheDuration = 600 * 1000L;
+	private final long cacheDuration = 20 * 60 * 1000L;
 	private long commentCacheLoadTime;
 
 	/**
