@@ -62,7 +62,6 @@ public class BoardCache implements Cache<Board> {
 			synchronized (boardCache) {
 				if (boardCache.isEmpty() | now - boardCacheLoadTime > cacheDuration) {
 					List<Board> list = new ArrayList<>();
-					// TODO get AllList change
 
 					list.addAll(boardDao.getListAll());
 					lastIndexBoardId = list.get(list.size() - 1).getId();

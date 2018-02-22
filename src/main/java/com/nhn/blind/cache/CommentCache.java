@@ -73,11 +73,7 @@ public class CommentCache implements Cache<Comment> {
 
 					for (Board board : boardCache.getBoardCache()) {
 						List<Comment> boardCommentList = commentDao.getBoardCommentById(board.getId());
-						if (boardCommentList.size() == 0) {
-							continue;
-						} else {
-							map.put(board.getId(), CommentCacheModel.of(System.currentTimeMillis(), boardCommentList));
-						}
+						map.put(board.getId(), CommentCacheModel.of(System.currentTimeMillis(), boardCommentList));
 					}
 
 					log.info("Comment Cache Set Time:{} seconds", (System.currentTimeMillis() - now) / 1000);
