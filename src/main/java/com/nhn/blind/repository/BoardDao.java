@@ -10,8 +10,12 @@ import com.nhn.blind.model.Board;
 @Mapper
 public interface BoardDao {
 	List<Board> getList(Long next);
+
 	List<Board> getListAll();
+
 	boolean add(Board board);
+
 	boolean delete(Board board);
+
 	Board getById(@Param("id") Long id, @Param("userId") int userId);
 }

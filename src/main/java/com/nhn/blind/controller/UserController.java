@@ -24,39 +24,35 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/signup")
 @Slf4j
 public class UserController {
-	
+
 	@Autowired
 	private UserService userService;
 
-	 	
 	@GetMapping("")
 	public Mono<String> home() {
 		return Mono.just("/user/signup");
 	}
-	
+
 	@GetMapping("/{id}")
 	public Mono<String> home(Model model, @PathVariable String id) {
 		log.info("request GetMapping Id: {}", id);
 		model.addAttribute("id", id);
 		return Mono.just("/user/userUpdate");
 	}
-	
+
 	@GetMapping("/userUpdate")
 	public Mono<String> userUpdate(Model model, @CookieValue("userId") String userId) {
 		model.addAttribute("userId", userId);
 		return Mono.just("/user/userUpdate");
 	}
-	
-	
+
 	@PostMapping("")
 	public Mono<String> addUser(@ModelAttribute User user) {
 		log.info("{}", user.toString());
 		userService.add(user);
 		return Mono.just("redirect:/login");
 	}
-	
-	
-	
+
 	@DeleteMapping("/{userId}")
 	@ResponseBody
 	public Mono<Void> deleteUser(@PathVariable String userId) {
@@ -64,12 +60,12 @@ public class UserController {
 		userService.delete(Integer.parseInt(userId));
 		return Mono.empty();
 	}
-	
+
 	@PutMapping("/user")
 	@ResponseBody
 	public Mono<String> updateUser(@RequestBody User updateUser) {
 		log.info("{}", updateUser.toString());
-		
+
 		userService.add(updateUser);
 		return Mono.just("putSuccess");
 	}

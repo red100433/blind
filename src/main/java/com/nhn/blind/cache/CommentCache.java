@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 public class CommentCache implements Cache<Comment> {
 	@Autowired
 	private CommentDao commentDao;
-	
+
 	@Autowired
 	private BoardCache boardCache;
 
@@ -35,7 +35,7 @@ public class CommentCache implements Cache<Comment> {
 	 * @param commentGroupKey
 	 * @return
 	 */
-	
+
 	@Override
 	public List<Comment> findGroup(Long commentGroupKey) {
 		long now = System.currentTimeMillis();
@@ -51,17 +51,18 @@ public class CommentCache implements Cache<Comment> {
 				}
 			}
 			commentCache.remove(min.getKey());
-			commentCache.put(commentGroupKey, CommentCacheModel.of(now, commentDao.getBoardCommentById(commentGroupKey)));
+			commentCache.put(commentGroupKey,
+				CommentCacheModel.of(now, commentDao.getBoardCommentById(commentGroupKey)));
 		} else {
 			commentCache.get(commentGroupKey).setTime(now);
 		}
-		
+
 		return commentCache.get(commentGroupKey).getComment();
 	}
 
 	@Override
 	public void init(long now) {
-		
+
 		// 데이터가 적재되지 않았으면 데이터 저장소(DB)에서 데이터 가져오기
 		if (commentCache.isEmpty() | ((now - commentCacheLoadTime) > cacheDuration)) {
 			synchronized (commentCache) {
@@ -69,8 +70,8 @@ public class CommentCache implements Cache<Comment> {
 					Map<Long, CommentCacheModel> map = new HashMap<Long, CommentCacheModel>();
 
 					log.info("Comment Cache Setting.....");
-					
-					for(Board board : boardCache.getBoardCache()) {
+
+					for (Board board : boardCache.getBoardCache()) {
 						List<Comment> boardCommentList = commentDao.getBoardCommentById(board.getId());
 						if (boardCommentList.size() == 0) {
 							continue;
@@ -78,8 +79,8 @@ public class CommentCache implements Cache<Comment> {
 							map.put(board.getId(), CommentCacheModel.of(System.currentTimeMillis(), boardCommentList));
 						}
 					}
-					
-					log.info("Comment Cache Set Time:{} seconds", (System.currentTimeMillis() - now)/1000);
+
+					log.info("Comment Cache Set Time:{} seconds", (System.currentTimeMillis() - now) / 1000);
 					commentCache.clear();
 					commentCache.putAll(map);
 					commentCacheLoadTime = now;
@@ -98,7 +99,7 @@ public class CommentCache implements Cache<Comment> {
 			synchronized (commentCache) {
 				commentCache.remove(commentGroupKey);
 				commentCache.put(commentGroupKey,
-						CommentCacheModel.of(System.currentTimeMillis(), commentDao.getBoardCommentById(commentGroupKey)));
+					CommentCacheModel.of(System.currentTimeMillis(), commentDao.getBoardCommentById(commentGroupKey)));
 			}
 		}
 	}

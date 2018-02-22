@@ -20,30 +20,30 @@ import reactor.core.publisher.Mono;
 public class CommentService {
 	@Autowired
 	private CommentDao commentDao;
-	
+
 	@Autowired
 	private CommentCache commentCache;
-	
+
 	@Transactional
 	public Mono<Boolean> add(Comment comment) {
-		if(commentDao.add(comment)) {
+		if (commentDao.add(comment)) {
 			commentCache.changeComment(comment.getBoardId());
 			return Mono.just(true);
 		} else {
 			return Mono.defer(() -> Mono.error(new RuntimeException()));
 		}
 	}
-	
+
 	@Transactional
 	public Mono<Boolean> delete(Comment comment) {
-		if(commentDao.delete(comment)) {
+		if (commentDao.delete(comment)) {
 			commentCache.changeComment(comment.getBoardId());
 			return Mono.just(true);
 		} else {
 			return Mono.defer(() -> Mono.error(new RuntimeException()));
 		}
 	}
-	
+
 	/**
 	 * commentDao.getCommentById가 3번 fail 되면 runtimeException을날림
 	 * @param boardId
@@ -51,9 +51,10 @@ public class CommentService {
 	 */
 	@Async(value = "myCommentThreadPool")
 	public CompletableFuture<Flux<Comment>> getBoardCommentById(Long boardId) {
-		return CompletableFuture.completedFuture(Flux.fromIterable(commentCache.findGroup(boardId)).retry(3)).exceptionally(e -> {
-			throw new RuntimeException(e.getMessage());
-		});
+		return CompletableFuture.completedFuture(Flux.fromIterable(commentCache.findGroup(boardId)).retry(3))
+			.exceptionally(e -> {
+				throw new RuntimeException(e.getMessage());
+			});
 	}
-	
+
 }

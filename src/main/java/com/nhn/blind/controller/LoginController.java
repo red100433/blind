@@ -30,47 +30,47 @@ import reactor.core.publisher.Mono;
 public class LoginController {
 	@Autowired
 	private UserService userService;
-	
-    @GetMapping("login")
-    public Mono<String> login() {
-        return Mono.just("login");
-    }
-    
-    /**
-     * 쿠키값 생성
-     * @param model
-     * @param user
-     * @param res
-     * @return
-     */
-    @PostMapping("login")
-    @ResponseStatus(HttpStatus.OK)
-    public Mono<String> loginUser(Model model, @ModelAttribute User user, ServerHttpResponse res){
-    	log.info("{}", user);
-    	Mono<User> getByEmail = userService.getByEmail(user.getEmail())
-    			.filter(s -> s.getPassword().equals(user.getPassword()));
-    	if(getByEmail.blockOptional().isPresent()) {
-    		ResponseCookieBuilder userId = ResponseCookie.from("userId", String.valueOf(getByEmail.block().getId()));
-    		userId.path("/");
-    		res.addCookie(userId.build());
-    		return Mono.just("redirect:/");
-    	} else {
-    		return Mono.just("/login");
-    	}
-    }
-    
-    /**
-     * 쿠기 값 삭제
-     * @param userId
-     * @param req
-     * @param res
-     * @return
-     */
-    @GetMapping("logout")
-    public Mono<String> logout(@CookieValue("userId") String userId, ServerHttpRequest req, ServerHttpResponse res) {
-    	ResponseCookieBuilder setUserId = ResponseCookie.from("userId", "");
+
+	@GetMapping("login")
+	public Mono<String> login() {
+		return Mono.just("login");
+	}
+
+	/**
+	 * 쿠키값 생성
+	 * @param model
+	 * @param user
+	 * @param res
+	 * @return
+	 */
+	@PostMapping("login")
+	@ResponseStatus(HttpStatus.OK)
+	public Mono<String> loginUser(Model model, @ModelAttribute User user, ServerHttpResponse res) {
+		log.info("{}", user);
+		Mono<User> getByEmail = userService.getByEmail(user.getEmail())
+			.filter(s -> s.getPassword().equals(user.getPassword()));
+		if (getByEmail.blockOptional().isPresent()) {
+			ResponseCookieBuilder userId = ResponseCookie.from("userId", String.valueOf(getByEmail.block().getId()));
+			userId.path("/");
+			res.addCookie(userId.build());
+			return Mono.just("redirect:/");
+		} else {
+			return Mono.just("/login");
+		}
+	}
+
+	/**
+	 * 쿠기 값 삭제
+	 * @param userId
+	 * @param req
+	 * @param res
+	 * @return
+	 */
+	@GetMapping("logout")
+	public Mono<String> logout(@CookieValue("userId") String userId, ServerHttpRequest req, ServerHttpResponse res) {
+		ResponseCookieBuilder setUserId = ResponseCookie.from("userId", "");
 		setUserId.path("/");
 		res.addCookie(setUserId.build());
-    	return Mono.just("redirect:/login");
-    }
+		return Mono.just("redirect:/login");
+	}
 }

@@ -13,6 +13,6 @@ public class Comment {
 	private Timestamp date;
 	private Long boardId;
 	private int userId;
-	
+
 	public Comment() {}
 }

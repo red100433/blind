@@ -13,6 +13,6 @@ public class Board {
 	private String content;
 	private Timestamp Date;
 	private int userId;
-	
+
 	public Board() {}
 }

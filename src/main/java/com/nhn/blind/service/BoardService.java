@@ -33,23 +33,23 @@ public class BoardService {
 	 * @return
 	 */
 	@Async(value = "myBoardThreadPool")
-	public CompletableFuture<Flux<Board>> getList(Long next){
+	public CompletableFuture<Flux<Board>> getList(Long next) {
 		if (next.equals(-1L) | next.compareTo(boardCache.getLastIndexBoardId()) > 0) {
 			return CompletableFuture.completedFuture(Flux.fromIterable(boardCache.findGroup(next)).retry(3))
-					.exceptionally(e -> {
-						throw new RuntimeException(e.getMessage());
-					});
-		} 
+				.exceptionally(e -> {
+					throw new RuntimeException(e.getMessage());
+				});
+		}
 		return CompletableFuture.completedFuture(Flux.fromIterable(boardDao.getList(next)).retry(3))
-					.exceptionally(e -> {
-						throw new RuntimeException(e.getMessage());
-					});
+			.exceptionally(e -> {
+				throw new RuntimeException(e.getMessage());
+			});
 
 	}
 
 	@Transactional
-	public Mono<Boolean> add(Board board){
-		if (boardDao.add(board) ) {
+	public Mono<Boolean> add(Board board) {
+		if (boardDao.add(board)) {
 			boardCache.changeBoard();
 			return Mono.just(true);
 		} else {
@@ -75,6 +75,6 @@ public class BoardService {
 	 */
 	public Mono<Board> getById(Long id, int userId) {
 		return Mono.justOrEmpty(boardDao.getById(id, userId)).retry(3)
-				.switchIfEmpty(Mono.defer(() -> Mono.error(new UserException("No Access User!!!!!"))));
+			.switchIfEmpty(Mono.defer(() -> Mono.error(new UserException("No Access User!!!!!"))));
 	}
 }

@@ -5,9 +5,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 @Configuration
-//@EnableWebFlux
 public class AppConfig {
-	
+
 	/**
 	 * Service에서 Async처리 할 Thread 생성
 	 */
@@ -21,7 +20,7 @@ public class AppConfig {
 		tp.initialize();
 		return tp;
 	}
-	
+
 	@Bean
 	public ThreadPoolTaskExecutor myCommentThreadPool() {
 		ThreadPoolTaskExecutor tp = new ThreadPoolTaskExecutor();
@@ -32,6 +31,5 @@ public class AppConfig {
 		tp.initialize();
 		return tp;
 	}
-	
-	
+
 }

@@ -15,10 +15,10 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Component
-public class BoardCache implements Cache<Board>{
+public class BoardCache implements Cache<Board> {
 	@Autowired
 	private BoardDao boardDao;
-	
+
 	@Autowired
 	private CommentCache commentCache;
 
@@ -33,24 +33,24 @@ public class BoardCache implements Cache<Board>{
 	 * @param boardGroupKey
 	 * @return
 	 */
-	
+
 	@Override
 	public List<Board> findGroup(Long next) {
 		long now = System.currentTimeMillis();
 		init(now);
-		
+
 		if (next.equals(-1L)) {
 			return firstList();
 		}
-				
+
 		int index = 0;
-		for(Board board : boardCache) {
-			if(board.getId().equals(next)) {
+		for (Board board : boardCache) {
+			if (board.getId().equals(next)) {
 				break;
 			}
-			index ++;
+			index++;
 		}
-		
+
 		return boardCache.stream().skip(index + 1).limit(20).collect(Collectors.toList());
 
 	}
@@ -63,15 +63,15 @@ public class BoardCache implements Cache<Board>{
 				if (boardCache.isEmpty() | now - boardCacheLoadTime > cacheDuration) {
 					List<Board> list = new ArrayList<>();
 					// TODO get AllList change
-					
+
 					list.addAll(boardDao.getListAll());
-					lastIndexBoardId = list.get(list.size()- 1).getId();
-					
+					lastIndexBoardId = list.get(list.size() - 1).getId();
+
 					log.info("Board Cache Set Time:{} ms", System.currentTimeMillis() - now);
 					boardCache.clear();
 					boardCache.addAll(list);
 					boardCacheLoadTime = now;
-					
+
 					commentCache.init(now);
 				}
 			}
@@ -96,16 +96,17 @@ public class BoardCache implements Cache<Board>{
 	public void changeBoard() {
 		boardCache.clear();
 		boardCache.addAll(boardDao.getListAll());
-		lastIndexBoardId = boardCache.get(boardCache.size()- 1).getId();
+		lastIndexBoardId = boardCache.get(boardCache.size() - 1).getId();
 	}
-	
+
 	public List<Board> firstList() {
 		return boardCache.stream().skip(0).limit(20).collect(Collectors.toList());
 	}
+
 	public Long getLastIndexBoardId() {
 		return lastIndexBoardId;
 	}
-	
+
 	public List<Board> getBoardCache() {
 		return boardCache;
 	}

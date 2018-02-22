@@ -31,7 +31,7 @@ public class BoardController {
 	private BoardService boardService;
 
 	WebClient webclient = WebClient.create();
-	
+
 	/**
 	 * Mono.fromFutre vs Mono.fromCompletionStage 차이는 일반화 단계인 fromCompletionStage를 써라( api 문서 )
 	 * @param model
@@ -39,15 +39,16 @@ public class BoardController {
 	 * @return
 	 */
 	@GetMapping("")
-	public Mono<String> view(Model model, @CookieValue("userId") String userId){
+	public Mono<String> view(Model model, @CookieValue("userId") String userId) {
 		model.addAttribute("userId", userId);
-		model.addAttribute("boards", Mono.fromCompletionStage(boardService.getList(-1L)).flatMapMany(Function.identity()));
+		model.addAttribute("boards",
+			Mono.fromCompletionStage(boardService.getList(-1L)).flatMapMany(Function.identity()));
 		return Mono.just("/board/boardListView");
 	}
-	
+
 	@GetMapping("/{next}")
 	@ResponseBody
-	public Flux<Board> view(Model model, @PathVariable Long next){
+	public Flux<Board> view(Model model, @PathVariable Long next) {
 		return Mono.fromCompletionStage(boardService.getList(next)).flatMapMany(Function.identity());
 	}
 
@@ -65,10 +66,11 @@ public class BoardController {
 	}
 
 	@PostMapping("/board")
-	public Mono<String> addBoard(@RequestBody Board board, @CookieValue("userId") String userId) throws InterruptedException {
-		
+	public Mono<String> addBoard(@RequestBody Board board, @CookieValue("userId") String userId)
+		throws InterruptedException {
+
 		board.setUserId(Integer.parseInt(userId));
-		 
+
 		boardService.add(board);
 		return Mono.just("redirect:/view");
 	}

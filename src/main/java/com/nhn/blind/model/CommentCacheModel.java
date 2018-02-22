@@ -10,5 +10,4 @@ import lombok.Data;
 public class CommentCacheModel {
 	private long Time;
 	private List<Comment> comment;
-	
 }

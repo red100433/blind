@@ -8,7 +8,7 @@ import reactor.core.publisher.Mono;
 @Controller
 public class DefaultController {
 	@GetMapping("/")
-    public Mono<String> home() throws InterruptedException {
-        return Mono.just("redirect:/view");
-    }
+	public Mono<String> home() throws InterruptedException {
+		return Mono.just("redirect:/view");
+	}
 }

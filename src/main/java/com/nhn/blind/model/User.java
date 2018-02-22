@@ -13,7 +13,7 @@ public class User {
 	private String email;
 	@NonNull
 	private String password;
-	
+
 	public User() {}
-	
+
 }
