@@ -15,6 +15,11 @@ import com.nhn.blind.repository.CommentDao;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * 댓글 캐시
+ * @author daeyun.jang
+ *
+ */
 @Slf4j
 @Component
 public class CommentCache implements Cache<Comment> {
@@ -32,6 +37,9 @@ public class CommentCache implements Cache<Comment> {
 	 * 60분 동안 접근이 없으면 다시 Cache를 갱신한다. 값의 변경이 있다면 service 단에서 changeComment Method를 먼저 실행시킨다. 
 	 * 캐시 데이터는 게시판마다 달려있는 댓글을 캐시한다.
 	 * 
+	 * 데이터가 적재되어 있다면, 접근 시간을 다시 세팅하고 값을 리턴한다.
+	 * 만약 데이터가 캐시에 적재 되어 있지 않다면, 접근 시간이 가장 늦은 데이터를 지우고 새로운 데이터를 캐시에 저장한다.
+	 * 
 	 * @param commentGroupKey
 	 * @return
 	 */
@@ -41,18 +49,18 @@ public class CommentCache implements Cache<Comment> {
 		long now = System.currentTimeMillis();
 		init(now);
 
-		// 데이터가 적재되어 있다면, 시간을 다시 세팅하고 값을 리턴한다.
-		// 만약 데이터가 캐시에 적재 되어 있지 않다면, 시간이 가장 늦은 데이터를 지우고 새로운 데이터를 캐시에 저장한다.
 		if (commentCache.get(commentGroupKey) == null) {
-			Entry<Long, CommentCacheModel> min = null;
-			for (Entry<Long, CommentCacheModel> entry : commentCache.entrySet()) {
-				if (min == null || min.getValue().getTime() > entry.getValue().getTime()) {
-					min = entry;
+			synchronized (commentCache) {
+				Entry<Long, CommentCacheModel> min = null;
+				for (Entry<Long, CommentCacheModel> entry : commentCache.entrySet()) {
+					if (min == null || min.getValue().getTime() > entry.getValue().getTime()) {
+						min = entry;
+					}
 				}
+				commentCache.remove(min.getKey());
+				commentCache.put(commentGroupKey,
+					CommentCacheModel.of(now, commentDao.getBoardCommentById(commentGroupKey)));
 			}
-			commentCache.remove(min.getKey());
-			commentCache.put(commentGroupKey,
-				CommentCacheModel.of(now, commentDao.getBoardCommentById(commentGroupKey)));
 		} else {
 			commentCache.get(commentGroupKey).setTime(now);
 		}
@@ -90,7 +98,7 @@ public class CommentCache implements Cache<Comment> {
 	}
 
 	/**
-	 * 각 게시판의 댓글의 변경사항( add, delete)가 이루어 질 때, 만약 캐시되어 있다면 DB에서 값을 가지고 와 다시 세팅한다.
+	 * 각 게시판의 댓글의 변경사항(add, delete)가 이루어 질 때, 만약 캐시되어 있다면 DB에서 값을 가지고 와 다시 세팅한다.
 	 * 
 	 * @param boardId
 	 */

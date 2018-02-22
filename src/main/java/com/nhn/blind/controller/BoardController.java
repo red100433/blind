@@ -22,6 +22,11 @@ import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+/**
+ * 
+ * @author daeyun.jang
+ *
+ */
 @Controller
 @RequestMapping("/view")
 @Slf4j
@@ -33,7 +38,7 @@ public class BoardController {
 	WebClient webclient = WebClient.create();
 
 	/**
-	 * Mono.fromFutre vs Mono.fromCompletionStage 차이는 일반화 단계인 fromCompletionStage를 써라( api 문서 )
+	 * Mono.fromFutre 와 Mono.fromCompletionStage 차이는 일반화 단계인 fromCompletionStage를 쓰라고함( api 문서 )
 	 * @param model
 	 * @param userId
 	 * @return
@@ -52,8 +57,14 @@ public class BoardController {
 		return Mono.fromCompletionStage(boardService.getList(next)).flatMapMany(Function.identity());
 	}
 
+	/**
+	 * 만약 사용자 userId 와 게시글 작성자의 id 가 맞지 않으면 UserException을 던짐
+	 * @param model
+	 * @param id
+	 * @param userId
+	 * @return
+	 */
 	@GetMapping("/board/{id}")
-	// TODO 만약 사용자 userId 와 게시글 작성자의 id 가 맞지 않으면 RuntimeException을 던짐
 	public Mono<String> board(Model model, @PathVariable Long id, @CookieValue("userId") String userId) {
 		model.addAttribute("board", boardService.getById(id, Integer.parseInt(userId)));
 		return Mono.just("/board/addBoard");
@@ -66,11 +77,8 @@ public class BoardController {
 	}
 
 	@PostMapping("/board")
-	public Mono<String> addBoard(@RequestBody Board board, @CookieValue("userId") String userId)
-		throws InterruptedException {
-
+	public Mono<String> addBoard(@RequestBody Board board, @CookieValue("userId") String userId) {
 		board.setUserId(Integer.parseInt(userId));
-
 		boardService.add(board);
 		return Mono.just("redirect:/view");
 	}
@@ -79,7 +87,6 @@ public class BoardController {
 	@ResponseBody
 	public Mono<Boolean> deleteBoard(@RequestBody Board board, @CookieValue("userId") String userId) {
 		board.setUserId(Integer.parseInt(userId));
-		log.info("board Id : {}", board.toString());
 		return boardService.delete(board);
 	}
 

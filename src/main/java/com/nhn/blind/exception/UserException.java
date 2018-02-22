@@ -1,5 +1,10 @@
 package com.nhn.blind.exception;
 
+/**
+ * 
+ * @author daeyun.jang
+ *
+ */
 public class UserException extends RuntimeException {
 	private static final long serialVersionUID = 3946918250337154685L;
 

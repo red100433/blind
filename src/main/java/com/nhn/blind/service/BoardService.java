@@ -13,11 +13,14 @@ import com.nhn.blind.exception.UserException;
 import com.nhn.blind.model.Board;
 import com.nhn.blind.repository.BoardDao;
 
-import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-@Slf4j
+/**
+ * 
+ * @author daeyun.jang
+ *
+ */
 @Service
 @EnableAsync
 public class BoardService {
@@ -47,6 +50,11 @@ public class BoardService {
 
 	}
 
+	/**
+	 * 만약 실패하면 Mono.error 에 Exception을 담아 리턴한다.
+	 * @param board
+	 * @return
+	 */
 	@Transactional
 	public Mono<Boolean> add(Board board) {
 		if (boardDao.add(board)) {
@@ -57,6 +65,11 @@ public class BoardService {
 		}
 	}
 
+	/**
+	 * 만약 실패하면 Mono.error 에 Exception을 담아 리턴한다.
+	 * @param board
+	 * @return
+	 */
 	@Transactional
 	public Mono<Boolean> delete(Board board) {
 		if (boardDao.delete(board)) {

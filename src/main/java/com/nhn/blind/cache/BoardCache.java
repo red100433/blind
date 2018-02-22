@@ -13,6 +13,11 @@ import com.nhn.blind.repository.BoardDao;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * 게시판 캐시
+ * @author daeyun.jang
+ *
+ */
 @Slf4j
 @Component
 public class BoardCache implements Cache<Board> {
@@ -55,9 +60,14 @@ public class BoardCache implements Cache<Board> {
 
 	}
 
+	/**
+	 * 데이터가 적재되지 않았으면 데이터 저장소(DB)에서 데이터 가져옴
+	 * 처음 1000개 게시판 Cache Setting 시간 20 ~ 30 ms
+	 * 
+	 */
 	@Override
 	public void init(long now) {
-		// 데이터가 적재되지 않았으면 데이터 저장소(DB)에서 데이터 가져오기
+		// 
 		if (boardCache.isEmpty() | now - boardCacheLoadTime > cacheDuration) {
 			synchronized (boardCache) {
 				if (boardCache.isEmpty() | now - boardCacheLoadTime > cacheDuration) {
@@ -78,7 +88,7 @@ public class BoardCache implements Cache<Board> {
 	}
 
 	/**
-	 * 삭제 할 때, 특정 값 삭제
+	 * 게시판을 삭제했을 때, 캐시에 있는 데이터도 삭제한다.
 	 * 
 	 * @param boardId
 	 */

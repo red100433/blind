@@ -5,10 +5,13 @@ import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebFilterChain;
 
-import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
-@Slf4j
+/**
+ * Login Filter 설정
+ * @author daeyun.jang
+ *
+ */
 @Component
 public class LoginCheckInterceptor implements WebFilter {
 	@Override

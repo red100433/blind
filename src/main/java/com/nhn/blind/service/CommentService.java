@@ -15,6 +15,11 @@ import com.nhn.blind.repository.CommentDao;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+/**
+ * 
+ * @author daeyun.jang
+ *
+ */
 @Service
 @EnableAsync
 public class CommentService {
@@ -24,6 +29,11 @@ public class CommentService {
 	@Autowired
 	private CommentCache commentCache;
 
+	/**
+	 * 만약 실패하면 Mono.error 에 Exception을 담아 리턴한다.
+	 * @param board
+	 * @return
+	 */
 	@Transactional
 	public Mono<Boolean> add(Comment comment) {
 		if (commentDao.add(comment)) {
@@ -34,6 +44,11 @@ public class CommentService {
 		}
 	}
 
+	/**
+	 * 만약 실패하면 Mono.error 에 Exception을 담아 리턴한다.
+	 * @param board
+	 * @return
+	 */
 	@Transactional
 	public Mono<Boolean> delete(Comment comment) {
 		if (commentDao.delete(comment)) {
@@ -45,7 +60,7 @@ public class CommentService {
 	}
 
 	/**
-	 * commentDao.getCommentById가 3번 fail 되면 runtimeException을날림
+	 * commentDao.getCommentById가 3번 fail 되면 RuntimeException을날림
 	 * @param boardId
 	 * @return
 	 */

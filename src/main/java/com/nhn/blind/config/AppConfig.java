@@ -4,12 +4,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
+/**
+ * Service에서 Async처리 할 Thread Pool 설정
+ * @author daeyun.jang
+ *
+ */
 @Configuration
 public class AppConfig {
 
-	/**
-	 * Service에서 Async처리 할 Thread 생성
-	 */
 	@Bean
 	public ThreadPoolTaskExecutor myBoardThreadPool() {
 		ThreadPoolTaskExecutor tp = new ThreadPoolTaskExecutor();

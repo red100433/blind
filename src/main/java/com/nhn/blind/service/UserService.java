@@ -9,6 +9,11 @@ import com.nhn.blind.repository.UserDao;
 
 import reactor.core.publisher.Mono;
 
+/**
+ * 
+ * @author daeyun.jang
+ *
+ */
 @Service
 public class UserService {
 	@Autowired

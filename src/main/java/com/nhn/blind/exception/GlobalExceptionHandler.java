@@ -5,6 +5,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import reactor.core.publisher.Mono;
 
+/**
+ * 
+ * @author daeyun.jang
+ *
+ */
 @ControllerAdvice
 public class GlobalExceptionHandler {
 

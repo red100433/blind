@@ -19,6 +19,11 @@ import com.nhn.blind.service.UserService;
 
 import reactor.core.publisher.Mono;
 
+/**
+ * 
+ * @author daeyun.jang
+ *
+ */
 @Controller
 @RequestMapping("/signup")
 public class UserController {
