@@ -29,7 +29,7 @@ public class CommentCache implements Cache<Comment> {
 	private long commentCacheLoadTime;
 
 	/**
-	 * 10분 정도의 간격을 통해서 Cache를 갱신한다. 값의 변경이 있다면 service 단에서 changeComment Method를 먼저 실행시킨다. 
+	 * 20분 정도의 간격을 통해서 Cache를 갱신한다. 값의 변경이 있다면 service 단에서 changeComment Method를 먼저 실행시킨다. 
 	 * 캐시 데이터는 게시판마다 달려있는 댓글을 캐시한다.
 	 * 
 	 * @param commentGroupKey
