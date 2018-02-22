@@ -51,7 +51,7 @@ function addBoard(id, title, content) {
 		data : JSON.stringify(object),
 		timeout : 600000,
 		success : function(data) {
-			location.href = "http://localhost:8080/view";
+			location.href = "http://10.67.8.248:8080/view";
 		},
 		error : function(e) {
 			console.log("ERROR : ", e);

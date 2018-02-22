@@ -23,8 +23,8 @@ function makeBoardDom(getBoard) {
 					+			'aria-expanded="false" aria-controls="collapseTwo">' + getBoard.title
 					+			'</a>'
 					+			'<span class="crudButton">'
-					+				'<button type=button class="btn btn-sm" name=updateBoard>U</button>'
-					+				'<button type=button class="btn btn-sm" name=deleteBoard>D</button>'
+					+				'<button type=button class="btn btn-sm" name=updateBoard>수정</button>'
+					+				'<button type=button class="btn btn-sm" name=deleteBoard>삭제</button>'
 					+				'<span class="boardDate" text-align="right;">' + date + '</span>'
 					+			'</span>'
 					+	'</h4>'

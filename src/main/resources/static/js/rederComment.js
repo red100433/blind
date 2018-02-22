@@ -20,7 +20,7 @@ function makeDom(getContent) {
 	date = date.replace('T', ' ');
 	date = date.substring(0, 19);
 	
-	var dom = "<div class=panel-footer id="+ getContent.id+"><span>"+getContent.comment+"</span><span class=commentDate text-align=right; ><button type=button class='btn btn-sm' name=deleteComment>D</button>"+date+"</span></div>"
+	var dom = "<div class=panel-footer id="+ getContent.id+"><span>"+getContent.comment+"</span><span class=commentDate text-align=right; ><button type=button class='btn btn-sm' name=deleteComment>삭제</button>"+date+"</span></div>"
     return dom;
 }
 

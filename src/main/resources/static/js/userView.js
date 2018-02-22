@@ -13,7 +13,7 @@ $(document).ready(function() {
 		console.log(val[0].cells);
 		var id = val[0].cells[0].innerText;
 		console.log(id);
-		location.href = "http://localhost:8080/signup/"+ id;
+		location.href = "http://10.67.8.248:8080/signup/"+ id;
 	});
 
 	$("[name=userDelete]").click(function(event) {
@@ -38,7 +38,7 @@ function submitUser(name, email, password) {
 		data : JSON.stringify(object),
 		timeout : 600000,
 		success : function(data) {
-			location.href = "http://localhost:8080/login";
+			location.href = "http://10.67.8.248:8080/login";
 		},
 		error : function(e) {
 			console.log("ERROR : ", e);
@@ -56,7 +56,7 @@ function deleteUser(id) {
 		data : JSON.stringify(object),
 		timeout : 600000,
 		success : function(data) {
-			location.href = "http://localhost:8080/login";
+			location.href = "http://10.67.8.248:8080/login";
 		},
 		error : function(e) {
 			console.log("ERROR : ", e);

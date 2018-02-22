@@ -54,7 +54,7 @@ function deleteBoard(boardId) {
 		data : JSON.stringify(object),
 		success : function(data) {
 			console.log(data);
-			location.href = "http://localhost:8080/view";
+			location.href = "http://10.67.8.248:8080/view";
 		},
 		error : function(e) {
 			alert('Access is denied');
@@ -128,7 +128,7 @@ function boardFunction() {
 	$("[name=updateBoard]").click(function(event) {
 		var boardId = $(this).closest(".panel-default")[0].id;
 		console.log("update");
-		location.href = "http://localhost:8080/view/board/" + boardId;
+		location.href = "http://10.67.8.248:8080/view/board/" + boardId;
 	});
 	
 	$("[name=deleteBoard]").off("click");

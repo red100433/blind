@@ -33,7 +33,7 @@ function submitUser(id, name, email, password) {
 		success : function(data) {
 			console.log(data);
 			if("putSuccess" === data) {
-				location.href = "http://localhost:8080/login";
+				location.href = "http://10.67.8.248:8080/login";
 			}
 		},
 		error : function(e) {
@@ -51,7 +51,7 @@ function deleteUser(id) {
 		data : JSON.stringify(object),
 		timeout : 600000,
 		success : function(data) {
-			location.href = "http://localhost:8080/logout";
+			location.href = "http://10.67.8.248:8080/logout";
 		},
 		error : function(e) {
 			console.log("ERROR : ", e);
