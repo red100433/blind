@@ -38,7 +38,9 @@ public class CommentController {
 	 */
 	@GetMapping("/{id}")
 	public Flux<Comment> boardComment(@PathVariable Long id) {
-		return Mono.fromCompletionStage(commentService.getBoardCommentById(id)).flatMapMany(Function.identity());
+		return Mono
+			.fromCompletionStage(commentService.getBoardCommentById(id))
+			.flatMapMany(Function.identity());
 	}
 
 	/**
@@ -47,7 +49,7 @@ public class CommentController {
 	 * @param userId
 	 * @return
 	 */
-	@PostMapping("")
+	@PostMapping
 	public Flux<Comment> addComment(@RequestBody Comment comment, @CookieValue("userId") String userId) {
 		comment.setUserId(Integer.parseInt(userId));
 		commentService.add(comment);
@@ -61,7 +63,7 @@ public class CommentController {
 	 * @param userId
 	 * @return
 	 */
-	@DeleteMapping("")
+	@DeleteMapping
 	public Flux<Comment> deleteComment(@RequestBody Comment comment, @CookieValue("userId") String userId) {
 		comment.setUserId(Integer.parseInt(userId));
 		commentService.delete(comment);

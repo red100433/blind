@@ -31,7 +31,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@GetMapping("")
+	@GetMapping
 	public Mono<String> home() {
 		return Mono.just("/user/signup");
 	}
@@ -48,7 +48,7 @@ public class UserController {
 		return Mono.just("/user/userUpdate");
 	}
 
-	@PostMapping("")
+	@PostMapping
 	public Mono<String> addUser(@ModelAttribute User user) {
 		userService.add(user);
 		return Mono.just("redirect:/login");

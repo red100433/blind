@@ -43,7 +43,7 @@ public class BoardController {
 	 * @param userId
 	 * @return
 	 */
-	@GetMapping("")
+	@GetMapping
 	public Mono<String> view(Model model, @CookieValue("userId") String userId) {
 		model.addAttribute("userId", userId);
 		model.addAttribute("boards",

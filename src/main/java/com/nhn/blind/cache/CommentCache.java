@@ -73,7 +73,7 @@ public class CommentCache implements Cache<Comment> {
 						map.put(board.getId(), CommentCacheModel.of(System.currentTimeMillis(), boardCommentList));
 					}
 
-					log.info("Comment Cache Set Time:{} seconds", (System.currentTimeMillis() - now) / 1000);
+					log.info("Comment Cache Set Time:{} ms", System.currentTimeMillis() - now);
 					commentCache.clear();
 					commentCache.putAll(map);
 					commentCacheLoadTime = now;

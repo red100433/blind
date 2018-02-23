@@ -70,8 +70,9 @@ public class CommentServiceImp implements CommentService {
 	@Override
 	@Async(value = "myCommentThreadPool")
 	public CompletableFuture<Flux<Comment>> getBoardCommentById(Long boardId) {
-		return CompletableFuture.completedFuture(Flux.fromIterable(commentCache.findGroup(boardId))
-			.retry(3))
+		return CompletableFuture
+			.completedFuture(Flux.fromIterable(commentCache.findGroup(boardId))
+				.retry(3))
 			.exceptionally(e -> {
 				throw new RuntimeException(e.getMessage());
 			});

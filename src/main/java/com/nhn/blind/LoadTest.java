@@ -13,8 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * 부하테스트 Netty Worker Thread가 1개로 설정
- * 100개 Thread를 만들어서 한번에 요청
+ * 부하테스트 100개 Thread를 만들어서 한번에 요청
  * 
  * @author daeyun.jang
  *
