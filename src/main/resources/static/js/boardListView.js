@@ -1,4 +1,7 @@
 $(document).ready(function() {
+	$("#top").click(function(event) {
+		 $('html, body').animate( { scrollTop : 0 }, 300 );
+	});
 	boardFunction();
 	
 	$("[name=continueFlag]").click(function(event) {
