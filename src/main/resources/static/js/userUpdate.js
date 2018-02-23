@@ -29,11 +29,10 @@ function submitUser(id, name, email, password) {
 		contentType: "application/json",
 		url : "/signup/user",
 		data : JSON.stringify(object),
-		timeout : 600000,
 		success : function(data) {
 			console.log(data);
 			if("putSuccess" === data) {
-				location.href = "http://10.67.8.248:8080/login";
+				location.href = "/login";
 			}
 		},
 		error : function(e) {
@@ -49,9 +48,8 @@ function deleteUser(id) {
 		contentType: "application/json",
 		url : "/signup/" + id,
 		data : JSON.stringify(object),
-		timeout : 600000,
 		success : function(data) {
-			location.href = "http://10.67.8.248:8080/logout";
+			location.href = "/logout";
 		},
 		error : function(e) {
 			console.log("ERROR : ", e);

@@ -22,7 +22,6 @@ function deleteComment(id, boardId, callback) {
 		type : "DELETE",
 		contentType: "application/json",
 		url : "/comment",
-		timeout : 600000,
 		data : JSON.stringify(object),
 		success : function(data) {
 			callback(data);
@@ -42,7 +41,6 @@ function addComment(boardId, comment, callback) {
 		type : "POST",
 		contentType: "application/json",
 		url : "/comment",
-		timeout : 600000,
 		data : JSON.stringify(object),
 		success : function(data) {
 			callback(data);

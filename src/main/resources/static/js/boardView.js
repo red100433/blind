@@ -26,7 +26,6 @@ function deleteBoard(id) {
 		contentType: "application/json",
 		url : "/view/board",
 		data : JSON.stringify(object),
-		timeout : 600000,
 		success : function(data) {
 			console.log(data);
 		},
@@ -49,9 +48,8 @@ function addBoard(id, title, content) {
 		contentType: "application/json",
 		url : "/view/board",
 		data : JSON.stringify(object),
-		timeout : 600000,
 		success : function(data) {
-			location.href = "http://10.67.8.248:8080/view";
+			location.href = "/view";
 		},
 		error : function(e) {
 			console.log("ERROR : ", e);

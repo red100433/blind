@@ -35,7 +35,6 @@ function getBoardList(lastIndexId, callback) {
 	$.ajax({
 		type : "GET",
 		url : "/view/" + lastIndexId,
-		timeout : 600000,
 		success : function(data) {
 			callback(data);
 		},
@@ -53,11 +52,10 @@ function deleteBoard(boardId) {
 		type : "DELETE",
 		url : "/view/board",
 		contentType: "application/json",
-		timeout : 600000,
 		data : JSON.stringify(object),
 		success : function(data) {
 			console.log(data);
-			location.href = "http://10.67.8.248:8080/view";
+			location.href = "/view";
 		},
 		error : function(e) {
 			alert('Access is denied');
@@ -70,7 +68,6 @@ function BoardComment(id, callback) {
 	$.ajax({
 		type : "GET",
 		url : "/comment/" + id,
-		timeout : 600000,
 		success : function(data) {
 			callback(data);
 		},
@@ -131,7 +128,7 @@ function boardFunction() {
 	$("[name=updateBoard]").click(function(event) {
 		var boardId = $(this).closest(".panel-default")[0].id;
 		console.log("update");
-		location.href = "http://10.67.8.248:8080/view/board/" + boardId;
+		location.href = "/view/board/" + boardId;
 	});
 	
 	$("[name=deleteBoard]").off("click");

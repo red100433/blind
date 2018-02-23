@@ -21,9 +21,8 @@ function submitUser(name, email, password) {
 		contentType: "application/json",
 		url : "/signup/user",
 		data : JSON.stringify(object),
-		timeout : 600000,
 		success : function(data) {
-			location.href = "http://10.67.8.248:8080/login";
+			location.href = "/login";
 		},
 		error : function(e) {
 			console.log("ERROR : ", e);
