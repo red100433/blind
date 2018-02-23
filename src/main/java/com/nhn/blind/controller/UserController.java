@@ -36,12 +36,6 @@ public class UserController {
 		return Mono.just("/user/signup");
 	}
 
-	@GetMapping("/{id}")
-	public Mono<String> home(Model model, @PathVariable String id) {
-		model.addAttribute("id", id);
-		return Mono.just("/user/userUpdate");
-	}
-
 	@GetMapping("/userUpdate")
 	public Mono<String> updatePage(Model model, @CookieValue("userId") String userId) {
 		model.addAttribute("userId", userId);
