@@ -8,27 +8,51 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="add">
 		<choose>
 			<when test="id != null and id !=0">
-				INSERT INTO User(id, name, email, password)
-				VALUES (#{id},#{name},#{email},#{password})
-				ON DUPLICATE KEY UPDATE name=#{name}
+				INSERT INTO User(id
+								, name
+								, email
+								, password)
+				VALUES (#{id}
+						,#{name}
+						,#{email}
+						,#{password})
+						
+				ON DUPLICATE KEY UPDATE 
+					name=#{name}
 					, email=#{email}
 					, password=#{password}
 			</when>
 			<otherwise>
-				INSERT INTO User(name, email, password)
-				VALUES (#{name},#{email},#{password})
+				INSERT INTO User(name
+								, email
+								, password)
+				VALUES (#{name}
+						,#{email}
+						,#{password})
 			</otherwise>
 		</choose>
 	</insert>
 
 	<delete id="delete">
-		DELETE FROM User WHERE id=#{id}
+		DELETE 
+		FROM User 
+		WHERE id=#{id}
 	</delete>
 	
 	<select id="getById" resultType="com.nhn.blind.model.User">
-		SELECT id, name, email, password FROM user WHERE id=#{id}
+		SELECT id
+			, name
+			, email
+			, password 
+		FROM user 
+		WHERE id=#{id}
 	</select>
 	<select id="getByEmail" resultType="com.nhn.blind.model.User">
-		SELECT id, name, email, password FROM user WHERE email=#{email}
+		SELECT id
+			, name
+			, email
+			, password 
+		FROM user 
+		WHERE email=#{email}
 	</select>
 </mapper>
