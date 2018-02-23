@@ -48,22 +48,7 @@ public class CommentCache implements Cache<Comment> {
 	public List<Comment> findGroup(Long commentGroupKey) {
 		long now = System.currentTimeMillis();
 		init(now);
-
-		if (commentCache.get(commentGroupKey) == null) {
-			synchronized (commentCache) {
-				Entry<Long, CommentCacheModel> min = null;
-				for (Entry<Long, CommentCacheModel> entry : commentCache.entrySet()) {
-					if (min == null || min.getValue().getTime() > entry.getValue().getTime()) {
-						min = entry;
-					}
-				}
-				commentCache.remove(min.getKey());
-				commentCache.put(commentGroupKey,
-					CommentCacheModel.of(now, commentDao.getBoardCommentById(commentGroupKey)));
-			}
-		} else {
-			commentCache.get(commentGroupKey).setTime(now);
-		}
+		cacheHitCheck(commentGroupKey, now);
 
 		return commentCache.get(commentGroupKey).getComment();
 	}
@@ -105,10 +90,36 @@ public class CommentCache implements Cache<Comment> {
 	public void changeComment(Long commentGroupKey) {
 		if (commentCache.get(commentGroupKey) != null) {
 			synchronized (commentCache) {
-				commentCache.remove(commentGroupKey);
-				commentCache.put(commentGroupKey,
-					CommentCacheModel.of(System.currentTimeMillis(), commentDao.getBoardCommentById(commentGroupKey)));
+				resetCacheLine(commentGroupKey);
 			}
 		}
+	}
+
+	private void cacheHitCheck(Long commentGroupKey, long now) {
+		if (commentCache.get(commentGroupKey) == null) {
+			synchronized (commentCache) {
+				Entry<Long, CommentCacheModel> min = null;
+				for (Entry<Long, CommentCacheModel> entry : commentCache.entrySet()) {
+					if (min == null || min.getValue().getTime() > entry.getValue().getTime()) {
+						min = entry;
+					}
+				}
+				resetCacheLine(commentGroupKey, now, min.getKey());
+			}
+		} else {
+			commentCache.get(commentGroupKey).setTime(now);
+		}
+	}
+
+	private void resetCacheLine(Long commentGroupKey, long now, Long LastUsedRow) {
+		commentCache.remove(LastUsedRow);
+		commentCache.put(commentGroupKey,
+			CommentCacheModel.of(now, commentDao.getBoardCommentById(commentGroupKey)));
+	}
+
+	private void resetCacheLine(Long commentGroupKey) {
+		commentCache.remove(commentGroupKey);
+		commentCache.put(commentGroupKey,
+			CommentCacheModel.of(System.currentTimeMillis(), commentDao.getBoardCommentById(commentGroupKey)));
 	}
 }
