@@ -1,4 +1,4 @@
-# NTS 2018 winter SW develop internship project
+# Blind
 * 프로젝트 명 : Blind
 * 익명으로 사람들과 의견을 나누는 공간
 * http://10.67.8.248:8080
